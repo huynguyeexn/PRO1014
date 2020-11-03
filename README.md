@@ -47,6 +47,5 @@
 	+ Quản lý loại tin.
 	+ Quản lý tin: Editor, select box foreign key, upload file.
 
-
 + Chức năng tìm kiếm: theo tin/theo sản phẩm
-+ Trang giới thiệu, liên hệ (gửi mail đến admin khi có liên hệ)
++ Trang giới thiệu, liên hệ (gửi mail đến admin khi có liên hệ)	
