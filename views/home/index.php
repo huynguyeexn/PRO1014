@@ -54,6 +54,7 @@
 	<script src="assets/js/countdown.js"></script>
 	<script src="assets/js/jquery.magnific-popup.min.js"></script>
 	<script src="assets/js/owl.carousel.min.js"></script>
+	
 	<!--gmaps Js-->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="assets/js/gmaps.min.js"></script>
