@@ -17,7 +17,7 @@
     switch ($action) {
         case 'home':
             $allProduct = getAllProduct();
-            require_once('views/products/Show.php');
+            require_once('views/products/index.php');
             break;
         case 'detail':
             // Product detail view
@@ -28,7 +28,7 @@
 
         default: 
             $allProduct = getAllProduct();
-            require_once('views/products/Show.php');
+            require_once('views/products/index.php');
             break;
         break;
     }
