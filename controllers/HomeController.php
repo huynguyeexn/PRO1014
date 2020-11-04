@@ -16,12 +16,10 @@
 
     switch ($action) {
         case 'home':
-            $allProduct = getAllProduct();
             require_once('views/home/index.php');
             break;
 
         default: 
-            $allProduct = getAllProduct();
             require_once('views/home/index.php');
             break;
         break;
