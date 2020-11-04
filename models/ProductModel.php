@@ -4,6 +4,10 @@ function getAllProduct(){
     $sql = "select * from product";
     return query($sql);
 }
+function getProductByOffset($limit, $offset){
+    $sql = "SELECT * FROM product LIMIT $limit OFFSET $offset;";
+    return query($sql);
+}
 
 function getProductById(){
     $sql = "";
