@@ -6,7 +6,7 @@
     require_once('core/function.php');
     
     // Các Model cần thiết.
-    // require_once('models/productModel.php');
+    require_once('models/ShopModel.php');
 
     // GET action.
     $action = "home";

@@ -1,3 +1,3 @@
 <?php
 
-require_once('controllers/ShopController.ph
+require_once('controllers/ShopController.php');
