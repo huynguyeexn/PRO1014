@@ -49,8 +49,12 @@ $(document).ready(function(){
     Javascript for banner area carousel
     ==================================*/
     $(".active-banner-slider").owlCarousel({
+      autoplayHoverPause:true,
+      animateOut: 'animate__fadeOut',
+      animateIn: 'animate__fadeIn',
+        smartSpeed: 500,
         items:1,
-        autoplay:false,
+        autoplay:true,
         autoplayTimeout: 5000,
         loop:true,
         nav:true,
@@ -62,8 +66,12 @@ $(document).ready(function(){
     Javascript for product area carousel
     ==================================*/
     $(".active-product-area").owlCarousel({
+      autoplayHoverPause:true,
+      animateOut: 'animate__fadeOut',
+      animateIn: 'animate__fadeIn',
+        smartSpeed: 500,
         items:1,
-        autoplay:false,
+        autoplay:true,
         autoplayTimeout: 5000,
         loop:true,
         nav:true,
@@ -75,8 +83,12 @@ $(document).ready(function(){
     Javascript for single product area carousel
     ==================================*/
     $(".s_Product_carousel").owlCarousel({
+      autoplayHoverPause:true,
+      animateOut: 'animate__fadeOut',
+      animateIn: 'animate__fadeIn',
+      smartSpeed: 500,
       items:1,
-      autoplay:false,
+      autoplay:true,
       autoplayTimeout: 5000,
       loop:true,
       nav:false,
@@ -87,8 +99,12 @@ $(document).ready(function(){
     Javascript for exclusive area carousel
     ==================================*/
     $(".active-exclusive-product-slider").owlCarousel({
+        autoplayHoverPause:true,
+        animateOut: 'animate__fadeOut',
+        animateIn: 'animate__fadeIn',
+        smartSpeed: 500,
         items:1,
-        autoplay:false,
+        autoplay:true,
         autoplayTimeout: 5000,
         loop:true,
         nav:true,
