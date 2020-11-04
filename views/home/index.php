@@ -2,13 +2,13 @@
 <html lang="zxx" class="no-js">
 
 <head>
-    <?php include_once('views/layouts/Meta.php'); ?>
+    <?php include_once('views/layouts/meta.php'); ?>
 </head>
 
 <body>
 
 	<!-- Start Header Area -->
-    <?php include_once('views/layouts/Header.php'); ?>
+    <?php include_once('views/layouts/header.php'); ?>
     <!-- End Header Area -->
     
 	<!-- start banner Area -->
