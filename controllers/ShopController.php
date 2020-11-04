@@ -6,7 +6,7 @@
     require_once('core/function.php');
     
     // Các Model cần thiết.
-    require_once('models/productModel.php');
+    // require_once('models/productModel.php');
 
     // GET action.
     $action = "home";
@@ -16,17 +16,11 @@
 
     switch ($action) {
         case 'home':
-            $allProduct = getAllProduct();
-            require_once('views/home/index.php');
-            break;
-
-        case 'shop':
             require_once('views/shop/index.php');
             break;
 
         default: 
-            $allProduct = getAllProduct();
-            require_once('views/home/index.php');
+            require_once('views/shop/index.php');
             break;
         break;
     }

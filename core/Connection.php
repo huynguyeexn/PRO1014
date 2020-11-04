@@ -11,7 +11,7 @@ function getConnection(){
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
 
     try {
-        $conn = new PDO('mysql:host='.$host.';dbname='.$dbname,$username,$password,$options);
+        $conn = new PDO('mysql:host='.$host.';port=3306;dbname='.$dbname,$username,$password,$options);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
     catch(PDOException $e){
