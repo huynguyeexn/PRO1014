@@ -22,6 +22,10 @@
             $layouts = json_decode(getConfigByName("layout")['config'])->home;
             require_once('views/home/index.php');
             break;
+<<<<<<< HEAD
+
+=======
+>>>>>>> 64fd7d9affee73ed9dbbafb03952ee1f21046ca3
         default: 
             require_once('views/home/index.php');
             break;

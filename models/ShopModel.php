@@ -19,3 +19,13 @@ function getProduct_6(){
     $sql = "select * from product limit 6";
     return query($sql);
 }
+
+function getCountProduct(){
+    $sql = "SELECT (COUNT(*)/6) AS 'count' from `product`";
+    return queryOne($sql);
+}
+
+function getPageProduct($start,$end){
+    $sql = 'SELECT * from `product` where  id BETWEEN '.$start.' AND '.$end.'';
+    return query($sql);
+}
