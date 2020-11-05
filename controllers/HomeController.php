@@ -8,6 +8,7 @@
     // Các Model cần thiết.
     require_once('models/ProductModel.php');
     require_once('models/SliderModel.php');
+    require_once('models/ConfigModel.php');
 
     // GET action.
     $action = "home";
@@ -18,6 +19,7 @@
     switch ($action) {
         case 'home':
             $sliders = getAllSlider();
+            $layouts = json_decode(getConfigByName("layout")['config'])->home;
             require_once('views/home/index.php');
             break;
         default: 
