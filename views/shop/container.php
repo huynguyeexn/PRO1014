@@ -27,6 +27,9 @@
 									foreach($brand as $b){
 										echo'
 											<li class="filter-list"><input class="pixel-radio" type="radio" id="'.$b['name'].'" name="brand"><label for="'.$b['name'].'">'.$b['name'].'</label></li>
+											<li class="filter-list">
+												<input class="pixel-radio" type="radio" id="'.$b['name'].'" name="brand">
+												<label for="'.$b['name'].'">'.$b['name'].'</label>
 										';
 									}
 								?>

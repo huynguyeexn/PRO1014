@@ -6,9 +6,7 @@
     require_once('core/function.php');
     
     // Các Model cần thiết.
-    require_once('models/ProductModel.php');
-    require_once('models/SliderModel.php');
-    require_once('models/ConfigModel.php');
+    //require_once('models/productModel.php');
 
     // GET action.
     $action = "home";
@@ -18,16 +16,10 @@
 
     switch ($action) {
         case 'home':
-            $sliders = getAllSlider();
-            $layouts = json_decode(getConfigByName("layout")['config'])->home;
-            require_once('views/home/index.php');
+            require_once('views/blog/index.php');
             break;
-<<<<<<< HEAD
-
-=======
->>>>>>> 64fd7d9affee73ed9dbbafb03952ee1f21046ca3
         default: 
-            require_once('views/home/index.php');
+            require_once('views/blog/index.php');
             break;
         break;
     }
