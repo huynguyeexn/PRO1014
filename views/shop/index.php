@@ -25,11 +25,6 @@
     <!-- End footer Area -->
 
     <!-- Modal Quick Product View -->
-<<<<<<< HEAD
-    <?php include_once('views/shop/modal.php'); ?>
-
-    <?php include_once('views/layouts/script.php'); ?>
-=======
         <?php include_once('views/shop/modal.php'); ?>
 
     <script src="assets/js/vendor/jquery-2.2.4.min.js"></script>
@@ -46,7 +41,6 @@
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="assets/js/gmaps.min.js"></script>
 	<script src="assets/js/main.js"></script>
->>>>>>> 40ef656b57b94a528c6c590dd9221789cbafa7b2
 </body>
 
 </html>
