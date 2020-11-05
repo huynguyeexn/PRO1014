@@ -6,7 +6,7 @@
     require_once('core/function.php');
     
     // Các Model cần thiết.
-    //require_once('models/productModel.php');
+    require_once('models/BlogModel.php');
 
     // GET action.
     $action = "home";
@@ -17,6 +17,20 @@
     switch ($action) {
         case 'home':
             require_once('views/blog/index.php');
+            break;
+        case 'catalog':
+            $allBlogCatalog = getAllBlogCatalog();
+            require_once('views/blog/index.php');
+            break;
+        case 'detail':
+            if(isset($_GET['id'])){
+                $id = $_GET['id'];
+                $blog = getBlogById($id);
+                require_once('views/blog/detail.php');
+            }
+            else{
+                header('location: blog.php');
+            }
             break;
         default: 
             require_once('views/blog/index.php');
