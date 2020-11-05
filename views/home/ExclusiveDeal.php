@@ -11,19 +11,19 @@
 						<div class="col-lg-12">
 							<div class="row clock-wrap">
 								<div class="col clockinner1 clockinner">
-									<h1 class="days">150</h1>
+									<h1 class="days">0</h1>
 									<span class="smalltext">Days</span>
 								</div>
 								<div class="col clockinner clockinner1">
-									<h1 class="hours">23</h1>
+									<h1 class="hours">0</h1>
 									<span class="smalltext">Hours</span>
 								</div>
 								<div class="col clockinner clockinner1">
-									<h1 class="minutes">47</h1>
+									<h1 class="minutes">0</h1>
 									<span class="smalltext">Mins</span>
 								</div>
 								<div class="col clockinner clockinner1">
-									<h1 class="seconds">59</h1>
+									<h1 class="seconds">0</h1>
 									<span class="smalltext">Secs</span>
 								</div>
 							</div>
@@ -70,3 +70,10 @@
 			</div>
 		</div>
 	</section>
+	<script>
+		window.onload = function() {
+			var deadline = new Date("2020-11-06");
+			initializeClock('clockdiv', deadline);
+		};
+		
+	</script>

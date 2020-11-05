@@ -2,13 +2,13 @@
 <html lang="zxx" class="no-js">
 
 <head>
-    <?php include_once('views/layouts/Meta.php'); ?>
+    <?php include_once('views/layouts/meta.php'); ?>
 </head>
 
 <body>
 
 	<!-- Start Header Area -->
-    <?php include_once('views/layouts/Header.php'); ?>
+    <?php include_once('views/layouts/header.php'); ?>
     <!-- End Header Area -->
     
 	<!-- start banner Area -->
@@ -54,6 +54,7 @@
 	<script src="assets/js/countdown.js"></script>
 	<script src="assets/js/jquery.magnific-popup.min.js"></script>
 	<script src="assets/js/owl.carousel.min.js"></script>
+	
 	<!--gmaps Js-->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="assets/js/gmaps.min.js"></script>
