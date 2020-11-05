@@ -3420,10 +3420,12 @@ label {
   margin-right: 10px;
   outline: none;
   position: relative;
-  z-index: 1; }
+  z-index: 1;
+}
 
 .pixel-radio:checked {
-  border: 7px solidvar(--primary-color); }
+  border: 7px solid var(--primary-color);
+}
 
 .pixel-radio:checked::after {
   -webkit-animation: click-wave 0.65s;

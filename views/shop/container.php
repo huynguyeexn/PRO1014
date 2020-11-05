@@ -26,7 +26,10 @@
 									$brand = getAllBrand();
 									foreach($brand as $b){
 										echo'
-											<li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand"><label for="apple">'.$b['name'].'</label></li>
+											<li class="filter-list"><input class="pixel-radio" type="radio" id="'.$b['name'].'" name="brand"><label for="'.$b['name'].'">'.$b['name'].'</label></li>
+											<li class="filter-list">
+												<input class="pixel-radio" type="radio" id="'.$b['name'].'" name="brand">
+												<label for="'.$b['name'].'">'.$b['name'].'</label>
 										';
 									}
 								?>
@@ -41,7 +44,7 @@
 									$color = getAllColor();
 									foreach($color as $c){
 										echo'
-										<li class="filter-list"><input class="pixel-radio" type="radio" id="'.$c['name'].'" name="color"><label for="black">'.$c['name'].'</label></li>
+										<li class="filter-list"><input class="pixel-radio" type="radio" id="'.$c['name'].'" name="color"><label for="'.$c['name'].'">'.$c['name'].'</label></li>
 										';
 									}
 								?>
@@ -98,16 +101,18 @@
 						<!-- single product -->
 						<?php
 							$product = getProduct_6();
+							$i = 0;
 							foreach($product as $p){
+								$i++;
 								echo'
 									<div class="col-lg-4 col-md-6">
-										<div class="single-product">
+										<div class="boxa single-product">
 											<img class="img-fluid" src="'.$p['thumb'].'" alt="">
 											<div class="product-details">
-												<h6>'.$p['name'].'</h6>
+												<h6 class = "name">'.$p['name'].'</h6>
 												<div class="price">
-													<h6>$'.$p['price'].'.00</h6>
-													<h6 class="l-through">$'.$p['cost'].'.00</h6>
+													<h6 class = "value">$'.$p['price'].'.00</h6>
+													<h6 class="l-through cost">$'.$p['cost'].'.00</h6>
 												</div>
 												<div class="prd-bottom">
 			

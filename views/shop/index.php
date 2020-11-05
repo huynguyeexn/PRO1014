@@ -6,31 +6,30 @@
 </head>
 
 <body>
-    
     <!-- Start Header Area -->
-        <?php include_once('views/layouts/Header.php'); ?>
+    <?php include_once('views/layouts/Header.php'); ?>
     <!-- End Header Area -->
 
     <!-- Start Banner Area -->
-        <?php include_once('views/shop/bannerArea.php'); ?>
+    <?php include_once('views/shop/bannerArea.php'); ?>
     <!-- End Banner Area -->
-    
-        <?php include_once('views/shop/container.php'); ?>
+
+    <?php include_once('views/shop/container.php'); ?>
 
     <!-- Start related-product Area -->
-        <?php include_once('views/shop/relatedProductArea.php'); ?>
+    <?php include_once('views/shop/relatedProductArea.php'); ?>
     <!-- End related-product Area -->
-    
+
     <!-- start footer Area -->
-        <?php include_once('views/layouts/Footer.php'); ?>
+    <?php include_once('views/layouts/Footer.php'); ?>
     <!-- End footer Area -->
 
     <!-- Modal Quick Product View -->
-        <?php include_once('views/shop/modals.php'); ?>
+        <?php include_once('views/shop/modal.php'); ?>
 
     <script src="assets/js/vendor/jquery-2.2.4.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.assets/js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-	 crossorigin="anonymous"></script>
+     crossorigin="anonymous"></script>
 	<script src="assets/js/vendor/bootstrap.min.js"></script>
 	<script src="assets/js/jquery.ajaxchimp.min.js"></script>
 	<script src="assets/js/jquery.nice-select.min.js"></script>
@@ -43,4 +42,5 @@
 	<script src="assets/js/gmaps.min.js"></script>
 	<script src="assets/js/main.js"></script>
 </body>
+
 </html>
