@@ -26,7 +26,7 @@
 									$brand = getAllBrand();
 									foreach($brand as $b){
 										echo'
-											<li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand"><label for="apple">'.$b['name'].'</label></li>
+											<li class="filter-list"><input class="pixel-radio" type="radio" id="'.$b['name'].'" name="brand"><label for="'.$b['name'].'">'.$b['name'].'</label></li>
 										';
 									}
 								?>
@@ -41,7 +41,7 @@
 									$color = getAllColor();
 									foreach($color as $c){
 										echo'
-										<li class="filter-list"><input class="pixel-radio" type="radio" id="'.$c['name'].'" name="color"><label for="black">'.$c['name'].'</label></li>
+										<li class="filter-list"><input class="pixel-radio" type="radio" id="'.$c['name'].'" name="color"><label for="'.$c['name'].'">'.$c['name'].'</label></li>
 										';
 									}
 								?>
@@ -82,12 +82,31 @@
 						</select>
 					</div>
 					<div class="pagination">
-						<a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
-						<a href="#" class="active">1</a>
-						<a href="#">2</a>
-						<a href="#">3</a>
-						<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-						<a href="#">6</a>
+						<a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>		
+						<?php
+							$product = getCountProduct();
+							$number = 0;
+							if(ceil($product['count']) < 4){
+								for ($i=0; $i < ceil($product['count']); $i++){ 
+									$number++;
+									echo'
+										<a href="#">'.$number.'</a>
+									';
+								}
+							}else{
+								for ($i=0; $i < 4; $i++){ 
+									$number++;
+									echo'
+										<a href="#">'.$number.'</a>
+									';
+								}
+								echo'
+									<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+									<a href="#">'.ceil($product['count']).'</a>
+								';
+							}
+							
+						?>
 						<a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
 					</div>
 				</div>
@@ -98,16 +117,18 @@
 						<!-- single product -->
 						<?php
 							$product = getProduct_6();
+							$i = 0;
 							foreach($product as $p){
+								$i++;
 								echo'
 									<div class="col-lg-4 col-md-6">
-										<div class="single-product">
+										<div class="boxa single-product">
 											<img class="img-fluid" src="'.$p['thumb'].'" alt="">
 											<div class="product-details">
-												<h6>'.$p['name'].'</h6>
+												<h6 class = "name">'.$p['name'].'</h6>
 												<div class="price">
-													<h6>$'.$p['price'].'.00</h6>
-													<h6 class="l-through">$'.$p['cost'].'.00</h6>
+													<h6 class = "value">$'.$p['price'].'.00</h6>
+													<h6 class="l-through cost">$'.$p['cost'].'.00</h6>
 												</div>
 												<div class="prd-bottom">
 			
@@ -147,12 +168,31 @@
 						</select>
 					</div>
 					<div class="pagination">
-						<a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
-						<a href="#" class="active">1</a>
-						<a href="#">2</a>
-						<a href="#">3</a>
-						<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-						<a href="#">6</a>
+					<a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>		
+						<?php
+							$product = getCountProduct();
+							$number = 0;
+							if(ceil($product['count']) < 4){
+								for ($i=0; $i < ceil($product['count']); $i++){ 
+									$number++;
+									echo'
+										<a href="#">'.$number.'</a>
+									';
+								}
+							}else{
+								for ($i=0; $i < 4; $i++){ 
+									$number++;
+									echo'
+										<a href="#">'.$number.'</a>
+									';
+								}
+								echo'
+									<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+									<a href="#">'.ceil($product['count']).'</a>
+								';
+							}
+							
+						?>
 						<a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
 					</div>
 				</div>

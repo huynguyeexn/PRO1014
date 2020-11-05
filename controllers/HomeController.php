@@ -19,10 +19,6 @@
             require_once('views/home/index.php');
             break;
 
-        case 'shop':
-            require_once('views/shop/index.php');
-            break;
-
         default: 
             require_once('views/home/index.php');
             break;
