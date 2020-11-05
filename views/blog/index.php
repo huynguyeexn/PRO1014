@@ -10,9 +10,9 @@
     <?php include_once('views/layouts/header.php'); ?>
     <!-- End Header Area -->
 
-    <!-- Start category Area -->
+    <!-- Start banner Area -->
     <?php include_once('views/blog/banner.php'); ?>
-    <!-- End category Area -->
+    <!-- End banner Area -->
     
 <!-- Start category Area -->
 <?php include_once('views/blog/category.php'); ?>
