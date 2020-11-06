@@ -7,17 +7,22 @@
 
                     <?php
                                         $blognews= getAllBlog();
+                                       
+
+
                                         foreach($blognews as $news){
+                                            $user = getUserById($news['user_id']);
+                                            $cata = getCatalogById($news['id_catalog']);
                                            echo'
                         <article class="row blog_item">
                             <div class="col-md-3">
                                 <div class="blog_info text-right">
                                     <div class="post_tag">
-                                    '.$news['id_catalog'].'
+                                    '.$cata['catalog'].'
                                     </div>
                                    
                                            <ul class="blog_meta list">
-                                           <li><a href="#">'.$news['user_id'].'<i class="lnr lnr-user"></i></a></li>
+                                           <li><a href="#">'.$user['username'].'<i class="lnr lnr-user"></i></a></li>
                                            <li><a href="#">'.$news['created'].'<i class="lnr lnr-calendar-full"></i></a></li>
                                            <li><a href="#">'.$news['view'].' Views<i class="lnr lnr-eye"></i></a></li>
                                            <li><a href="#"> Comments<i class="lnr lnr-bubble"></i></a></li>
@@ -102,7 +107,7 @@
                                  foreach($blogs as $blog){
                                      echo'
                                      <div class="media post_item">
-                                <img src="assets/img/blog/popular-post/'.$blog['image'].'" alt="post" width="100px" height="60px">
+                                <img src="assets/img/blog/'.$blog['image'].'" alt="post" width="100px" height="60px">
                                 <div class="media-body">
                                     <a href="blog.php?action=detail&id='.$news['id'].'">
                                         <h3>'.$blog['title'].'</h3>
