@@ -25,4 +25,15 @@
 	<link rel="stylesheet" href="assets/css/ion.rangeSlider.css" />
 	<link rel="stylesheet" href="assets/css/ion.rangeSlider.skinFlat.css" />
 	<link rel="stylesheet" href="assets/css/magnific-popup.css">
+	<link rel="stylesheet" href="assets/css/animate.min.css">
 	<link rel="stylesheet" href="assets/css/main.css">
+
+	<style>
+	#overlay {
+		position: fixed;
+		height: 100%;
+		width: 100%;
+		background-color: white;
+		z-index: 9999;
+	}
+</style>

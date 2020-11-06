@@ -109,6 +109,7 @@
                         <thead>
                           <tr>
                             <th>ID</th>
+<<<<<<< HEAD
                             <th>UserName</th>
                             <th>Password</th>
                             <th>Birthday</th>
@@ -138,6 +139,17 @@
 
                             ?>
                           <!-- <tr>
+=======
+                            <th>Name</th>
+                            <th>Company</th>
+                            <th>Address</th>
+                            <th>Date</th>
+                            <th>Activate</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+>>>>>>> 52faf541c57535a3da7433181a69c5c6f67bbf65
                             <td>3224</td>
                             <td>Keith Baird</td>
                             <td>Enim Limited</td>
@@ -149,7 +161,63 @@
                                 <label class="custom-control-label" for="c1"></label>
                               </div>
                             </td>
+<<<<<<< HEAD
                           </tr> -->
+=======
+                          </tr>
+                          <tr>
+                            <td>3218</td>
+                            <td>Graham Price</td>
+                            <td>Nunc Lectus Incorporated</td>
+                            <td>Ap #705-5389 Id St.</td>
+                            <td>May 23, 2020</td>
+                            <td>
+                              <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="c2">
+                                <label class="custom-control-label" for="c2"></label>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>2651</td>
+                            <td>Reuben Orr</td>
+                            <td>Nisi Aenean Eget Limited</td>
+                            <td>7425 Malesuada Rd.</td>
+                            <td>Nov 4, 2019</td>
+                            <td>
+                              <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="c3" checked>
+                                <label class="custom-control-label" for="c3"></label>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>2636</td>
+                            <td>Akeem Holder</td>
+                            <td>Pellentesque Associates</td>
+                            <td>896 Sodales St.</td>
+                            <td>Mar 27, 2020</td>
+                            <td>
+                              <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="c4">
+                                <label class="custom-control-label" for="c4"></label>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>2757</td>
+                            <td>Beau Barrera</td>
+                            <td>Augue Incorporated</td>
+                            <td>4583 Id St.</td>
+                            <td>Jan 13, 2020</td>
+                            <td>
+                              <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="c5">
+                                <label class="custom-control-label" for="c5"></label>
+                              </div>
+                            </td>
+                          </tr>
+>>>>>>> 52faf541c57535a3da7433181a69c5c6f67bbf65
                         </tbody>
                       </table>
                     </div>

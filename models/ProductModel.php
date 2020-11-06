@@ -4,9 +4,13 @@ function getAllProduct(){
     $sql = "select * from product";
     return query($sql);
 }
+function getProductByOffset($limit, $offset){
+    $sql = "SELECT * FROM product LIMIT $limit OFFSET $offset;";
+    return query($sql);
+}
 
-function getProductById(){
-    $sql = "";
+function getProductById($id){
+    $sql = "SELECT * FROM product WHERE id = $id;";
     return queryOne($sql);
 }
 
