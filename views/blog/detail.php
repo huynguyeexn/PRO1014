@@ -99,6 +99,7 @@
                 <div class="col-lg-8 posts-list">
                         <?php
                           $listimg = explode(',',$blog['more_img']);
+                          $user = getUserById($blog['user_id']);
                             echo '
                             
                     <div class="single-post row">
@@ -115,7 +116,7 @@
                                 
                             </div>
                             <ul class="blog_meta list">
-                                <li><a href="#">'.$blog['user_id'].'<i class="lnr lnr-user"></i></a></li>
+                                <li><a href="#">'.$user['username'].'<i class="lnr lnr-user"></i></a></li>
                                 <li><a href="#">'.$blog['created'].'<i class="lnr lnr-calendar-full"></i></a></li>
                                 <li><a href="#">'.$blog['view'].' Views<i class="lnr lnr-eye"></i></a></li>
                                 <li><a href="#"> Comments<i class="lnr lnr-bubble"></i></a></li>
@@ -385,36 +386,44 @@
                             </div>
                         </div>
                     </div>
-                    <div class="comment-form">
+                            <?php
+                            $_SESSION['user'] = 1;
+                    if(isset($_SESSION['user'])){
+                        echo '<div class="comment-form">
                         <h4>Leave a Reply</h4>
                         <form>
                             <div class="form-group form-inline">
                                 <div class="form-group col-lg-6 col-md-6 name">
-                                    <input type="text" class="form-control" id="name" placeholder="Enter Name" onfocus="this.placeholder = ''"
-                                        onblur="this.placeholder = 'Enter Name'">
+                                    <input type="text" class="form-control" id="name" placeholder="Enter Name" onfocus=""
+                                        onblur="">
                                 </div>
                                 <div class="form-group col-lg-6 col-md-6 email">
                                     <input type="email" class="form-control" id="email" placeholder="Enter email address"
-                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'">
+                                        onfocus="" onblur="">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="subject" placeholder="Subject" onfocus="this.placeholder = ''"
-                                    onblur="this.placeholder = 'Subject'">
+                                <input type="text" class="form-control" id="subject" placeholder="Subject" onfocus=""
+                                    onblur="">
                             </div>
                             <div class="form-group">
                                 <textarea class="form-control mb-10" rows="5" name="message" placeholder="Messege"
-                                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""></textarea>
+                                    onfocus="" onblur="" required=""></textarea>
                             </div>
                             <a href="#" class="primary-btn submit_btn">Post Comment</a>
                         </form>
-                    </div>
+                    </div>';
+                    }else{
+                        echo '<a href="login.php">Pls Login</a>';
+                    }
+                    ?>
+                    
                 </div>
                 <div class="col-lg-4">
                     <div class="blog_right_sidebar">
                         <aside class="single_sidebar_widget search_widget">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search Posts" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Posts'">
+                                <input type="text" class="form-control" placeholder="Search Posts" onfocus="" onblur="this.placeholder = 'Search Posts'">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="button"><i class="lnr lnr-magnifier"></i></button>
                                 </span>
@@ -443,7 +452,7 @@
                                  foreach($blogs as $blog){
                                      echo'
                                      <div class="media post_item">
-                                <img src="assets/img/blog/popular-post/'.$blog['image'].'" alt="post" width="100px" height="60px">
+                                <img src="assets/img/blog/'.$blog['image'].'" alt="post" width="100px" height="60px">
                                 <div class="media-body">
                                     <a href="blog.php?action=detail&id='.$blog['id'].'">
                                         <h3>'.$blog['title'].'</h3>
@@ -536,7 +545,7 @@
                                         <div class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i></div>
                                     </div>
                                     <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Enter email"
-                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email'">
+                                        onfocus="" onblur="this.placeholder = 'Enter email'">
                                 </div>
                                 <a href="#" class="bbtns">Subcribe</a>
                             </div>
@@ -588,7 +597,7 @@
 
                                 <div class="d-flex flex-row">
 
-                                    <input class="form-control" name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''"
+                                    <input class="form-control" name="EMAIL" placeholder="Enter Email" onfocus=""
                                         onblur="this.placeholder = 'Enter Email '" required="" type="email">
 
 

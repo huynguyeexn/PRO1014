@@ -7,6 +7,8 @@
     
     // Các Model cần thiết.
     require_once('models/BlogModel.php');
+    require_once('models/UserModel.php');
+    require_once('models/CatalogModel.php');
 
     // GET action.
     $action = "home";
