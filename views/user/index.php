@@ -109,15 +109,35 @@
                         <thead>
                           <tr>
                             <th>ID</th>
-                            <th>Name</th>
-                            <th>Company</th>
-                            <th>Address</th>
-                            <th>Date</th>
-                            <th>Activate</th>
+                            <th>UserName</th>
+                            <th>Password</th>
+                            <th>Birthday</th>
+                            <th>Fullname</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Created</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
+                            <?php
+                              foreach($allUser as $user){
+                                $birthday = new DateTime($user['birthday']);
+                                echo '
+                                <tr>
+                                  <td>'.$user['id'].'</td>
+                                  <td>'.$user['username'].'</td>
+                                  <td>'.$user['password'].'</td>
+                                  <td>'.$birthday->format('Y-m-d').'</td>
+                                  <td>'.$user['fullname'].'</td>
+                                  <td>'.$user['email'].'</td>
+                                  <td>'.$user['phone'].'</td>
+                                  <td>'.$user['created'].'</td>
+                                </tr> 
+                                ';
+                              }
+
+                            ?>
+                          <!-- <tr>
                             <td>3224</td>
                             <td>Keith Baird</td>
                             <td>Enim Limited</td>
@@ -129,59 +149,7 @@
                                 <label class="custom-control-label" for="c1"></label>
                               </div>
                             </td>
-                          </tr>
-                          <tr>
-                            <td>3218</td>
-                            <td>Graham Price</td>
-                            <td>Nunc Lectus Incorporated</td>
-                            <td>Ap #705-5389 Id St.</td>
-                            <td>May 23, 2020</td>
-                            <td>
-                              <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="c2">
-                                <label class="custom-control-label" for="c2"></label>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>2651</td>
-                            <td>Reuben Orr</td>
-                            <td>Nisi Aenean Eget Limited</td>
-                            <td>7425 Malesuada Rd.</td>
-                            <td>Nov 4, 2019</td>
-                            <td>
-                              <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="c3" checked>
-                                <label class="custom-control-label" for="c3"></label>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>2636</td>
-                            <td>Akeem Holder</td>
-                            <td>Pellentesque Associates</td>
-                            <td>896 Sodales St.</td>
-                            <td>Mar 27, 2020</td>
-                            <td>
-                              <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="c4">
-                                <label class="custom-control-label" for="c4"></label>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>2757</td>
-                            <td>Beau Barrera</td>
-                            <td>Augue Incorporated</td>
-                            <td>4583 Id St.</td>
-                            <td>Jan 13, 2020</td>
-                            <td>
-                              <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="c5">
-                                <label class="custom-control-label" for="c5"></label>
-                              </div>
-                            </td>
-                          </tr>
+                          </tr> -->
                         </tbody>
                       </table>
                     </div>

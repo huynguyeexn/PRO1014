@@ -6,7 +6,7 @@
     require_once('core/Function.php');
 
     // Các Model cần thiết.
-    //require_once('models/UserModel.php');
+    require_once('models/UserModel.php');
 
     // GET action.
     $action = "home";
@@ -16,10 +16,12 @@
 
     switch ($action) {
         case 'home':
+            $allUser = getAllUser();
             require_once('views/user/index.php');
             break;
 
         default: 
+            $allUser = getAllUser();
             require_once('views/user/index.php');
             break;
         break;

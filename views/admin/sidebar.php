@@ -6,38 +6,56 @@
         <!-- nav bar -->
         <div class="w-100 mb-4 d-flex">
             <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.html">
-                Thàn nào rảnh thêm logo vô dùm với
+                <img src="assets/img/fav.png" alt="">
             </a>
         </div>
         <ul class="navbar-nav flex-fill w-100 mb-2">
             <li class="nav-item dropdown">
-                <a href="#dashboard" aria-expanded="false" class="nav-link">
+                <a href="admin.php" aria-expanded="false" class="nav-link">
                     <i class="fe fe-home fe-16"></i>
-                    <span class="ml-3 item-text">Trang chủ</span>
+                    <span class="ml-3 item-text">Dashboard</span>
                 </a>
             </li>
             <li class="nav-item dropdown">
-                <a href="#dashboard" aria-expanded="false" class="nav-link">
-                    <i class="fe fe-shopping-cart" aria-hidden="true"></i>
-                    <span class="ml-3 item-text">Đơn hàng</span>
+                <a href="admin.php?action=order" aria-expanded="false" class="nav-link">
+                    <i class="fe fe-shopping-cart fe-16" aria-hidden="true"></i>
+                    <span class="ml-3 item-text">Order</span>
                 </a>
             </li>
             <li class="nav-item dropdown">
-                <a href="#dashboard" aria-expanded="false" class="nav-link">
+                <a href="admin.php?action=product" aria-expanded="false" class="nav-link">
                     <i class="fe fe-box fe-16"></i>
-                    <span class="ml-3 item-text">Sản phẩm</span>
+                    <span class="ml-3 item-text">Product</span>
                 </a>
             </li>
             <li class="nav-item dropdown">
-                <a href="#dashboard" aria-expanded="false" class="nav-link">
-                    <!-- <i class="fe fe-home fe-16"></i> -->
-                    <span class="ml-3 item-text">...</span>
+                <a href="admin.php?action=brand" aria-expanded="false" class="nav-link">
+                    <i class="fe fe-bookmark fe-16"></i>
+                    <span class="ml-3 item-text">Brand</span>
                 </a>
             </li>
             <li class="nav-item dropdown">
-                <a href="#dashboard" aria-expanded="false" class="nav-link">
-                    <!-- <i class="fe fe-home fe-16"></i> -->
-                    <span class="ml-3 item-text">...</span>
+                <a href="admin.php?action=tag" aria-expanded="false" class="nav-link">
+                    <i class="fe fe-tag fe-16"></i>
+                    <span class="ml-3 item-text">Tag</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="admin.php?action=comment" aria-expanded="false" class="nav-link">
+                    <i class="fe fe-message-circle fe-16"></i>
+                    <span class="ml-3 item-text">Comment</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="admin.php?user" aria-expanded="false" class="nav-link">
+                    <i class="fe fe-users fe-16"></i>
+                    <span class="ml-3 item-text">User</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="admin.php?blog" aria-expanded="false" class="nav-link">
+                    <i class="fe fe-book fe-16"></i>
+                    <span class="ml-3 item-text">Blog</span>
                 </a>
             </li>
         </ul>
