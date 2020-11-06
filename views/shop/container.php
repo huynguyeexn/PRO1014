@@ -6,14 +6,20 @@
 					<ul class="main-categories">
 						<?php
 							$tag = getAllTag();
+							$delete = 'delete';
+							$i = -1;
 							foreach($tag as $t){
+								$i++;
 								echo'
-									<li class="main-nav-list"><a data-toggle="collapse" href="#meatFish" aria-expanded="false" aria-controls="meatFish"><span
-										class="lnr lnr-arrow-right"></span>'.$t['name'].'</a>
+									<li onclick="filter('.$t['id'].',1,'.$i.');"  class="main-nav-list"><a class="color" data-toggle="collapse" href="#meatFish" aria-expanded="false" aria-controls="meatFish"><span
+											class="lnr lnr-arrow-right"></span>'.$t['name'].'</a>
 									</li>
 								';
 							}
 						?>
+						<li onclick="filter('delete',1);"  class="main-nav-list"><a class="color" data-toggle="collapse" href="#meatFish" aria-expanded="false" aria-controls="meatFish"><span
+							class="lnr lnr-arrow-right"></span>All Browse Categories</a>
+						</li>
 					</ul>
 				</div>
 				<div class="sidebar-filter mt-50">
@@ -24,15 +30,15 @@
 							<ul>
 								<?php
 									$brand = getAllBrand();
+									$i=0;
 									foreach($brand as $b){
+										$i++;
 										echo'
-											<li class="filter-list"><input class="pixel-radio" type="radio" id="'.$b['name'].'" name="brand"><label for="'.$b['name'].'">'.$b['name'].'</label></li>
-											<li class="filter-list">
-												<input class="pixel-radio" type="radio" id="'.$b['name'].'" name="brand">
-												<label for="'.$b['name'].'">'.$b['name'].'</label>
+											<li onclick="filter('.$b['id'].',3,'.$i.');" class="filter-list"><input class="pixel-radio" type="radio" id="'.$b['name'].'" name="brand"><label for="'.$b['name'].'">'.$b['name'].'</label></li>
 										';
 									}
 								?>
+								<li onclick="filter('delete',3);" class="filter-list"><input class="pixel-radio" type="radio" id="'.$b['name'].'" name="brand"><label for="'.$b['name'].'">All Brand</label></li>
 							</ul>
 						</form>
 					</div>
@@ -43,11 +49,13 @@
 								<?php
 									$color = getAllColor();
 									foreach($color as $c){
+										$i++;
 										echo'
-										<li class="filter-list"><input class="pixel-radio" type="radio" id="'.$c['name'].'" name="color"><label for="'.$c['name'].'">'.$c['name'].'</label></li>
+										<li onclick="filter('.$c['id'].',2,'.$i.');" class="filter-list"><input class="pixel-radio" type="radio" id="'.$c['name'].'" name="color"><label for="'.$c['name'].'">'.$c['name'].'</label></li>
 										';
 									}
 								?>
+								<li onclick="filter('delete',2);" class="filter-list"><input class="pixel-radio" type="radio" id="'.$c['name'].'" name="color"><label for="'.$c['name'].'">All Color</label></li>
 							</ul>
 						</form>
 					</div>
@@ -84,23 +92,42 @@
 							<option value="1">Show 12</option>
 						</select>
 					</div>
-					<div class="pagination">
-						<a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
-						<a href="#" class="active">1</a>
-						<a href="#">2</a>
-						<a href="#">3</a>
-						<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-						<a href="#">6</a>
+					<div id ='pagination' class="pagination">
+						<a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>		
+						<?php
+							$product = getCountProduct();
+							$number = 0;
+							if(ceil($product['count']) < 4){
+								for ($i=0; $i < ceil($product['count']); $i++){ 
+									$number++;
+									echo'
+										<a onclick="page('.$number.');">'.$number.'</a>
+									';
+								}
+							}else{
+								for ($i=0; $i < 4; $i++){ 
+									$number++;
+									echo'
+										<a onclick="page('.$number.');">'.$number.'</a>
+									';
+								}
+								echo'
+									<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+									<a href="#">'.ceil($product['count']).'</a>
+								';
+							}
+							
+						?>
 						<a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
 					</div>
 				</div>
 				<!-- End Filter Bar -->
 				<!-- Start Best Seller -->
 				<section class="lattest-product-area pb-40 category-list">
-					<div class="row">
+					<div id="row" class="row">
 						<!-- single product -->
 						<?php
-							$product = getProduct_6();
+							$product = getProductByOffset(6,0);
 							$i = 0;
 							foreach($product as $p){
 								$i++;
@@ -109,7 +136,7 @@
 										<div class="boxa single-product">
 											<img class="img-fluid" src="'.$p['thumb'].'" alt="">
 											<div class="product-details">
-												<h6 class = "name">'.$p['name'].'</h6>
+												<a href="view/shop/index.php?id='.$p['id'].'" class = "name">'.$p['name'].'</a>
 												<div class="price">
 													<h6 class = "value">$'.$p['price'].'.00</h6>
 													<h6 class="l-through cost">$'.$p['cost'].'.00</h6>
@@ -151,13 +178,32 @@
 							<option value="1">Show 12</option>
 						</select>
 					</div>
-					<div class="pagination">
-						<a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
-						<a href="#" class="active">1</a>
-						<a href="#">2</a>
-						<a href="#">3</a>
-						<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-						<a href="#">6</a>
+					<div id ='pages' class="pagination">
+						<a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>	
+						<?php
+							$product = getCountProduct();
+							$number = 0;
+							if(ceil($product['count']) < 4){
+								for ($i=0; $i < ceil($product['count']); $i++){ 
+									$number++;
+									echo'
+										<a onclick="page('.$number.');">'.$number.'</a>
+									';
+								}
+							}else{
+								for ($i=0; $i < 4; $i++){ 
+									$number++;
+									echo'
+										<a onclick="page('.$number.');">'.$number.'</a>
+									';
+								}
+								echo'
+									<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+									<a href="#">'.ceil($product['count']).'</a>
+								';
+							}
+							
+						?>
 						<a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
 					</div>
 				</div>
@@ -165,3 +211,66 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		function page(x){
+			var start = (x*6) - 6;
+			var tag = document.getElementsByClassName('color')
+			var d = document.getElementById("row");			
+			$.ajax({
+				url: 'Shop.php',
+                type: 'GET',
+                data : 'action=page&start='+start,
+              	success : function(data) 
+                        { 
+							var chuoi = data.split(",",7);
+							var so =0;
+							var s = 0;
+							for(i=1;i<8;i++){
+								if(chuoi[i] == 'tag'){
+									so = Number(chuoi[i-1])	
+								}
+								if(i == so){
+									tag[so].style.color='rgb(127, 0, 250)';
+								}else{
+									tag[i].style.color='black';
+								}
+							}
+							d.innerHTML = chuoi[0];
+							// history.pushState();
+                        }
+              });
+              return false;
+		}
+
+		function filter(x,t,l){
+			var tag = document.getElementsByClassName('color')
+			var d = document.getElementById("row");			
+			var page = document.getElementById("pagination");
+			var pages = document.getElementById("pages");
+			$.ajax({
+				url: 'Shop.php',
+                type: 'GET',
+                data : 'action=filter&name='+t+'&value='+x+'&class='+l, //dữ liệu sẽ được gửi
+              	success : function(data)  // Hàm thực thi khi nhận dữ liệu được từ server
+                        { 
+							var chuoi = data.split(",",7);
+							var so =0;
+							var s = 0;
+							for(i=2;i<8;i++){
+								if(chuoi[i] == 'tag'){
+									so = Number(chuoi[i-1])	
+								}
+								if(i == so){
+									tag[so].style.color='rgb(127, 0, 250)';
+								}else{
+									tag[i].style.color='black';
+								}
+							}
+							d.innerHTML = chuoi[0];
+							page.innerHTML= chuoi[1];
+							pages.innerHTML= chuoi[1];
+                        }
+              });
+              return false;
+		}
+	</script>

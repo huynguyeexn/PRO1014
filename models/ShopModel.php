@@ -15,10 +15,11 @@ function getAllBrand(){
     return query($sql);
 }
 
-function getProduct_6(){
-    $sql = "select * from product limit 6";
+function getProductByFilter($where){
+    $sql = 'select * from product '.$where.'';
     return query($sql);
 }
+
 
 function getCountProduct(){
     $sql = "SELECT (COUNT(*)/6) AS 'count' from `product`";

@@ -9,8 +9,8 @@ function getProductByOffset($limit, $offset){
     return query($sql);
 }
 
-function getProductById(){
-    $sql = "";
+function getProductById($id){
+    $sql = "SELECT * FROM product where id = $id";
     return queryOne($sql);
 }
 
