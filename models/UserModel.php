@@ -24,3 +24,14 @@ function deleteUser($id){
     $sql = "";
     return execute($sql);
 }
+
+function checkUser($user, $pass)
+{
+    $sql = "select * from user where username= '" . $user . "' and password= '" . $pass . "'";
+    return execute($sql);
+}
+function addUser($user, $pass)
+{
+    $sql = "insert into user (username, password) values ('$user', '$pass',)";
+    return execute($sql);
+}
