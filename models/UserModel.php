@@ -5,8 +5,8 @@ function getAllUser(){
     return query($sql);
 }
 
-function getUserById(){
-    $sql = "";
+function getUserById($id){
+    $sql = "select * from user where id = $id";
     return queryOne($sql);
 }
 
