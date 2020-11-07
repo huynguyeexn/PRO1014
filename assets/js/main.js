@@ -67,8 +67,6 @@ $(document).ready(function () {
   ==================================*/
   $(".active-product-area").owlCarousel({
     autoplayHoverPause: true,
-    animateOut: 'animate__fadeOut',
-    animateIn: 'animate__fadeIn',
     smartSpeed: 500,
     items: 1,
     autoplay: true,
@@ -77,6 +75,18 @@ $(document).ready(function () {
     nav: true,
     navText: ["<img src='assets/img/product/prev.png'>", "<img src='assets/img/product/next.png'>"],
     dots: false
+  });
+
+  /*=================================
+  Javascript for product carousel
+  ==================================*/
+  $(".carousel-product").owlCarousel({
+    autoplayHoverPause: true,
+    smartSpeed: 500,
+    items: 1,
+    autoplay: true,
+    autoplayTimeout: 5000,
+    loop: true
   });
 
   /*=================================
