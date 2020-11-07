@@ -49,47 +49,53 @@
             }else{
                $page = getProductByOffset($limit, $offset); 
             }
-            $i=0;
-            foreach($page as $p){  
-                $i++;
-                echo '
-                    <div class="col-lg-4 col-md-6">
-                        <div class="boxa single-product">
-                            <img class="img-fluid" src="'.$p['thumb'].'" alt="">
-                            <div class="product-details">
-                                <a href="view/shop/index.php?id='.$p['id'].'" class = "name">'.$p['name'].'</a>
-                                <div class="price">
-                                    <h6 class = "value">$'.$p['price'].'.00</h6>
-                                    <h6 class="l-through cost">$'.$p['cost'].'.00</h6>
-                                </div>
-                                <div class="prd-bottom">
-                                    <a href="" class="social-info">
-                                        <span class="ti-bag"></span>
-                                        <p class="hover-text">add to bag</p>
-                                    </a>
-                                    <a href="" class="social-info">
-                                        <span class="lnr lnr-heart"></span>
-                                        <p class="hover-text">Wishlist</p>
-                                    </a>
-                                    <a href="" class="social-info">
-                                        <span class="lnr lnr-sync"></span>
-                                        <p class="hover-text">compare</p>
-                                    </a>
-                                    <a href="" class="social-info">
-                                        <span class="lnr lnr-move"></span>
-                                        <p class="hover-text">view more</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                ';
-            }
-            foreach($_SESSION['filter'] as $filter => $value){
-                if($value['name'] == 'tag'){
-                    echo ','.$value['class'].','.$value['name'];
-                }
-            }
+            
+            // Trả về JSON cho ajax nhận.
+            echo json_encode($page); 
+            return;
+
+
+            // $i=0;
+            // foreach($page as $p){  
+            //     $i++;
+            //     echo '
+            //         <div class="col-lg-4 col-md-6">
+            //             <div class="boxa single-product">
+            //                 <img class="img-fluid" src="'.$p['thumb'].'" alt="">
+            //                 <div class="product-details">
+            //                     <a href="view/shop/index.php?id='.$p['id'].'" class = "name">'.$p['name'].'</a>
+            //                     <div class="price">
+            //                         <h6 class = "value">$'.$p['price'].'.00</h6>
+            //                         <h6 class="l-through cost">$'.$p['cost'].'.00</h6>
+            //                     </div>
+            //                     <div class="prd-bottom">
+            //                         <a href="" class="social-info">
+            //                             <span class="ti-bag"></span>
+            //                             <p class="hover-text">add to bag</p>
+            //                         </a>
+            //                         <a href="" class="social-info">
+            //                             <span class="lnr lnr-heart"></span>
+            //                             <p class="hover-text">Wishlist</p>
+            //                         </a>
+            //                         <a href="" class="social-info">
+            //                             <span class="lnr lnr-sync"></span>
+            //                             <p class="hover-text">compare</p>
+            //                         </a>
+            //                         <a href="" class="social-info">
+            //                             <span class="lnr lnr-move"></span>
+            //                             <p class="hover-text">view more</p>
+            //                         </a>
+            //                     </div>
+            //                 </div>
+            //             </div>
+            //         </div>
+            //     ';
+            // }
+            // foreach($_SESSION['filter'] as $filter => $value){
+            //     if($value['name'] == 'tag'){
+            //         echo ','.$value['class'].','.$value['name'];
+            //     }
+            // }
             break;
 
         case 'filter':
