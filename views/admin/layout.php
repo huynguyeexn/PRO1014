@@ -168,7 +168,7 @@
                         url: "admin.php?page=layout",
                         type: "POST",
                         data: {'save': encodeURIComponent(arr) },
-                        success: function(data) {
+                        success: function(data) {đ
                             swal("Done!", "It was succesfully save!", "success");
                         },
                         error: function(xhr, ajaxOptions, thrownError) {
