@@ -17,45 +17,51 @@
                 </a>
             </li>
             <li class="nav-item dropdown">
-                <a href="admin.php?action=order" aria-expanded="false" class="nav-link">
+                <a href="admin.php?page=order" aria-expanded="false" class="nav-link">
                     <i class="fe fe-shopping-cart fe-16" aria-hidden="true"></i>
                     <span class="ml-3 item-text">Order</span>
                 </a>
             </li>
             <li class="nav-item dropdown">
-                <a href="admin.php?action=product" aria-expanded="false" class="nav-link">
+                <a href="admin.php?page=product" aria-expanded="false" class="nav-link">
                     <i class="fe fe-box fe-16"></i>
                     <span class="ml-3 item-text">Product</span>
                 </a>
             </li>
             <li class="nav-item dropdown">
-                <a href="admin.php?action=brand" aria-expanded="false" class="nav-link">
+                <a href="admin.php?page=brand" aria-expanded="false" class="nav-link">
                     <i class="fe fe-bookmark fe-16"></i>
                     <span class="ml-3 item-text">Brand</span>
                 </a>
             </li>
             <li class="nav-item dropdown">
-                <a href="admin.php?action=tag" aria-expanded="false" class="nav-link">
+                <a href="admin.php?page=tag" aria-expanded="false" class="nav-link">
                     <i class="fe fe-tag fe-16"></i>
                     <span class="ml-3 item-text">Tag</span>
                 </a>
             </li>
             <li class="nav-item dropdown">
-                <a href="admin.php?action=comment" aria-expanded="false" class="nav-link">
+                <a href="admin.php?page=comment" aria-expanded="false" class="nav-link">
                     <i class="fe fe-message-circle fe-16"></i>
                     <span class="ml-3 item-text">Comment</span>
                 </a>
             </li>
             <li class="nav-item dropdown">
-                <a href="admin.php?user" aria-expanded="false" class="nav-link">
+                <a href="admin.php?page=user" aria-expanded="false" class="nav-link">
                     <i class="fe fe-users fe-16"></i>
                     <span class="ml-3 item-text">User</span>
                 </a>
             </li>
             <li class="nav-item dropdown">
-                <a href="admin.php?blog" aria-expanded="false" class="nav-link">
+                <a href="admin.php?page=blog" aria-expanded="false" class="nav-link">
                     <i class="fe fe-book fe-16"></i>
                     <span class="ml-3 item-text">Blog</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="admin.php?page=layout" aria-expanded="false" class="nav-link">
+                    <i class="fe fe-edit fe-16"></i>
+                    <span class="ml-3 item-text">Layout</span>
                 </a>
             </li>
         </ul>

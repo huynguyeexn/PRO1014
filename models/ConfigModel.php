@@ -20,8 +20,8 @@ function addNewConfig(){
     return execute($sql);
 }
 
-function updateConfig(){
-    $sql = "";
+function updateConfig($name, $data){
+    echo $sql = "UPDATE `config` SET `config`='$data' WHERE  `name`='$name';";
     return execute($sql);
 }
 

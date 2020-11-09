@@ -6,17 +6,17 @@ require_once('core/connection.php');
 require_once('core/function.php');
 
 // Các Model cần thiết.
-// require_once('models/ProductModel.php');
-// require_once('models/SliderModel.php');
-// require_once('models/ConfigModel.php');
+require_once('models/ProductModel.php');
+require_once('models/SliderModel.php');
+require_once('models/ConfigModel.php');
 
 // GET action.
-$action = "home";
-if (isset($_GET["action"])) {
-    $action = $_GET["action"];
+$page = "home";
+if (isset($_GET["page"])) {
+    $page = $_GET["page"];
 }
 
-switch ($action) {
+switch ($page) {
     case 'home':
         require_once('views/admin/index.php');
         break;
@@ -40,6 +40,22 @@ switch ($action) {
         break;
     case 'blog':
         require_once('views/admin/blog.php');
+        break;
+    case 'layout':
+        if(isset($_POST['save'])){
+            $json = urldecode($_POST['save']);
+            if(updateConfig('layout',$json)){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        $layouts = json_decode(getConfigByName("layout")['config'])->home;
+        $layoutDefault = json_decode(getConfigByName("default_layout")['config'])->home;
+
+
+        require_once('views/admin/layout.php');
         break;
     default:
         require_once('views/admin/index.php');
