@@ -6,8 +6,12 @@
     require_once('core/function.php');
     
     // Các Model cần thiết.
-    require_once('models/ShopModel.php');
+    require_once('models/TagModel.php');
+    require_once('models/ColorModel.php');
+    require_once('models/BrandModel.php');
     require_once('models/ProductModel.php');
+    require_once('models/SliderModel.php');
+    require_once('models/ConfigModel.php');
 
     // GET action.
     $action = "home";
@@ -17,6 +21,8 @@
 
     switch ($action) {
         case 'home':
+            $sliders = getAllSlider();
+            $layouts = json_decode(getConfigByName("shop")['config'])->home;
             require_once('views/shop/index.php');
             break;
 
@@ -226,9 +232,7 @@
                 ';
             }
             foreach($_SESSION['filter'] as $filter => $value){
-                if($value['name'] == 'tag'){
-                    echo ','.$value['class'].','.$value['name'];
-                }
+                echo ','.$value['value'].','.$value['name'];
             }
             break;
         default: 

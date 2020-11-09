@@ -6,6 +6,7 @@
 					<ul class="main-categories">
 						<?php
 							$tag = getAllTag();
+							// print_r($_SESSION['filter']);
 							$delete = 'delete';
 							$i = -1;
 							foreach($tag as $t){
@@ -127,7 +128,25 @@
 					<div id="row" class="row">
 						<!-- single product -->
 						<?php
-							$product = getProductByOffset(6,0);
+							$where = '';
+							if(isset($_GET['tag']) || isset($_GET['color']) || isset($_GET['brand'])){
+								if(isset($_GET['tag'])){
+									$tag = $_GET['tag'];
+									$where .= !empty($where) ? ' and id IN(select id from product  INNER JOIN tag_of_product on product_id = id WHERE tag_id = '.$tag.')': 'INNER JOIN tag_of_product on product_id = id WHERE tag_id = '.$tag.'';
+								}
+								if(isset($_GET['color'])){
+									$color = $_GET['color'];
+									$where .= !empty($where) ? ' and id IN(select id from product INNER JOIN color_of_product on id = productID where colorID =  '.$color.')': 'INNER JOIN color_of_product on id = productID where colorID = '.$color.'';
+								}
+								if(isset($_GET['brand'])){
+									$brand = $_GET['brand'];
+									$where .= !empty($where) ? ' and id IN(select id from product INNER JOIN brand_of_product on id = product_id where brand_id = '.$brand.')': 'INNER JOIN brand_of_product on id = product_id where brand_id ='.$brand.'';
+								}
+								$product = getProductByFilter($where);
+							}else{
+								unset($_SESSION['filter']);
+								$product = getProductByOffset(6,0);
+							}
 							$i = 0;
 							foreach($product as $p){
 								$i++;
@@ -236,7 +255,7 @@
 								}
 							}
 							d.innerHTML = chuoi[0];
-							// history.pushState();
+							// history.pushState('','','');
                         }
               });
               return false;
@@ -256,16 +275,41 @@
 							var chuoi = data.split(",",7);
 							var so =0;
 							var s = 0;
+							var x = 'shop.php'
 							for(i=2;i<8;i++){
 								if(chuoi[i] == 'tag'){
-									so = Number(chuoi[i-1])	
+									// so = Number(chuoi[i-1])
+									if(x == 'shop.php'){
+										x += '?tag='+chuoi[i-1];
+									}else{
+										x += '&tag='+chuoi[i-1];
+									}
 								}
-								if(i == so){
-									tag[so].style.color='rgb(127, 0, 250)';
-								}else{
-									tag[i].style.color='black';
+
+								if(chuoi[i] == 'color'){
+									// so = Number(chuoi[i-1])
+									if(x == 'shop.php'){
+										x += '?color='+chuoi[i-1];
+									}else{
+										x += '&color='+chuoi[i-1];
+									}
 								}
+
+								if(chuoi[i] == 'brand'){
+									// so = Number(chuoi[i-1])
+									if(x == 'shop.php'){
+										x += '?brand='+chuoi[i-1];
+									}else{
+										x += '&brand='+chuoi[i-1];
+									}
+								}
+								// if(i == so){
+								// 	tag[so].style.color='rgb(127, 0, 250)';
+								// }else{
+								// 	tag[i].style.color='black';
+								// }
 							}
+							history.pushState('','',x);
 							d.innerHTML = chuoi[0];
 							page.innerHTML= chuoi[1];
 							pages.innerHTML= chuoi[1];
