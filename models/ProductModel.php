@@ -14,6 +14,17 @@ function getProductById($id){
     return queryOne($sql);
 }
 
+function getProductByFilter($where){
+    $sql = 'select * from product '.$where.'';
+    return query($sql);
+}
+
+
+function getCountProduct(){
+    $sql = "SELECT (COUNT(*)/6) AS 'count' from `product`";
+    return queryOne($sql);
+}
+
 function addNewProduct(){
     $sql = "";
     return execute($sql);

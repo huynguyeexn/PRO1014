@@ -13,13 +13,15 @@ require_once('models/BlogModel.php');
 require_once('models/UserModel.php');
 require_once('models/CatalogModel.php');
 require_once('models/TagBlogModel.php');
-// GET action.
-$page = "home";
-if (isset($_GET["page"])) {
-    $page = $_GET["page"];
+
+
+// GET control = c.
+$control = "home";
+if (isset($_GET["c"])) {
+    $control = $_GET["c"];
 }
 
-switch ($page) {
+switch ($control) {
     case 'home':
         require_once('views/admin/index.php');
         break;
@@ -45,23 +47,53 @@ switch ($page) {
         require_once('views/admin/blog.php');
         break;
     case 'layout':
-        if(isset($_POST['save'])){
-            $json = urldecode($_POST['save']);
-            if(updateConfig('layout',$json)){
-                return true;
-            }else{
-                return false;
-            }
+
+        $page = "";
+        if (isset($_GET["p"])) {
+            $page = $_GET["p"];
+        }else{
+            header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
+            include("404.php");
+            return;
         }
 
-        $layouts = json_decode(getConfigByName("layout")['config'])->home;
-        $layoutDefault = json_decode(getConfigByName("default_layout")['config'])->home;
+        switch ($page) {
+            case 'home':
+                if(isset($_POST['save'])){
+                    $json = urldecode($_POST['save']);
+                    if(updateConfig('layout',$json)){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }
+                $layouts = json_decode(getConfigByName("layout")['config'])->home;
+                $layoutDefault = json_decode(getConfigByName("default_layout")['config'])->home;
 
+                require_once('views/admin/edit-layout/home.php');
+            break;
+            case 'shop':
+                $layouts = json_decode(getConfigByName("layout")['config'])->shop;
+                $layoutDefault = json_decode(getConfigByName("default_layout")['config'])->shop;
 
-        require_once('views/admin/layout.php');
+                require_once('views/admin/edit-layout/shop.php');
+            break;
+            case 'product':
+            break;
+            case 'blog':
+            break;
+            case 'contact':
+            break;
+            default:
+                header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
+                include("404.php");
+                return;
+                break;
+        }
         break;
     default:
-        require_once('views/admin/index.php');
-        break;
+        header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
+        include("404.php");
+        return;
         break;
 }
