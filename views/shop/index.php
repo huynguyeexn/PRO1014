@@ -6,15 +6,13 @@
 </head>
 
 <body>
-<<<<<<< HEAD
     <?php
-		foreach($layouts as $layout){
-			echo "<!-- Start $layout Area -->";
-			include_once("views/$layout.php");
-			echo "<!-- End Header Area -->";
-		}
+		// foreach($layouts as $layout){
+		// 	echo "<!-- Start $layout Area -->";
+		// 	include_once("views/$layout.php");
+		// 	echo "<!-- End Header Area -->";
+		// }
 	?>
-=======
     <!-- Start Header Area -->
     <?php include_once('views/layouts/Header.php'); ?>
     <!-- End Header Area -->
@@ -38,7 +36,6 @@
 
     
         <?php include_once('views/layouts/script.php'); ?>
->>>>>>> 037e9f0d8661e1c4838e59deb9069df9b8c83cd9
 </body>
 
 </html>

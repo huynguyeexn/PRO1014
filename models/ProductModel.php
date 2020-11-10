@@ -11,7 +11,6 @@ function getProductByOffset($limit, $offset){
 
 function getProductById($id){
     $sql = "SELECT * FROM product WHERE id = $id;";
-<<<<<<< HEAD
     return queryOne($sql);
 }
 
@@ -23,8 +22,6 @@ function getProductByFilter($where){
 
 function getCountProduct(){
     $sql = "SELECT (COUNT(*)/6) AS 'count' from `product`";
-=======
->>>>>>> 037e9f0d8661e1c4838e59deb9069df9b8c83cd9
     return queryOne($sql);
 }
 
