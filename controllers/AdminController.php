@@ -9,7 +9,10 @@ require_once('core/function.php');
 require_once('models/ProductModel.php');
 require_once('models/SliderModel.php');
 require_once('models/ConfigModel.php');
-
+require_once('models/BlogModel.php');
+require_once('models/UserModel.php');
+require_once('models/CatalogModel.php');
+require_once('models/TagBlogModel.php');
 // GET action.
 $page = "home";
 if (isset($_GET["page"])) {
