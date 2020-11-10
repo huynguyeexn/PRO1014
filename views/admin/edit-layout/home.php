@@ -165,10 +165,10 @@
             switch (value) {
                 case "save":
                     $.ajax({
-                        url: "admin.php?page=layout",
+                        url: "admin.php?c=layout&p=home",
                         type: "POST",
                         data: {'save': encodeURIComponent(arr) },
-                        success: function(data) {đ
+                        success: function(data) {
                             swal("Done!", "It was succesfully save!", "success");
                         },
                         error: function(xhr, ajaxOptions, thrownError) {
