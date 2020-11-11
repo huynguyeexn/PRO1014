@@ -21,7 +21,19 @@
 						<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
 						<li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
 						<li class="nav-item"><a class="nav-link" href="admin.php">Admin</a></li>
-						<li class="nav-item"><a class="nav-link" href="cart.php" id="linkToCart">Cart (0)</a></li>
+						<li class="nav-item"><a class="nav-link" href="cart.php" id="linkToCart">
+							<?php
+								if(isset($_SESSION['cart'])){
+									$quantity = 0;
+									foreach ($_SESSION['cart'] as $e)  {
+										$quantity += $e['quantity'];
+									}
+									echo "Cart ($quantity)";
+								}else{
+									echo "Cart (0)";
+								}
+							?>
+						</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li class="nav-item">
