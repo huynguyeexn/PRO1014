@@ -1,8 +1,7 @@
 
 
-
+<div id="overlay"></div>
 <header class="header_area sticky-header">
-	
 	<div class="main_menu">
 		<nav class="navbar navbar-expand-lg navbar-light main_box">
 			<div class="container">
@@ -22,7 +21,7 @@
 						<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
 						<li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
 						<li class="nav-item"><a class="nav-link" href="admin.php">Admin</a></li>
-						<li class="nav-item"><a class="nav-link" href="cart.php">Cart (0)</a></li>
+						<li class="nav-item"><a class="nav-link" href="cart.php" id="linkToCart">Cart (0)</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li class="nav-item">

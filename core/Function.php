@@ -17,3 +17,32 @@ function now(){
     $date = new DateTime(date("Y-m-d H:i:s"), new DateTimeZone('Asia/Ho_Chi_Minh'));
     return $date->format('Y-m-d H:i:s');
 }
+
+function addToCart($productID){
+    if (isset($_SESSION['cart'])){
+        $a = $_SESSION['cart'];
+
+        if(in_array($productID, array_column($a, 'id'))){
+            $index = array_search($productID, array_column($a, 'id'));
+            ++$_SESSION['cart'][$index]['quantity'];
+        }else{
+            array_push(
+                $_SESSION['cart'], 
+                array( 
+                    'id' => $productID, 
+                    'quantity'=> 1
+                )
+            );
+        }
+    }else{
+        $_SESSION['cart'] = [];
+        array_push(
+            $_SESSION['cart'], 
+            array( 
+                'id' => $productID, 
+                'quantity'=> 1
+            )
+        );
+    }
+    return $_SESSION['cart'];
+}
