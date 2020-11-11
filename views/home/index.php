@@ -10,11 +10,11 @@
 	<?php
 		foreach($layouts as $layout){
 			echo "<!-- Start $layout Area -->";
-			include_once("views/$layout.php");
+			include("views/$layout.php");
 			echo "<!-- End Header Area -->";
 		}
 	?>
 
 </body>
-
+	<?php include_once('views/layouts/script.php'); ?>
 </html>

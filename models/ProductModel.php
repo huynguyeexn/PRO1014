@@ -16,7 +16,21 @@ function getProductById($id){
 function getcategorybyproduct($id){
     $sql = "SELECT * FROM product WHERE id = $id";
 
+<<<<<<< HEAD
 }
+=======
+function getProductByFilter($where){
+    $sql = 'select * from product '.$where.'';
+    return query($sql);
+}
+
+
+function getCountProduct(){
+    $sql = "SELECT (COUNT(*)/6) AS 'count' from `product`";
+    return queryOne($sql);
+}
+
+>>>>>>> 0bdd3a729cfb05ee80fc828da9d6e83f1d160aac
 function addNewProduct(){
     $sql = "";
     return execute($sql);

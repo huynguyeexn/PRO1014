@@ -1,7 +1,7 @@
 <?php
 
 function getAllSlider(){
-    $sql = "select * from slider order BY slider.`order` asc";
+    $sql = "select * from slider order BY slider.`priority` asc";
     return query($sql);
 }
 function getSliderByOffset($limit, $offset){

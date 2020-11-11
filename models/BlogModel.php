@@ -1,7 +1,7 @@
 <?php
 
 function getAllBlogCatalog(){
-    $sql = "select * from blog_catalog";
+    $sql = "select * from tag_blog";
     return query($sql);
 }
 function getAllBlog(){
