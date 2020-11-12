@@ -5,7 +5,7 @@
     <nav class="vertnav navbar navbar-light">
         <!-- nav bar -->
         <div class="w-100 mb-4 d-flex">
-            <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.html">
+            <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./admin.php">
                 <img src="assets/img/fav.png" alt="">
             </a>
         </div>
@@ -59,25 +59,39 @@
                 </a>
             </li>
             <li class="nav-item dropdown">
-              <a  href="#layout"  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+              <a  href="#pageLayout"  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
               <i class="fe fe-edit fe-16"></i>
-                <span class="ml-3 item-text">Layout</span><span class="sr-only">(current)</span>
+                <span class="ml-3 item-text">Page Layout</span><span class="sr-only">(current)</span>
               </a>
-              <ul class="collapse list-unstyled pl-4 w-100" id="layout">
+              <ul class="collapse list-unstyled pl-4 w-100" id="pageLayout">
                 <li class="nav-item active">
-                  <a class="nav-link pl-3" href="admin.php?c=layout&p=home"><span class="ml-1 item-text">Home</span></a>
+                  <a class="nav-link pl-3" href="admin.php?c=pagelayout&p=home"><span class="ml-1 item-text">Home</span></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link pl-3" href="admin.php?c=layout&p=shop"><span class="ml-1 item-text">Shop</span></a>
+                  <a class="nav-link pl-3" href="admin.php?c=pagelayout&p=shop"><span class="ml-1 item-text">Shop</span></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link pl-3" href="admin.php?c=layout&p=product"><span class="ml-1 item-text">Product</span></a>
+                  <a class="nav-link pl-3" href="admin.php?c=pagelayout&p=product"><span class="ml-1 item-text">Product</span></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link pl-3" href="admin.php?c=layout&p=blog"><span class="ml-1 item-text">Blog</span></a>
+                  <a class="nav-link pl-3" href="admin.php?c=pagelayout&p=blog"><span class="ml-1 item-text">Blog</span></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link pl-3" href="admin.php?c=layout&p=contact"><span class="ml-1 item-text">Contact</span></a>
+                  <a class="nav-link pl-3" href="admin.php?c=pagelayout&p=contact"><span class="ml-1 item-text">Contact</span></a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a  href="#menuLayout"  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+              <i class="fe fe-edit fe-16"></i>
+                <span class="ml-3 item-text">Link Layout</span><span class="sr-only">(current)</span>
+              </a>
+              <ul class="collapse list-unstyled pl-4 w-100" id="menuLayout">
+                <li class="nav-item active">
+                  <a class="nav-link pl-3" href="admin.php?c=menulayout&p=topmenu"><span class="ml-1 item-text">Top menu</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link pl-3" href="admin.php?c=menulayout&p=shop"><span class="ml-1 item-text">Shop tag menu</span></a>
                 </li>
               </ul>
             </li>
