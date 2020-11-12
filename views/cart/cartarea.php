@@ -1,22 +1,22 @@
 <?php
 // session_start(); 
-if (isset($_SESSION['cart'])) {
-    $products = $_SESSION['cart'];
-}
+// if (isset($_SESSION['cart'])) {
+//     $products = $_SESSION['cart'];
+// }
 
-if (isset($_GET['id']) && $_GET['action'] == 'add') {
-    $product = getProductById($_GET['id']);
-    $product['quantity'] = 1;
-    if (!empty($_SESSION['cart'])) {
-        foreach ($_SESSION['cart'] as $key => $data) {
-            if ($data['id'] == $product['id']) {
-                $_SESSION['cart'][$key]['quantity'] += 1;
-            }
-        }
-    } else {
-        $_SESSION['cart'][] = $product;
-    }
-}
+// if (isset($_SESSION['cart')) {
+    // $product = getProductById($_GET['id']);
+    // $product['quantity'] = 1;
+    // if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+    //     foreach ($_SESSION['cart'] as $key => $data) {
+    //         if ($data['id'] == $product['id']) {
+    //             $_SESSION['cart'][$key]['quantity'] += 1;
+    //         }
+    //     }
+    // } else {
+    //     $_SESSION['cart'][] = $product;
+    // }
+// }
 
 // var_dump($_SESSION['cart']);
 
@@ -33,7 +33,7 @@ function calculator($products)
     <div class="container">
         <div class="cart_inner">
             <div class="table-responsive">
-                <table class="table">
+                <table class="table text-center">
                     <thead>
                         <tr>
                             <th scope="col"></th>
@@ -45,32 +45,35 @@ function calculator($products)
                     </thead>
                     <tbody>
                         <?php if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) : ?>
-                            <?php foreach ($_SESSION['cart'] as $product) : ?>
-                                <tr>
-                                    <td>
-                                        <div class="media">
-                                            <div class="product-image">
-                                                <img style='width:100%' src="<?php echo $product['thumb']; ?>">
-                                            </div>
-                                    </td>
-                                    <td>
-                                        <div class="product-details">
-                                            <div class="product-title"><?php echo $product['name']; ?></div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="product-price"><?php echo $product['price']; ?></div>
-                                    </td>
-                                    <td>
-                                        <div class="product-quantity">
-                                            <input type="text" value="<?php echo $product['quantity']; ?>">
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <h5><?php echo $product['price'] * $product['quantity']; ?></h5>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
+                        <?php foreach ($_SESSION['cart'] as $product) :  $data = getProductById($product['id']);?>
+                        <tr class='allItem'>
+                            <td>
+                                <div class="media">
+                                    <div class="product-image">
+                                        <img style='width:100%' src="<?php echo $data['thumb']; ?>">
+                                    </div>
+                            </td>
+                            <td>
+                                <div class="product-details">
+                                    <div class="product-title"><?php echo $data['name']; ?></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="product-price">$<?php echo $data['price']; ?></div>
+                            </td>
+                            <td>
+                                <div class="product-quantity">
+                                    <input type="number" min="1" class="form-control" value="<?php echo $product['quantity']; ?>">
+                                </div>
+                            </td>
+                            <td>
+                                <h5>$<?php echo $data['price'] * $product['quantity']; ?></h5>
+                            </td>
+                            <td>
+                                <button class="deleteItem btn btn-danger" data-value="<?= $product['id']; ?>">delete</button>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
                         <?php endif; ?>
 
                         <tr class="bottom_button">
@@ -100,10 +103,10 @@ function calculator($products)
 
                             </td>
                             <td>
-                                <h5>Subtotal</h5>
+                                <h5>chua lam</h5>
                             </td>
                             <td>
-                                <h5>$2160.00</h5>
+                                <h5>Chua lam</h5>
                             </td>
                         </tr>
                         <tr class="shipping_area">

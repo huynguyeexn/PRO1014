@@ -43,5 +43,27 @@
 				$(e).children('p').text("ADD TO BAG");
 			}, 1000);
 		});
+
+		$(".deleteItem").on('click', function() {
+			var e = this;
+			var id = $(e).data('value');
+			console.log(id);
+			$.ajax({
+                type: "POST",
+                url: 'shop.php?action=deleteItem&id=' + id,
+                success: function(data) {
+					console.log(data);
+                    // $("#linkToCart").text('CART('+data+')');
+					e.closest('tr').remove();
+					//$('.allItem').remove();
+				}
+            });
+			//$(e).children('.ti-bag').removeClass('ti-bag').addClass('ti-check animate__animated animate__headShake');
+			//$(e).children('p').text("Success");
+			//setTimeout(function() {
+			//	$(e).children('.ti-check').removeClass('ti-check animate__animated animate__headShake').addClass('ti-bag');
+			//	$(e).children('p').text("ADD TO BAG");
+			//}, 1000);
+		});
 	});
 </script>

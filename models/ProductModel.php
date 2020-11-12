@@ -38,6 +38,6 @@ function updateProduct(){
 }
 
 function deleteProduct($id){
-    $sql = "";
+    $sql = "DELETE FROM `product` WHERE id = $id";
     return execute($sql);
 }

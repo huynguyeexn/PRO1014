@@ -24,7 +24,7 @@ function addToCart($productID){
 
         if(in_array($productID, array_column($a, 'id'))){
             $index = array_search($productID, array_column($a, 'id'));
-            ++$_SESSION['cart'][$index]['quantity'];
+            $_SESSION['cart'][$index]['quantity'] += 1;
         }else{
             array_push(
                 $_SESSION['cart'], 

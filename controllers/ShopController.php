@@ -37,6 +37,26 @@
                 return;
             }
             break;
+        case 'deleteItem':
+            if(isset($_GET['id'])){
+                if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])){
+                    foreach($_SESSION['cart'] as $key => $product){
+                        if($product['id'] == $_GET['id']){
+                            unset($_SESSION['cart'][$key]);
+                        }
+                    }
+                }
+                //deleteProduct($_POST['id']);
+                //$a = addToCart($_GET['id']);
+                // $quantity = 0;
+                // foreach ($a as $e)  {
+                //     $quantity += $e['quantity'];
+                // }
+                // echo $quantity;
+
+                echo $_GET['id'];
+            }
+            break;
         case 'page':
             $offset = $_GET['start'];
             $limit = 6;
