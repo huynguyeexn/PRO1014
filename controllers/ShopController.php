@@ -27,10 +27,58 @@
             break;
 
         case 'page':
-            $offset = $_GET['start'];
-            $limit = 6;
+            if(isset($_GET['name'])){
+                $name = $_GET['name'];
+                if($name == 1){
+                    $name = 'tag'; 
+                }else if($name == 2){
+                    $name = 'color';
+                }else{
+                    $name = 'brand';
+                }
+                $values = $_GET['value'];
+                if(!isset($_SESSION['filter'])){
+                        $_SESSION['filter'] = array('0' => array('name' => $name, 'value' => $values));
+                }else{
+                    if(in_array($name,array_column($_SESSION['filter'],'name'))){
+                        foreach($_SESSION['filter'] as $key => $v){
+                            if($v['name'] == $name){
+                                if($name == 'tag'){
+                                    $_SESSION['filter'][$key]['name'] = $name;
+                                    $_SESSION['filter'][$key]['value'] = $values;
+                                    $_SESSION['filter'][$key]['class'] = $l;
+                                }else{
+                                    $_SESSION['filter'][$key]['name'] = $name;
+                                    $_SESSION['filter'][$key]['value'] = $values;
+                                }
+                            }
+                        }
+                    }else{
+                            array_push($_SESSION['filter'],array('name' => $name, 'value' => $values));
+                    }
+                }
+            }else if(isset($_GET['start'])){
+                $offset = $_GET['start'];
+                $limit = 6;
+                $value = ceil($offset/6+1);
+                $name = 'page';
+                $_SESSION['page'] = array('name'=>$name,'value'=>$value);
+            }else if(isset($_GET['sort'])){
+                $value = $_GET['sort'];
+                $name = 'sort';
+                $_SESSION['sort'] = array('name'=>$name,'value'=>$value);
+            }else if(isset($_GET['lower'])){
+                $lower = ceil($_GET['lower']);
+                $upper = ceil($_GET['upper']);
+                $value = $lower.'-'.$upper;
+                $name = 'price';
+                $_SESSION['price'] = array('name'=>$name,'value'=>$value,'lower'=>$lower,'upper'=>$upper);
+            }
+
+            $where ='';
+            $true = 1;
             if(!empty($_SESSION['filter'])){
-                $where ='';
+                $true = 2;
                 foreach($_SESSION['filter'] as $filter => $value){
                     if($value['value'] == 'delete'){
                         unset($_SESSION['filter'][$filter]);
@@ -50,125 +98,43 @@
                         }
                     }
                 }
-                $where .= ' limit '.$limit.' offset '.$offset.'';
+            }
+            if(!empty($_SESSION['sort'])){
+                $true = 2;
+                $value = $_SESSION['sort']['value']; 
+                if($value == 1){
+                    $where .= '';
+                }else if($value == 2){
+                    $where .= ' order by "update" desc';
+                }else if($value == 3){
+                }else if($value == 4){
+                    $where .= ' order by price asc';
+                }else if($value == 5){
+                    $where .= ' order by price desc';
+                }
+            }
+            if(!empty($_SESSION['price'])){
+                $true = 2;
+                $lower = $_SESSION['price']['lower'];
+                $upper = $_SESSION['price']['upper'];
+                $where .= !empty($where) ? ' and price BETWEEN '.$lower.' and '.$upper.'': ' where price BETWEEN '.$lower.' and '.$upper.'';
+            }
+            if(isset($_GET['start'])){
+                if($true == 2){
+                    $where .= ' limit '.$limit.' offset '.$offset.'';
+                    $page = getProductByFilter($where); 
+                }else{
+                    $page = getProductByOffset($limit, $offset);
+                }
+            }else{
                 $page = getProductByFilter($where);
-            }else{
-               $page = getProductByOffset($limit, $offset); 
             }
-            $i=0;
-            $sp ='';
-            foreach($page as $p){  
-                $i++;
-                $sp .= '
-                    <div class="col-lg-4 col-md-6">
-                        <div class="boxa single-product">
-                            <img class="img-fluid" src="'.$p['thumb'].'" alt="">
-                            <div class="product-details">
-                                <a href="view/shop/index.php?id='.$p['id'].'" class = "name">'.$p['name'].'</a>
-                                <div class="price">
-                                    <h6 class = "value">$'.$p['price'].'.00</h6>
-                                    <h6 class="l-through cost">$'.$p['cost'].'.00</h6>
-                                </div>
-                                <div class="prd-bottom">
-                                    <a href="" class="social-info">
-                                        <span class="ti-bag"></span>
-                                        <p class="hover-text">add to bag</p>
-                                    </a>
-                                    <a href="" class="social-info">
-                                        <span class="lnr lnr-heart"></span>
-                                        <p class="hover-text">Wishlist</p>
-                                    </a>
-                                    <a href="" class="social-info">
-                                        <span class="lnr lnr-sync"></span>
-                                        <p class="hover-text">compare</p>
-                                    </a>
-                                    <a href="" class="social-info">
-                                        <span class="lnr lnr-move"></span>
-                                        <p class="hover-text">view more</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                ';
-            }
-            $myArr = array(array($sp));
-            if(isset($_SESSION['filter'])){
-                foreach($_SESSION['filter'] as $filter => $value){
-                    if($value['name'] == 'tag'){
-                        array_push($myArr,array($value['class']));
-                         ','.$value['class'].','.$value['name'];
-                    }
-                }
-            }
-            echo json_encode($myArr);
-            break;
-
-        case 'filter':
-            // unset($_SESSION['filter']);
-            $name = $_GET['name'];
-            if($name == 1){
-                $name = 'tag'; 
-                $l = $_GET['class'];
-            }else if($name == 2){
-                $name = 'color';
-            }else{
-                $name = 'brand';
-            }
-            $values = $_GET['value'];
-            if(!isset($_SESSION['filter'])){
-                if($name == 'tag'){
-                    $_SESSION['filter'] = array('0' => array('name' => $name, 'value' => $values,'class' => $l));
-                }else{
-                    $_SESSION['filter'] = array('0' => array('name' => $name, 'value' => $values));
-                }
-            }else{
-                if(in_array($name,array_column($_SESSION['filter'],'name'))){
-                    foreach($_SESSION['filter'] as $key => $v){
-                        if($v['name'] == $name){
-                            if($name == 'tag'){
-                                $_SESSION['filter'][$key]['name'] = $name;
-                                $_SESSION['filter'][$key]['value'] = $values;
-                                $_SESSION['filter'][$key]['class'] = $l;
-                            }else{
-                                $_SESSION['filter'][$key]['name'] = $name;
-                                $_SESSION['filter'][$key]['value'] = $values;
-                            }
-                        }
-                    }
-                }else{
-                    if($name == 'tag'){
-                        array_push($_SESSION['filter'],array('name' => $name, 'value' => $values,'class' =>$l));
-                    }else{
-                        array_push($_SESSION['filter'],array('name' => $name, 'value' => $values));
-                    }
-                }
-            }
-            $where ='';
-            foreach($_SESSION['filter'] as $filter => $value){
-                if($value['value'] == 'delete'){
-                    unset($_SESSION['filter'][$filter]);
-                }else{
-                    switch($value['name']){
-                        case 'tag':
-                            $where .= !empty($where) ? ' and product.id IN(select product.id from product  INNER JOIN tag_of_product on product_id = id WHERE tag_id = '.$value['value'].')': 'INNER JOIN tag_of_product on product_id = id WHERE tag_id = '.$value['value'].'';
-                        break;
-
-                        case 'color':
-                            $where .= !empty($where) ? ' and product.id IN(select product.id from product INNER JOIN product_detail on product_id = id where color_id =  '.$value['value'].')': 'INNER JOIN product_detail on id = product_id where color_id = '.$value['value'].'';
-                        break;
-
-                        case 'brand':
-                            $where .= !empty($where) ? ' and product.id IN(select product.id from product INNER JOIN brand on brand.id = brand_id where brand_id = '.$value['value'].')': 'INNER JOIN brand on brand.id = brand_id where brand_id ='.$value['value'].'';
-                        break;
-                    }
-                }
-            }
-            $product = getProductByFilter($where);
+            
+            
             $lan = 0;
             $luot =0;
             $sp = '';
-            foreach($product as $p){  
+            foreach($page as $p){  
                 $luot++;
                 $lan++;
                 if($luot < 7){
@@ -236,11 +202,24 @@
                 ';
             }
             array_push($myArr,array($page));
-            foreach($_SESSION['filter'] as $filter => $value){
-                array_push($myArr,array($value['value'],$value['name']));
+            if(isset($_SESSION['filter'])){
+                foreach($_SESSION['filter'] as $filter => $value){
+                    array_push($myArr,array($value['value'],$value['name']));
+                }
+            }
+            if(isset($_SESSION['sort'])){
+                array_push($myArr,array($_SESSION['sort']['value'],$_SESSION['sort']['name']));
+            }
+            if(isset($_SESSION['page'])){
+                array_push($myArr,array($_SESSION['page']['value'],$_SESSION['page']['name']));
+            }
+            if(isset($_SESSION['price'])){
+                array_push($myArr,array($_SESSION['price']['value'],$_SESSION['price']['name']));
             }
             echo json_encode($myArr);
+            // echo $where;
             break;
+
         default: 
             require_once('views/shop/index.php');
             break;
