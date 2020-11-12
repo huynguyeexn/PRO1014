@@ -211,7 +211,7 @@
 													</div>
 													<div class="prd-bottom">
 				
-														<a href="" class="social-info">
+														<a class="social-info addtocart" value="' . $p["id"] . '">
 															<span class="ti-bag"></span>
 															<p class="hover-text">add to bag</p>
 														</a>
