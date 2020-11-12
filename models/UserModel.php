@@ -24,14 +24,24 @@ function deleteUser($id){
     $sql = "";
     return execute($sql);
 }
-
-function checkUser($user, $pass)
+function addUser($user, $pass, $email)
 {
-    $sql = "select * from user where username= '" . $user . "' and password= '" . $pass . "'";
+    $sql = "insert into user (username, password, email) values ('$user', '$pass', '$email')";
     return execute($sql);
 }
-function addUser($user, $pass)
+
+function checkUsername($user)
 {
-    $sql = "insert into user (username, password) values ('$user', '$pass',)";
-    return execute($sql);
+    $sql = "select * from user where username= '" . $user . "';";
+    return queryOne($sql);
+}
+function checkPassword($user, $pass)
+{
+    $sql = "select * from user where username= '" . $user . "' and password= '" . $pass . "';";
+    return queryOne($sql);
+}
+function checkEmail($email)
+{
+    $sql = "select * from user where email= '" . $email . "';";
+    return queryOne($sql);
 }

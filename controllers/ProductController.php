@@ -7,7 +7,10 @@
 
     // Các Model cần thiết.
     require_once('models/ProductModel.php');
-
+    require_once('models/TagModel.php');
+    require_once('models/SizeModel.php');
+    require_once('models/TagOfProductModel.php');
+    require_once('models/SizeOfProduct.php');
     // GET action.
     $action = "home";
     if (isset($_GET["action"])) {
