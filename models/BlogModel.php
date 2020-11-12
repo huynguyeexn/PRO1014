@@ -17,6 +17,10 @@ function getBlogById($id){
     $sql = "select * from blog where id=".$id;
     return queryOne($sql);
 }
+function getCountBlog(){
+    $sql = "SELECT (COUNT(*)/3) as `countb` from `blog`";
+    return queryOne($sql);
+}
 
 function addNewBlog(){
     $sql = "";
