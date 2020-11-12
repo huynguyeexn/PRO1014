@@ -1,6 +1,6 @@
 <?php
     session_start();
-
+    // session_destroy();
     // Require các file cần sử dụng.
     require_once('core/connection.php');
     require_once('core/function.php');
@@ -26,6 +26,17 @@
             require_once('views/shop/index.php');
             break;
 
+        case 'addToCart':
+            if(isset($_GET['id'])){
+                $a = addToCart($_GET['id']);
+                $quantity = 0;
+                foreach ($a as $e)  {
+                    $quantity += $e['quantity'];
+                }
+                echo $quantity;
+                return;
+            }
+            break;
         case 'page':
             if(isset($_GET['name'])){
                 $name = $_GET['name'];

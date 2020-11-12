@@ -16,13 +16,22 @@
 
     switch ($action) {
         case 'home':
-            $allUser = getAllUser();
-            require_once('views/user/index.php');
+            if($_SESSION['user']['id']){
+                $allUser = getAllUser();
+                require_once('views/user/index.php');
+            }else{
+                header('location: index.php');
+            }
+            
             break;
 
         default: 
-            $allUser = getAllUser();
-            require_once('views/user/index.php');
+            if($_SESSION['user']['id']){
+                $allUser = getAllUser();
+                require_once('views/user/index.php');
+            }else{
+                header('location: index.php');
+            }
             break;
         break;
     }

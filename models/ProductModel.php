@@ -13,7 +13,9 @@ function getProductById($id){
     $sql = "SELECT * FROM product WHERE id = $id;";
     return queryOne($sql);
 }
-
+function getcategorybyproduct($id){
+    $sql = "SELECT * FROM product WHERE id = $id";
+}
 function getProductByFilter($where){
     $sql = 'select * from product '.$where.'';
     return query($sql);

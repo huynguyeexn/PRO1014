@@ -12,17 +12,17 @@
 
                                         foreach($blognews as $news){
                                             $user = getUserById($news['user_id']);
-                                            $cata = getCatalogById($news['id_catalog']);
+                                            $cata = getTagBlogById($news['id']);
                                            echo'
                         <article class="row blog_item">
                             <div class="col-md-3">
                                 <div class="blog_info text-right">
                                     <div class="post_tag">
-                                    '.$cata['catalog'].'
+                                    '.$cata['name'].'
                                     </div>
                                    
                                            <ul class="blog_meta list">
-                                           <li><a href="#">'.$user['username'].'<i class="lnr lnr-user"></i></a></li>
+                                           <li><a href="#">'.$user['fullname'].'<i class="lnr lnr-user"></i></a></li>
                                            <li><a href="#">'.$news['created'].'<i class="lnr lnr-calendar-full"></i></a></li>
                                            <li><a href="#">'.$news['view'].' Views<i class="lnr lnr-eye"></i></a></li>
                                            <li><a href="#"> Comments<i class="lnr lnr-bubble"></i></a></li>
@@ -31,12 +31,12 @@
                                </div>
                                <div class="col-md-9">
                                    <div class="blog_post">
-                                       <img src="assets/img/blog/main-blog/'.$news['image'].'" alt="">
+                                       <img src="assets/img/blog/main-blog/'.$news['thumb'].'" alt="">
                                        <div class="blog_details">
                                            <a href="blog.php?action=detail&id='.$news['id'].'">
                                                <h2>'.$news['title'].'</h2>
                                            </a>
-                                           <p>'.$news['content'].'</p>
+                                           <p>'.$news['description'].'</p>
                                            <a href="blog.php?action=detail&id='.$news['id'].'" class="white_bg_btn">View More</a>
                                        </div>
                                    </div>
@@ -107,7 +107,7 @@
                                  foreach($blogs as $blog){
                                      echo'
                                      <div class="media post_item">
-                                <img src="assets/img/blog/'.$blog['image'].'" alt="post" width="100px" height="60px">
+                                <img src="assets/img/blog/'.$blog['thumb'].'" alt="post" width="100px" height="60px">
                                 <div class="media-body">
                                     <a href="blog.php?action=detail&id='.$news['id'].'">
                                         <h3>'.$blog['title'].'</h3>
@@ -136,8 +136,8 @@
                                         echo'
                                         <li>
                                     <a href="#" class="d-flex justify-content-between">
-                                        <p>'.$blog['catalog'].'</p>
-                                        <p>'.$blog['number_post'].'</p>
+                                        <p>'.$blog['name'].'</p>
+                                        
                                     </a>
                                 </li>
                                         
@@ -174,7 +174,7 @@
                             $blogs = getAllBlogCatalog();
                             foreach($blogs as $blog){
                                 echo'
-                                <li><a href="#">'.$blog['catalog'].'</a></li>
+                                <li><a href="#">'.$blog['name'].'</a></li>
                                 ';}
                             ?>
                             </ul>
