@@ -119,34 +119,18 @@
 									$where .= !empty($where) ? ' and product.id IN(select product.id from product INNER JOIN brand on brand.id = brand_id where brand_id = '.$brand.')': 'INNER JOIN brand on brand.id = brand_id where brand_id ='.$brand.'';
 								}
 								if(isset($_GET['sort'])){
-									if($true == 2){
-										$true = 2;
-										$value = $_GET['sort']; 
-										if($value == 1){
-											$where .= '';
-										}else if($value == 2){
-											$where .= ' order by "update" desc';
-										}else if($value == 3){
-										}else if($value == 4){
-											$where .= ' order by price asc';
-										}else if($value == 5){
-											$where .= ' order by price desc';
-										}
-									}else{
-										$true = 2;
-										$value = $_GET['sort']; 
-										if($value == 1){
-											$where .= '';
-										}else if($value == 2){
-											$where .= ' where order by "update" desc';
-										}else if($value == 3){
-										}else if($value == 4){
-											$where .= ' where order by price asc';
-										}else if($value == 5){
-											$where .= ' where order by price desc';
-										}
+									$true = 2;
+									$value = $_GET['sort']; 
+									if($value == 1){
+										$where .= '';
+									}else if($value == 2){
+										$where .= ' order by "update" desc';
+									}else if($value == 3){
+									}else if($value == 4){
+										$where .= ' order by price asc';
+									}else if($value == 5){
+										$where .= ' order by price desc';
 									}
-									
 								}
 								if(isset($_GET['price'])){
 									$true = 2;
