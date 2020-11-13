@@ -103,53 +103,57 @@
                 <div class="col-12 my-4">
                   <div class="card shadow">
                     <div class="card-body">
-                      <h5 class="card-title">Bordered table</h5>
-                      <p class="card-text">Add .table-bordered for borders on all sides of the table and cells.</p>
+                      <h3 class="card-title">Your Orders</h3>
                       <table class="table table-bordered table-hover mb-0">
                         <thead>
                           <tr>
                             <th>ID</th>
-                            <th>UserName</th>
-                            <th>Password</th>
-                            <th>Birthday</th>
-                            <th>Fullname</th>
-                            <th>Email</th>
-                            <th>Phone</th>
+                            <th>Recipient's name</th>
+                            <th>Recipient's address</th>
+                            <th>Recipient's phone</th>
+                            <th>Recipient's email</th>
                             <th>Created</th>
+                            <th>Status</th>
+                            <th></th>
                           </tr>
                         </thead>
                         <tbody>
                             <?php
-                              foreach($allUser as $user){
-                                $birthday = new DateTime($user['birthday']);
+                              foreach($orders as $order){
+                                $status = "";
+                                // Mới(0), đang giao(1), đã hoàn thành (2), Hủy(3)
+                                switch($order['status']){
+                                  case 0: 
+                                    $status = '<button type="button" class="btn mb-2 btn-primary">New</button>';
+                                  break;
+                                  case 1: 
+                                    $status = '<button type="button" class="btn mb-2 btn-warning">Shipping</button>';
+                                  break;
+                                  case 2: 
+                                    $status = '<button type="button" class="btn mb-2 btn-success">Completed</button>';
+                                  break;
+                                  case 3: 
+                                    $status = '<button type="button" class="btn mb-2 btn-secondary">Cancel</button>';
+                                  break;
+                                }
                                 echo '
                                 <tr>
-                                  <td>'.$user['id'].'</td>
-                                  <td>'.$user['username'].'</td>
-                                  <td>'.$user['password'].'</td>
-                                  <td>'.$birthday->format('Y-m-d').'</td>
-                                  <td>'.$user['fullname'].'</td>
-                                  <td>'.$user['email'].'</td>
-                                  <td>'.$user['phone'].'</td>
-                                  <td>'.$user['created'].'</td>
+                                  <td>'.$order['id'].'</td>
+                                  <td>'.($order['name'] ? $order['name'] : $user['fullname']).'</td>
+                                  <td>'.($order['address'] ? $order['address'] : $user['address']).'</td>
+                                  <td>'.($order['phone'] ? $order['phone'] : $user['phone']).'</td>
+                                  <td>'.($order['email'] ? $order['email'] : $user['email']).'</td>
+                                  <td>'.$order['created'].'</td>
+                                  <td>'.$status.'</td>
+                                  <td>
+                                    <a type="button" class="btn mb-2 btn-info">Detail</a>
+                                    '.($order['status'] == 0 ?'<a type="button" class="btn mb-2 btn-outline-danger">Cancel</a>':"").'
+                                  </td>
                                 </tr> 
                                 ';
                               }
 
                             ?>
-                          <!-- <tr>
-                            <td>3224</td>
-                            <td>Keith Baird</td>
-                            <td>Enim Limited</td>
-                            <td>901-6206 Cras Av.</td>
-                            <td>Apr 24, 2019</td>
-                            <td>
-                              <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="c1" checked>
-                                <label class="custom-control-label" for="c1"></label>
-                              </div>
-                            </td>
-                          </tr> -->
                         </tbody>
                       </table>
                     </div>

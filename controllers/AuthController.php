@@ -16,10 +16,10 @@
 
     switch ($action) {
         case 'login':
-            require_once('views/user/login.php');
+            require_once('views/account/login.php');
             break;
         case 'register':
-            require_once('views/user/register.php');
+            require_once('views/account/register.php');
             break;
         case 'signout':
             if($_SESSION['user']['id']){

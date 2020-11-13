@@ -17,7 +17,7 @@ function getcategorybyproduct($id){
     $sql = "SELECT * FROM product WHERE id = $id";
 }
 function getProductByFilter($where){
-    $sql = 'select * from product '.$where.'';
+    $sql = 'SELECT product.id, product.name, `cost`, `price`, `description`, `thumb`, `images`, `update`, `brand_id`  from product '.$where.'';
     return query($sql);
 }
 
@@ -38,6 +38,6 @@ function updateProduct(){
 }
 
 function deleteProduct($id){
-    $sql = "";
+    $sql = "DELETE FROM `product` WHERE id = $id";
     return execute($sql);
 }

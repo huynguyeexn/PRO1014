@@ -10,6 +10,7 @@
     require_once('models/UserModel.php');
     require_once('models/CatalogModel.php');
     require_once('models/TagBlogModel.php');
+    require_once('models/ProductModel.php');
 
     // GET action.
     $action = "home";
@@ -35,6 +36,46 @@
                 header('location: blog.php');
             }
             break;
+        case 'page':
+            $offset = $_GET['start'];
+            $limit = 3;
+            $page = getBlogByOffset($limit, $offset);
+            $blog = '';
+            foreach($page as $news){
+                $user = getUserById($news['user_id']);
+                $cata = getTagBlogById($news['id']);
+                $blog .= '<article class="row blog_item">
+                <div class="col-md-3">
+                    <div class="blog_info text-right">
+                        <div class="post_tag">
+                        '.$cata['name'].'
+                        </div>
+                       
+                               <ul class="blog_meta list">
+                               <li><a href="#">'.$user['fullname'].'<i class="lnr lnr-user"></i></a></li>
+                               <li><a href="#">'.$news['created'].'<i class="lnr lnr-calendar-full"></i></a></li>
+                               <li><a href="#">'.$news['view'].' Views<i class="lnr lnr-eye"></i></a></li>
+                               <li><a href="#"> Comments<i class="lnr lnr-bubble"></i></a></li>
+                           </ul>
+                       </div>
+                   </div>
+                   <div class="col-md-9">
+                       <div class="blog_post">
+                           <img src="assets/img/blog/main-blog/'.$news['thumb'].'" alt="">
+                           <div class="blog_details">
+                               <a href="blog.php?action=detail&id='.$news['id'].'">
+                                   <h2>'.$news['title'].'</h2>
+                               </a>
+                               <p>'.$news['description'].'</p>
+                               <a href="blog.php?action=detail&id='.$news['id'].'" class="white_bg_btn">View More</a>
+                           </div>
+                       </div>
+                   </div>
+                   </article>';
+            
+            }
+            echo $blog;
+        break;
         default: 
             require_once('views/blog/index.php');
             break;
