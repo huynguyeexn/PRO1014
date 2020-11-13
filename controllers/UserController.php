@@ -7,6 +7,8 @@
 
     // Các Model cần thiết.
     require_once('models/UserModel.php');
+    require_once('models/OrderModel.php');
+
 
     // GET action.
     $action = "home";
@@ -17,7 +19,9 @@
     switch ($action) {
         case 'home':
             if($_SESSION['user']['id']){
-                $allUser = getAllUser();
+                $userId = $_SESSION['user']['id'];
+                $user = getUserById($userId);
+                $orders = getOrderByUser($userId);
                 require_once('views/user/index.php');
             }else{
                 header('location: index.php');
