@@ -8,7 +8,7 @@
     // Các Model cần thiết.
     require_once('models/UserModel.php');
 
-    // GET action.
+    // GET action.  
     $action = "home";
     if (isset($_GET["action"])) {
         $action = $_GET["action"];
