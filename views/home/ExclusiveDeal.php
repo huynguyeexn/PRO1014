@@ -5,8 +5,8 @@
 				<div class="col-lg-6 no-padding exclusive-left">
 					<div class="row clock_sec clockdiv" id="clockdiv">
 						<div class="col-lg-12">
-							<h1>Exclusive Hot Deal Ends Soon!</h1>
-							<p>Who are in extremely love with eco friendly system.</p>
+							<h1>Ưu đãi sắp kết thúc!</h1>
+							<p></p>
 						</div>
 						<div class="col-lg-12">
 							<div class="row clock-wrap">
@@ -29,7 +29,7 @@
 							</div>
 						</div>
 					</div>
-					<a href="" class="primary-btn">Shop Now</a>
+					<a href="" class="primary-btn">Mua sắm ngay</a>
 				</div>
 				<div class="col-lg-6 no-padding exclusive-right">
 					<div class="active-exclusive-product-slider">
@@ -44,8 +44,8 @@
 								<h4>addidas New Hammer sole
 									for Sports person</h4>
 								<div class="add-bag d-flex align-items-center justify-content-center">
-									<a class="add-btn" href=""><span class="ti-bag"></span></a>
-									<span class="add-text text-uppercase">Add to Bag</span>
+									<a class="add-btn addtocart" value="1"><span class="ti-bag"></span></a>
+									<span class="add-text text-uppercase">Thêm vào giỏ</span>
 								</div>
 							</div>
 						</div>
@@ -60,8 +60,8 @@
 								<h4>addidas New Hammer sole
 									for Sports person</h4>
 								<div class="add-bag d-flex align-items-center justify-content-center">
-									<a class="add-btn" href=""><span class="ti-bag"></span></a>
-									<span class="add-text text-uppercase">Add to Bag</span>
+									<a class="add-btn addtocart" value="1"><span class="ti-bag"></span></a>
+									<span class="add-text text-uppercase">Thêm vào giỏ</span>
 								</div>
 							</div>
 						</div>
@@ -72,7 +72,7 @@
 	</section>
 	<script>
 		window.onload = function() {
-			var deadline = new Date("2020-11-06");
+			var deadline = new Date("2021-11-06");
 			initializeClock('clockdiv', deadline);
 		};
 		

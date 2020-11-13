@@ -62,19 +62,11 @@ function singleProduct($product){
 
                     <a class="social-info addtocart" value="' . $product["id"] . '">
                         <span class="ti-bag"></span>
-                        <p class="hover-text">add to bag</p>
+                        <p class="hover-text">Thêm vào giỏ</p>
                     </a>
                     <a  class="social-info">
                         <span class="lnr lnr-heart"></span>
-                        <p class="hover-text">Wishlist</p>
-                    </a>
-                    <a  class="social-info">
-                        <span class="lnr lnr-sync"></span>
-                        <p class="hover-text">compare</p>
-                    </a>
-                    <a  class="social-info">
-                        <span class="lnr lnr-move"></span>
-                        <p class="hover-text">view more</p>
+                        <p class="hover-text">Yêu thích</p>
                     </a>
                 </div>
             </div>

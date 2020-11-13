@@ -7,8 +7,8 @@
 						<div class="f-icon">
 							<img src="assets/img/features/f-icon1.png" alt="">
 						</div>
-						<h6>Free Delivery</h6>
-						<p>Free Shipping on all order</p>
+						<h6>Miễn phí giao hàng</h6>
+						<p>Miễn phí giao hàng khi mua đơn hàng trên 1 triệu đồng.</p>
 					</div>
 				</div>
 				<!-- single features -->
@@ -17,8 +17,8 @@
 						<div class="f-icon">
 							<img src="assets/img/features/f-icon2.png" alt="">
 						</div>
-						<h6>Return Policy</h6>
-						<p>Free Shipping on all order</p>
+						<h6>Đổi trả miễn phí</h6>
+						<p>Miễn phí đổi trả khi sản phẩm lỗi</p>
 					</div>
 				</div>
 				<!-- single features -->
@@ -27,8 +27,8 @@
 						<div class="f-icon">
 							<img src="assets/img/features/f-icon3.png" alt="">
 						</div>
-						<h6>24/7 Support</h6>
-						<p>Free Shipping on all order</p>
+						<h6>Hỗ trợ 24/7</h6>
+						<p>Liên hệ với chúng tôi khi bạn cần</p>
 					</div>
 				</div>
 				<!-- single features -->
@@ -37,8 +37,8 @@
 						<div class="f-icon">
 							<img src="assets/img/features/f-icon4.png" alt="">
 						</div>
-						<h6>Secure Payment</h6>
-						<p>Free Shipping on all order</p>
+						<h6>Bảo hành</h6>
+						<p>Bảo hành trọn đời.</p>
 					</div>
 				</div>
 			</div>

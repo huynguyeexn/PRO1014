@@ -9,7 +9,7 @@
                             <div class="overlay"></div>
                             <a href="assets/img/product/15/Nike-News.jpg" target="_blank">
                                 <div class="deal-details">
-                                    <h6 class="deal-title">Sneaker for Sports</h6>
+                                    <h6 class="deal-title">Giày thể thao</h6>
                                 </div>
                             </a>
                         </div>
@@ -66,7 +66,7 @@
                     <div class="overlay"></div>
                     <a href="assets/img/category/c5.jpg" target="_blank">
                         <div class="deal-details">
-                            <h6 class="deal-title">Sale up to 50%</h6>
+                            <h6 class="deal-title">Giảm giá đến 50%</h6>
                         </div>
                     </a>
                 </div>
