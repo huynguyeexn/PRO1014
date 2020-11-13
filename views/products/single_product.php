@@ -20,7 +20,7 @@
             </div>
             <?php
 			
-			$pro = getProductById(2);
+			$pro = getProductById(1);
 			$tags = getTagByProductId($pro['id']);
 			echo'
 			<div class="col-lg-5 offset-lg-1">
@@ -47,7 +47,7 @@
 			';
 				
 		?>
-				<div class="product_count">
+            <div class="product_count">
                 <label for="qty">Quantity:</label>
                 <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
                     class="input-text qty">
