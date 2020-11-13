@@ -19,7 +19,7 @@
 						<li class="nav-item"><a class="nav-link" href="Shop.php">Shop</a></li>
 						<li class="nav-item"><a class="nav-link" href="blog.php">Blog</a></li>
 						<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-						<li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
+						<li class="nav-item"><a class="nav-link" href="account.php">Login</a></li>
 						<li class="nav-item"><a class="nav-link" href="admin.php">Admin</a></li>
 						<li class="nav-item"><a class="nav-link" href="cart.php" id="linkToCart">
 							<?php
