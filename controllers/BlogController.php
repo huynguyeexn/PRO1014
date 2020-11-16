@@ -2,7 +2,7 @@
     session_start();
 
     // Require các file cần sử dụng.
-    require_once('core/connection.php');
+    require_once('core/Connection.php');
     require_once('core/function.php');
     
     // Các Model cần thiết.
@@ -67,7 +67,7 @@
                                    <h2>'.$news['title'].'</h2>
                                </a>
                                <p>'.$news['description'].'</p>
-                               <a href="blog.php?action=detail&id='.$news['id'].'" class="white_bg_btn">View More</a>
+                               <a href="blog.php?action=detail&id='.$news['id'].'" class="white_bg_btn">Xem thêm</a>
                            </div>
                        </div>
                    </div>
@@ -76,6 +76,19 @@
             }
             echo $blog;
         break;
+
+        case'comment':
+            if (isset($_POST['submit'])) {
+                $idblog= $_GET['id'];
+                $user = $_SESSION['user_id'];
+                $message = $_POST['message'];
+                $created = date("Y-m-d H:i:s");
+
+                setComment($idblog,$user,$message,$created);
+                $blog = getBlogById($idblog);
+                require_once('views/blog/detail.php');
+
+            };
         default: 
             require_once('views/blog/index.php');
             break;
