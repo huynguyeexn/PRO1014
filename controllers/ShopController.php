@@ -89,7 +89,7 @@
                     $show = 6;
                 }
                 $x = $_GET['start'];
-                $offset = ($x*$show) - $show;
+                $offset = ($x * $show - $show);
                 $limit = $show;
                 $value = ceil($offset/$show+1);
                 $name = 'page';
@@ -142,6 +142,9 @@
                     }
                     $_SESSION['page'] = array('name'=>$name,'value'=>$x);
                 }
+            }
+            if(isset($_GET['page'])){
+                unset($_SESSION['page']);
             }
 
             $where ='';
@@ -248,56 +251,90 @@
             } 
             $myArr = array(array($sp));
             $number = 0;
-            $lan = $lan / $show;
-            $page = '';
-            if(ceil($lan) < 4){
-                if(ceil($lan) == 0){
-                    $page = '';
-                }else{
-                    if(!empty($_SESSION['page'])){
-                        if($_SESSION['page']['value'] == 2){
-                            $page ='';
-                        }else{
-                            $page .= '<a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>';
-                        }
-                    }
-                    for ($i=0; $i < ceil($lan); $i++){ 
-                        $number++;
-                        $page .= '<a onclick="page('.$number.');">'.$number.'</a>';
-                    }
-                    if(!empty($_SESSION['page'])){
-                        if($_SESSION['page']['value'] == $lan){
-                            $page .='';
-                        }else{
-                            $page .= '<a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>';
-                        }
-                    }
-                }
+            if(isset($_GET['cpage'])){
+                $lan = $_GET['cpage'];
+            }else{
+                $lan = $lan / $show;
             }
-            // else{
-            //     for ($i=0; $i < 4; $i++){ 
-            //         $number++;
-            //         if($number == 1){
-            //             $page .= '<a onclick="page('.$number.');">'.$number.'</a>';
-            //             $page .= '<a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>';
-            //        }else if($number == $lan){
-            //            $page = '<a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>';
-            //            $page .= '<a onclick="page('.$number.');">'.$number.'</a>';
-            //         }else{
-            //            $page = '<a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>';
-            //            $page .= '<a onclick="page('.$number.');">'.$number.'</a>';
-            //         }
-            //         $page .= '
-            //             <a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>	
-            //             <a onclick="page('.$number.');">'.$number.'</a>
-            //         ';
-            //     }
-            //     $page .= '
-            //         <a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-            //         <a href="#">'.ceil($lan).'</a>
-            //         <a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
-            //     ';
-            // }
+            $page = '';
+            if(isset($_SESSION['page'])){
+                if(ceil($lan) < 4){
+                    if(ceil($lan) == 0){
+                        $page = '';
+                    }else{
+                        if($lan == 1 || $_SESSION['page']['value'] == 1){
+                            $page = '<a onclick="prev('.$lan.');" class="prev-arrow" style ="pointer-events: none;cursor: default;"><i class="fa fa-long-arrow-left"  aria-hidden="true"></i></a>';
+                        }else{
+                            $page = '<a onclick="prev('.$lan.');" class="prev-arrow"><i class="fa fa-long-arrow-left"  aria-hidden="true"></i></a>';
+                        }
+                        for ($i=0; $i < ceil($lan); $i++){ 
+                            $number++;
+                            if($number == $_SESSION['page']['value']){
+                                $page .= '<a class="active" onclick="page('.$number.','.$lan.');">'.$number.'</a>'; 
+                            }else{
+                                $page .= '<a onclick="page('.$number.','.$lan.');">'.$number.'</a>';
+                            }
+                        }
+                        if($lan == $_SESSION['page']['value'] || $lan == 1){
+                            $page .= '<a onclick="next('.$lan.');" class="next-arrow"  style ="pointer-events: none;cursor: default;"><i class="fa fa-long-arrow-right"  aria-hidden="true"></i></a>';
+                        }else{
+                            $page .= '<a onclick="next('.$lan.');" class="next-arrow" aria-disabled = "false"><i class="fa fa-long-arrow-right"  aria-hidden="true"></i></a>';
+                        }
+                    }
+                }// else{
+                //     $page = '<a  class="prev-arrow" style ="pointer-events: none;cursor: default;"><i class="fa fa-long-arrow-left"  aria-hidden="true"></i></a>';
+                //     for ($i=0; $i < 4; $i++){ 
+                //         $number++;
+                //         echo'
+                //             <a onclick="page('.$number.');">'.$number.'</a>
+                //         ';
+                //     }
+                //     echo'
+                //         <a  class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+                //         <a >'.$lan.'</a>
+                //     ';
+                //     $page .= '<a  class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>';
+                // }
+            }else{
+                if(ceil($lan) < 4){
+                    if(ceil($lan) == 0){
+                        $page = '';
+                    }else{
+                        $page = '<a  class="prev-arrow" onclick="prev('.$lan.');" style ="pointer-events: none;cursor: default;"><i class="fa fa-long-arrow-left"  aria-hidden="true"></i></a>';
+                        for ($i=0; $i < ceil($lan); $i++){ 
+                            $number++;
+                            if($number == 1){
+                            $page .= '<a class="active" onclick="page('.$number.','.$lan.');">'.$number.'</a>'; 
+                            }else{
+                                $page .= '<a onclick="page('.$number.','.$lan.');">'.$number.'</a>';
+                            }
+                        }
+                        if($number == 1){
+                            $page .= '<a onclick="next('.$lan.');" class="next-arrow"  style ="pointer-events: none;cursor: default;"><i class="fa fa-long-arrow-right"  aria-hidden="true"></i></a>';
+                        }else{
+                            $page .= '<a onclick="next('.$lan.');" class="next-arrow" aria-disabled = "false"><i class="fa fa-long-arrow-right"  aria-hidden="true"></i></a>';
+                        }
+                    }
+                }// else{
+                //     $page = '<a  class="prev-arrow" style ="pointer-events: none;cursor: default;"><i class="fa fa-long-arrow-left"  aria-hidden="true"></i></a>';
+                //     for ($i=0; $i < 4; $i++){ 
+                //         $number++;
+                //         echo'
+                //             <a onclick="page('.$number.');">'.$number.'</a>
+                //         ';
+                //     }
+                //     echo'
+                //         <a  class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+                //         <a >'.$lan.'</a>
+                //     ';
+                //     if($lan == $_SESSION['page']['value'] || $lan == 1){
+                //         $page .= '<a  class="next-arrow"  style ="pointer-events: none;cursor: default;"><i class="fa fa-long-arrow-right"  aria-hidden="true"></i></a>';
+                //     }else{
+                //         $page .= '<a  class="next-arrow" aria-disabled = "false"><i class="fa fa-long-arrow-right"  aria-hidden="true"></i></a>';
+                //     }
+                // }
+            }
+            
             array_push($myArr,array($page));
             if(isset($_SESSION['filter'])){
                 foreach($_SESSION['filter'] as $filter => $value){
@@ -317,9 +354,26 @@
                 array_push($myArr,array($_SESSION['show']['value'],$_SESSION['show']['name']));
             }
             echo json_encode($myArr);
-            // print_r ($pr);
-            // echo $where;
             break;
+
+        case 'next_prev':
+            if(isset($_GET['name'])){
+                $name = $_GET['name'];
+                if($name == 'next'){
+                    if(!empty($_SESSION['page'])){
+                        $_SESSION['page']['value'] = $_SESSION['page']['value'] +1;
+                    }else{
+                        $_SESSION['page']['value'] = 1;
+                    }
+                }else{
+                    if(!empty($_SESSION['page'])){
+                        $_SESSION['page']['value'] = $_SESSION['page']['value'] - 1;
+                    }else{
+                        $_SESSION['page']['value'] = 1;
+                    }
+                }
+            }
+        break;
 
         default: 
             require_once('views/shop/index.php');

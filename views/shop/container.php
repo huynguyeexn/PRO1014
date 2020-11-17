@@ -13,7 +13,7 @@
 							foreach($tag as $t){
 								$i++;
 								echo'
-									<li onclick="filter('.$t['id'].',1);"  class="main-nav-list"><a class="color" data-toggle="collapse" href="#meatFish" aria-expanded="false" aria-controls="meatFish"><span
+									<li onclick="filter('.$t['id'].',1,1);"  class="main-nav-list"><a class="color" data-toggle="collapse" href="#meatFish" aria-expanded="false" aria-controls="meatFish"><span
 											class="lnr lnr-arrow-right"></span>'.$t['name'].'</a>
 									</li>
 								';
@@ -36,7 +36,7 @@
 									foreach($brand as $b){
 										$i++;
 										echo'
-											<li onclick="filter('.$b['id'].',3);" class="filter-list"><input class="pixel-radio" type="radio" id="'.$b['name'].'" name="brand"><label for="'.$b['name'].'">'.$b['name'].'</label></li>
+											<li onclick="filter('.$b['id'].',3,1);" class="filter-list"><input class="pixel-radio" type="radio" id="'.$b['name'].'" name="brand"><label for="'.$b['name'].'">'.$b['name'].'</label></li>
 										';
 									}
 								?>
@@ -53,7 +53,7 @@
 									foreach($color as $c){
 										$i++;
 										echo'
-										<li onclick="filter('.$c['id'].',2);" class="filter-list"><input class="pixel-radio" type="radio" id="'.$c['name'].'" name="color"><label for="'.$c['name'].'">'.$c['name'].'</label></li>
+										<li onclick="filter('.$c['id'].',2,1);" class="filter-list"><input class="pixel-radio" type="radio" id="'.$c['name'].'" name="color"><label for="'.$c['name'].'">'.$c['name'].'</label></li>
 										';
 									}
 								?>
@@ -81,7 +81,7 @@
 				<!-- Start Filter Bar -->
 				<div class="filter-bar d-flex flex-wrap align-items-center">
 					<div class="sorting">
-						<select id='idsort' onchange="sort(this.value)">
+						<select id='idsort' onchange="sort(this.value,1)">
 							<option value="1">Phù hợp nhất</option>
 							<option value="2">Sản phẩm mới nhất</option>
 							<option value="3">Sản phẩm được mua nhiều nhất</option>
@@ -90,14 +90,14 @@
 						</select>
 					</div>
 					<div  class="sorting mr-auto">
-						<select id='idshow' onchange="show(this.value)">
+						<select id='idshow' onchange="show(this.value,1)">
 							<option value="6">Show 6</option>
 							<option value="9">Show 9</option>
 							<option value="12">Show 12</option>
 						</select>
 					</div>
 					<div id ='pagination' class="pagination">
-						<a onclick="back();" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>		
+						<a onclick="back();" class="prev-arrow" style ="pointer-events: none;cursor: default;"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>		
 						<?php
 							$where = '';
 							$true = 1;
@@ -170,18 +170,23 @@
 								$lan = ceil($dproduct['count']);
 							}
 							$number = 0;
+							$page = 1;
 							if($lan < 4){
 								for ($i=0; $i < $lan; $i++){ 
 									$number++;
-									echo'
-										<a onclick="page('.$number.');">'.$number.'</a>
-									';
+									if($number == $page){
+										echo '<a class="active" onclick="page('.$number.','.$lan.');">'.$number.'</a>';
+									}else{
+										echo'
+											<a onclick="page('.$number.','.$lan.');">'.$number.'</a>
+										';
+									}
 								}
 							}else{
 								for ($i=0; $i < 4; $i++){ 
 									$number++;
 									echo'
-										<a onclick="page('.$number.');">'.$number.'</a>
+										<a onclick="page('.$number.','.$lan.');">'.$number.'</a>
 									';
 								}
 								echo'
@@ -189,9 +194,8 @@
 									<a href="#">'.$lan.'</a>
 								';
 							}
-							
+							echo '<a onclick="next('.$lan.');" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>';
 						?>
-						<a onclick="next();" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
 					</div>
 				</div>
 				<!-- End Filter Bar -->
@@ -261,14 +265,14 @@
 								for ($i=0; $i < $lan; $i++){ 
 									$number++;
 									echo'
-										<a onclick="page('.$number.');">'.$number.'</a>
+										<a onclick="page('.$number.','.$lan.');">'.$number.'</a>
 									';
 								}
 							}else{
 								for ($i=0; $i < 4; $i++){ 
 									$number++;
 									echo'
-										<a onclick="page('.$number.');">'.$number.'</a>
+										<a onclick="page('.$number.','.$lan.');">'.$number.'</a>
 									';
 								}
 								echo'
@@ -317,17 +321,19 @@
 		});
 		
 
-		function page(x){
+		function page(x,p){
 			var tag = document.getElementsByClassName('color')
 			var d = document.getElementById("row");			
+			var page = document.getElementById("pagination");
 			$.ajax({
 				url: 'Shop.php',
                 type: 'GET',
-                data : 'action=page&start='+x,
+                data : 'action=page&start='+x+'&cpage='+p,
               	success : function(data) 
                         { 
 							var myObj = JSON.parse(data);
 							d.innerHTML = myObj[0];
+							page.innerHTML = myObj[1]
 							x='shop.php'
 							for(i=2;i<myObj.length;i++){
 								if(x == 'shop.php'){
@@ -342,7 +348,7 @@
               return false;
 		}
 
-		function filter(x,t){
+		function filter(x,t,p){
 			var tag = document.getElementsByClassName('color')
 			var d = document.getElementById("row");			
 			var page = document.getElementById("pagination");
@@ -350,7 +356,7 @@
 			$.ajax({
 				url: 'Shop.php',
                 type: 'GET',
-                data : 'action=page&name='+t+'&value='+x, //dữ liệu sẽ được gửi
+                data : 'action=page&name='+t+'&value='+x+'&page=1', //dữ liệu sẽ được gửi
               	success : function(data)  // Hàm thực thi khi nhận dữ liệu được từ server
                         { 
 							var myObj = JSON.parse(data);
@@ -371,7 +377,7 @@
               return false;
 		}
 		
-		function sort(x){
+		function sort(x,p){
 			var tag = document.getElementsByClassName('color')
 			var d = document.getElementById("row");			
 			var page = document.getElementById("pagination");
@@ -379,7 +385,7 @@
 			$.ajax({
 				url: 'Shop.php',
                 type: 'GET',
-                data : 'action=page&sort='+x, //dữ liệu sẽ được gửi
+                data : 'action=page&sort='+x+'&page=1', //dữ liệu sẽ được gửi
               	success : function(data)  // Hàm thực thi khi nhận dữ liệu được từ server
                         { 
 							var myObj = JSON.parse(data);
@@ -400,7 +406,7 @@
               return false;
 		}
 
-		function price(){
+		function price(p){
 			var lower = document.getElementById("lower-value").innerText;
 			var upper = document.getElementById("upper-value").innerText;
 			var d = document.getElementById("row");			
@@ -409,7 +415,7 @@
 			$.ajax({
 				url: 'Shop.php',
                 type: 'GET',
-                data : 'action=page&lower='+lower+'&upper='+upper, //dữ liệu sẽ được gửi
+                data : 'action=page&lower='+lower+'&upper='+upper+'&page=1', //dữ liệu sẽ được gửi
               	success : function(data)  // Hàm thực thi khi nhận dữ liệu được từ server
                         { 
 							var myObj = JSON.parse(data);
@@ -430,7 +436,7 @@
               return false;
 		}
 
-		function show(x){
+		function show(x,p){
 			var tag = document.getElementsByClassName('color')
 			var d = document.getElementById("row");			
 			var page = document.getElementById("pagination");
@@ -438,7 +444,7 @@
 			$.ajax({
 				url: 'Shop.php',
                 type: 'GET',
-                data : 'action=page&show='+x, //dữ liệu sẽ được gửi
+                data : 'action=page&show='+x+'&page=1', //dữ liệu sẽ được gửi
               	success : function(data)  // Hàm thực thi khi nhận dữ liệu được từ server
                         { 
 							var myObj = JSON.parse(data);
@@ -459,7 +465,7 @@
               return false;
 		}
 
-		function next(){
+		function next(z){
 			var tag = document.getElementsByClassName('color')
 			var d = document.getElementById("row");			
 			var page = document.getElementById("pagination");
@@ -468,11 +474,12 @@
 			$.ajax({
 				url: 'Shop.php',
                 type: 'GET',
-                data : 'action=page&button='+x,
+                data : 'action=page&button='+x+"&cpage="+z,
               	success : function(data) 
                         { 
 							var myObj = JSON.parse(data);
 							d.innerHTML = myObj[0];
+							page.innerHTML=myObj[1];
 							x='shop.php'
 							for(i=2;i<myObj.length;i++){
 								if(x == 'shop.php'){
@@ -486,7 +493,7 @@
               });
               return false;
 		}
-		function back(){
+		function prev(z){
 			var tag = document.getElementsByClassName('color')
 			var d = document.getElementById("row");			
 			var page = document.getElementById("pagination");
@@ -495,11 +502,12 @@
 			$.ajax({
 				url: 'Shop.php',
                 type: 'GET',
-                data : 'action=page&button='+x,
+                data : 'action=page&button='+x+"&cpage="+z,
               	success : function(data) 
                         { 
 							var myObj = JSON.parse(data);
 							d.innerHTML = myObj[0];
+							page.innerHTML=myObj[1];
 							x='shop.php'
 							for(i=2;i<myObj.length;i++){
 								if(x == 'shop.php'){
