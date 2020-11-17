@@ -15,12 +15,12 @@
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 					<ul class="nav navbar-nav menu_nav ml-auto">
-						<li class="nav-item active"><a class="nav-link" href="index.php">Home</a></li>
-						<li class="nav-item"><a class="nav-link" href="Shop.php">Shop</a></li>
-						<li class="nav-item"><a class="nav-link" href="blog.php">Blog</a></li>
-						<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-						<li class="nav-item"><a class="nav-link" href="account.php">Login</a></li>
-						<li class="nav-item"><a class="nav-link" href="admin.php">Admin</a></li>
+						<li class="nav-item active"><a class="nav-link" href="index.php">Trang chủ</a></li>
+						<li class="nav-item"><a class="nav-link" href="Shop.php">Cửa hàng</a></li>
+						<li class="nav-item"><a class="nav-link" href="blog.php">Tin tức</a></li>
+						<li class="nav-item"><a class="nav-link" href="contact.html">Liên hệ</a></li>
+						<li class="nav-item"><a class="nav-link" href="account.php">Đăng nhập</a></li>
+						<li class="nav-item"><a class="nav-link" href="admin.php">Quản trị</a></li>
 						<li class="nav-item"><a class="nav-link" href="cart.php" id="linkToCart">
 							<?php
 								if(isset($_SESSION['cart'])){
@@ -28,9 +28,9 @@
 									foreach ($_SESSION['cart'] as $e)  {
 										$quantity += $e['quantity'];
 									}
-									echo "Cart ($quantity)";
+									echo "Giỏ hàng ($quantity)";
 								}else{
-									echo "Cart (0)";
+									echo "Giỏ hàng (0)";
 								}
 							?>
 						</a></li>
@@ -47,9 +47,9 @@
 	<div class="search_input" id="search_input_box">
 		<div class="container">
 			<form class="d-flex justify-content-between">
-				<input type="text" class="form-control" id="search_input" placeholder="Search Here">
+				<input type="text" class="form-control" id="search_input" placeholder="Bạn muốn tìm gì...?">
 				<button type="submit" class="btn"></button>
-				<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
+				<span class="lnr lnr-cross" id="close_search" title="Đóng"></span>
 			</form>
 		</div>
 	</div>

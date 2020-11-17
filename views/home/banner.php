@@ -14,7 +14,7 @@
 											<p>'.$slider['description'].'</p>
 											<div class="add-bag d-flex align-items-center">
 												<a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
-												<span class="add-text text-uppercase">Add to Bag</span>
+												<span class="add-text text-uppercase">Thêm vào giỏ</span>
 											</div>
 										</div>
 									</div>
@@ -37,7 +37,7 @@
 										dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
 									<div class="add-bag d-flex align-items-center">
 										<a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
-										<span class="add-text text-uppercase">Add to Bag</span>
+										<span class="add-text text-uppercase">Thêm vào giỏ</span>
 									</div>
 								</div>
 							</div>

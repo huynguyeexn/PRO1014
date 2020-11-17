@@ -42,8 +42,8 @@
                             <ul class="blog_meta list">
                                 <li><a href="#">'.$user['fullname'].'<i class="lnr lnr-user"></i></a></li>
                                 <li><a href="#">'.$blog['created'].'<i class="lnr lnr-calendar-full"></i></a></li>
-                                <li><a href="#">'.$blog['view'].' Views<i class="lnr lnr-eye"></i></a></li>
-                                <li><a href="#"> Comments<i class="lnr lnr-bubble"></i></a></li>
+                                <li><a href="#">'.$blog['view'].' Lượt xem<i class="lnr lnr-eye"></i></a></li>
+                                <li><a href="#"> Bình luận<i class="lnr lnr-bubble"></i></a></li>
                             </ul>
                             <ul class="social-links">
                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -174,7 +174,7 @@
                                     <a href="#"><span class="lnr text-white lnr-arrow-left"></span></a>
                                 </div>
                                 <div class="detials">
-                                    <p>Prev Post</p>
+                                    <p>Trước</p>
                                     <a href="#">
                                         <h4>Space The Final Frontier</h4>
                                     </a>
@@ -182,7 +182,7 @@
                             </div>
                             <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
                                 <div class="detials">
-                                    <p>Next Post</p>
+                                    <p>Kế tiếp</p>
                                     <a href="#">
                                         <h4>Telescopes 101</h4>
                                     </a>
@@ -196,28 +196,40 @@
                             </div>
                         </div>
                     </div>
+
+                    
                     <div class="comments-area">
-                        <h4>05 Comments</h4>
-                        <div class="comment-list">
-                            <div class="single-comment justify-content-between d-flex">
-                                <div class="user justify-content-between d-flex">
-                                    <div class="thumb">
-                                        <img src="assets/img/blog/c1.jpg" alt="">
+
+                    
+                        <h4>Bình luận</h4>
+                        <?php
+                            $blogcomment = getAllBlogComment();
+                            foreach($blogcomment as $blogcom){
+                                echo'
+                                <div class="comment-list">
+                                <div class="single-comment justify-content-between d-flex">
+                                    <div class="user justify-content-between d-flex">
+                                        <div class="thumb">
+                                           
+                                        </div>
+                                        <div class="desc">
+                                            
+                                            <p class="date">'.$blogcom['created'].'</p>
+                                            <p class="comment">
+                                            '.$blogcom['content'].'
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div class="desc">
-                                        <h5><a href="#">Emilly Blunt</a></h5>
-                                        <p class="date">December 4, 2018 at 3:12 pm </p>
-                                        <p class="comment">
-                                            Never say goodbye till the end comes!
-                                        </p>
+                                    <div class="reply-btn">
+                                        <a href="" class="btn-reply text-uppercase">trả lời</a>
                                     </div>
-                                </div>
-                                <div class="reply-btn">
-                                    <a href="" class="btn-reply text-uppercase">reply</a>
                                 </div>
                             </div>
-                        </div>
-                        <div class="comment-list left-padding">
+                                ';
+                            }
+                    ?>
+                       
+                        <!-- <div class="comment-list left-padding">
                             <div class="single-comment justify-content-between d-flex">
                                 <div class="user justify-content-between d-flex">
                                     <div class="thumb">
@@ -292,35 +304,30 @@
                                     <a href="" class="btn-reply text-uppercase">reply</a>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
+                 
                             <?php
-                            $_SESSION['user'] = 1;
-                    if(isset($_SESSION['user'])){
+                            $_SESSION['user_id'] = 1;
+                            $idblog =$_GET['id'];
+                    if(isset($_SESSION['user_id'])){
                         echo '<div class="comment-form">
-                        <h4>Leave a Reply</h4>
-                        <form>
+                        <h4>Để lại bình luận tại đây</h4>
+                        <form action ="blog.php?action=comment&id='.$idblog.'" method = "POST">
                             <div class="form-group form-inline">
-                                <div class="form-group col-lg-6 col-md-6 name">
-                                    <input type="text" class="form-control" id="name" placeholder="Enter Name" onfocus=""
-                                        onblur="">
-                                </div>
-                                <div class="form-group col-lg-6 col-md-6 email">
-                                    <input type="email" class="form-control" id="email" placeholder="Enter email address"
-                                        onfocus="" onblur="">
-                                </div>
+                            <input type="hidden" class="form-control" name="uid"  onfocus=""  onblur="">
+                              
                             </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="subject" placeholder="Subject" onfocus=""
-                                    onblur="">
-                            </div>
+                          
                             <div class="form-group">
                                 <textarea class="form-control mb-10" rows="5" name="message" placeholder="Messege"
                                     onfocus="" onblur="" required=""></textarea>
                             </div>
-                            <a href="#" class="primary-btn submit_btn">Post Comment</a>
+                           <button type ="submit" class="primary-btn submit_btn" name="submit">Gửi bình luận</button>
                         </form>
                     </div>';
+                
+                    
                     }else{
                         echo '<a href="login.php">Pls Login</a>';
                     }
@@ -331,7 +338,7 @@
                     <div class="blog_right_sidebar">
                         <aside class="single_sidebar_widget search_widget">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search Posts" onfocus="" onblur="this.placeholder = 'Search Posts'">
+                                <input type="text" class="form-control" placeholder="Tìm kiếm" onfocus="" onblur="this.placeholder = 'Tìm kiếm'">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="button"><i class="lnr lnr-magnifier"></i></button>
                                 </span>
@@ -341,20 +348,19 @@
                         <aside class="single_sidebar_widget author_widget">
                             <img class="author_img rounded-circle" src="assets/img/blog/author.png" alt="">
                             <h4>Charlie Barber</h4>
-                            <p>Senior blog writer</p>
+                            <p>Tác giả kì cựu</p>
                             <div class="social_icon">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
                                 <a href="#"><i class="fa fa-twitter"></i></a>
                                 <a href="#"><i class="fa fa-github"></i></a>
                                 <a href="#"><i class="fa fa-behance"></i></a>
                             </div>
-                            <p>Boot camps have its supporters andit sdetractors. Some people do not understand why you
-                                should have to spend money on boot camp when you can get. Boot camps have itssuppor
-                                ters andits detractors.</p>
+                            <p>Sneaker là giày thể thao, có đế mềm với phần trên được làm bằng vải hoặc bạt, da. Không chỉ được sử dụng trong các hoạt động thể thao, sneaker hiện nay còn trở thành một trong những sản phẩm phổ biến, không thể thiếu của các tín đồ thời trang. Sneaker có vẻ ngoài thể thao, khỏe khoắn, năng động, mang lại sự dễ chịu, thoải mái cho người sử dụng. </p>
+
                             <div class="br"></div>
                         </aside>
                         <aside class="single_sidebar_widget popular_post_widget">
-                            <h3 class="widget_title">Popular Posts</h3>
+                            <h3 class="widget_title">Bài viết phổ biến</h3>
                             <?php
                                  $blogs = getAllBlog();
                                  foreach($blogs as $blog){
@@ -379,7 +385,7 @@
                             <div class="br"></div>
                         </aside>
                         <aside class="single_sidebar_widget post_category_widget">
-                            <h4 class="widget_title">Post Catgories</h4>
+                            <h4 class="widget_title">Danh mục bài viết</h4>
                             <ul class="list cat-list">
 
                             <?php
@@ -442,10 +448,10 @@
                             <div class="br"></div>
                         </aside>
                         <aside class="single-sidebar-widget newsletter_widget">
-                            <h4 class="widget_title">Newsletter</h4>
+                            <h4 class="widget_title">Thư điện tử</h4>
                             <p>
-                                Here, I focus on a range of items and features that we use in life without
-                                giving them a second thought.
+                            Bạn có thể để lại email của bạn ở đây
+
                             </p>
                             <div class="form-group d-flex flex-row">
                                 <div class="input-group">
@@ -455,13 +461,13 @@
                                     <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Enter email"
                                         onfocus="" onblur="this.placeholder = 'Enter email'">
                                 </div>
-                                <a href="#" class="bbtns">Subcribe</a>
+                                <a href="#" class="bbtns">Subscribe</a>
                             </div>
-                            <p class="text-bottom">You can unsubscribe at any time</p>
+                            <p class="text-bottom">Bạn có thể hủy đăng kí bất kì lúc nào</p>
                             <div class="br"></div>
                         </aside>
                         <aside class="single-sidebar-widget tag_cloud_widget">
-                            <h4 class="widget_title">Tag Clouds</h4>
+                            <h4 class="widget_title">Từ khóa</h4>
                             <ul class="list">
                             <?php
                             $blogs = getAllBlogCatalog();

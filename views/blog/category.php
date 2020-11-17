@@ -8,10 +8,10 @@
                         <div class="categories_details">
                             <div class="categories_text">
                                 <a href="blog-details.html">
-                                    <h5>Art</h5>
+                                    <h5>Nghệ thuật</h5>
                                 </a>
                                 <div class="border_line"></div>
-                                <p>Art is an experience not an object</p>
+                                <p>Nghệ thuật là một trải nghiệm</p>
                             </div>
                         </div>
                     </div>
@@ -22,10 +22,10 @@
                         <div class="categories_details">
                             <div class="categories_text">
                                 <a href="blog-details.html">
-                                    <h5>Fashion</h5>
+                                    <h5>Thời trang</h5>
                                 </a>
                                 <div class="border_line"></div>
-                                <p>Enjoy your fashion trend</p>
+                                <p>Tận hưởng xu hướng thời trang của bạn</p>
                             </div>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                                     <h5>Sneaker</h5>
                                 </a>
                                 <div class="border_line"></div>
-                                <p>Walk the line</p>
+                                <p>Mang lại sức mạnh cho các bước đi</p>
                             </div>
                         </div>
                     </div>

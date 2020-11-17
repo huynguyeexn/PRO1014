@@ -33,14 +33,14 @@
                 url: 'shop.php?action=addToCart&id=' + id + '&quantity=1',
                 success: function(data) {
 					// console.log(data);
-                    $("#linkToCart").text('CART('+data+')');
+                    $("#linkToCart").text('Giỏ hàng ('+data+')');
                 }
             });
 			$(e).children('.ti-bag').removeClass('ti-bag').addClass('ti-check animate__animated animate__headShake');
-			$(e).children('p').text("Success");
+			$(e).children('p').text("Đã thêm");
 			setTimeout(function() {
 				$(e).children('.ti-check').removeClass('ti-check animate__animated animate__headShake').addClass('ti-bag');
-				$(e).children('p').text("ADD TO BAG");
+				$(e).children('p').text("Thêm vào giỏ");
 			}, 1000);
 		});
 
