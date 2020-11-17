@@ -10,7 +10,7 @@
     require_once('models/OrderModel.php');
 
 
-    // GET action.
+    // GET action.  
     $action = "home";
     if (isset($_GET["action"])) {
         $action = $_GET["action"];

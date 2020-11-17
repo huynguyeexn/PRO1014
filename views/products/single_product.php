@@ -4,10 +4,11 @@
             <div class="col-lg-6">
                 <div class="s_Product_carousel">
                     <?php
-								$pro = getProductById(7); 
-								//print_r($pro);
+								$pro = getProductById(7);
+								
+								$images = json_decode($pro['images']);
 
-								$images = json_decode($pro['images'])->images;
+								
 								foreach( $images as $img){
 									echo'
 									<div class="single-prd-item">
@@ -47,26 +48,28 @@
 			';
 				
 		?>
-            <div class="product_count">
-                <label for="qty">Quantity:</label>
-                <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
-                    class="input-text qty">
-                <button
-                    onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                    class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                <button
-                    onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                    class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
-            </div>
-            <div class="row">
+
+            <div class="row mb-2 margin-size">
                 <style>
+				
                 .form-select .current {
-                    margin-left: 20px;
-                }
+					margin-left: 20px;
+				
+				}
+				.form-select .nice-select{
+					background-color: white;
+					
+				}
+				.margin-size{
+					margin-left: -20px;
+				}
+				.format-input{
+					border: 0px;
+				}
                 </style>
                 <div class="input-group-icon mt-10">
                     <div class="icon">Size: </div>
-                    <div class="form-select" id="default-select"">
+                    <div class="form-select " id="default-select"">
 											<select>
 				<?php 
 				$size=getSizeByProductId($pro['id']);
@@ -79,6 +82,17 @@
 							</div>
 					</div>
 			</div>
+            <div class="product_count ">
+                <label for="qty">Quantity:</label>
+                <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
+                    class="input-text qty ">
+                <button
+                    onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+                    class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
+                <button
+                    onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) && sst > 0 ) result.value--;return false;"
+                    class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+            </div>
 						<div class=" card_area d-flex align-items-center">
                         <a class="primary-btn" href="#">Add to Cart</a>
                         <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
