@@ -17,8 +17,8 @@
 							<div class="comment_list">
 							
 								<?php
-									$pro = getProductById(1);
-									$comment = getCommentByProductId($pro['id']);													
+									
+									$comment = getCommentByProductId($product['id']);													
 									foreach($comment as $cmt){
 										$user=getUserById($cmt['user_id']);
 										echo'										
@@ -85,8 +85,8 @@
 							</div>
 							<div class="review_list">
 							<?php
-							$pro = getProductById(1);
-							$reviews = getReviewsByProductId($pro['id']);	
+							$product = getProductById(1);
+							$reviews = getReviewsByProductId($product['id']);	
 							foreach($reviews as $rv){
 								$user=getUserById($cmt['user_id']);
 								echo'

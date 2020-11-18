@@ -1,11 +1,10 @@
 <div class="product_image_area">
     <div class="container">
-        <div class="row s_product_inner">
+        <div class="row s_productduct_inner">
             <div class="col-lg-6">
                 <div class="s_Product_carousel">
-                    <?php
-								$pro = getProductById(1	);								
-								$images = json_decode($pro['images']);								
+                    <?php							
+								$images = json_decode($product['images']);								
 								foreach( $images as $img){
 									echo'
 									<div class="single-prd-item">
@@ -16,20 +15,18 @@
                 </div>
             </div>
             <?php
-			
-			$pro = getProductById(1);
-			$tags = getTagByProductId($pro['id']);
+			$tags = getTagByProductId($product['id']);
 			echo'
 			<div class="col-lg-5 offset-lg-1">
-			<div class="s_product_text">
-				<h3>'.$pro['name'].'</h3>
-				<h2>'.$pro['price'].'$</h2>
+			<div class="s_productduct_text">
+				<h3>'.$product['name'].'</h3>
+				<h2>'.$product['price'].'$</h2>
 				<ul class="list">
 					<li><a class="active" href="#"><span>Loại hàng</span> :';
 					foreach($tags as $t){
 						echo getTagId($t['tag_id'])['name']." ";
 					}
-					$Availibility=getSizeByProductId($pro['id']);
+					$Availibility=getSizeByProductId($product['id']);
 					foreach($Availibility as $avb){
 					};
 						if($avb['quantity']<=0){
@@ -40,35 +37,37 @@
 					
 				echo'</a></li>
 				</ul>
-				<p>'.$pro['description'].'</p>	
+				<p>'.$product['description'].'</p>	
 			';
 				
 		?>
 
             <div class="row mb-2 margin-size">
                 <style>
-				
                 .form-select .current {
-					margin-left: 20px;
-				
-				}
-				.form-select .nice-select{
-					background-color: white;
-					
-				}
-				.margin-size{
-					margin-left: -20px;
-				}
-				.format-input{
-					border: 0px;
-				}
+                    margin-left: 20px;
+
+                }
+
+                .form-select .nice-select {
+                    background-color: white;
+
+                }
+
+                .margin-size {
+                    margin-left: -20px;
+                }
+
+                .format-input {
+                    border: 0px;
+                }
                 </style>
                 <div class="input-group-icon mt-10">
                     <div class="icon">Size: </div>
                     <div class="form-select " id="default-select"">
 											<select>
 				<?php 
-				$size=getSizeByProductId($pro['id']);
+				$size=getSizeByProductId($product['id']);
 				foreach($size as $sz){
 					getSizeId($sz['size_id']);
 					echo 	"<option value=".'1'."> $sz[size_id]</option>";
@@ -78,18 +77,18 @@
 							</div>
 					</div>
 			</div>
-            <div class="product_count ">
-                <label for="qty">Số lượng:</label>
-                <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
-                    class="input-text qty ">
-                <button
-                    onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                    class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                <button
-                    onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) && sst > 0 ) result.value--;return false;"
-                    class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
-            </div>
-						<div class=" card_area d-flex align-items-center">
+            <div class=" product_count ">
+                <label for=" qty">Số lượng:</label>
+                        <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
+                            class="input-text qty ">
+                        <button
+                            onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+                            class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
+                        <button
+                            onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) && sst > 0 ) result.value--;return false;"
+                            class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+                    </div>
+                    <div class=" card_area d-flex align-items-center">
                         <a class="primary-btn" href="#">Thêm vào giỏ </a>
                         <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
                     </div>

@@ -22,8 +22,13 @@
 
     switch ($action) {
         case 'home':
-            $allProduct = getAllProduct();
+            if(isset($_GET['id'])){
+
+                $id=$_GET['id'];
+                $product = getProductById($id);
             require_once('views/products/index.php');
+            }
+            
             break;
         case 'detail':
             // Product detail view
