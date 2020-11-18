@@ -22,6 +22,7 @@ function getConnection(){
     return $conn;
 }
 
+
 //Gửi câu truy vấn SELECT và trả về tất cả hàng.
 function query($sql){
     $connect = getConnection();

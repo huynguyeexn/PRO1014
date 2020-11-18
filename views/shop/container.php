@@ -2,19 +2,18 @@
 		<div class="row">
 			<div class="col-xl-3 col-lg-4 col-md-5">
 				<div class="sidebar-categories">
-					<div class="head">Browse Categories</div>
+					<div class="head">Danh mục</div>
 					<ul class="main-categories">
 						<?php
 							$tag = getAllTag();
 							// print_r($_SESSION['filter']);
 							// print_r($_SESSION['sort']);
-							// print_r($_SESSION['price']);
-							$delete = 'delete';
+							print_r($_SESSION['page']);
 							$i = -1;
 							foreach($tag as $t){
 								$i++;
 								echo'
-									<li onclick="filter('.$t['id'].',1);"  class="main-nav-list"><a class="color" data-toggle="collapse" href="#meatFish" aria-expanded="false" aria-controls="meatFish"><span
+									<li onclick="filter('.$t['id'].',1,1);"  class="main-nav-list"><a class="color" data-toggle="collapse" href="#meatFish" aria-expanded="false" aria-controls="meatFish"><span
 											class="lnr lnr-arrow-right"></span>'.$t['name'].'</a>
 									</li>
 								';
@@ -26,9 +25,9 @@
 					</ul>
 				</div>
 				<div class="sidebar-filter mt-50">
-					<div class="top-filter-head">Product Filters</div>
+					<div class="top-filter-head">Danh mục liên quan</div>
 					<div class="common-filter">
-						<div class="head">Brands</div>
+						<div class="head">Thương hiệu</div>
 						<form action="#">
 							<ul>
 								<?php
@@ -37,7 +36,7 @@
 									foreach($brand as $b){
 										$i++;
 										echo'
-											<li onclick="filter('.$b['id'].',3,'.$i.');" class="filter-list"><input class="pixel-radio" type="radio" id="'.$b['name'].'" name="brand"><label for="'.$b['name'].'">'.$b['name'].'</label></li>
+											<li onclick="filter('.$b['id'].',3,1);" class="filter-list"><input class="pixel-radio" type="radio" id="'.$b['name'].'" name="brand"><label for="'.$b['name'].'">'.$b['name'].'</label></li>
 										';
 									}
 								?>
@@ -46,7 +45,7 @@
 						</form>
 					</div>
 					<div class="common-filter">
-						<div class="head">Color</div>
+						<div class="head">Nhóm màu</div>
 						<form action="#">
 							<ul>
 								<?php
@@ -54,7 +53,7 @@
 									foreach($color as $c){
 										$i++;
 										echo'
-										<li onclick="filter('.$c['id'].',2,'.$i.');" class="filter-list"><input class="pixel-radio" type="radio" id="'.$c['name'].'" name="color"><label for="'.$c['name'].'">'.$c['name'].'</label></li>
+										<li onclick="filter('.$c['id'].',2,1);" class="filter-list"><input class="pixel-radio" type="radio" id="'.$c['name'].'" name="color"><label for="'.$c['name'].'">'.$c['name'].'</label></li>
 										';
 									}
 								?>
@@ -63,7 +62,7 @@
 						</form>
 					</div>
 					<div class="common-filter">
-						<div class="head">Price</div>
+						<div class="head">Giá</div>
 						<div class="price-range-area">
 							<div id="price-range" onmouseup="price();"></div>
 							<div class="value-wrapper d-flex">
@@ -82,7 +81,7 @@
 				<!-- Start Filter Bar -->
 				<div class="filter-bar d-flex flex-wrap align-items-center">
 					<div class="sorting">
-						<select onchange="sort(this.value)">
+						<select id='idsort' onchange="sort(this.value,1)">
 							<option value="1">Phù hợp nhất</option>
 							<option value="2">Sản phẩm mới nhất</option>
 							<option value="3">Sản phẩm được mua nhiều nhất</option>
@@ -90,19 +89,24 @@
 							<option value="5">Giá từ cao xuống thấp</option>
 						</select>
 					</div>
-					<div class="sorting mr-auto">
-						<select>
-							<option value="1">Show 12</option>
-							<option value="1">Show 12</option>
-							<option value="1">Show 12</option>
+					<div  class="sorting mr-auto">
+						<select id='idshow' onchange="show(this.value,1)">
+							<option value="6">Show 6</option>
+							<option value="9">Show 9</option>
+							<option value="12">Show 12</option>
 						</select>
 					</div>
 					<div id ='pagination' class="pagination">
-						<a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>		
+						<a onclick="back();" class="prev-arrow" style ="pointer-events: none;cursor: default;"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>		
 						<?php
 							$where = '';
 							$true = 1;
-							if(isset($_GET['tag']) || isset($_GET['color']) || isset($_GET['brand']) || isset($_GET['sort'])|| isset($_GET['page'])|| isset($_GET['price']) ){
+							if(isset($_GET['tag']) || isset($_GET['color']) || isset($_GET['brand']) || isset($_GET['sort'])|| isset($_GET['page'])|| isset($_GET['price'])|| isset($_GET['show'])){
+								if(isset($_SESSION['show'])){
+									$show = $_SESSION['show']['value'];
+								}else{
+									$show = 6;
+								}
 								if(isset($_GET['tag'])){
 									$true = 2;
 									$tag = $_GET['tag'];
@@ -118,6 +122,12 @@
 									$brand = $_GET['brand'];
 									$where .= !empty($where) ? ' and product.id IN(select product.id from product INNER JOIN brand on brand.id = brand_id where brand_id = '.$brand.')': 'INNER JOIN brand on brand.id = brand_id where brand_id ='.$brand.'';
 								}
+								if(isset($_GET['price'])){
+									$true = 2;
+									$lower = $_SESSION['price']['lower'];
+									$upper = $_SESSION['price']['upper'];
+									$where .= !empty($where) ? ' and price BETWEEN '.$lower.' and '.$upper.'': ' where price BETWEEN '.$lower.' and '.$upper.'';
+								}
 								if(isset($_GET['sort'])){
 									$true = 2;
 									$value = $_GET['sort']; 
@@ -132,15 +142,9 @@
 										$where .= ' order by price desc';
 									}
 								}
-								if(isset($_GET['price'])){
-									$true = 2;
-									$lower = $_SESSION['price']['lower'];
-									$upper = $_SESSION['price']['upper'];
-									$where .= !empty($where) ? ' and price BETWEEN '.$lower.' and '.$upper.'': ' where price BETWEEN '.$lower.' and '.$upper.'';
-								}
 								if(isset($_GET['page'])){
-									$offset = ($_GET['page'] - 1) * 6 ;
-									$limit = 6;
+									$offset = ($_GET['page'] - 1) * $show ;
+									$limit = $show;
 									if($true == 2){
 										$where .= ' limit '.$limit.' offset '.$offset.'';
 										$product = getProductByFilter($where); 
@@ -154,29 +158,35 @@
 								foreach($product as $produycts){
 									$luot++;
 								}
-								$lan = ceil($luot/6);
+								$lan = ceil($luot/$show);
 							}else{
 								unset($_SESSION['filter']);
 								unset($_SESSION['sort']);
 								unset($_SESSION['page']);
 								unset($_SESSION['price']);
+								unset($_SESSION['show']);
 								$product = getProductByOffset(6,0);
 								$dproduct = getCountProduct();
 								$lan = ceil($dproduct['count']);
 							}
 							$number = 0;
+							$page = 1;
 							if($lan < 4){
 								for ($i=0; $i < $lan; $i++){ 
 									$number++;
-									echo'
-										<a onclick="page('.$number.');">'.$number.'</a>
-									';
+									if($number == $page){
+										echo '<a class="active" onclick="page('.$number.','.$lan.');">'.$number.'</a>';
+									}else{
+										echo'
+											<a onclick="page('.$number.','.$lan.');">'.$number.'</a>
+										';
+									}
 								}
 							}else{
 								for ($i=0; $i < 4; $i++){ 
 									$number++;
 									echo'
-										<a onclick="page('.$number.');">'.$number.'</a>
+										<a onclick="page('.$number.','.$lan.');">'.$number.'</a>
 									';
 								}
 								echo'
@@ -184,9 +194,8 @@
 									<a href="#">'.$lan.'</a>
 								';
 							}
-							
+							echo '<a onclick="next('.$lan.');" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>';
 						?>
-						<a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
 					</div>
 				</div>
 				<!-- End Filter Bar -->
@@ -256,14 +265,14 @@
 								for ($i=0; $i < $lan; $i++){ 
 									$number++;
 									echo'
-										<a onclick="page('.$number.');">'.$number.'</a>
+										<a onclick="page('.$number.','.$lan.');">'.$number.'</a>
 									';
 								}
 							}else{
 								for ($i=0; $i < 4; $i++){ 
 									$number++;
 									echo'
-										<a onclick="page('.$number.');">'.$number.'</a>
+										<a onclick="page('.$number.','.$lan.');">'.$number.'</a>
 									';
 								}
 								echo'
@@ -281,18 +290,50 @@
 		</div>
 	</div>
 	<script>
-		function page(x){
-			var start = (x*6) - 6;
+		$( window ).load(function() {
+			var href = window.location.search.substr(1);
+			var tt = href.split('&',8)
+			for(i=0;i<10;i++){
+				var tt1 = tt[i].split('=',2)
+				if(tt1[0] == 'sort'){
+					var sort = document.getElementById("idsort");
+					var select = sort.options[tt1[1]-1]
+					select.setAttribute('selected', true);
+				}
+				if(tt1[0] == 'show'){
+					alert(tt1)
+					var show = document.getElementById("idshow");
+					if(tt1[1] == 6)
+					{
+						var so = 0;
+					}else if(tt1[1] == 9)
+					{
+						var so = 1;
+					}else(tt1[1] == 12)
+					{
+						var so = 2;
+					}
+					var select1 = show.options[so]
+					alert(so)
+					select1.setAttribute('selected', true);
+				}
+			}
+		});
+		
+
+		function page(x,p){
 			var tag = document.getElementsByClassName('color')
 			var d = document.getElementById("row");			
+			var page = document.getElementById("pagination");
 			$.ajax({
 				url: 'Shop.php',
                 type: 'GET',
-                data : 'action=page&start='+start,
+                data : 'action=page&start='+x+'&cpage='+p,
               	success : function(data) 
                         { 
 							var myObj = JSON.parse(data);
 							d.innerHTML = myObj[0];
+							page.innerHTML = myObj[1]
 							x='shop.php'
 							for(i=2;i<myObj.length;i++){
 								if(x == 'shop.php'){
@@ -307,7 +348,7 @@
               return false;
 		}
 
-		function filter(x,t){
+		function filter(x,t,p){
 			var tag = document.getElementsByClassName('color')
 			var d = document.getElementById("row");			
 			var page = document.getElementById("pagination");
@@ -315,7 +356,7 @@
 			$.ajax({
 				url: 'Shop.php',
                 type: 'GET',
-                data : 'action=page&name='+t+'&value='+x, //dữ liệu sẽ được gửi
+                data : 'action=page&name='+t+'&value='+x+'&page=1', //dữ liệu sẽ được gửi
               	success : function(data)  // Hàm thực thi khi nhận dữ liệu được từ server
                         { 
 							var myObj = JSON.parse(data);
@@ -331,13 +372,12 @@
 							d.innerHTML= myObj[0];
 							page.innerHTML= myObj[1];
 							pages.innerHTML= myObj[1];
-							// alert(data)
                         }
               });
               return false;
 		}
 		
-		function sort(x){
+		function sort(x,p){
 			var tag = document.getElementsByClassName('color')
 			var d = document.getElementById("row");			
 			var page = document.getElementById("pagination");
@@ -345,7 +385,7 @@
 			$.ajax({
 				url: 'Shop.php',
                 type: 'GET',
-                data : 'action=page&sort='+x, //dữ liệu sẽ được gửi
+                data : 'action=page&sort='+x+'&page=1', //dữ liệu sẽ được gửi
               	success : function(data)  // Hàm thực thi khi nhận dữ liệu được từ server
                         { 
 							var myObj = JSON.parse(data);
@@ -361,13 +401,12 @@
 							d.innerHTML= myObj[0];
 							page.innerHTML= myObj[1];
 							pages.innerHTML= myObj[1];
-							// alert(data)
                         }
               });
               return false;
 		}
 
-		function price(){
+		function price(p){
 			var lower = document.getElementById("lower-value").innerText;
 			var upper = document.getElementById("upper-value").innerText;
 			var d = document.getElementById("row");			
@@ -376,7 +415,7 @@
 			$.ajax({
 				url: 'Shop.php',
                 type: 'GET',
-                data : 'action=page&lower='+lower+'&upper='+upper, //dữ liệu sẽ được gửi
+                data : 'action=page&lower='+lower+'&upper='+upper+'&page=1', //dữ liệu sẽ được gửi
               	success : function(data)  // Hàm thực thi khi nhận dữ liệu được từ server
                         { 
 							var myObj = JSON.parse(data);
@@ -392,7 +431,92 @@
 							d.innerHTML= myObj[0];
 							page.innerHTML= myObj[1];
 							pages.innerHTML= myObj[1];
-							// alert(data)
+                        }
+              });
+              return false;
+		}
+
+		function show(x,p){
+			var tag = document.getElementsByClassName('color')
+			var d = document.getElementById("row");			
+			var page = document.getElementById("pagination");
+			var pages = document.getElementById("pages");
+			$.ajax({
+				url: 'Shop.php',
+                type: 'GET',
+                data : 'action=page&show='+x+'&page=1', //dữ liệu sẽ được gửi
+              	success : function(data)  // Hàm thực thi khi nhận dữ liệu được từ server
+                        { 
+							var myObj = JSON.parse(data);
+							var x = 'shop.php'
+							for(i=2;i<myObj.length;i++){
+								if(x == 'shop.php'){
+									x += '?'+myObj[i][1]+'='+myObj[i][0];
+								}else{
+									x += '&'+myObj[i][1]+'='+myObj[i][0];
+								}
+							}
+							history.pushState('','',x);
+							d.innerHTML= myObj[0];
+							page.innerHTML= myObj[1];
+							pages.innerHTML= myObj[1];
+                        }
+              });
+              return false;
+		}
+
+		function next(z){
+			var tag = document.getElementsByClassName('color')
+			var d = document.getElementById("row");			
+			var page = document.getElementById("pagination");
+			var pages = document.getElementById("pages");
+			var x= 'next'
+			$.ajax({
+				url: 'Shop.php',
+                type: 'GET',
+                data : 'action=page&button='+x+"&cpage="+z,
+              	success : function(data) 
+                        { 
+							var myObj = JSON.parse(data);
+							d.innerHTML = myObj[0];
+							page.innerHTML=myObj[1];
+							x='shop.php'
+							for(i=2;i<myObj.length;i++){
+								if(x == 'shop.php'){
+									x += '?'+myObj[i][1]+'='+myObj[i][0];
+								}else{
+									x += '&'+myObj[i][1]+'='+myObj[i][0];
+								}
+							}
+							history.pushState('','',x);
+                        }
+              });
+              return false;
+		}
+		function prev(z){
+			var tag = document.getElementsByClassName('color')
+			var d = document.getElementById("row");			
+			var page = document.getElementById("pagination");
+			var pages = document.getElementById("pages");
+			var x= 'back'
+			$.ajax({
+				url: 'Shop.php',
+                type: 'GET',
+                data : 'action=page&button='+x+"&cpage="+z,
+              	success : function(data) 
+                        { 
+							var myObj = JSON.parse(data);
+							d.innerHTML = myObj[0];
+							page.innerHTML=myObj[1];
+							x='shop.php'
+							for(i=2;i<myObj.length;i++){
+								if(x == 'shop.php'){
+									x += '?'+myObj[i][1]+'='+myObj[i][0];
+								}else{
+									x += '&'+myObj[i][1]+'='+myObj[i][0];
+								}
+							}
+							history.pushState('','',x);
                         }
               });
               return false;
