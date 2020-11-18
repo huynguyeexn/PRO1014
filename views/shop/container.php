@@ -8,7 +8,7 @@
 							$tag = getAllTag();
 							// print_r($_SESSION['filter']);
 							// print_r($_SESSION['sort']);
-							print_r($_SESSION['page']);
+						
 							$i = -1;
 							foreach($tag as $t){
 								$i++;
