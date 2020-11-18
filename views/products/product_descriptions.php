@@ -18,25 +18,29 @@
 							
 								<?php
 									
-									$comment = getCommentByProductId($product['id']);													
-									foreach($comment as $cmt){
-										$user=getUserById($cmt['user_id']);
-										echo'										
-										<div class="review_item">
-											<div class="media">
-												<div class="d-flex">
-
-													<img src="'.($user['avartar']?$user['avartar']:'assets/images/user/noavt.jpg').'" alt="">
+									$comment = getCommentByProductId($product['id']);		
+									if($comment)	{
+										foreach($comment as $cmt){
+											$user=getUserById($cmt['user_id']);
+											echo'										
+											<div class="review_item">
+												<div class="media">
+													<div class="d-flex">
+	
+														<img src="'.($user['avartar']?$user['avartar']:'assets/images/user/noavt.jpg').'" alt="">
+													</div>
+													<div class="media-body">
+														<h4>'.$user['fullname'].'</h4>
+														<h5>'.$cmt['created'].'</h5>
+													</div>
 												</div>
-												<div class="media-body">
-													<h4>'.$user['fullname'].'</h4>
-													<h5>'.$cmt['created'].'</h5>
-												</div>
+												<p>'.$cmt['content'].'</p>
 											</div>
-											<p>'.$cmt['content'].'</p>
-										</div>
-										'
-									;}
+											'
+										;}
+										
+									}										
+									
 								?>							
 							</div>
 						</div>
@@ -85,26 +89,29 @@
 							</div>
 							<div class="review_list">
 							<?php
-							$product = getProductById(1);
-							$reviews = getReviewsByProductId($product['id']);	
-							foreach($reviews as $rv){
-								$user=getUserById($cmt['user_id']);
-								echo'
-								<div class="review_item">
-									<div class="media">
-										<div class="d-flex">
-											<img src="'.$user['avartar'].'" alt="">
+							$reviews = getReviewsByProductId($product['id']);
+							if($reviews){
+								foreach($reviews as $rv){
+									$user=getUserById($cmt['user_id']);
+									echo'
+									<div class="review_item">
+										<div class="media">
+											<div class="d-flex">
+												<img src="'.$user['avartar'].'" alt="">
+											</div>
+											<div class="media-body">
+												<h4>'.$user['fullname'].'</h4>';
+												for($i=0;$i<$rv['rate'];$i++){
+												echo	'<i class="fa fa-star"></i>';
+												}
+												echo'
+											</div>
 										</div>
-										<div class="media-body">
-											<h4>'.$user['fullname'].'</h4>';
-											for($i=0;$i<$rv['rate'];$i++){
-											echo	'<i class="fa fa-star"></i>';
-											}
-											echo'
-										</div>
-									</div>
-									<p>'.$rv['review'].'</p>
-								</div>';}
+										<p>'.$rv['review'].'</p>
+									</div>';}
+							}
+								
+							
 								 ?>
 							</div>
 						</div>
