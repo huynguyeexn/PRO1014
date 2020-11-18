@@ -4,7 +4,7 @@
             <div class="col-lg-6">
                 <div class="s_Product_carousel">
                     <?php
-								$pro = getProductById(7);
+								$pro = getProductById(1	);
 								
 								$images = json_decode($pro['images']);
 

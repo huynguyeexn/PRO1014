@@ -11,6 +11,9 @@
     require_once('models/SizeModel.php');
     require_once('models/TagOfProductModel.php');
     require_once('models/SizeOfProduct.php');
+    require_once('models/CommentOfProducts.php');
+    require_once('models/ReviewsOfProduct.php');
+    require_once('models/UserModel.php');
     // GET action.
     $action = "home";
     if (isset($_GET["action"])) {
