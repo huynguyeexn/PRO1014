@@ -1,11 +1,15 @@
 <?php
 
+function getMaxBlogId(){
+    $sql = "SELECT MAX(id) as max FROM blog";
+    return queryOne($sql)['max'];
+}
 function getAllBlogCatalog(){
     $sql = "select * from tag_blog";
     return query($sql);
 }
 function getAllBlog(){
-    $sql = "select * from blog";
+    $sql = "select * from blog order BY id DESC";
     return query($sql);
 }
 function getAllBlogComment(){
@@ -35,12 +39,12 @@ function setComment($idblog,$user,$message,$created){
     
 
 function getComment(){
-    $sql = " SELECT *from comment";
+    $sql = "SELECT * from comment";
     return queryOne($sql);
     
 }
-function addNewBlog(){
-    $sql = "";
+function addNewBlog($userId,$title,$thumb,$now,$description,$content){
+    $sql = "INSERT INTO `pro1014`.`blog` (`user_id`, `title`,`thumb`, `created`, `description`, `content`, `view`, `show`) VALUES ('$userId', '$title','$thumb', '$now', '$description', '$content', '0', b'1');";
     return execute($sql);
 }
 

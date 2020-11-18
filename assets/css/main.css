@@ -7700,6 +7700,10 @@ label {
 }
 
 /*============ Start Blog Single Styles  =============*/
+.single-post-area .feature-img img, .single-post img{
+  width: 100%;
+}
+  
 .single-post-area .social-links {
   padding-top: 10px;
 }

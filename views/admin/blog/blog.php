@@ -29,6 +29,13 @@
            <div class="col-md-10 my-4 float-right">
                   <div class="card shadow">
                     <div class="card-body">
+                    <div class="toolbar row mb-3">
+                        <div class="col">
+                          <div class="dropdown">
+                            <a class="btn btn-primary" href="http://pro1014.test/admin.php?c=blog&a=create">Thêm tin tức +</a>
+                          </div>
+                        </div>
+                      </div>
                       <h5 class="card-title">Blog Data Table</h5>
                       <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
                       <table class="table table-striped table-hover">
