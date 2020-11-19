@@ -1,11 +1,11 @@
 <div class="product_image_area">
     <div class="container">
-        <div class="row s_productduct_inner">
+        <div class="row s_product_inner">
             <div class="col-lg-6">
                 <div class="s_Product_carousel">
                     <?php							
-								$images = json_decode($product['images']);								
-								foreach( $images as $img){
+                                $images = json_decode($product['images']);		
+                               		foreach( $images as $img){
 									echo'
 									<div class="single-prd-item">
 										<img class="img-fluid" src="'.$img.'" alt="">
@@ -18,11 +18,11 @@
 			$tags = getTagByProductId($product['id']);
 			echo'
 			<div class="col-lg-5 offset-lg-1">
-			<div class="s_productduct_text">
+			<div class="s_product_text">
 				<h3>'.$product['name'].'</h3>
-				<h2>'.$product['price'].'$</h2>
+				<h2>'.money($product['price']).' VNĐ</h2>
 				<ul class="list">
-					<li><a class="active" href="#"><span>Loại hàng</span> :';
+					<li><a class="active" href="#"><span>Loại hàng :</span> ';
 					foreach($tags as $t){
 						echo getTagId($t['tag_id'])['name']." ";
 					}
@@ -30,14 +30,14 @@
 					foreach($Availibility as $avb){
 					};
 						if($avb['quantity']<=0){
-							echo '<li><a href="#"><span>Tình trạng</span> : Hết hàng</a></li>';
+							echo '<li><a href="#"><span>Tình trạng :</span>Hết hàng</a></li>';
 						}else{
-							echo'<li><a href="#"><span>Tình trạng</span> : Còn hàng</a></li>';
+							echo'<li><a href="#"><span>Tình trạng :</span>Còn hàng</a></li>';
 						}
 					
 				echo'</a></li>
 				</ul>
-				<p>'.$product['description'].'</p>	
+				<div>'.$product['description'].'</div>	
 			';
 				
 		?>
@@ -64,7 +64,7 @@
                 </style>
                 <div class="input-group-icon mt-10">
                     <div class="icon">Size: </div>
-                    <div class="form-select " id="default-select"">
+                    <div class="form-select " id="default-select">
 											<select>
 				<?php 
 				$size=getSizeByProductId($product['id']);

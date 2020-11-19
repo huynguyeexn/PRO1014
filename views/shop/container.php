@@ -4,6 +4,9 @@
 				<div class="sidebar-categories">
 					<div class="head">Danh mục</div>
 					<ul class="main-categories">
+						<li onclick="filter('delete',1);"  class="main-nav-list"><a class="color" data-toggle="collapse" href="#meatFish" aria-expanded="false" aria-controls="meatFish"><span
+							class="lnr lnr-arrow-right"></span>Tất cả</a>
+						</li>
 						<?php
 							$tag = getAllTag();
 							// print_r($_SESSION['filter']);
@@ -19,9 +22,6 @@
 								';
 							}
 						?>
-						<li onclick="filter('delete',1);"  class="main-nav-list"><a class="color" data-toggle="collapse" href="#meatFish" aria-expanded="false" aria-controls="meatFish"><span
-							class="lnr lnr-arrow-right"></span>All Browse Categories</a>
-						</li>
 					</ul>
 				</div>
 				<div class="sidebar-filter mt-50">
@@ -57,7 +57,7 @@
 										';
 									}
 								?>
-								<li onclick="filter('delete',2);" class="filter-list"><input class="pixel-radio" type="radio" id="'.$c['name'].'" name="color"><label for="'.$c['name'].'">All Color</label></li>
+								<li onclick="filter('delete',2);" class="filter-list"><input class="pixel-radio" type="radio" id="'.$c['name'].'" name="color"><label for="'.$c['name'].'">Tất cả</label></li>
 							</ul>
 						</form>
 					</div>
@@ -91,19 +91,19 @@
 					</div>
 					<div  class="sorting mr-auto">
 						<select id='idshow' onchange="show(this.value,1)">
-							<option value="6">Show 6</option>
-							<option value="9">Show 9</option>
-							<option value="12">Show 12</option>
+							<option value="6">6 Sản phẩm</option>
+							<option value="9">9 Sản phẩm</option>
+							<option value="12">12 Sản phẩm</option>
 						</select>
 					</div>
-					<div id ='pagination' class="pagination">
-						<a onclick="back();" class="prev-arrow" style ="pointer-events: none;cursor: default;"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>		
+					<div id ='pagination' class="pagination">	
 						<?php
 							$where = '';
 							$true = 1;
+							$page = 1;
 							if(isset($_GET['tag']) || isset($_GET['color']) || isset($_GET['brand']) || isset($_GET['sort'])|| isset($_GET['page'])|| isset($_GET['price'])|| isset($_GET['show'])){
-								if(isset($_SESSION['show'])){
-									$show = $_SESSION['show']['value'];
+								if(isset($_GET['show'])){
+									$show = $_GET['show'];
 								}else{
 									$show = 6;
 								}
@@ -134,7 +134,7 @@
 									if($value == 1){
 										$where .= '';
 									}else if($value == 2){
-										$where .= ' order by "update" desc';
+										$where .= ' order by `update` desc';
 									}else if($value == 3){
 									}else if($value == 4){
 										$where .= ' order by price asc';
@@ -142,9 +142,16 @@
 										$where .= ' order by price desc';
 									}
 								}
-								if(isset($_GET['page'])){
-									$offset = ($_GET['page'] - 1) * $show ;
-									$limit = $show;
+								if(isset($_GET['page']) || isset($_GET['show'])){
+									if(isset($_GET['page'])){
+										$offset = ($_GET['page'] - 1) * $show ;
+										$page = $_GET['page'];
+										$limit = $show;
+									}else{
+										$offset = ($page - 1) * $show ;
+										$page = $page;
+										$limit = $show;
+									}
 									if($true == 2){
 										$where .= ' limit '.$limit.' offset '.$offset.'';
 										$product = getProductByFilter($where); 
@@ -154,11 +161,15 @@
 								}else{
 									$product = getProductByFilter($where);
 								}
-								$luot =0;
-								foreach($product as $produycts){
-									$luot++;
+								if(isset($_SESSION['page'])){
+									$lan = $_SESSION['page']['tong'];
+								}else{
+									$luot = 0;
+									foreach($product as $p){
+										$luot++;
+									}
+									$lan= ceil($luot/$show);
 								}
-								$lan = ceil($luot/$show);
 							}else{
 								unset($_SESSION['filter']);
 								unset($_SESSION['sort']);
@@ -170,7 +181,11 @@
 								$lan = ceil($dproduct['count']);
 							}
 							$number = 0;
-							$page = 1;
+							if($lan == 1 || $page == 1){
+								echo '<a onclick="prev('.$lan.');" class="prev-arrow" style ="pointer-events: none;cursor: default;"><i class="fa fa-long-arrow-left"  aria-hidden="true"></i></a>';
+							}else{
+								echo '<a onclick="prev('.$lan.');"><i class="fa fa-long-arrow-left"  aria-hidden="true"></i></a>';
+							}
 							if($lan < 4){
 								for ($i=0; $i < $lan; $i++){ 
 									$number++;
@@ -194,7 +209,11 @@
 									<a href="#">'.$lan.'</a>
 								';
 							}
-							echo '<a onclick="next('.$lan.');" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>';
+							if($lan == $page || $lan == 1){
+								echo '<a onclick="next('.$lan.');" class="next-arrow"  style ="pointer-events: none;cursor: default;"><i class="fa fa-long-arrow-right"  aria-hidden="true"></i></a>';
+							}else{
+								echo '<a onclick="next('.$lan.');" aria-disabled = "false"><i class="fa fa-long-arrow-right"  aria-hidden="true"></i></a>';
+							}
 						?>
 					</div>
 				</div>
@@ -207,7 +226,6 @@
 							$i = 0;
 							foreach($product as $p){
 								$i++;
-								if($i<7){
 									echo'
 										<div class="col-lg-4 col-md-6">
 											<div class="boxa single-product">
@@ -215,8 +233,8 @@
 												<div class="product-details">
 													<a href="product.php?id='.$p['id'].'" class = "name">'.$p['name'].'</a>
 													<div class="price">
-														<h6 class = "value">$'.$p['price'].'.00</h6>
-														<h6 class="l-through cost">$'.$p['cost'].'.00</h6>
+														<h6 class = "value">'.money($p['price']).' VNĐ</h6>
+														<h6 class="l-through cost">'.money($p['cost']).' VNĐ</h6>
 													</div>
 													<div class="prd-bottom">
 				
@@ -228,20 +246,11 @@
 															<span class="lnr lnr-heart"></span>
 															<p class="hover-text">Wishlist</p>
 														</a>
-														<a href="" class="social-info">
-															<span class="lnr lnr-sync"></span>
-															<p class="hover-text">compare</p>
-														</a>
-														<a href="" class="social-info">
-															<span class="lnr lnr-move"></span>
-															<p class="hover-text">view more</p>
-														</a>
 													</div>
 												</div>
 											</div>
 										</div>
 									';
-								}
 							}
 						?>
 					</div>
@@ -249,24 +258,31 @@
 				<!-- End Best Seller -->
 				<!-- Start Filter Bar -->
 				<div class="filter-bar d-flex flex-wrap align-items-center">
-					<div class="sorting mr-auto">
-						<select>
-							<option value="1">Show 12</option>
-							<option value="1">Show 12</option>
-							<option value="1">Show 12</option>
+				<div  class="sorting mr-auto">
+						<select id='idshow1' onchange="show(this.value,1)">
+							<option value="6">Show 6</option>
+							<option value="9">Show 9</option>
+							<option value="12">Show 12</option>
 						</select>
 					</div>
 					<div id ='pages' class="pagination">
-						<a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>	
 						<?php
-							$product = getCountProduct();
 							$number = 0;
+							if($lan == 1 || $page == 1){
+								echo'<a onclick="prev('.$lan.');" class="prev-arrow" style ="pointer-events: none;cursor: default;"><i class="fa fa-long-arrow-left"  aria-hidden="true"></i></a>';
+							}else{
+								echo '<a onclick="prev('.$lan.');"><i class="fa fa-long-arrow-left"  aria-hidden="true"></i></a>';
+							}
 							if($lan < 4){
 								for ($i=0; $i < $lan; $i++){ 
 									$number++;
-									echo'
-										<a onclick="page('.$number.','.$lan.');">'.$number.'</a>
-									';
+									if($number == $page){
+										echo '<a class="active" onclick="page('.$number.','.$lan.');">'.$number.'</a>';
+									}else{
+										echo'
+											<a onclick="page('.$number.','.$lan.');">'.$number.'</a>
+										';
+									}
 								}
 							}else{
 								for ($i=0; $i < 4; $i++){ 
@@ -280,9 +296,12 @@
 									<a href="#">'.$lan.'</a>
 								';
 							}
-							
+							if($lan == $page || $lan == 1){
+								echo '<a onclick="next('.$lan.');" class="next-arrow"  style ="pointer-events: none;cursor: default;"><i class="fa fa-long-arrow-right"  aria-hidden="true"></i></a>';
+							}else{
+								echo '<a onclick="next('.$lan.');" aria-disabled = "false"><i class="fa fa-long-arrow-right"  aria-hidden="true"></i></a>';
+							}
 						?>
-						<a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
 					</div>
 				</div>
 				<!-- End Filter Bar -->
@@ -333,6 +352,7 @@
                         { 
 							var myObj = JSON.parse(data);
 							d.innerHTML = myObj[0];
+							pages.innerHTML=myObj[1];
 							page.innerHTML = myObj[1]
 							x='shop.php'
 							for(i=2;i<myObj.length;i++){
@@ -479,6 +499,7 @@
                         { 
 							var myObj = JSON.parse(data);
 							d.innerHTML = myObj[0];
+							pages.innerHTML=myObj[1];
 							page.innerHTML=myObj[1];
 							x='shop.php'
 							for(i=2;i<myObj.length;i++){
@@ -508,6 +529,7 @@
 							var myObj = JSON.parse(data);
 							d.innerHTML = myObj[0];
 							page.innerHTML=myObj[1];
+							pages.innerHTML=myObj[1];
 							x='shop.php'
 							for(i=2;i<myObj.length;i++){
 								if(x == 'shop.php'){

@@ -9,13 +9,23 @@
                         <?php
                                         $blognews= getAllBlog();
                                         $count = 0;
-                                       
-
-
                                         foreach($blognews as $news){
                                             $count++;
                                             $user = getUserById($news['user_id']);
-                                            $cata = getTagBlogById($news['id']);
+                                            //$cata = getTagBlogById($news['id']);
+                                            $catalories = '';
+                                            $x = NULL;
+                                            $x = getTagBlogById($news['id']);
+                                            if($x){
+                                                if(!isset($x['name'])){
+                                                    foreach($x as $cata){
+                                                        $catalories += '<a class="active" href="#">'.$cata['name'].'</a>';
+                                                    }
+                                                }else{
+                                                    $catalories = '<a class="active" href="#">'.$x['name'].'</a>';
+                                                }
+                                            }
+                                            
                                             if($count<4){
                                                 
                                            echo'
@@ -23,7 +33,7 @@
                                                <div class="col-md-3">
                                                    <div class="blog_info text-right">
                                                        <div class="post_tag">
-                                                       '.$cata['name'].'
+                                                       '.$catalories.'
                                                        </div>
                                                       
                                                               <ul class="blog_meta list">
@@ -36,7 +46,7 @@
                                                   </div>
                                                   <div class="col-md-9">
                                                       <div class="blog_post">
-                                                          <img src="assets/img/blog/main-blog/'.$news['thumb'].'" alt="">
+                                                          <img src="'.$news['thumb'].'" alt="">
                                                           <div class="blog_details">
                                                               <a href="blog.php?action=detail&id='.$news['id'].'">
                                                                   <h2>'.$news['title'].'</h2>
@@ -140,7 +150,7 @@
                                  foreach($blogs as $blog){
                                      echo'
                                      <div class="media post_item">
-                                <img src="assets/img/blog/'.$blog['thumb'].'" alt="post" width="100px" height="60px">
+                                <img src="'.$blog['thumb'].'" alt="post" width="100px" height="60px">
                                 <div class="media-body">
                                     <a href="blog.php?action=detail&id='.$news['id'].'">
                                         <h3>'.$blog['title'].'</h3>

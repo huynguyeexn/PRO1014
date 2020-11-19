@@ -17,18 +17,22 @@
     //     $_SESSION['cart'][] = $product;
     // }
 // }
+// session_destroy();
 
-// var_dump($_SESSION['cart']);
+// print_r($_SESSION['cart']); die();
 
 function calculator($products)
 {
     $total = 0;
     foreach ($products as $product) {
-        $total += $product['price'] * $product['quantity'];
+        $price = getProductById($product['id'])['price'];
+        $total += $price * $product['quantity'];
     }
     return $total;
 }
 ?>
+
+
 <section class="cart_area">
     <div class="container">
         <div class="cart_inner">
@@ -37,10 +41,10 @@ function calculator($products)
                     <thead>
                         <tr>
                             <th scope="col"></th>
-                            <th scope="col">Sản Phẩm</th>
+                            <th scope="col">Sản phẩm</th>
                             <th scope="col">Giá</th>
-                            <th scope="col">Số Lượng</th>
-                            <th scope="col">Thành tiền</th>
+                            <th scope="col" class="px-4">Số lượng</th>
+                            <th scope="col">Tổng tiền</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -59,18 +63,20 @@ function calculator($products)
                                 </div>
                             </td>
                             <td>
-                                <div class="product-price"><?php echo $data['price']; ?></div>
+                                <div class="product-price"><?php echo money($data['price']); ?> VNĐ</div>
                             </td>
                             <td>
                                 <div class="product-quantity">
-                                    <input type="number" min="1" class="form-control" value="<?php echo $product['quantity']; ?>">
+                                    <input type="number" min="1" class="form-control"
+                                        value="<?php echo $product['quantity']; ?>">
                                 </div>
                             </td>
                             <td>
-                                <h5>$<?php echo $data['price'] * $product['quantity']; ?></h5>
+                                <h5><?php echo money($data['price'] * $product['quantity']); ?> VNĐ</h5>
                             </td>
                             <td>
-                                <button class="deleteItem btn btn-danger" data-value="<?= $product['id']; ?>">Xóa</button>
+                                <button class="deleteItem btn btn-danger"
+                                    data-value="<?= $product['id']; ?>">Xóa</button>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -78,38 +84,36 @@ function calculator($products)
 
                         <tr class="bottom_button">
                             <td>
-                                <a class="gray_btn" href="#">Cập nhật giỏ hàng</a>
-                            </td>
-                            <td>
 
                             </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td>
-
-                            </td>
-                            <td>
-                                <div class="cupon_text d-flex align-items-center">
-                                    <input type="text" placeholder="Mã giảm giá">
-                                    <a class="primary-btn" href="#">Áp Dụng</a>
-                                    
+                                <div class="cupon_text d-flex justify-content-end">
+                                    <a class="gray_btn" href="#">Cập nhật giỏ hàng</a>
                                 </div>
                             </td>
 
                         </tr>
                         <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td>
-
+                                <div class="cupon_text d-flex justify-content-end">
+                                    <h4><strong>Tổng đơn hàng:</strong></h4>
+                                </div>
                             </td>
                             <td>
-
-                            </td>
-                            <td>
-                                <h5>Tổng cộng</h5>
-                            </td>
-                            <td>
-                                <h5>$<?php echo $data['price'] * $product['quantity']; ?></h5>
+                                <div class="cupon_text d-flex justify-content-end">
+                                    <h4><?php echo money(calculator($_SESSION['cart'])); ?> VNĐ</h4>
+                                </div>
                             </td>
                         </tr>
-                        <tr class="shipping_area">
+                        <!-- <tr class="shipping_area">
                             <td>
 
                             </td>
@@ -140,21 +144,17 @@ function calculator($products)
                                     <a class="gray_btn" href="#">Update Details</a>
                                 </div>
                             </td>
-                        </tr>
+                        </tr> -->
                         <tr class="out_button_area">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td>
-
-                            </td>
-                            <td>
-
-                            </td>
-                            <td>
-
-                            </td>
-                            <td>
-                                <div class="checkout_btn_inner d-flex align-items-center">
+                                <div class="checkout_btn_inner d-flex justify-content-end">
                                     <a class="gray_btn" href="shop.php">Tiếp tục mua hàng</a>
-                                    <a class="primary-btn" href="#">Tiến hành đặt hàng</a>
+                                    <a class="primary-btn" href="#">Thanh toán giỏ hàng</a>
                                 </div>
                             </td>
                         </tr>
