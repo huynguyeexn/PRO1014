@@ -37,10 +37,10 @@ function calculator($products)
                     <thead>
                         <tr>
                             <th scope="col"></th>
-                            <th scope="col">Product</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Total</th>
+                            <th scope="col">Sản Phẩm</th>
+                            <th scope="col">Giá</th>
+                            <th scope="col">Số Lượng</th>
+                            <th scope="col">Thành tiền</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -59,7 +59,7 @@ function calculator($products)
                                 </div>
                             </td>
                             <td>
-                                <div class="product-price">$<?php echo $data['price']; ?></div>
+                                <div class="product-price"><?php echo $data['price']; ?></div>
                             </td>
                             <td>
                                 <div class="product-quantity">
@@ -70,7 +70,7 @@ function calculator($products)
                                 <h5>$<?php echo $data['price'] * $product['quantity']; ?></h5>
                             </td>
                             <td>
-                                <button class="deleteItem btn btn-danger" data-value="<?= $product['id']; ?>">delete</button>
+                                <button class="deleteItem btn btn-danger" data-value="<?= $product['id']; ?>">Xóa</button>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -78,7 +78,7 @@ function calculator($products)
 
                         <tr class="bottom_button">
                             <td>
-                                <a class="gray_btn" href="#">Update Cart</a>
+                                <a class="gray_btn" href="#">Cập nhật giỏ hàng</a>
                             </td>
                             <td>
 
@@ -88,9 +88,9 @@ function calculator($products)
                             </td>
                             <td>
                                 <div class="cupon_text d-flex align-items-center">
-                                    <input type="text" placeholder="Coupon Code">
-                                    <a class="primary-btn" href="#">Apply</a>
-                                    <a class="gray_btn" href="#">Close Coupon</a>
+                                    <input type="text" placeholder="Mã giảm giá">
+                                    <a class="primary-btn" href="#">Áp Dụng</a>
+                                    
                                 </div>
                             </td>
 
@@ -103,10 +103,10 @@ function calculator($products)
 
                             </td>
                             <td>
-                                <h5>chua lam</h5>
+                                <h5>Tổng cộng</h5>
                             </td>
                             <td>
-                                <h5>Chua lam</h5>
+                                <h5>$<?php echo $data['price'] * $product['quantity']; ?></h5>
                             </td>
                         </tr>
                         <tr class="shipping_area">
@@ -116,9 +116,7 @@ function calculator($products)
                             <td>
 
                             </td>
-                            <td>
-                                <h5>Shipping</h5>
-                            </td>
+                            
                             <td>
                                 <div class="shipping_box">
                                     <ul class="list">
@@ -155,8 +153,8 @@ function calculator($products)
                             </td>
                             <td>
                                 <div class="checkout_btn_inner d-flex align-items-center">
-                                    <a class="gray_btn" href="#">Continue Shopping</a>
-                                    <a class="primary-btn" href="#">Proceed to checkout</a>
+                                    <a class="gray_btn" href="shop.php">Tiếp tục mua hàng</a>
+                                    <a class="primary-btn" href="#">Tiến hành đặt hàng</a>
                                 </div>
                             </td>
                         </tr>
