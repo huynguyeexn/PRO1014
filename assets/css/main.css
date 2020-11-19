@@ -8353,5 +8353,7 @@ label {
 .footer-text i {
   color: var(--primary-color);
 }
-
+.logo_h img{
+  height: 50px;
+}
 /*# sourceMappingURL=main.css.map */

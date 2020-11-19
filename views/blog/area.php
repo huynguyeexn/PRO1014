@@ -150,7 +150,7 @@
                                  foreach($blogs as $blog){
                                      echo'
                                      <div class="media post_item">
-                                <img src="assets/img/blog/'.$blog['thumb'].'" alt="post" width="100px" height="60px">
+                                <img src="'.$blog['thumb'].'" alt="post" width="100px" height="60px">
                                 <div class="media-body">
                                     <a href="blog.php?action=detail&id='.$news['id'].'">
                                         <h3>'.$blog['title'].'</h3>
