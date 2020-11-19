@@ -4,11 +4,14 @@
 				<div class="sidebar-categories">
 					<div class="head">Danh mục</div>
 					<ul class="main-categories">
+						<li onclick="filter('delete',1);"  class="main-nav-list"><a class="color" data-toggle="collapse" href="#meatFish" aria-expanded="false" aria-controls="meatFish"><span
+							class="lnr lnr-arrow-right"></span>Tất cả</a>
+						</li>
 						<?php
 							$tag = getAllTag();
 							// print_r($_SESSION['filter']);
 							// print_r($_SESSION['sort']);
-							print_r($_SESSION['page']);
+						
 							$i = -1;
 							foreach($tag as $t){
 								$i++;
@@ -19,9 +22,6 @@
 								';
 							}
 						?>
-						<li onclick="filter('delete',1);"  class="main-nav-list"><a class="color" data-toggle="collapse" href="#meatFish" aria-expanded="false" aria-controls="meatFish"><span
-							class="lnr lnr-arrow-right"></span>All Browse Categories</a>
-						</li>
 					</ul>
 				</div>
 				<div class="sidebar-filter mt-50">
@@ -57,7 +57,7 @@
 										';
 									}
 								?>
-								<li onclick="filter('delete',2);" class="filter-list"><input class="pixel-radio" type="radio" id="'.$c['name'].'" name="color"><label for="'.$c['name'].'">All Color</label></li>
+								<li onclick="filter('delete',2);" class="filter-list"><input class="pixel-radio" type="radio" id="'.$c['name'].'" name="color"><label for="'.$c['name'].'">Tất cả</label></li>
 							</ul>
 						</form>
 					</div>
@@ -91,9 +91,9 @@
 					</div>
 					<div  class="sorting mr-auto">
 						<select id='idshow' onchange="show(this.value,1)">
-							<option value="6">Show 6</option>
-							<option value="9">Show 9</option>
-							<option value="12">Show 12</option>
+							<option value="6">6 Sản phẩm</option>
+							<option value="9">9 Sản phẩm</option>
+							<option value="12">12 Sản phẩm</option>
 						</select>
 					</div>
 					<div id ='pagination' class="pagination">	
@@ -231,10 +231,10 @@
 											<div class="boxa single-product">
 												<img class="img-fluid" src="'.$p['thumb'].'" alt="">
 												<div class="product-details">
-													<a href="view/shop/index.php?id='.$p['id'].'" class = "name">'.$p['name'].'</a>
+													<a href="product.php?id='.$p['id'].'" class = "name">'.$p['name'].'</a>
 													<div class="price">
-														<h6 class = "value">$'.$p['price'].'.00</h6>
-														<h6 class="l-through cost">$'.$p['cost'].'.00</h6>
+														<h6 class = "value">'.money($p['price']).' VNĐ</h6>
+														<h6 class="l-through cost">'.money($p['cost']).' VNĐ</h6>
 													</div>
 													<div class="prd-bottom">
 				
@@ -245,14 +245,6 @@
 														<a href="" class="social-info">
 															<span class="lnr lnr-heart"></span>
 															<p class="hover-text">Wishlist</p>
-														</a>
-														<a href="" class="social-info">
-															<span class="lnr lnr-sync"></span>
-															<p class="hover-text">compare</p>
-														</a>
-														<a href="" class="social-info">
-															<span class="lnr lnr-move"></span>
-															<p class="hover-text">view more</p>
 														</a>
 													</div>
 												</div>

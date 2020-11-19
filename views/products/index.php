@@ -24,7 +24,7 @@
 	<!--================End Product Description Area =================-->
 
 	<!-- Start related-product Area -->
-	<?php include_once 'views/products/related-product.php'?>
+	<?php include_once 'views/home/relatedproduct.php'?>
 	<!-- End related-product Area -->
 
 	<!-- start footer Area -->

@@ -6,8 +6,7 @@
 					<div class="single-footer-widget">
 						<h6>Về chúng tôi</h6>
 						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore
-							magna aliqua.
+						Mua giày và thời trang hàng hiệu cao cấp. Cập nhật hot trends dành cho giới trẻ. Có sẵn tại cửa hàng. Giao hàng COD toàn quốc.
 						</p>
 					</div>
 				</div>
@@ -69,7 +68,7 @@
 			</div>
 			<div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
 				<p class="footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+Bản quyền &copy;<script>document.write(new Date().getFullYear());</script> Toàn quyền sở hữu | Giao diện bởi <i class="fa fa-heart-o" aria-hidden="true"></i> <a href="https://colorlib.com" target="_blank">Nhóm 4 - 404</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 </p>
 			</div>

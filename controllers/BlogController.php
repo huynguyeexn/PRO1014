@@ -61,7 +61,7 @@
                    </div>
                    <div class="col-md-9">
                        <div class="blog_post">
-                           <img src="assets/img/blog/main-blog/'.$news['thumb'].'" alt="">
+                           <img src="'.$news['thumb'].'" alt="">
                            <div class="blog_details">
                                <a href="blog.php?action=detail&id='.$news['id'].'">
                                    <h2>'.$news['title'].'</h2>

@@ -1,5 +1,5 @@
 <section class="section_gap">
-
+	<div class="container">
 	<div class="row justify-content-center">
 		<div class="col-lg-6 text-center">
 			<div class="section-title">
@@ -7,6 +7,7 @@
 				<p></p>
 			</div>
 		</div>
+	</div>
 	</div>
 	<div class="owl-carousel carousel-product ">
 

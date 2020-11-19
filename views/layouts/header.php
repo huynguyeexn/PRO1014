@@ -18,7 +18,7 @@
 						<li class="nav-item active"><a class="nav-link" href="index.php">Trang chủ</a></li>
 						<li class="nav-item"><a class="nav-link" href="Shop.php">Cửa hàng</a></li>
 						<li class="nav-item"><a class="nav-link" href="blog.php">Tin tức</a></li>
-						<li class="nav-item"><a class="nav-link" href="contact.html">Liên hệ</a></li>
+						<li class="nav-item"><a class="nav-link" href="contact.php">Liên hệ</a></li>
 						<li class="nav-item"><a class="nav-link" href="account.php">Đăng nhập</a></li>
 						<li class="nav-item"><a class="nav-link" href="admin.php">Quản trị</a></li>
 						<li class="nav-item"><a class="nav-link" href="cart.php" id="linkToCart">

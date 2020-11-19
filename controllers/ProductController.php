@@ -11,6 +11,9 @@
     require_once('models/SizeModel.php');
     require_once('models/TagOfProductModel.php');
     require_once('models/SizeOfProduct.php');
+    require_once('models/CommentOfProducts.php');
+    require_once('models/ReviewsOfProduct.php');
+    require_once('models/UserModel.php');
     // GET action.
     $action = "home";
     if (isset($_GET["action"])) {
@@ -19,8 +22,13 @@
 
     switch ($action) {
         case 'home':
-            $allProduct = getAllProduct();
+            if(isset($_GET['id'])){
+
+                $id=$_GET['id'];
+                $product = getProductById($id);
             require_once('views/products/index.php');
+            }
+            
             break;
         case 'detail':
             // Product detail view
