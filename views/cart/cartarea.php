@@ -154,7 +154,7 @@ function calculator($products)
                             <td>
                                 <div class="checkout_btn_inner d-flex justify-content-end">
                                     <a class="gray_btn" href="shop.php">Tiếp tục mua hàng</a>
-                                    <a class="primary-btn" href="#">Thanh toán giỏ hàng</a>
+                                    <button type="submit" name="action" value = "add" >thanh toán đơn hàng</button>
                                 </div>
                             </td>
                         </tr>
