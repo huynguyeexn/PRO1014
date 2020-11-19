@@ -1,5 +1,9 @@
 <?php
 
+function countAllBLog(){
+    $sql = "SELECT count(*) as count FROM blog";
+    return queryOne($sql)['count'];
+}
 function getMaxBlogId(){
     $sql = "SELECT MAX(id) as max FROM blog";
     return queryOne($sql)['max'];
@@ -30,14 +34,9 @@ function getCountBlog(){
     return queryOne($sql);
 }
 function setComment($idblog,$user,$message,$created){
-    
-         $sql = "INSERT INTO `blog_comment`( `blog_id`, `user_id`, `content`, `created`) VALUES ($idblog,$user,'$message','$created')";
-            return execute($sql);
-      
-        
-    }
-    
-
+    $sql = "INSERT INTO `blog_comment`( `blog_id`, `user_id`, `content`, `created`) VALUES ($idblog,$user,'$message','$created')";
+    return execute($sql);
+}
 function getComment(){
     $sql = "SELECT * from comment";
     return queryOne($sql);
@@ -54,7 +53,7 @@ function updateBlog(){
 }
 
 function deleteBlog($id){
-    $sql = "";
+    $sql = "DELETE FROM blog WHERE id=$id";
     return execute($sql);
 }
 ?>

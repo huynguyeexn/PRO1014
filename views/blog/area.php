@@ -9,9 +9,6 @@
                         <?php
                                         $blognews= getAllBlog();
                                         $count = 0;
-                                       
-
-
                                         foreach($blognews as $news){
                                             $count++;
                                             $user = getUserById($news['user_id']);

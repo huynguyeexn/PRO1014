@@ -96,7 +96,7 @@
                 ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript', 'removeFormat'],
                 ['fontColor', 'hiliteColor', 'outdent', 'indent', 'align', 'horizontalRule', 'list', 'table'],
                 ['link', 'image', 'video'],
-                ['save']
+                ['codeView','save']
             ],
             lang: SUNEDITOR_LANG['en']
         });
