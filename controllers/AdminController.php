@@ -15,6 +15,7 @@ require_once('models/CatalogModel.php');
 require_once('models/TagBlogModel.php');
 require_once('models/TagOfBlog.php');
 require_once('models/BrandModel.php');
+require_once('models/OrderModel.php');
 
 
 // GET control = c.

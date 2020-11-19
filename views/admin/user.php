@@ -29,14 +29,8 @@
            <div class="col-md-10 my-4 float-right">
                   <div class="card shadow">
                     <div class="card-body">
-                    <h2 class="card-title">Danh sách sản phẩm</h2>
-                    <div class="toolbar row mb-3">
-                        <div class="col">
-                            <div class="dropdown">
-                                <a class="btn btn-primary" href="http://pro1014.test/admin.php?c=blog&a=create">Thêm sản phẩm +</a>
-                            </div>
-                        </div>
-                    </div>
+                      <h5 class="card-title">Blog Data Table</h5>
+                      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
                       <table class="table table-striped table-hover">
                         <thead>
                           <tr>
@@ -47,21 +41,23 @@
                               </div>
                             </th>
                             <th>#</th>
-                            <th>Tên</th>
-                            <th>Giá</th>
-                            <th>Giá khuyến mãi</th>
-                            <th>Mô tả</th>
-                            <th>Ảnh đại diện</th>
-                            <th>Cập nhật</th>
-                            <th></th>
-                            
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th>Phone</th>
+                            <th>Created</th>
+                            <th>Birthday</th>
+                            <th>Fullname</th>
+                            <th>Avartar</th>
+                            <th>Rank</th>
+                            <th>Address</th>
+                            <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
                             
                             <?php
-                                  $product=getAllProduct();
-                                  foreach($product as $pro){     
+                                  $user=getAllUser();
+                                  foreach($user as $u){     
                                     echo'
                                     
                                     <tr>
@@ -71,13 +67,17 @@
                                         <label class="custom-control-label" for="d1"></label>
                                       </div>
                                     </td>
-                                    <td>'.$pro['id'].'</td>
-                                    <td>'.$pro['name'].'</td>
-                                    <td>'.money($pro['cost']).' VNĐ</td>
-                                    <td>'.money($pro['price']).' VNĐ</td>
-                                    <td>'.substr($pro['description'], 0, 100).'...</td>
-                                    <td><img  style=" width: 100px;" src="'.$pro['thumb'].'" alt=""></td>
-                                    <td>'.$pro['update'].'</td>
+                                    <td>'.$u['id'].'</td>
+                                    <td>'.$u['username'].'</td>
+                                    <td>'.$u['password'].'$</td>
+                                    <td>'.$u['phone'].'</td>
+                                    <td>'.$u['created'].'</td>
+                                    <td>'.$u['birthday'].'</td>
+                                    <td>'.$u['fullname'].'</td>
+                                    <td><img style=" width: 70px;" src="'.$u['avartar'].'" alt=""></td>
+                                    <td>'.$u['rank'].'</td>
+                                    <td>'.$u['address'].'</td>
+
                                     </td>
                                    
                                     <td>

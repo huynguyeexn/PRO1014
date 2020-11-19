@@ -100,5 +100,39 @@
             }
         }
     }
-    ?>
+
     
+
+
+if(isset($_POST['action']) && $_POST['action'] == 'update'){
+    $query = 'UPDATE cart SET 
+    user_id = "'.$_POST['user_id'].'" , 
+    product_id = "'.$_POST['product_id'].'",
+    size_id = "'.$_POST['size_id'].'",
+    color_id = "'.$_POST['color_id'].'",
+    quantity = "'.$_POST['quantity'].'",
+    ;
+
+    $stmt = $conn->query($query);
+
+    header("Location: http://localhost/Pro1014/views/cart/index.php");
+
+}   
+
+if(isset($_POST['action']) && $_POST['action'] == 'add'){
+    $query = 'INSERT INTO cart ( user_id,product_id ,size_id ,color_id,quantity)
+    VALUES ("'.$_POST['user_id'].'" ,
+    "'.$_POST['product_id'].'",
+    "'.$_POST['size_id'].'",
+    "'.$_POST['color_id'].'",
+    "'.$_POST['quantity'].'"
+    )';
+    
+    $stmt = $conn->query($query);
+    
+
+    header("Location: http://localhost/Pro1014/views/cart/index.php");
+} 
+    ?>
+
+
