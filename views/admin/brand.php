@@ -40,23 +40,18 @@
                                 <label class="custom-control-label" for="d1"></label>
                               </div>
                             </th>
-                            <th>ID</th>                           
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Content</th>
-                            <th>Thumb</th>
-                            <th>View</th>
-                            <th>Created</th>
-                            <th>User</th>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Show</th>
+                            <th>Prioryti</th>
                             <th>Action</th>
+                            
                           </tr>
                         </thead>
                         <tbody>
                             <?php
-                                 $blognews= getAllBlog();
-                                 foreach($blognews as $news){
-                                    $user = getUserById($news['user_id']);
-                                    $cata = getTagBlogById($news['id']);
+                                  $brand=getAllBrand();
+                                  foreach($brand as $br){
                                     echo'
                                     <tr>
                                     <td>
@@ -65,19 +60,15 @@
                                         <label class="custom-control-label" for="d1"></label>
                                       </div>
                                     </td>
-                                    <td>'.$news['id'].'</td>
-                                    
-                                    <td>'.$news['title'].'</td>
-                                    <td>'.$news['description'].'</td>
-                                    <td >'.$news['content'].'
-                                    <button type="button" class="btn mb-2 btn-primary"><span class="fe fe-arrow-left fe-16 mr-2"></span>Less</button>
-                                    </td>
-                                    <td><img src="assets/img/blog/main-blog/'.$news['thumb'].'" alt="" width="200px">
+                                    <td>'.$br['id'].'</td>
+                                    <td>'.$br['name'].'</td>
+                                    <td>'.$br['show'].'</td>
+                                    <td>'.$br['priority'].'</td>
                                     </td>
                                     
-                                    <td>'.$news['view'].'</td>
-                                    <td>'.$news['created'].'</td>
-                                    <td>'.$user['fullname'].'</td>
+                                    
+                                    
+                                   
                                     <td>
                                       <div class="dropdown">
                                         <button class="btn btn-sm dropdown-toggle" type="button" id="dr1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

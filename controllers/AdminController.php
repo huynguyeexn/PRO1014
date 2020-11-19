@@ -13,6 +13,7 @@ require_once('models/BlogModel.php');
 require_once('models/UserModel.php');
 require_once('models/CatalogModel.php');
 require_once('models/TagBlogModel.php');
+require_once('models/BrandModel.php');
 
 
 // GET control = c.
