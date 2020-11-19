@@ -49,7 +49,7 @@
 		$(".deleteItem").on('click', function() {
 			var e = this;
 			var id = $(e).data('value');
-			console.log(id);
+			// console.log(id);
 			$.ajax({
                 type: "POST",
                 url: 'shop.php?action=deleteItem&id=' + id,
@@ -68,4 +68,17 @@
 			//}, 1000);
 		});
 	});
+
+	function quantityUpdate(e, id) {
+		$.ajax({
+			type: "GET",
+			url: 'cart.php?action=updateCartAJAX&id=' + id + '&quantity='+e.value,
+			success: function(data) {
+				data = JSON.parse(data);
+				$('#product-'+id + ' .total').text(data[0] + " VNĐ");
+				$('.cart-total').text(data[1] + " VNĐ");
+
+			}
+		});
+	}
 </script>
