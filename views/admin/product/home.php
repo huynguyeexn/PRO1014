@@ -36,20 +36,21 @@
                     <!-- table -->
                     <table class="table table-borderless table-hover">
                       <thead>
-                        <tr>
+                        <tr class="text-center">
                           <td>
                             <div class="custom-control custom-checkbox">
                               <input type="checkbox" class="custom-control-input" id="all2">
                               <label class="custom-control-label" for="all2"></label>
                             </div>
                           </td>
-                          <th>ID</th>
-                          <th>Thumb</th>
-                          <th>Name</th>
-                          <th>Update</th>
-                          <th>Cost</th>
-                          <th>Price</th>
-                          <th>Description</th>
+                          <th>Mã SP</th>
+                          <th>Ảnh đại diện</th>
+                          <th>Tên sản phẩm</th>
+                          <th>Ngày cập nhật</th>
+                          <th>Giá gốc</th>
+                          <th>Giá khuyến mãi</th>
+                          <th>Mô tả</th>
+                          <th></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -72,9 +73,9 @@
                                   <p class="mb-0 text-muted"><strong>'.$p['name'].'</strong></p>
                                 </td>
                                 <td class="text-muted">'.$p['update'].'</td>
-                                <td class="text-muted">$'.$p['cost'].'</td>
-                                <td class="text-muted">$'.$p['price'].'</td>
-                                <td style = "width:33%;" class="text-muted">'.substr($p['description'], 0, 200).'</td>
+                                <td class="text-muted">'.money($p['cost']).' VNĐ</td>
+                                <td class="text-muted">'.money($p['price']).' VNĐ</td>
+                                <td style = "width:33%;" class="text-muted">'.htmlentities(substr($p['description'], 0, 100)).'</td>
                                 <td>
                                   <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="text-muted sr-only">Action</span>
@@ -94,8 +95,8 @@
                     <nav aria-label="Table Paging" class="mb-0 text-muted">
                       <ul class="pagination justify-content-center mb-0">
                         <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
                         <li class="page-item"><a class="page-link" href="#">3</a></li>
                         <li class="page-item"><a class="page-link" href="#">Next</a></li>
                       </ul>

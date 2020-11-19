@@ -32,7 +32,8 @@ switch ($control) {
         require_once('views/admin/order.php');
     break;
     case 'product':
-        require_once('views/admin/product.php');
+        $product = getAllProduct();
+        require_once('views/admin/product/home.php');
     break;
     case 'brand':
         require_once('views/admin/brand.php');
