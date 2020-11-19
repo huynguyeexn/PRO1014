@@ -31,34 +31,8 @@ switch ($control) {
         require_once('views/admin/order.php');
     break;
     case 'product':
-<<<<<<< HEAD
-        $product = 'home';
-        if(isset($_GET['p'])){
-            $product = $_GET["p"];
-        }
-        switch ($product) {
-            case 'home':
-                $product = getAllProduct();
-                require_once('views/admin/product/home.php');
-            break;
-            case 'insert':
-                require_once('views/admin/product/addnew.php');
-            break;
-            case 'edit':
-            break;
-            case 'remove':
-            break;
-            default:
-                header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
-                include("404.php");
-                return;
-                break;
-        }
-        break;
-=======
         require_once('views/admin/product.php');
     break;
->>>>>>> 6aa0556f19a919ce76d63010f432d07b5d03e9be
     case 'brand':
         require_once('views/admin/brand.php');
     break;

@@ -29,8 +29,14 @@
            <div class="col-md-10 my-4 float-right">
                   <div class="card shadow">
                     <div class="card-body">
-                      <h5 class="card-title">Blog Data Table</h5>
-                      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <h2 class="card-title">Danh sách sản phẩm</h2>
+                    <div class="toolbar row mb-3">
+                        <div class="col">
+                            <div class="dropdown">
+                                <a class="btn btn-primary" href="http://pro1014.test/admin.php?c=blog&a=create">Thêm sản phẩm +</a>
+                            </div>
+                        </div>
+                    </div>
                       <table class="table table-striped table-hover">
                         <thead>
                           <tr>
@@ -41,12 +47,13 @@
                               </div>
                             </th>
                             <th>#</th>
-                            <th>Name</th>
-                            <th>cost</th>
-                            <th>description</th>
-                            <th>thumb</th>
-                            <th>images</th>
-                            <th">update</th>
+                            <th>Tên</th>
+                            <th>Giá</th>
+                            <th>Giá khuyến mãi</th>
+                            <th>Mô tả</th>
+                            <th>Ảnh đại diện</th>
+                            <th>Cập nhật</th>
+                            <th></th>
                             
                           </tr>
                         </thead>
@@ -66,9 +73,10 @@
                                     </td>
                                     <td>'.$pro['id'].'</td>
                                     <td>'.$pro['name'].'</td>
-                                    <td>'.$pro['cost'].'$</td>
-                                    <td>'.$pro['description'].'</td>
-                                    <td><img  style=" width: 200px;" src="'.$pro['thumb'].'" alt=""></td>
+                                    <td>'.money($pro['cost']).' VNĐ</td>
+                                    <td>'.money($pro['price']).' VNĐ</td>
+                                    <td>'.substr($pro['description'], 0, 100).'...</td>
+                                    <td><img  style=" width: 100px;" src="'.$pro['thumb'].'" alt=""></td>
                                     <td>'.$pro['update'].'</td>
                                     </td>
                                    
