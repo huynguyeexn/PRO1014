@@ -4,8 +4,8 @@
             <div class="col-lg-6">
                 <div class="s_Product_carousel">
                     <?php							
-								$images = json_decode($product['images']);								
-								foreach( $images as $img){
+                                $images = json_decode($product['images']);		
+                               		foreach( $images as $img){
 									echo'
 									<div class="single-prd-item">
 										<img class="img-fluid" src="'.$img.'" alt="">
