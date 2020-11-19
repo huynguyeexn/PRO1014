@@ -53,7 +53,7 @@ function singleProduct($product){
         <div class="single-product">
             <img class="img-fluid" src="' . $product["thumb"] . '" alt="">
             <div class="product-details">
-                <h6><a href="product.php">' . $product["name"] . '</a></h6>
+                <h6><a href="product.php?id='.$product["id"].'">' . $product["name"] . '</a></h6>
                 <div class="price">
                     <h6>$' . $product["price"] . '</h6>
                     <h6 class="l-through">$' . $product["cost"] . '</h6>

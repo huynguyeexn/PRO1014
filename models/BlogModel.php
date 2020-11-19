@@ -1,11 +1,19 @@
 <?php
 
+function countAllBLog(){
+    $sql = "SELECT count(*) as count FROM blog";
+    return queryOne($sql)['count'];
+}
+function getMaxBlogId(){
+    $sql = "SELECT MAX(id) as max FROM blog";
+    return queryOne($sql)['max'];
+}
 function getAllBlogCatalog(){
     $sql = "select * from tag_blog";
     return query($sql);
 }
 function getAllBlog(){
-    $sql = "select * from blog";
+    $sql = "select * from blog order BY id DESC";
     return query($sql);
 }
 function getAllBlogComment(){
@@ -26,21 +34,16 @@ function getCountBlog(){
     return queryOne($sql);
 }
 function setComment($idblog,$user,$message,$created){
-    
-         $sql = "INSERT INTO `blog_comment`( `blog_id`, `user_id`, `content`, `created`) VALUES ($idblog,$user,'$message','$created')";
-            return execute($sql);
-      
-        
-    }
-    
-
+    $sql = "INSERT INTO `blog_comment`( `blog_id`, `user_id`, `content`, `created`) VALUES ($idblog,$user,'$message','$created')";
+    return execute($sql);
+}
 function getComment(){
-    $sql = " SELECT *from comment";
+    $sql = "SELECT * from comment";
     return queryOne($sql);
     
 }
-function addNewBlog(){
-    $sql = "";
+function addNewBlog($userId,$title,$thumb,$now,$description,$content){
+    $sql = "INSERT INTO `pro1014`.`blog` (`user_id`, `title`,`thumb`, `created`, `description`, `content`, `view`, `show`) VALUES ('$userId', '$title','$thumb', '$now', '$description', '$content', '0', b'1');";
     return execute($sql);
 }
 
@@ -50,7 +53,7 @@ function updateBlog(){
 }
 
 function deleteBlog($id){
-    $sql = "";
+    $sql = "DELETE FROM blog WHERE id=$id";
     return execute($sql);
 }
 ?>
