@@ -73,8 +73,8 @@
                                   <p class="mb-0 text-muted"><strong>'.$p['name'].'</strong></p>
                                 </td>
                                 <td class="text-muted">'.$p['update'].'</td>
-                                <td class="text-muted">'.money($p['cost']).' VNĐ</td>
-                                <td class="text-muted">'.money($p['price']).' VNĐ</td>
+                                <td class="text-muted">'.numToMoney($p['cost']).'</td>
+                                <td class="text-muted">'.numToMoney($p['price']).'</td>
                                 <td style = "width:33%;" class="text-muted">'.htmlentities(substr($p['description'], 0, 100)).'</td>
                                 <td>
                                   <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

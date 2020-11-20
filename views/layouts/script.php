@@ -75,8 +75,8 @@
 			url: 'cart.php?action=updateCartAJAX&id=' + id + '&quantity='+e.value,
 			success: function(data) {
 				data = JSON.parse(data);
-				$('#product-'+id + ' .total').text(data[0] + " VNĐ");
-				$('.cart-total').text(data[1] + " VNĐ");
+				$('#product-'+id + ' .total').text(data[0] + "");
+				$('.cart-total').text(data[1] + "");
 
 			}
 		});

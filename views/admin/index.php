@@ -34,7 +34,7 @@
                                             </div>
                                             <div class="col pr-0">
                                                 <p class="small text-muted mb-0">Doanh thu tháng này</p>
-                                                <span class="h5 mb-0 text-white">50.342.000 VNĐ</span>
+                                                <span class="h5 mb-0 text-white">50.342.000</span>
                                                 <span class="small text-muted">+10.5%</span>
                                             </div>
                                         </div>

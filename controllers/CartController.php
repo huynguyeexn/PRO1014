@@ -33,7 +33,7 @@
                     $total += ($i['quantity'] * getProductById($i['id'])['price']);
                 }
 
-                echo json_encode([money($product['price'] * $quantity),money($total)]);
+                echo json_encode([numToMoney($product['price'] * $quantity),numToMoney($total)]);
             }
 
             // echo json_encode($_SESSION['cart']);

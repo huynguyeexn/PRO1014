@@ -63,7 +63,7 @@ function calculator($products)
                                 </div>
                             </td>
                             <td>
-                                <div class="product-price"><?php echo money($data['price']); ?> VNĐ</div>
+                                <div class="product-price"><?php echo numToMoney($data['price']); ?></div>
                             </td>
                             <td>
                                 <div class="product-quantity">
@@ -73,7 +73,7 @@ function calculator($products)
                                 </div>
                             </td>
                             <td>
-                                <h5 class="total"><?php echo money($data['price'] * $product['quantity']); ?> VNĐ</h5>
+                                <h5 class="total"><?php echo numToMoney($data['price'] * $product['quantity']); ?></h5>
                             </td>
                             <td>
                                 <button class="deleteItem btn btn-danger"
@@ -109,7 +109,7 @@ function calculator($products)
                             </td>
                             <td  colspan="2">
                                 <div class="cupon_text d-flex justify-content-end">
-                                    <h4 class="cart-total"><?php echo money(calculator($_SESSION['cart'])); ?> VNĐ</h4>
+                                    <h4 class="cart-total"><?php echo numToMoney(calculator($_SESSION['cart'])); ?></h4>
                                 </div>
                             </td>
                         </tr>

@@ -71,8 +71,8 @@
                                     </td>
                                     <td>'.$pro['id'].'</td>
                                     <td>'.$pro['name'].'</td>
-                                    <td>'.money($pro['cost']).' VNĐ</td>
-                                    <td>'.money($pro['price']).' VNĐ</td>
+                                    <td>'.numToMoney($pro['cost']).'</td>
+                                    <td>'.numToMoney($pro['price']).'</td>
                                     <td>'.substr($pro['description'], 0, 100).'...</td>
                                     <td><img  style=" width: 100px;" src="'.$pro['thumb'].'" alt=""></td>
                                     <td>'.$pro['update'].'</td>
