@@ -86,7 +86,7 @@
             die();
             break;
         case 'toRegister':
-            if(!isset($_SESSION['user'])){
+            if(!isset($_POST['username'])){
                 header('location: index.php');
             }
             $user = $_POST['username'];
@@ -94,17 +94,30 @@
             $pass = $_POST['password'];
             $pass = password_hash($_POST['password'], PASSWORD_DEFAULT);
             if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-                echo "Email không hợp lệ, vui lòng kiểm tra lại!";
-                die();
+                $return = array(
+                    'status' => 204,
+                    'title' => "Email không hợp lệ!",
+                    'message' => "Vui lòng kiểm tra lại Email của bạn."
+                );
+               
             }else if(checkUsername($user, $pass)){
-                echo 'Username đã tồn tại';
-                die();
+                $return = array(
+                    'status' => 204,
+                    'title' => "Tên tài khoản đã tồn tại!",
+                    'message' => "Hãy thử lại bằng tên tài khoản khác."
+                );
+               
             }else{
                 if(checkEmail($email)){
-                    echo 'Email đã tồn tại';
+                    $return = array(
+                        'status' => 204,
+                        'title' => "Email đã tồn tại!",
+                        'message' => "Hãy thử lại bằng Email khác."
+                    );
+                   
                 }else{
                     $id = addUser($user, $pass, $email);
-                    if($id > 0){
+                    if ($id > 0) {
                         $randomStr = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
                         $randomStr = str_shuffle($randomStr);
                         $code = md5(uniqid($randomStr, true));
@@ -134,21 +147,29 @@
                         $mail->Body    .= "<a href='$url' style='padding: 10px 20px; background-color: #1b68ff; border: 1px solid transparent; border-radius: 5px; text-decoration'>Xác minh</a><br><br>";
 
                         $mail->send();
-                            echo "<div>Mã xác nhận đã được gửi về email của bạn, hãy kiểm tra email bạn đã đăng ký!.</div>";
-                            addVeriCode($id, $code);
-                        }else{
-                            die("Lỗi khi gửi email.");
-                        }
-
-                    
+                        $return = array(
+                                'status' => 200,
+                                'title' => "Đăng ký thành công",
+                                'message' => "Kiểm tra email đã đăng ký để kích hoạt tài khoản của bạn."
+                            );
+                        addVeriCode($id, $code);
+                       
+                    } else {
+                        die("");
+                        $return = array(
+                                'status' => 204,
+                                'title' => "Lỗi khi gửi email!",
+                                'message' => "Hãy thử lại bằng Email khác, hoặc liên hệ với người quản trị để được trợ giúp."
+                        );
+                       
+                    }
                 }
             }
+            print_r(json_encode($return));
+            die();
             break;
         
         case "active":
-            if(!isset($_SESSION['user'])){
-                header('location: index.php');
-            }
             if(isset($_GET['email']) && isset($_GET['code'])){
                 $email = urldecode($_GET['email']);
                 $code = $_GET['code'];
@@ -158,13 +179,14 @@
                     activeUser($email);
                 }else{
                     if(checkRank($email)['rank'] > 0){
-                        echo 'Tài khoản đã được xác nhận';
+                        echo 'Tài khoản đã được xác nhận.<br> <a href="account.php">Đăng nhập</a>';
                     }else{
                         echo 'Xác nhận không thành công';
                         echo 'Gửi lại email xác minh <a href="account.php?action=resend-email">Gửi lại</a>';
                     }
-                    
                 }
+            }else{
+                header('location: index.php');
             }
             die();
             default: 
