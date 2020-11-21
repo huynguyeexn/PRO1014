@@ -5,8 +5,8 @@
     <nav class="vertnav navbar navbar-light">
         <!-- nav bar -->
         <div class="w-100 mb-4 d-flex">
-            <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./admin.php">
-                <img src="assets/img/fav.png" alt="">
+            <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./home.php">
+                <img src="assets/img/fav.png" alt=""  style="width: 50px;">
             </a>
         </div>
         <ul class="navbar-nav flex-fill w-100 mb-2">

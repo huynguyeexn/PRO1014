@@ -18,6 +18,9 @@ require_once('models/BrandModel.php');
 require_once('models/OrderModel.php');
 
 
+if(!isset($_SESSION['user'])){
+    header('location: index.php');
+}
 // GET control = c.
 $control = "home";
 if (isset($_GET["c"])) {

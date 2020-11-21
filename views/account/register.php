@@ -30,7 +30,11 @@
   <div class="wrapper vh-100 container">
     <div class="row align-items-center h-100">
       <form class="col-lg-6 col-md-8 col-10 mx-auto" method="POST" id="myForm" action="account.php?action=toRegister" onsubmit="submitForm(event)">
+      
         <div class="mx-auto text-center my-4">
+        <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.php">
+            <img src="./assets/img/logo-white.png" alt="">
+          </a>
           <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.html">
             <img src="./assetss/img/logo-white.png" alt="">
           </a>
@@ -38,22 +42,22 @@
         </div>
         <div class="form-group">
           <label for="inputEmail4">Tên tài khoản</label>
-          <input type="text" class="form-control" name="username">
+          <input type="text" class="form-control" name="username" required>
         </div>
         <div class="form-group">
           <label for="inputEmail4">Email</label>
-          <input type="email" class="form-control" name="email">
+          <input type="email" class="form-control" name="email" required>
         </div>
         <hr class="my-4">
         <div class="row mb-4">
           <div class="col-md-6">
             <div class="form-group">
               <label for="inputPassword5">Mật khẩu</label>
-              <input type="password" class="form-control" id="psw" name="password">
+              <input type="password" class="form-control" id="psw" name="password" required>
             </div>
             <div class="form-group">
               <label for="inputPassword6">Xác nhận mật khẩu</label>
-              <input type="password" class="form-control"  id="cf-psw" name="confirm-password">
+              <input type="password" class="form-control"  id="cf-psw" name="confirm-password" required>
             </div>
 
           </div>
@@ -69,6 +73,7 @@
           </div>
         </div>
         <button class="btn btn-lg btn-primary btn-block"  type="submit" >Tạo tài khoản</button>
+        <a class="btn btn-lg btn-secondary btn-block" href="account.php" >Đăng nhập</a>
         <p class="mt-5 mb-3 text-muted text-center">© 2020</p>
       </form>
     </div>

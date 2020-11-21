@@ -26,6 +26,7 @@
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                 <a class="dropdown-item" href="#">Tài khoản</a>
                 <a class="dropdown-item" href="#">Cài đặt</a>
+                <a class="dropdown-item" href="account.php?action=signout">Đăng xuất</a>
                 <!-- <a class="dropdown-item" href="#">Activities</a> -->
             </div>
         </li>
