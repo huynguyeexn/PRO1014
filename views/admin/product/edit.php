@@ -20,11 +20,13 @@
         .drag{
           width:100%;
           height:300px;
+          overflow:hidden;
           background:black;
         }
         .drag img{
           width:100%;
           height:100%;
+          object-fit:cover;
         }
         </style>
 
@@ -53,13 +55,14 @@
                       <tbody>
                         <div class="card shadow mb-4">
                           <div class="card-body">
-                            <form action="admin.php?c=product&p=addnew" method="post" enctype="multipart/form-data">
+                            <form action="admin.php?c=product&p=edit&id=<?php echo $product['id']?>" method="post" enctype="multipart/form-data">
                             <div class="form-group row">
-                              <div class="col-md-3">
+                            <div class="col-md-3">
                                   <h1 class="h5 mb-2">Ảnh Sản Phẩm</h1>
                                   <div style="padding:0px;" class="card-body">
                                       <input type="file" name="images_sp">
-                                    <div  class="drag mt-3">
+                                    <div  class="drag mt-3"> 
+                                      <img src="<?php echo $product['thumb']?>" alt="">
                                     </div>
                                   </div>
                                   <div style="padding:0px;" class="card-body">
@@ -71,33 +74,33 @@
                                 <div class="form-group row">
                                   <label for="inputEmail3" class="col-sm-3 col-form-label">Tên Sản Phẩm</label>
                                   <div class="col-sm-9 mb-3">
-                                    <input type="text" class="form-control" name="name" placeholder="Tên Sản Phẩm">
+                                    <input type="text" class="form-control" name="name" value="<?php echo $product['name']?>">
                                   </div>
                                 </div>
                                 <fieldset class="form-group">
                                   <div class="form-group row">
                                     <label class="col-form-label col-sm-3 pt-0">Giá</label>
                                     <div class="col-sm-9 mb-3">
-                                    <input type="text" class="form-control" name="cost" placeholder="Email">
+                                    <input type="text" class="form-control" name="cost" value="<?php echo $product['cost']?>">
                                     </div>
                                   </div>
                                   <div class="row">
                                     <label class="col-form-label col-sm-3 pt-0">Giá Thị Trường</label>
                                     <div class="col-sm-9 mb-3">
-                                      <input type="text" class="form-control" name="price" placeholder="Email">
+                                      <input type="text" class="form-control" name="price" value="<?php echo $product['price']?>">
                                     </div>
                                   </div>
                                 </fieldset>
                                 <div class="form-group row">
-                                  <label for="inputEmail3" class="col-sm-3 col-form-label">Số Lượng</label>
+                                  <label class="col-sm-3 col-form-label">Số Lượng</label>
                                   <div class="col-sm-9 mb-3">
-                                    <input type="text" class="form-control" name="quantity" placeholder="Số Lượng">
+                                    <input type="text" class="form-control" value="<?php echo $product_detail['quantity']?>" name="quantity" >
                                   </div>
                                 </div>
                                 <div class="form-group row">
                                   <label class="col-sm-3" for="exampleFormControlTextarea1">Mô Tả</label>
                                   <div class="col-sm-9 mb-3">
-                                    <textarea class="form-control" name="description" rows="3"></textarea>
+                                    <textarea class="form-control" name="description" rows="3"><?php echo $product['description']?></textarea>
                                   </div>
                                 </div>
                                 <div class="form-group row">
@@ -105,12 +108,17 @@
                                     <label for="validationSelect2">Thương Hiệu</label>
                                     <div class="col-sm-14">
                                      <select class="select" name="brand" >
-                                       <option value="">Chọn Thương Hiệu</option>
                                        <?php
                                           foreach($brand as $b){
-                                            echo '
-                                              <option value="'.$b['id'].'">'.$b['name'].'</option>
-                                            ';
+                                              if($b['id'] == $product['brand_id']){
+                                                echo '
+                                                    <option value="'.$b['id'].'"  selected>'.$b['name'].'</option>
+                                                ';
+                                              }else{
+                                                  echo '
+                                                    <option value="'.$b['id'].'">'.$b['name'].'</option>
+                                                    ';
+                                              }
                                           }
                                        ?>
                                      </select>
@@ -120,12 +128,17 @@
                                     <label for="validationSelect2">Màu Sắc</label>
                                     <div class="col-sm-14">
                                      <select class="select" name="color">
-                                       <option value="">Chọn Màu</option>
                                        <?php
                                           foreach($color as $c){
-                                            echo '
-                                              <option value="'.$c['id'].'">'.$c['name'].'</option>
-                                            ';
+                                            if($c['id'] == $product_detail['color_id']){
+                                                echo '
+                                                    <option  selected value="'.$c['id'].'">'.$c['name'].'</option>
+                                                ';
+                                              }else{
+                                                  echo '
+                                                    <option value="'.$c['id'].'">'.$c['name'].'</option>
+                                                    ';
+                                              }
                                           }
                                        ?>
                                      </select>
@@ -135,12 +148,17 @@
                                     <label for="validationSelect2">Danh Mục</label>                                             
                                     <div class="col-sm-14">
                                      <select class="select" name="tag">
-                                       <option value="">Chọn Danh Mục</option>
                                        <?php
                                           foreach($tag as $t){
-                                            echo '
-                                              <option value="'.$t['id'].'">'.$t['name'].'</option>
-                                            ';
+                                            if($t['id'] == $product_tag['tag_id']){
+                                                echo '
+                                                    <option  selected value="'.$t['id'].'">'.$t['name'].'</option>
+                                                ';
+                                              }else{
+                                                  echo '
+                                                    <option value="'.$t['id'].'">'.$t['name'].'</option>
+                                                    ';
+                                              }
                                           }
                                        ?>
                                      </select>
@@ -149,30 +167,40 @@
                                 </div>
                                 <div class="form-group row">   
                                   <div class="col-md-6 mb-3">
-                                    <label for="validationSelect2">Size</label>
+                                    <label for="validationSelect2">Size Từ</label>
                                     <div class="col-sm-14">
                                      <select class="select" name="size1">
-                                       <option value="">Từ</option>
                                        <?php
                                           for($s=35;$s<40;$s++){
-                                            echo '
-                                              <option value="'.$s.'">'.$s.'</option>
-                                            ';
+                                            if($s == $product_detail['min(size_id)']){
+                                                echo '
+                                                    <option  value="'.$s.'"  selected>'.$s.'</option>
+                                                ';
+                                              }else{
+                                                echo '
+                                                    <option value="'.$s.'">'.$s.'</option>
+                                                ';
+                                              }
                                           }
                                        ?>
                                      </select>
                                     </div>
                                   </div>
                                   <div class="col-md-6 mb-3">
-                                    <label for="validationSelect2">Size</label>   
+                                    <label for="validationSelect2">Đến</label>   
                                     <div class="col-sm-14">
                                      <select class="select" name="size2" id="">
-                                       <option value="">Đến</option>
                                        <?php
                                           for($i=35;$i<45;$i++){
-                                            echo '
-                                              <option value="'.$i.'">'.$i.'</option>
-                                            ';
+                                            if($i == $product_detail['max(size_id)']){
+                                                echo '
+                                                    <option  selected value="'.$i.'">'.$i.'</option>
+                                                ';
+                                              }else{
+                                                echo '
+                                                    <option value="'.$i.'">'.$i.'</option>
+                                                ';
+                                              }
                                           }
                                        ?>
                                      </select>

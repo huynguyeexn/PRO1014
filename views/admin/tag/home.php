@@ -33,76 +33,40 @@
               <h2 class="h1 mb-1">Sản Phẩm</h2>
                 <div class="card shadow">
                   <div class="card-body">
-                  <div class="toolbar row mb-3">
-                        <div class="col">
-                          <form class="form-inline">
-                            <div class="form-row">
-                              <div class="form-group col-auto">
-                                <label for="search" class="sr-only">Search</label>
-                                <input type="search" class="form-control" onkeyup="tim(this.value);" id="search" placeholder="Search">
-                              </div>
-                            </div>
-                          </form>
-                        </div>
-                        <div class="col ml-auto">
-                          <div class="dropdown float-right">
-                            <a href='admin.php?c=product&p=insert' class="btn btn-primary float-right ml-3" type="button">Add more +</a>
-                            <button class="btn btn-secondary" type="button" onclick='xoa();'> Delete </button>
-                          </div>
-                        </div>
-                      </div>
                     <!-- table -->
                     <table class="table table-borderless table-hover">
                       <thead>
-                        <tr class="text-center">
+                        <tr>
                           <td>
                             <div class="custom-control custom-checkbox">
                               <input type="checkbox" class="custom-control-input" id="all2">
                               <label class="custom-control-label" for="all2"></label>
                             </div>
                           </td>
-                          <th>Mã SP</th>
-                          <th>Ảnh đại diện</th>
-                          <th>Tên sản phẩm</th>
-                          <th>Ngày cập nhật</th>
-                          <th>Giá gốc</th>
-                          <th>Giá khuyến mãi</th>
-                          <th>Mô tả</th>
-                          <th></th>
-                        </tr>
+                          <th>ID</th>
+                          <th>Name</th>
+                        </tr> 
                       </thead>
-                      <tbody id='sp'>
+                      <tbody> 
                         <?php
-                        $id = 0;
-                          foreach($product as $p){
-                            $id++;
+                          foreach($tag as $t){
                             echo '
-                              <tr>
-                                <td>
+                            <tr>
+                              <td>
                                   <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input checkbox" id="'.$id.'">
-                                    <label class="custom-control-label" for="'.$id.'"></label>
+                                    <input type="checkbox" class="custom-control-input" id="2474">
+                                    <label class="custom-control-label" for="2474"></label>
                                   </div>
-                                </td><td class="text-muted">'.$p['id'].'</td>
-                                <td>
-                                  <div class="avatar avatar-md">
-                                    <img src="'.$p['thumb'].'" alt="..." class="avatar-img rounded-circle">
-                                  </div>
-                                </td>
-                                <td>
-                                  <p class="mb-0 text-muted"><strong>'.$p['name'].'</strong></p>
-                                </td>
-                                <td class="text-muted">'.$p['update'].'</td>
-                                <td class="text-muted">'.numToMoney($p['cost']).'</td>
-                                <td class="text-muted">'.numToMoney($p['price']).'</td>
-                                <td style = "width:33%;" class="text-muted">'.htmlentities(substr($p['description'], 0, 100)).'</td>
+                                </td><td class="text-muted">'.$t['id'].'</td>
+                                </td><td class="text-muted">'.$t['name'].'</td>
                                 <td>
                                   <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="text-muted sr-only">Action</span>
                                   </button>
                                   <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="admin.php?c=product&p=form_edit&id='.$p['id'].'">Edit</a>
-                                    <a class="dropdown-item" href="admin.php?c=product&p=remove&id='.$p['id'].'">Remove</a>
+                                    <a class="dropdown-item" href="admin.php?c=tag&p=form_edit&id='.$t['id'].'">Edit</a>
+                                    <a class="dropdown-item" href="admin.php?c=tag&p=remove&id='.$t['id'].'">Remove</a>
+                                    <a class="dropdown-item" href="admin.php?c=tag&p=insert">Insert</a>
                                   </div>
                                 </td>
                               </tr>
@@ -114,8 +78,8 @@
                     <nav aria-label="Table Paging" class="mb-0 text-muted">
                       <ul class="pagination justify-content-center mb-0">
                         <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item active"><a class="page-link" href="#">2</a></li>
                         <li class="page-item"><a class="page-link" href="#">3</a></li>
                         <li class="page-item"><a class="page-link" href="#">Next</a></li>
                       </ul>
@@ -167,18 +131,5 @@
             $(this).parent().toggleClass("showContent");
         });
 
-        function tim(x){
-          var sanpham = document.getElementById('sp');
-          $.ajax({
-          url: 'admin.php?c=product&p=search',
-            type: 'GET',
-            data : 'content='+x,
-            success : function(data) 
-            { 
-              sanpham.innerHTML=data;
-            }
-          });
-          return false; 
-        }
     </script>
   </body>
