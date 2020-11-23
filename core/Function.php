@@ -4,8 +4,9 @@ Dùng để viết các function dùng chung cho cả project
 */
 
 
-// Định dạng từ số thành tiền VNĐ.
+// Định dạng từ số thành tiền.
 function numToMoney($number){
+    setlocale(LC_MONETARY, 'vi_VI');
     $formatter = new NumberFormatter( 'vi_VI', NumberFormatter::CURRENCY);
     return $formatter->formatCurrency($number, "VND")."\n";
 }
@@ -17,10 +18,10 @@ function now(){
     $date = new DateTime(date("Y-m-d H:i:s"), new DateTimeZone('Asia/Ho_Chi_Minh'));
     return $date->format('Y-m-d H:i:s');
 }
-function money($money){
-    setlocale(LC_MONETARY, 'vi_VI');
-    return money_format('%i', $money);
-}
+// function numToMoney($money){
+//     setlocale(LC_MONETARY, 'vi_VI');
+//     return money_format('%i', $money);
+// }
 function addToCart($productID){
     if (isset($_SESSION['cart'])){
         $a = $_SESSION['cart'];
@@ -58,8 +59,8 @@ function singleProduct($product){
             <div class="product-details">
                 <h6><a href="product.php?id='.$product["id"].'">' . $product["name"] . '</a></h6>
                 <div class="price">
-                    <h6>' .money($product["price"]). ' VNĐ</h6>
-                    <h6 class="l-through">' . money($product["cost"]) . ' VNĐ</h6>
+                    <h6>' .numToMoney($product["price"]). '</h6>
+                    <h6 class="l-through">' . numToMoney($product["cost"]) . '</h6>
                 </div>
                 <div class="prd-bottom">
 

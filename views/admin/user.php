@@ -41,20 +41,23 @@
                               </div>
                             </th>
                             <th>#</th>
-                            <th>Name</th>
-                            <th>cost</th>
-                            <th>description</th>
-                            <th>thumb</th>
-                            <th>images</th>
-                            <th">update</th>
-                            
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th>Phone</th>
+                            <th>Created</th>
+                            <th>Birthday</th>
+                            <th>Fullname</th>
+                            <th>Avartar</th>
+                            <th>Rank</th>
+                            <th>Address</th>
+                            <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
                             
                             <?php
-                                  $product=getAllProduct();
-                                  foreach($product as $pro){     
+                                  $user=getAllUser();
+                                  foreach($user as $u){     
                                     echo'
                                     
                                     <tr>
@@ -64,12 +67,17 @@
                                         <label class="custom-control-label" for="d1"></label>
                                       </div>
                                     </td>
-                                    <td>'.$pro['id'].'</td>
-                                    <td>'.$pro['name'].'</td>
-                                    <td>'.$pro['cost'].'$</td>
-                                    <td>'.$pro['description'].'</td>
-                                    <td><img  style=" width: 200px;" src="'.$pro['thumb'].'" alt=""></td>
-                                    <td>'.$pro['update'].'</td>
+                                    <td>'.$u['id'].'</td>
+                                    <td>'.$u['username'].'</td>
+                                    <td>'.$u['password'].'$</td>
+                                    <td>'.$u['phone'].'</td>
+                                    <td>'.$u['created'].'</td>
+                                    <td>'.$u['birthday'].'</td>
+                                    <td>'.$u['fullname'].'</td>
+                                    <td><img style=" width: 70px;" src="'.$u['avartar'].'" alt=""></td>
+                                    <td>'.$u['rank'].'</td>
+                                    <td>'.$u['address'].'</td>
+
                                     </td>
                                    
                                     <td>

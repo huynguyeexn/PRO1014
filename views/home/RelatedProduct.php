@@ -21,8 +21,8 @@
 								<div class="desc">
 									<a href="product.php?id='.$product['id'].'" class="title">'.$product['name'].'</a>
 									<div class="price">
-										<h6>'.money($product['price']).' VNĐ</h6>
-										<h6 class="l-through">'.money($product['cost']).' VNĐ</h6>
+										<h6>'.numToMoney($product['price']).'</h6>
+										<h6 class="l-through">'.numToMoney($product['cost']).'</h6>
 									</div>
 								</div>
 							</div>

@@ -233,8 +233,8 @@
 												<div class="product-details">
 													<a href="product.php?id='.$p['id'].'" class = "name">'.$p['name'].'</a>
 													<div class="price">
-														<h6 class = "value">'.money($p['price']).' VNĐ</h6>
-														<h6 class="l-through cost">'.money($p['cost']).' VNĐ</h6>
+														<h6 class = "value">'.numToMoney($p['price']).'</h6>
+														<h6 class="l-through cost">'.numToMoney($p['cost']).'</h6>
 													</div>
 													<div class="prd-bottom">
 				

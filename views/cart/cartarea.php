@@ -50,7 +50,7 @@ function calculator($products)
                     <tbody>
                         <?php if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) : ?>
                         <?php foreach ($_SESSION['cart'] as $product) :  $data = getProductById($product['id']);?>
-                        <tr class='allItem'>
+                        <tr class='allItem' id="product-<?php echo $product['id']; ?>">
                             <td>
                                 <div class="media">
                                     <div class="product-image">
@@ -63,16 +63,17 @@ function calculator($products)
                                 </div>
                             </td>
                             <td>
-                                <div class="product-price"><?php echo money($data['price']); ?> VNĐ</div>
+                                <div class="product-price"><?php echo numToMoney($data['price']); ?></div>
                             </td>
                             <td>
                                 <div class="product-quantity">
                                     <input type="number" min="1" class="form-control"
-                                        value="<?php echo $product['quantity']; ?>">
+                                        value="<?php echo $product['quantity']; ?>"
+                                        onchange="quantityUpdate(this, <?php echo $product['id']; ?>)">
                                 </div>
                             </td>
                             <td>
-                                <h5><?php echo money($data['price'] * $product['quantity']); ?> VNĐ</h5>
+                                <h5 class="total"><?php echo numToMoney($data['price'] * $product['quantity']); ?></h5>
                             </td>
                             <td>
                                 <button class="deleteItem btn btn-danger"
@@ -82,7 +83,7 @@ function calculator($products)
                         <?php endforeach; ?>
                         <?php endif; ?>
 
-                        <tr class="bottom_button">
+                        <!-- <tr class="bottom_button">
                             <td>
 
                             </td>
@@ -96,9 +97,8 @@ function calculator($products)
                                 </div>
                             </td>
 
-                        </tr>
+                        </tr> -->
                         <tr>
-                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -107,9 +107,9 @@ function calculator($products)
                                     <h4><strong>Tổng đơn hàng:</strong></h4>
                                 </div>
                             </td>
-                            <td>
+                            <td  colspan="2">
                                 <div class="cupon_text d-flex justify-content-end">
-                                    <h4><?php echo money(calculator($_SESSION['cart'])); ?> VNĐ</h4>
+                                    <h4 class="cart-total"><?php echo numToMoney(calculator($_SESSION['cart'])); ?></h4>
                                 </div>
                             </td>
                         </tr>
@@ -120,9 +120,7 @@ function calculator($products)
                             <td>
 
                             </td>
-                            <td>
-                                <h5>Shipping</h5>
-                            </td>
+                            
                             <td>
                                 <div class="shipping_box">
                                     <ul class="list">
@@ -155,8 +153,8 @@ function calculator($products)
                             <td></td>
                             <td>
                                 <div class="checkout_btn_inner d-flex justify-content-end">
-                                    <a class="gray_btn" href="#">Tiếp tục mua hàng</a>
-                                    <a class="primary-btn" href="#">Thanh toán giỏ hàng</a>
+                                    <a class="gray_btn" href="shop.php">Tiếp tục mua hàng</a>
+                                    <a class="primary-btn" href="cart.php?action=add">Thanh toán đơn hàng</a>
                                 </div>
                             </td>
                         </tr>
