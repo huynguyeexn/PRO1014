@@ -16,7 +16,7 @@ require_once('models/TagBlogModel.php');
 require_once('models/TagOfBlog.php');
 require_once('models/BrandModel.php');
 require_once('models/OrderModel.php');
-
+require_once('models/CommentModel.php');
 
 if(!isset($_SESSION['user'])){
     header('location: index.php');
@@ -44,12 +44,76 @@ switch ($control) {
     case 'tag':
         require_once('views/admin/tag.php');
     break;
-    case 'comment':
-        require_once('views/admin/comment.php');
+    case 'b-comment':
+        $action = "show";
+        if (isset($_GET["b"])) {
+            $action = $_GET["b"];
+        }
+        switch ($action) {
+            case 'show':
+                require_once('views/admin/blog-comment/blog-comment.php');
+            break;
+            case 'delete':
+                if(isset($_GET['id'])){
+                    $id =$_GET['id'];
+                    deleteBlogComment($id);                             
+                }
+                header('location: admin.php?c=b-comment');
+            break;
+        }
     break;
     case 'user':
         require_once('views/admin/user.php');
     break;
+
+    case 'tag-blog':
+        $tagblog = "t-blog";
+        if (isset($_GET["t"])) {
+            $tagblog = $_GET["t"];
+        }
+        switch($tagblog){
+            case 't-blog':
+                require_once('views/admin/tag-blog/tag-blog.php');
+            break;
+            case 'create':
+                $tags = getAllTagBlog();
+                require_once('views/admin/tag-blog/add-tagblog.php');
+            break;
+            
+            case 'add':
+                $tagname =$_POST['name'];
+                $show = 1;
+                $priority = $_POST['priority'];
+                addNewTagBlog($tagname,$priority);
+                header('location: admin.php?c=tag-blog');
+            break;
+            case 'delete':
+                if(isset($_GET['id'])){
+                    $id =$_GET['id'];
+                    deleteTagBlog($id);                             
+                }
+                header('location: admin.php?c=tag-blog');
+            break;
+
+            case 'edit':
+                $id = $_GET['id'];
+                $tags = getAllTagBlog();
+                $gettag = getTagBlogById($id);
+                include 'views/admin/tag-blog/edit-tagblog.php';
+            break;
+
+            case 'update';
+            $id = $_GET['id'];
+            $tagname =$_POST['name'];
+            $show = 1;
+            $priority = $_POST['priority'];
+            updateTagBlog($id,$tagname,$priority);
+             header('location: admin.php?c=tag-blog');
+        break;
+        }
+    break;
+
+
     case 'blog':
         $action = "show";
         if (isset($_GET["a"])) {
@@ -64,6 +128,7 @@ switch ($control) {
                 $tags = getAllTagBlog();
                 require_once('views/admin/blog/add-blog.php');
             break;
+          
             case 'add':
                 $userId = $_SESSION['user']['id'];
                 $title = $_POST['title'];
@@ -105,7 +170,79 @@ switch ($control) {
                 }
                 header('location: admin.php?c=blog&a=create');
             break;
+            case 'delete':
+                if(isset($_GET['id'])){
+                    $id =$_GET['id'];
+                    deleteBlog($id);                             
+                }
+                header('location: admin.php?c=blog');
+            break;
 
+            case 'edit':
+                $id = $_GET['id'];
+                $tags = getAllTagBlog();
+                $tagOfBlog = getTagByBlogId($id);
+                
+                $getblog = getBlogById($id);
+                include 'views/admin/blog/edit-blog.php';
+
+            break;
+
+            case 'update':
+                // $id = $_POST['id'];
+                 $userId = $_SESSION['user']['id'];
+                $title = $_POST['title'];
+                $description = $_POST['description'];
+                $content = $_POST['content'];
+                $thumb = NULL;
+                $now = now();
+                // $blogId = intval(getMaxBlogId()) + 1;
+                $blogid = $_GET['id'];
+    
+                // Upload.
+                $target_dir = "assets/img/blog/$blogid/";
+
+                //Check if the directory already exists.
+                if(!is_dir($target_dir)){
+                    mkdir($target_dir, 0755);
+                }
+
+                $target_file = $target_dir . basename($_FILES["thumb"]["name"]);
+                $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                
+                if (isset($_FILES["thumb"]["name"])) {
+                    $check = getimagesize($_FILES["thumb"]["tmp_name"]);
+                    if ($check !== false) {
+                        if (move_uploaded_file($_FILES["thumb"]["tmp_name"], $target_file)){
+                            $thumb = $target_file;
+                        } else {
+                            echo "Xin lỗi, đã có lỗi xảy ra khi tải lên hình ảnh. Vui lòng thử lại!";
+                            die();
+                        }
+                    }
+                    
+                    else {
+                        echo "File không phải là hình ảnh.";
+                        die();
+                    }
+                }
+                updateBlog($blogid,$title,$description,$thumb,$content);
+                if(isset($_POST['tag'])){
+                 $tags = $_POST['tag'];
+                    foreach($tags as $tag){
+                        updateTagOfBlog($blogid,$tag);
+                    }
+                }else{
+                    $blog = getTagByBlogId($blogid);
+                    foreach($blog as $blogs){
+                        $t = $blogs['tag_id'];
+                        updateTagOfBlog($blogid,$t);
+                    }
+                }
+                
+             header('location: admin.php?c=blog');
+
+            break;
             default:
                 header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
                 include("404.php");
