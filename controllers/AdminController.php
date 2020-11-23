@@ -39,7 +39,6 @@ switch ($control) {
         require_once('views/admin/order.php');
     break;
     case 'product':
-<<<<<<< HEAD
         $product = 'home';
         if(isset($_GET['p'])){
             $product = $_GET["p"];
@@ -253,11 +252,6 @@ switch ($control) {
                 break;
         }
         break;
-=======
-        $product = getAllProduct();
-        require_once('views/admin/product/home.php');
-    break;
->>>>>>> 158a2c6244292e2a432a0d2615d9fee634bca105
     case 'brand':
         require_once('views/admin/brand.php');
     break;
