@@ -70,3 +70,10 @@
 			</div>
 		</div>
 	</section>
+	<script>
+		window.onload = function() {
+			var deadline = new Date("2021-11-06");
+			initializeClock('clockdiv', deadline);
+		};
+		
+	</script>

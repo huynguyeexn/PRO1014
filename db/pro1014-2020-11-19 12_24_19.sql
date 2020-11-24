@@ -122,10 +122,18 @@ CREATE TABLE IF NOT EXISTS `color` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
--- Dumping data for table pro1014.color: ~2 rows (approximately)
+-- Dumping data for table pro1014.color: ~10 rows (approximately)
 /*!40000 ALTER TABLE `color` DISABLE KEYS */;
 REPLACE INTO `color` (`id`, `name`, `colorCode`) VALUES
-	(1, 'Đen', '#000000'),
+	(1, 'Black', '#000000'),
+	(2, 'Silver', '#c0c0c0'),
+	(3, 'Gray', '#808080'),
+	(4, 'Brown', '#a52a2a'),
+	(5, 'Raw', '#d68a59'),
+	(6, 'Maroon', '#800000'),
+	(7, 'Cream', '#fffdd0'),
+	(8, 'Linen', '#faf0e6'),
+	(9, 'Yellow', '#ffff00'),
 	(10, 'White', '#fffffff');
 /*!40000 ALTER TABLE `color` ENABLE KEYS */;
 
@@ -225,6 +233,8 @@ CREATE TABLE IF NOT EXISTS `order_detail` (
 
 -- Dumping data for table pro1014.order_detail: ~3 rows (approximately)
 /*!40000 ALTER TABLE `order_detail` DISABLE KEYS */;
+REPLACE INTO `order_detail` (`order_id`, `product_id`, `color_id`, `size_id`, `quantity`, `price`) VALUES
+	(1, 1, 2, 38, 1, 75);
 /*!40000 ALTER TABLE `order_detail` ENABLE KEYS */;
 
 -- Dumping structure for table pro1014.product
@@ -303,14 +313,24 @@ CREATE TABLE IF NOT EXISTS `product_detail` (
   CONSTRAINT `FK__size` FOREIGN KEY (`size_id`) REFERENCES `size` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table pro1014.product_detail: ~5 rows (approximately)
+-- Dumping data for table pro1014.product_detail: ~15 rows (approximately)
 /*!40000 ALTER TABLE `product_detail` DISABLE KEYS */;
 REPLACE INTO `product_detail` (`product_id`, `color_id`, `size_id`, `quantity`) VALUES
 	(1, 1, 38, 26),
 	(1, 10, 38, 50),
 	(1, 1, 39, 13),
 	(1, 1, 42, 31),
-	(2, 10, 36, 45);
+	(3, 3, 38, 78),
+	(2, 10, 36, 45),
+	(3, 4, 38, 85),
+	(2, 8, 36, 16),
+	(1, 2, 39, 60),
+	(3, 9, 46, 53),
+	(1, 4, 36, 18),
+	(3, 7, 39, 99),
+	(1, 7, 36, 44),
+	(1, 2, 43, 82),
+	(1, 4, 35, 51);
 /*!40000 ALTER TABLE `product_detail` ENABLE KEYS */;
 
 -- Dumping structure for table pro1014.review
@@ -453,25 +473,29 @@ CREATE TABLE IF NOT EXISTS `tag_product` (
   `show` bit(1) DEFAULT NULL,
   `priority` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
--- Dumping data for table pro1014.tag_product: ~7 rows (approximately)
+-- Dumping data for table pro1014.tag_product: ~11 rows (approximately)
 /*!40000 ALTER TABLE `tag_product` DISABLE KEYS */;
 REPLACE INTO `tag_product` (`id`, `name`, `show`, `priority`) VALUES
-	(1, 'Giày Adidas Superstar', NULL, NULL),
-	(2, 'Giày NMD', NULL, NULL),
-	(3, 'Giày Athletic & Sneakers', NULL, NULL),
-	(4, 'Giày Ultraboost', NULL, NULL),
+	(1, 'Superstar Shoes', NULL, NULL),
+	(2, 'NMD', NULL, NULL),
+	(3, 'Athletic & Sneakers', NULL, NULL),
+	(4, 'Ultraboost', NULL, NULL),
 	(5, 'Stan Smith', NULL, NULL),
-	(6, 'Giày Nam', NULL, NULL),
-	(7, 'Giày Nữ', NULL, NULL);
+	(6, 'Men', NULL, NULL),
+	(7, 'Women', NULL, NULL),
+	(8, 'Child', NULL, NULL),
+	(9, 'Infant', NULL, NULL),
+	(10, 'Unisex', NULL, NULL),
+	(11, 'Youth', NULL, NULL);
 /*!40000 ALTER TABLE `tag_product` ENABLE KEYS */;
 
 -- Dumping structure for table pro1014.user
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `username` char(255) NOT NULL DEFAULT '',
-  `password` char(255) NOT NULL DEFAULT '',
+  `password` char(50) NOT NULL DEFAULT '',
   `email` char(255) NOT NULL,
   `phone` char(20) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
@@ -480,20 +504,18 @@ CREATE TABLE IF NOT EXISTS `user` (
   `avartar` char(255) DEFAULT NULL,
   `rank` tinyint(255) unsigned DEFAULT NULL,
   `address` char(255) DEFAULT NULL,
-  `verification_code` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Dumping data for table pro1014.user: ~4 rows (approximately)
+-- Dumping data for table pro1014.user: ~3 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-REPLACE INTO `user` (`id`, `username`, `password`, `email`, `phone`, `created`, `birthday`, `fullname`, `avartar`, `rank`, `address`, `verification_code`) VALUES
-	(1, 'huy', '$2y$10$q/CXZMVUqI8jetJUR0mCWuiSS.irB1KAM4xDDLuYGxgpcGkohZsH.', 'huy@gmail.com', '09090909', '2020-10-10 05:37:57', '2001-04-21 18:38:23', 'Nguyễn Văn Huy', 'assets/img/user/1.jpg', 10, 'Quận 1, HCMC', NULL),
-	(2, 'dien', '$2y$10$Zmag6qzDtujLQ1c1jhnXhuiDtklo0gSPVY3G6qUfUU1x3Se8ixqXq', 'dien@gmail.com', '08080808', '2020-10-11 01:37:58', '2001-05-05 18:38:24', 'Nguyễn Văn Điền', 'assets/img/user/2.jpg', 1, 'Quận 2, HCMC', NULL),
-	(3, 'dung', '$2y$10$xEyjNLhkwDstItvTU3/3LujzVGhy5YAq0YyNS5KsB.GrNKPHFhQq.', 'dung@gmail.com', '07070707', '2020-10-10 08:37:59', '2001-07-15 18:38:25', 'Nguyễn Văn Dung', 'assets/img/user/3.jpg', 1, 'Quận 3, HCMC', NULL),
-	(4, 'hui', '$2y$10$RdzH.ludsZX6/m2a8.TnZe2N4yT9ioPaIIiL9DpLGMMuKPiJ4u8Im', 'huyn.dev@gmail.com', NULL, NULL, NULL, NULL, NULL, 10, NULL, 'NULL');
+REPLACE INTO `user` (`id`, `username`, `password`, `email`, `phone`, `created`, `birthday`, `fullname`, `avartar`, `rank`, `address`) VALUES
+	(1, 'huy', '123', 'huy@gmail.com', '09090909', '2020-10-10 05:37:57', '2001-04-21 18:38:23', 'Nguyễn Văn Huy', 'assets/img/user/1.jpg', 10, 'Quận 1, HCMC'),
+	(2, 'dien', '123', 'dien@gmail.com', '08080808', '2020-10-11 01:37:58', '2001-05-05 18:38:24', 'Nguyễn Văn Điền', 'assets/img/user/2.jpg', 1, 'Quận 2, HCMC'),
+	(3, 'dung', '123', 'dung@gmail.com', '07070707', '2020-10-10 08:37:59', '2001-07-15 18:38:25', 'Nguyễn Văn Dung', 'assets/img/user/3.jpg', 0, 'Quận 3, HCMC');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;pro1014
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
