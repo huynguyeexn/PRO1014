@@ -15,24 +15,14 @@
 						<h6>Nhận tin sản phẩm mới</h6>
 						<p>Để lại email và chúng tôi sẽ gửi cho bạn những sản phẩm mới khi ra mắt</p>
 						<div class="" id="mc_embed_signup">
-
-							<form target="_blank" novalidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-							 method="get" class="form-inline">
-
+							<form target="_blank" novalidate="true" action="" method="get" class="form-inline">
 								<div class="d-flex flex-row">
-
-									<input class="form-control" name="EMAIL" placeholder="Email của bạn" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email của bạn'"
+									<input class="form-control" name="email" placeholder="Email của bạn" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email của bạn'"
 									 required="" type="email">
-
-
 									<button class="click-btn btn btn-default"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
 									<div style="position: absolute; left: -5000px;">
 										<input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
 									</div>
-
-									<!-- <div class="col-lg-4 col-md-4">
-												<button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
-											</div>  -->
 								</div>
 								<div class="info"></div>
 							</form>
@@ -67,10 +57,7 @@
 				</div>
 			</div>
 			<div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
-				<p class="footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Bản quyền &copy;<script>document.write(new Date().getFullYear());</script> Toàn quyền sở hữu | Giao diện bởi <i class="fa fa-heart-o" aria-hidden="true"></i> <a href="https://colorlib.com" target="_blank">Nhóm 4 - 404</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-</p>
+				<p class="footer-text m-0">Bản quyền &copy;<script>document.write(new Date().getFullYear());</script> Toàn quyền sở hữu | Giao diện bởi <i class="fa fa-heart-o" aria-hidden="true"></i> <a href="https://colorlib.com" target="_blank">Nhóm 4 - 404</a></p>
 			</div>
 		</div>
 	</footer>

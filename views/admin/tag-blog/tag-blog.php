@@ -28,12 +28,11 @@
         <div class="col-md-10 my-4 float-right">
             <div class="card shadow">
                 <div class="card-body">
-                    <h2 class="card-title">Danh sách tin tức</h2>
+                    <h2 class="card-title">Danh sách thẻ</h2>
                     <div class="toolbar row mb-3">
                         <div class="col">
                             <div class="dropdown">
-                                <a class="btn btn-primary" href="admin.php?c=blog&a=create">Thêm tin
-                                    tức +</a>
+                                <a class="btn btn-primary" href="admin.php?c=tag-blog&t=create">Thêm thẻ +</a>
                             </div>
                         </div>
                     </div>
@@ -47,22 +46,17 @@
                                     </div>
                                 </th>
                                 <th>ID</th>
-                                <th>Title</th>
-                                <th>Description</th>
-                                <th>Content</th>
-                                <th>Thumb</th>
-                                <th>View</th>
-                                <th>Created</th>
-                                <th>User</th>
+                                <th>Name</th>
+                                <th>Show</th>
+                                <th>Priority</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                                 $blognews= getAllBlog();
-                                 foreach($blognews as $news){
-                                    $user = getUserById($news['user_id']);
-                                    $cata = getTagBlogById($news['id']);
+                                 $tagblog= getAllTagBlog();
+                                 foreach($tagblog as $tags){
+                                 
                                     echo'
                                     <tr>
                                     <td>
@@ -71,25 +65,22 @@
                                         <label class="custom-control-label" for="d1"></label>
                                       </div>
                                     </td>
-                                    <td>'.$news['id'].'</td>
+                                    <td>'.$tags['id'].'</td>
                                     
-                                    <td>'.substr($news['title'], 0, 200).'</td>
-                                    <td >'.substr($news['description'], 0, 200).'</td>
-                                    <td >'.htmlentities(substr($news['content'], 0, 200)).'</td>
-                                    <td><img src="'.$news['thumb'].'" alt="" width="100px">
-                                    </td>
+                                    <td>'.$tags['name'].'</td>
+                                    <td >'.$tags['show'].'</td>
+                                    <td >'.$tags['priority'].'</td>
                                     
-                                    <td>'.$news['view'].'</td>
-                                    <td>'.$news['created'].'</td>
-                                    <td>'.$user['fullname'].'</td>
+                                    
+                                    
                                     <td>
                                       <div class="dropdown">
                                         <button class="btn btn-sm dropdown-toggle" type="button" id="dr1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                           <span class="text-muted sr-only">Action</span>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr1">
-                                          <a class="dropdown-item" href="admin.php?c=blog&a=edit&id='.$news['id'].'">Edit</a>
-                                          <a class="dropdown-item" href="admin.php?c=blog&a=delete&id='.$news['id'].'">Remove</a>
+                                          <a class="dropdown-item" href="admin.php?c=tag-blog&t=edit&id='.$tags['id'].'">Edit</a>
+                                          <a class="dropdown-item" href="admin.php?c=tag-blog&t=delete&id='.$tags['id'].'">Remove</a>
                                         </div>
                                       </div>
                                     </td>
@@ -100,14 +91,7 @@
 
                         </tbody>
                     </table>
-                    <div class="toolbar row mb-3">
-                        <div class="col">
-                            <div class="dropdown">
-                                <a class="btn btn-primary" href="http://pro1014.test/admin.php?c=blog&a=create">Thêm tin
-                                    tức +</a>
-                            </div>
-                        </div>
-                    </div>
+                  
                 </div>
             </div>
         </div> <!-- Striped rows -->

@@ -20,6 +20,10 @@ function getAllBlogComment(){
     $sql = "select * from blog_comment";
     return query($sql);
 }
+function deleteBlogComment($id){
+    $sql = "DELETE FROM blog_comment WHERE id=$id";
+    return execute($sql);
+}
 function getBlogByOffset($limit, $offset){
     $sql = "SELECT * FROM blog LIMIT $limit OFFSET $offset;";
     return query($sql);
@@ -47,8 +51,8 @@ function addNewBlog($userId,$title,$thumb,$now,$description,$content){
     return execute($sql);
 }
 
-function updateBlog(){
-    $sql = "";
+function updateBlog($blogid,$title,$description,$thumb,$content){
+    $sql = "UPDATE blog SET title = '$title', thumb = '$thumb', `description` = '$description' , content = '$content' where id ='$blogid'";
     return execute($sql);
 }
 

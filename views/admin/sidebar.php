@@ -59,13 +59,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="admin.php?c=tag-product" aria-expanded="false" class="nav-link">
+                <a href="admin.php?c=tag-blog" aria-expanded="false" class="nav-link">
                     <i class="fe fe-tag fe-16"></i>
                     <span class="ml-3 item-text">Thẻ tin tức</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="admin.php?c=comment" aria-expanded="false" class="nav-link">
+                <a href="admin.php?c=b-comment" aria-expanded="false" class="nav-link">
                     <i class="fe fe-message-circle fe-16"></i>
                     <span class="ml-3 item-text">Bình luận tin tức</span>
                 </a>
