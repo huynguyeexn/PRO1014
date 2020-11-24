@@ -49,6 +49,8 @@
                             <th>Address</th>
                             <th>Email</th>
                             <th>Action</th>
+                            <th>Chi tiết</th>
+                            
                           </tr>
                         </thead>
                         <tbody>
@@ -73,6 +75,7 @@
                                     <td>'.$o['address'].'</td>
                                     <td>'.$o['phone'].'</td>
                                     <td>'.$o['email'].'</td>
+                                    
                                     </td>
                                    
                                     <td>
@@ -87,6 +90,7 @@
                                         </div>
                                       </div>
                                     </td>
+                                    <td><a href="#">Chi tiết</a></td>
                                   </tr>
                                     ';
                                  }
