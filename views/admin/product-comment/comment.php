@@ -28,14 +28,13 @@
         <div class="col-md-10 my-4 float-right">
             <div class="card shadow">
                 <div class="card-body">
-                    <h2 class="card-title">Danh sách nhãn hàng</h2>
+                    <h2 class="card-title">Bình luận</h2>
                     <div class="toolbar row mb-3">
-                        <div class="col">
+                        <!-- <div class="col">
                             <div class="dropdown">
-                                <a class="btn btn-primary" href="http://pro1014.test/admin.php?c=blog&a=create">Thêm
-                                    nhãn hàng +</a>
+                                <a class="btn btn-primary" href="admin.php?c=tag-blog&t=create">Thêm thẻ +</a>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <table class="table table-striped table-hover">
                         <thead>
@@ -46,18 +45,19 @@
                                         <label class="custom-control-label" for="d1"></label>
                                     </div>
                                 </th>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Show</th>
-                                <th>Prioryti</th>
+                                <th>Id</th>
+                                <th>Product Id</th>
+                                <th>Số lượng comment</th>
+                                <th>Chi tiết</th>
                                 <th>Action</th>
-
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                                  $brand=getAllBrand();
-                                  foreach($brand as $br){
+                                 $comment_product= getAllCommentProduct();
+                                 
+                                 foreach($comment_product as $com){
+                                 
                                     echo'
                                     <tr>
                                     <td>
@@ -66,24 +66,17 @@
                                         <label class="custom-control-label" for="d1"></label>
                                       </div>
                                     </td>
-                                    <td>'.$br['id'].'</td>
-                                    <td>'.$br['name'].'</td>
-                                    <td>'.$br['show'].'</td>
-                                    <td>'.$br['priority'].'</td>
-                                    </td>
-                                    
-                                    
-                                    
-                                   
+                                    <td>'.$com['id'].'</td>
+                                    <td>'.$com['product_id'].'</td>
+                                    <td >'.$com['created'].'</td>
                                     <td>
                                       <div class="dropdown">
                                         <button class="btn btn-sm dropdown-toggle" type="button" id="dr1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                           <span class="text-muted sr-only">Action</span>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr1">
-                                          <a class="dropdown-item" href="#">Edit</a>
-                                          <a class="dropdown-item" href="#">Remove</a>
-                                          <a class="dropdown-item" href="#">Assign</a>
+                                          <a class="dropdown-item" href="admin.php?c=tag-blog&t=edit&id='.$com['id'].'">Edit</a>
+                                          <a class="dropdown-item" href="admin.php?c=b-comment&b=delete&id='.$com['id'].'">Remove</a>
                                         </div>
                                       </div>
                                     </td>
@@ -91,16 +84,10 @@
                                     ';
                                  }
                             ?>
+
                         </tbody>
                     </table>
-                    <div class="toolbar row mb-3">
-                        <div class="col">
-                            <div class="dropdown">
-                                <a class="btn btn-primary" href="http://pro1014.test/admin.php?c=blog&a=create">Thêm
-                                    nhãn hàng +</a>
-                            </div>
-                        </div>
-                    </div>
+                  
                 </div>
             </div>
         </div> <!-- Striped rows -->

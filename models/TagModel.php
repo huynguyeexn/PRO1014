@@ -4,6 +4,10 @@ function getTagId($id){
     $sql = "SELECT * FROM tag_product WHERE id = $id;";
     return queryOne($sql);
 }
+function getAllTagById($id){
+    $sql = "SELECT * FROM tag_product WHERE id = $id;";
+    return query($sql);
+}
 
 function getAllTag(){
     $sql = "select * from tag_product";
