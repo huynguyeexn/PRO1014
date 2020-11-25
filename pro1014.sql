@@ -1,1 +1,0 @@
-update `pro1014`.`brand` set `name` ='NB', `show` = b'1', `priority` = '7' where id=8;
