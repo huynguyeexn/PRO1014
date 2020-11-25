@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+    <title>Kích hoạt tài khoản</title>
+    <!-- Simple bar CSS -->
+    <link rel="stylesheet" href="assets/css/simplebar.css">
+    <!-- Fonts CSS -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <!-- Icons CSS -->
+    <link rel="stylesheet" href="assets/css/feather.css">
+    <!-- Date Range Picker CSS -->
+    <link rel="stylesheet" href="assets/css/daterangepicker.css">
+    <!-- App CSS -->
+    <link rel="stylesheet" href="assets/css/app-light.css" id="lightTheme" disabled>
+    <link rel="stylesheet" href="assets/css/app-dark.css" id="darkTheme">
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/sweetalert.min.js"></script>
+    <script>
+    
+    <?php
+    
+    if(isset($message)){
+        echo '$(document).ready(function() { swal("'.$message['title'].'", "'.$message['message'].'", "success"); });';
+    }else{
+        echo '123';
+    }
+    ?>
+    </script>
+</head>
+
+<body class="dark ">
+
+</body>
+
+</html>
