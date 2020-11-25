@@ -8,7 +8,24 @@
             height: 100px;
             overflow: hidden;
         }
-
+        .select{
+          width:100%;
+          height:35px;
+          color:#ced4da;
+          background:#343a40;
+          border-color: #9bbcff;
+          border-radius: 0.25rem;
+          box-shadow: 0 0 0 0.2rem rgba(27, 104, 255, 0.25)
+        }
+        .drag{
+          width:100%;
+          height:300px;
+          background:black;
+        }
+        .drag img{
+          width:100%;
+          height:100%;
+        }
         </style>
 
         
@@ -36,114 +53,134 @@
                       <tbody>
                         <div class="card shadow mb-4">
                           <div class="card-body">
-                            <form>
+                            <form action="admin.php?c=product&p=addnew" method="post" enctype="multipart/form-data">
                             <div class="form-group row">
                               <div class="col-md-3">
-                                <div class="card shadow mb-4">
+                                  <h1 class="h5 mb-2">Ảnh Sản Phẩm</h1>
                                   <div style="padding:0px;" class="card-body">
-                                    <div id="drag-drop-area"></div>
-                                  </div> <!-- .card-body -->
-                                </div> <!-- .card -->
+                                      <input type="file" name="images_sp">
+                                    <div  class="drag mt-3">
+                                    </div>
+                                  </div>
+                                  <div style="padding:0px;" class="card-body">
+                                  <h1 class="h5 mb-2 mt-4">Ảnh Mô Tả</h1>
+                                      <input type="file" name="hinh[]" multiple>
+                                  </div>
                               </div>
                               <div class="col-md-9 my-4">
                                 <div class="form-group row">
-                                  <label for="inputEmail3" class="col-sm-3 col-form-label">Tên sản phẩm</label>
-                                  <div class="col-sm-9">
-                                    <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-                                  </div>
-                                </div>
-                                <div class="form-group row">
-                                  <label for="disabledInput" class="col-sm-3 col-form-label">Disabled</label>
-                                  <div class="col-sm-9">
-                                    <input class="form-control" id="disabledInput" type="text" placeholder="Disabled input here..." disabled>
+                                  <label for="inputEmail3" class="col-sm-3 col-form-label">Tên Sản Phẩm</label>
+                                  <div class="col-sm-9 mb-3">
+                                    <input type="text" class="form-control" name="name" placeholder="Tên Sản Phẩm">
                                   </div>
                                 </div>
                                 <fieldset class="form-group">
                                   <div class="form-group row">
-                                    <label class="col-form-label col-sm-3 pt-0">Giá gốc</label>
-                                    <div class="col-sm-9">
-                                    <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                                    <label class="col-form-label col-sm-3 pt-0">Giá</label>
+                                    <div class="col-sm-9 mb-3">
+                                    <input type="text" class="form-control" name="cost" placeholder="Email">
                                     </div>
                                   </div>
                                   <div class="row">
-                                    <label class="col-form-label col-sm-3 pt-0">Giá thị trường</label>
-                                    <div class="col-sm-9">
-                                      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                                    <label class="col-form-label col-sm-3 pt-0">Giá Thị Trường</label>
+                                    <div class="col-sm-9 mb-3">
+                                      <input type="text" class="form-control" name="price" placeholder="Email">
                                     </div>
                                   </div>
                                 </fieldset>
                                 <div class="form-group row">
-                                  <label class="col-sm-3" for="exampleFormControlTextarea1">Nội dung</label>
-                                  <div class="col-sm-9">
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
+                                  <label for="inputEmail3" class="col-sm-3 col-form-label">Số Lượng</label>
+                                  <div class="col-sm-9 mb-3">
+                                    <input type="text" class="form-control" name="quantity" placeholder="Số Lượng">
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <label class="col-sm-3" for="exampleFormControlTextarea1">Mô Tả</label>
+                                  <div class="col-sm-9 mb-3">
+                                    <textarea class="form-control" name="description" rows="3"></textarea>
                                   </div>
                                 </div>
                                 <div class="form-group row">
                                   <div class="col-md-4 mb-3">
                                     <label for="validationSelect2">Thương Hiệu</label>
-                                    <select class="form-control select2 select2-hidden-accessible" id="validationSelect2" required="" data-select2-id="validationSelect2" tabindex="-1" aria-hidden="true">
-                                      <option value="" data-select2-id="2">Select state</option>
-                                      <optgroup label="Mountain Time Zone" data-select2-id="10">
-                                        <option value="AZ" data-select2-id="11">Arizona</option>
-                                      </optgroup>
-                                    </select><span class="select2 select2-container select2-container--bootstrap4 select2-container--below select2-container--focus" dir="ltr" data-select2-id="1" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-validationSelect2-container"><span class="select2-selection__rendered" id="select2-validationSelect2-container" role="textbox" aria-readonly="true" title="Select state">Select state</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-                                    <div class="invalid-feedback"> Please select a valid state. </div>
+                                    <div class="col-sm-14">
+                                     <select class="select" name="brand" >
+                                       <option value="">Chọn Thương Hiệu</option>
+                                       <?php
+                                          foreach($brand as $b){
+                                            echo '
+                                              <option value="'.$b['id'].'">'.$b['name'].'</option>
+                                            ';
+                                          }
+                                       ?>
+                                     </select>
+                                    </div>
                                   </div>
                                   <div class="col-md-4 mb-3">
                                     <label for="validationSelect2">Màu Sắc</label>
-                                    <select class="form-control select2 select2-hidden-accessible" id="validationSelect2" required="" data-select2-id="validationSelect2" tabindex="-1" aria-hidden="true">
-                                      <option value="" data-select2-id="2">Select state</option>
-                                      <optgroup label="Mountain Time Zone" data-select2-id="10">
-                                        <option value="AZ" data-select2-id="11">Arizona</option>
-                                      </optgroup>
-                                    </select><span class="select2 select2-container select2-container--bootstrap4 select2-container--below select2-container--focus" dir="ltr" data-select2-id="1" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-validationSelect2-container"><span class="select2-selection__rendered" id="select2-validationSelect2-container" role="textbox" aria-readonly="true" title="Select state">Select state</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-                                    <div class="invalid-feedback"> Please select a valid state. </div>
-                                  </div>
-                                  <div class="col-md-4 mb-3">
-                                    <label for="validationSelect2">Danh mục</label>
-                                    <select class="form-control select2 select2-hidden-accessible" id="validationSelect2" required="" data-select2-id="validationSelect2" tabindex="-1" aria-hidden="true">
-                                      <option value="" data-select2-id="2">Select state</option>
-                                      <optgroup label="Mountain Time Zone" data-select2-id="10">
-                                        <option value="AZ" data-select2-id="11">Arizona</option>
-                                      </optgroup>
-                                    </select><span class="select2 select2-container select2-container--bootstrap4 select2-container--below select2-container--focus" dir="ltr" data-select2-id="1" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-validationSelect2-container"><span class="select2-selection__rendered" id="select2-validationSelect2-container" role="textbox" aria-readonly="true" title="Select state">Select state</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-                                    <div class="invalid-feedback"> Please select a valid state. </div>
-                                  </div>
-                                </div>
-                                <div class="form-group row">
-                                  <div class="col-md-4 mb-3">
-                                    <label for="validationSelect2">Ảnh</label>
                                     <div class="col-sm-14">
-                                    <div class="custom-file mb-3">
-                                      <input type="file" class="custom-file-input" id="validatedCustomFile" required="">
-                                      <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-                                      <div class="invalid-feedback">Example invalid custom file feedback</div>
-                                    </div>
+                                     <select class="select" name="color">
+                                       <option value="">Chọn Màu</option>
+                                       <?php
+                                          foreach($color as $c){
+                                            echo '
+                                              <option value="'.$c['id'].'">'.$c['name'].'</option>
+                                            ';
+                                          }
+                                       ?>
+                                     </select>
                                     </div>
                                   </div>
                                   <div class="col-md-4 mb-3">
-                                    <label for="validationSelect2">Kích thước nhỏ nhất</label>
-                                    <select class="form-control select2 select2-hidden-accessible" id="validationSelect2" required="" data-select2-id="validationSelect2" tabindex="-1" aria-hidden="true">
-                                      <option value="" data-select2-id="2">Select state</option>
-                                      <optgroup label="Mountain Time Zone" data-select2-id="10">
-                                        <option value="AZ" data-select2-id="11">Arizona</option>
-                                      </optgroup>
-                                    </select><span class="select2 select2-container select2-container--bootstrap4 select2-container--below select2-container--focus" dir="ltr" data-select2-id="1" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-validationSelect2-container"><span class="select2-selection__rendered" id="select2-validationSelect2-container" role="textbox" aria-readonly="true" title="Select state">Select state</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-                                    <div class="invalid-feedback"> Please select a valid state. </div>
-                                  </div>
-                                  <div class="col-md-4 mb-3">
-                                    <label for="validationSelect2">Kích thước lớn nhất</label>
-                                    <select class="form-control select2 select2-hidden-accessible" id="validationSelect2" required="" data-select2-id="validationSelect2" tabindex="-1" aria-hidden="true">
-                                      <option value="" data-select2-id="2">Select state</option>
-                                      <optgroup label="Mountain Time Zone" data-select2-id="10">
-                                        <option value="AZ" data-select2-id="11">Arizona</option>
-                                      </optgroup>
-                                    </select><span class="select2 select2-container select2-container--bootstrap4 select2-container--below select2-container--focus" dir="ltr" data-select2-id="1" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-validationSelect2-container"><span class="select2-selection__rendered" id="select2-validationSelect2-container" role="textbox" aria-readonly="true" title="Select state">Select state</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-                                    <div class="invalid-feedback"> Please select a valid state. </div>
+                                    <label for="validationSelect2">Danh Mục</label>                                             
+                                    <div class="col-sm-14">
+                                     <select class="select" name="tag">
+                                       <option value="">Chọn Danh Mục</option>
+                                       <?php
+                                          foreach($tag as $t){
+                                            echo '
+                                              <option value="'.$t['id'].'">'.$t['name'].'</option>
+                                            ';
+                                          }
+                                       ?>
+                                     </select>
+                                    </div>
                                   </div>
                                 </div>
-                                <div class="form-group mb-2">
-                                  <button type="submit" class="btn btn-primary">Lưu</button>
+                                <div class="form-group row">   
+                                  <div class="col-md-6 mb-3">
+                                    <label for="validationSelect2">Size</label>
+                                    <div class="col-sm-14">
+                                     <select class="select" name="size1">
+                                       <option value="">Từ</option>
+                                       <?php
+                                          for($s=35;$s<40;$s++){
+                                            echo '
+                                              <option value="'.$s.'">'.$s.'</option>
+                                            ';
+                                          }
+                                       ?>
+                                     </select>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6 mb-3">
+                                    <label for="validationSelect2">Size</label>   
+                                    <div class="col-sm-14">
+                                     <select class="select" name="size2" id="">
+                                       <option value="">Đến</option>
+                                       <?php
+                                          for($i=35;$i<45;$i++){
+                                            echo '
+                                              <option value="'.$i.'">'.$i.'</option>
+                                            ';
+                                          }
+                                       ?>
+                                     </select>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="form-group mt-2">
+                                  <button type="submit" style='width:100px;float:right;margin-top:20px;' class="btn btn-primary">Lưu</button>
                                 </div>
                               </div>
                               </div>
@@ -184,27 +221,13 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
     <script>
-      var uptarg = document.getElementById('drag-drop-area');
-      if (uptarg)
-      {
-        var uppy = Uppy.Core().use(Uppy.Dashboard,
-        {
-          inline: true,
-          target: uptarg,
-          proudlyDisplayPoweredByUppy: false,
-          theme: 'dark',
-          width: 900,
-          height: 300,
-          plugins: ['Webcam']
-        }).use(Uppy.Tus,
-        {
-          endpoint: 'https://master.tus.io/files/'
-        });
-        uppy.on('complete', (result) =>
-        {
-          console.log('Upload complete! We’ve uploaded these files:', result.successful)
-        });
-      }
+      // function a(){
+      //    var anh = document.getElementById('anh');
+      //    var hinh = document.getElementById('hinh');
+      //    var img = anh.value; 
+      //    img = img.slice(13,img.length)
+      //    hinh.src = 'assets/img/product/'+img;
+      // }
     </script>
     <script>
       $('.file-upload').file_upload();

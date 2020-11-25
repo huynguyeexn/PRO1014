@@ -20,7 +20,7 @@
 			<div class="col-lg-5 offset-lg-1">
 			<div class="s_product_text">
 				<h3>'.$product['name'].'</h3>
-				<h2>'.money($product['price']).' VNĐ</h2>
+				<h2>'.numToMoney($product['price']).'</h2>
 				<ul class="list">
 					<li><a class="active" href="#"><span>Loại hàng :</span> ';
 					foreach($tags as $t){

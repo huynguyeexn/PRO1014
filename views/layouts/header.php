@@ -19,8 +19,19 @@
 						<li class="nav-item"><a class="nav-link" href="Shop.php">Cửa hàng</a></li>
 						<li class="nav-item"><a class="nav-link" href="blog.php">Tin tức</a></li>
 						<li class="nav-item"><a class="nav-link" href="contact.php">Liên hệ</a></li>
-						<li class="nav-item"><a class="nav-link" href="account.php">Đăng nhập</a></li>
-						<li class="nav-item"><a class="nav-link" href="admin.php">Quản trị</a></li>
+						<?php
+							if(isset($_SESSION['user'])){
+								if(isset($_SESSION['user']['rank']) && $_SESSION['user']['rank'] > 1){
+									echo '<li class="nav-item"><a class="nav-link" href="admin.php">Quản trị</a></li>';
+								}else{
+									echo '<li class="nav-item"><a class="nav-link" href="user.php">Tài khoản</a></li>';
+								}
+								echo '<li class="nav-item"><a class="nav-link" href="account.php?action=signout">Đăng xuất</a></li>';
+							}else{
+								echo '<li class="nav-item"><a class="nav-link" href="account.php">Đăng nhập</a></li>';
+							}
+						?>
+						
 						<li class="nav-item"><a class="nav-link" href="cart.php" id="linkToCart">
 							<?php
 								if(isset($_SESSION['cart'])){

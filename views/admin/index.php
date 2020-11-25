@@ -33,9 +33,9 @@
                                                 </span>
                                             </div>
                                             <div class="col pr-0">
-                                                <p class="small text-muted mb-0">Monthly Sales</p>
-                                                <span class="h3 mb-0 text-white">$1250</span>
-                                                <span class="small text-muted">+5.5%</span>
+                                                <p class="small text-muted mb-0">Doanh thu tháng này</p>
+                                                <span class="h5 mb-0 text-white">50.342.000</span>
+                                                <span class="small text-muted">+10.5%</span>
                                             </div>
                                         </div>
                                     </div>
@@ -51,8 +51,8 @@
                                                 </span>
                                             </div>
                                             <div class="col pr-0">
-                                                <p class="small text-muted mb-0">Orders</p>
-                                                <span class="h3 mb-0">1,869</span>
+                                                <p class="small text-muted mb-0">Số đơn hàng tháng này</p>
+                                                <span class="h5 mb-0">1,869</span>
                                                 <span class="small text-success">+16.5%</span>
                                             </div>
                                         </div>
@@ -69,13 +69,12 @@
                                                 </span>
                                             </div>
                                             <div class="col">
-                                                <p class="small text-muted mb-0">Visitors</p>
+                                                <p class="small text-muted mb-0">Lượt truy cập</p>
                                                 <div class="row align-items-center no-gutters">
                                                     <div class="col-auto">
-                                                        <span class="h3 mr-2 mb-0">108</span>
+                                                        <span class="h5 mr-2 mb-0">108</span>
                                                         <span
-                                                            class="fe fe-arrow-up fe-12 text-success"></span><span>37.7%
-                                                            Last week</span>
+                                                            class="fe fe-arrow-up fe-12 text-success"></span><span>37.7%</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -93,8 +92,8 @@
                                                 </span>
                                             </div>
                                             <div class="col">
-                                                <p class="small text-muted mb-0">Monthly Products Sales</p>
-                                                <span class="h3 mb-0">1,869</span>
+                                                <p class="small text-muted mb-0">Sản phẩm bán được</p>
+                                                <span class="h5 mb-0">1,869</span>
                                                 <span class="small text-success">+16.5%</span>
                                             </div>
                                         </div>
@@ -176,10 +175,10 @@
     <script>
     var columnChart, columnChartoptions = {
             series: [{
-                name: "Visitors",
+                name: "Lượt truy cập",
                 data: [32, 66, 44, 55, 41, 24, 67, 22, 43, 32, 66, 44, 55, 41, 24, 67, 22, 43]
             }, {
-                name: "Orders",
+                name: "Đơn hàng",
                 data: [7, 30, 13, 23, 20, 12, 8, 13, 27, 7, 30, 13, 23, 20, 12, 8, 13, 27]
             }],
             chart: {
