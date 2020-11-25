@@ -22,22 +22,31 @@
     <link rel="stylesheet" href="assets/css/app-light.css" id="lightTheme" disabled>
     <link rel="stylesheet" href="assets/css/app-dark.css" id="darkTheme">
     <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/sweetalert.min.js"></script>
-    <script>
-    
-    <?php
-    
-    if(isset($message)){
-        echo '$(document).ready(function() { swal("'.$message['title'].'", "'.$message['message'].'", "success"); });';
-    }else{
-        echo '123';
-    }
-    ?>
     </script>
 </head>
 
 <body class="dark ">
-
+    <main role="main" class="main-content">
+        <div class="container-fluid">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-5 mt-4">
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <h3 class="text-center">
+                                <strong class="card-title"><?php echo $message['title'] ?></strong>
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted">
+                                <?php echo $message['message'] ?>
+                            </p>
+                            <a href="<?php echo $message['href'] ?>" class="btn mb-2 btn-primary btn-lg btn-block"><?php echo $message['link'] ?></a>
+                        </div> <!-- /. card-body -->
+                    </div> <!-- /. card-body -->
+                </div>
+            </div>
+        </div>
+    </main>
 </body>
 
 </html>

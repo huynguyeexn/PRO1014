@@ -345,7 +345,7 @@
 			var d = document.getElementById("row");			
 			var page = document.getElementById("pagination");
 			$.ajax({
-				url: 'Shop.php',
+				url: 'shop.php',
                 type: 'GET',
                 data : 'action=page&start='+x+'&cpage='+p,
               	success : function(data) 
@@ -374,7 +374,7 @@
 			var page = document.getElementById("pagination");
 			var pages = document.getElementById("pages");
 			$.ajax({
-				url: 'Shop.php',
+				url: 'shop.php',
                 type: 'GET',
                 data : 'action=page&name='+t+'&value='+x+'&page=1', //dữ liệu sẽ được gửi
               	success : function(data)  // Hàm thực thi khi nhận dữ liệu được từ server
@@ -403,7 +403,7 @@
 			var page = document.getElementById("pagination");
 			var pages = document.getElementById("pages");
 			$.ajax({
-				url: 'Shop.php',
+				url: 'shop.php',
                 type: 'GET',
                 data : 'action=page&sort='+x+'&page=1', //dữ liệu sẽ được gửi
               	success : function(data)  // Hàm thực thi khi nhận dữ liệu được từ server
@@ -433,7 +433,7 @@
 			var page = document.getElementById("pagination");
 			var pages = document.getElementById("pages");
 			$.ajax({
-				url: 'Shop.php',
+				url: 'shop.php',
                 type: 'GET',
                 data : 'action=page&lower='+lower+'&upper='+upper+'&page=1', //dữ liệu sẽ được gửi
               	success : function(data)  // Hàm thực thi khi nhận dữ liệu được từ server
@@ -462,7 +462,7 @@
 			var page = document.getElementById("pagination");
 			var pages = document.getElementById("pages");
 			$.ajax({
-				url: 'Shop.php',
+				url: 'shop.php',
                 type: 'GET',
                 data : 'action=page&show='+x+'&page=1', //dữ liệu sẽ được gửi
               	success : function(data)  // Hàm thực thi khi nhận dữ liệu được từ server
@@ -492,7 +492,7 @@
 			var pages = document.getElementById("pages");
 			var x= 'next'
 			$.ajax({
-				url: 'Shop.php',
+				url: 'shop.php',
                 type: 'GET',
                 data : 'action=page&button='+x+"&cpage="+z,
               	success : function(data) 
@@ -521,7 +521,7 @@
 			var pages = document.getElementById("pages");
 			var x= 'back'
 			$.ajax({
-				url: 'Shop.php',
+				url: 'shop.php',
                 type: 'GET',
                 data : 'action=page&button='+x+"&cpage="+z,
               	success : function(data) 

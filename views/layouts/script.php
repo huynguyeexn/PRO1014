@@ -24,7 +24,13 @@
 					$("#overlay").remove();
 				}, 1000);
 			}, 200);
+		};
+		if ($("#clockdiv")) {
+			var deadline = new Date("2021-11-06");
+			initializeClock('clockdiv', deadline);
 		}
+
+		
 	};
 	$(function() {
 		$(".addtocart").on('click', function() {
@@ -34,7 +40,6 @@
                 type: "POST",
                 url: 'shop.php?action=addToCart&id=' + id + '&quantity=1',
                 success: function(data) {
-					// console.log(data);
                     $("#linkToCart").text('Giỏ hàng ('+data+')');
                 }
             });
@@ -49,23 +54,14 @@
 		$(".deleteItem").on('click', function() {
 			var e = this;
 			var id = $(e).data('value');
-			// console.log(id);
 			$.ajax({
                 type: "POST",
                 url: 'shop.php?action=deleteItem&id=' + id,
                 success: function(data) {
 					console.log(data);
-                    // $("#linkToCart").text('CART('+data+')');
 					e.closest('tr').remove();
-					//$('.allItem').remove();
 				}
             });
-			//$(e).children('.ti-bag').removeClass('ti-bag').addClass('ti-check animate__animated animate__headShake');
-			//$(e).children('p').text("Success");
-			//setTimeout(function() {
-			//	$(e).children('.ti-check').removeClass('ti-check animate__animated animate__headShake').addClass('ti-bag');
-			//	$(e).children('p').text("ADD TO BAG");
-			//}, 1000);
 		});
 	});
 
@@ -77,7 +73,6 @@
 				data = JSON.parse(data);
 				$('#product-'+id + ' .total').text(data[0] + "");
 				$('.cart-total').text(data[1] + "");
-
 			}
 		});
 	}
