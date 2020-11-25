@@ -29,14 +29,6 @@
             <div class="card shadow">
                 <div class="card-body">
                     <h2 class="card-title">Danh sách nhãn hàng</h2>
-                    <div class="toolbar row mb-3">
-                        <div class="col">
-                            <div class="dropdown">
-                                <a class="btn btn-primary" href="http://pro1014.test/admin.php?c=blog&a=create">Thêm
-                                    nhãn hàng +</a>
-                            </div>
-                        </div>
-                    </div>
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
@@ -47,17 +39,19 @@
                                     </div>
                                 </th>
                                 <th>#</th>
-                                <th>Name</th>
-                                <th>Show</th>
-                                <th>Prioryti</th>
+                                <th>Bắt đầu</th>
+                                <th>Kết thúc</th>
                                 <th>Action</th>
 
                             </tr>
                         </thead>
                         <tbody>
+                            
                             <?php
-                                  $brand=getAllBrand();
-                                  foreach($brand as $br){
+                            
+                                  $dealdetail=getAllDealDetailById($id);
+
+                                  foreach($dealdetail as $deal){
                                     echo'
                                     <tr>
                                     <td>
@@ -66,15 +60,15 @@
                                         <label class="custom-control-label" for="d1"></label>
                                       </div>
                                     </td>
-                                    <td>'.$br['id'].'</td>
-                                    <td>'.$br['name'].'</td>
-                                    <td>'.$br['show'].'</td>
-                                    <td>'.$br['priority'].'</td>
-                                    </td>
+                                    <td>'.$deal['deal_id'].'</td>
+                                    <td>'.$deal['product_id'].'</td>
+                                    <td>'.$deal['quantity'].'</td>
+                                    <td><img src="'.$deal['deal_thumb'].'" alt=""></td>
+                                    <td>'.$deal['deal_price'].'</td>
+                                    <td>'.$deal['sold'].'</td>
                                     
                                     
-                                    
-                                   
+                                    </td>                                   
                                     <td>
                                       <div class="dropdown">
                                         <button class="btn btn-sm dropdown-toggle" type="button" id="dr1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -89,7 +83,7 @@
                                     </td>
                                   </tr>
                                     ';
-                                 }
+                                  }   
                             ?>
                         </tbody>
                     </table>
@@ -97,7 +91,7 @@
                         <div class="col">
                             <div class="dropdown">
                                 <a class="btn btn-primary" href="http://pro1014.test/admin.php?c=blog&a=create">Thêm
-                                    nhãn hàng +</a>
+                                Đợt giảm giá +</a>
                             </div>
                         </div>
                     </div>

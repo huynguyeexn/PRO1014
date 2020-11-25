@@ -21,6 +21,10 @@ require_once('models/TagModel.php');
 require_once('models/ProductDetailModel.php');
 require_once('models/OrderModel.php');
 require_once('models/CommentModel.php');
+require_once('models/DealModel.php');
+require_once('models/CommentOfProducts.php');
+require_once('models/ReviewsOfProduct.php');
+
 
 if(!isset($_SESSION['user'])){
     header('location: index.php');
@@ -253,58 +257,30 @@ switch ($control) {
         }
         break;
     case 'brand':
-        $action = "show";
-        if (isset($_GET["a"])) {
-            $action = $_GET["a"];
-        }
+        require_once('views/admin/brand.php');
+    break;
+    case 'deal':
+            $action = "show";
+            if (isset($_GET["a"])) {
+                $action = $_GET["a"];
+            }
+            switch ($action) {
+                case 'show':
+                    require_once('views/admin/deal/deal.php');
+                break;
+                case 'detail':
+                    if(isset($_GET['id'])){
+                        $id = $_GET['id'];
+                        require_once('views/admin/deal/deal-detail.php');
+                    }else{
+                        header("location: admin.php?c=deal");
+                    }
+                    
+                break;
+            }
 
-        switch ($action) {
-            case 'show':
-                require_once('views/admin/brand/brand.php');
-            break;
-            case 'create':
-                $tags = getAllTagBlog();
-                require_once('views/admin/brand/add-brand.php');
-            break;
-            case 'add':
-                $name = $_POST['name'];
-                $show = $_POST['show'];
-                $priority = $_POST['priority'];
-
-                if(addNewBrand($name,$show,$priority)){
-                    header('location: admin.php?c=brand&a=create');
-                }else{
-                    echo 'Lỗi khi thêm nhãn hàng';
-                }
-
-            break;
-            case 'edit':
-                $id = $_GET['id'];
-                $brand = getBrandById($id);
-                require_once('views/admin/brand/edit-brand.php');
-            break;
-
-            case 'update':
-                $id = $_GET['id'];
-                $name = $_POST['name'];
-                $show = $_POST['show'];
-                $priority = $_POST['priority'];
-
-                updateBrand($id,$name,$show,$priority);
-                header('location: admin.php?c=brand');
-                echo 'Lỗi khi sửa nhãn hàng';
-
-            break;
-            default:
-                header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
-                include("404.php");
-                return;
-            break;
-            case 'delete':
-                $id = $_GET['id'];
-                deleteBrand($id);
-                
-        }
+    break;
+   
     break;
     case 'tag':
         $tag = 'home';
@@ -347,6 +323,42 @@ switch ($control) {
                 include("404.php");
                 return;
                 break;
+        }
+    break;
+    case 'p-review':
+        $action = "show";
+        if (isset($_GET["p"])) {
+            $action = $_GET["p"];
+        }
+        switch ($action) {
+            case 'show':
+                require_once('views/admin/product-review/product-review.php');
+            break;
+            case 'delete':
+                if(isset($_GET['id'])){
+                    $id =$_GET['id'];
+                    deleteBlogComment($id);                             
+                }
+                header('location: admin.php?c=p-review');
+            break;
+        }
+    break;
+    case 'p-comment':
+        $action = "show";
+        if (isset($_GET["p"])) {
+            $action = $_GET["p"];
+        }
+        switch ($action) {
+            case 'show':
+                require_once('views/admin/product-comment/product-comment.php');
+            break;
+            case 'delete':
+                if(isset($_GET['id'])){
+                    $id =$_GET['id'];
+                    deleteBlogComment($id);                             
+                }
+                header('location: admin.php?c=p-comment');
+            break;
         }
     break;
     case 'b-comment':

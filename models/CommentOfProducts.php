@@ -1,5 +1,5 @@
 <?php
-function getAllComment(){
+function getAllCommentProduct(){
     $sql = "SELECT * FROM product_comment";
     return query($sql);
 }

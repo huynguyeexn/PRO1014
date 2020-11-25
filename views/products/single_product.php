@@ -15,7 +15,7 @@
                 </div>
             </div>
             <?php
-			$tags = getTagByProductId($product['id']);
+			$tags = getAllTagByProductId($product['id']);
 			echo'
 			<div class="col-lg-5 offset-lg-1">
 			<div class="s_product_text">
@@ -24,8 +24,8 @@
 				<ul class="list">
 					<li><a class="active" href="#"><span>Loại hàng :</span> ';
 					foreach($tags as $t){
-						echo getTagId($t['tag_id'])['name']." ";
-					}
+						echo getTagId($t['tag_id'])['name']." "
+					;}
 					$Availibility=getSizeByProductId($product['id']);
 					foreach($Availibility as $avb){
 					};
