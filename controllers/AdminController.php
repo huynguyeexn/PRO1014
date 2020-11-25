@@ -255,7 +255,7 @@ switch ($control) {
                 return;
                 break;
         }
-        break;
+    break;
     case 'brand':
         require_once('views/admin/brand.php');
     break;
