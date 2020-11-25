@@ -18,22 +18,21 @@ function now(){
     $date = new DateTime(date("Y-m-d H:i:s"), new DateTimeZone('Asia/Ho_Chi_Minh'));
     return $date->format('Y-m-d H:i:s');
 }
-// function numToMoney($money){
-//     setlocale(LC_MONETARY, 'vi_VI');
-//     return money_format('%i', $money);
-// }
-function addToCart($productID){
-    if (isset($_SESSION['cart'])){
-        $a = $_SESSION['cart'];
 
-        if(in_array($productID, array_column($a, 'id'))){
-            $index = array_search($productID, array_column($a, 'id'));
-            $_SESSION['cart'][$index]['quantity'] += 1;
+function addToCart($productID, $size){
+    if (isset($_SESSION['cart'])){
+        $search_items = array('id'=>$productID, 'size'=>$size); 
+        $result = searchMultiKey($_SESSION['cart'], $search_items); 
+        
+        if($result){
+            
+            $_SESSION['cart'][$result[0]['index']]['quantity'] += 1;
         }else{
             array_push(
                 $_SESSION['cart'], 
                 array( 
                     'id' => $productID, 
+                    'size' => $size, 
                     'quantity'=> 1
                 )
             );
@@ -44,6 +43,7 @@ function addToCart($productID){
             $_SESSION['cart'], 
             array( 
                 'id' => $productID, 
+                'size' => $size, 
                 'quantity'=> 1
             )
         );
@@ -52,6 +52,12 @@ function addToCart($productID){
 }
 
 function singleProduct($product){
+    
+    $size = getSizeOfProduct($product['id']);
+    $html = "";
+    foreach($size as $s){
+        $html .=  '<option value="'.$s['size_id'].'">Size '.$s['size_id'].'</option>';
+    }
     $result =  '<!-- single product -->
     <div class="col-lg-3 col-md-6">
         <div class="single-product">
@@ -63,7 +69,11 @@ function singleProduct($product){
                     <h6 class="l-through">' . numToMoney($product["cost"]) . '</h6>
                 </div>
                 <div class="prd-bottom">
-
+                <div class="default-select mb-2" >
+                    <select>
+                        '.$html.'
+                    </select>
+                </div>
                     <a class="social-info addtocart" value="' . $product["id"] . '">
                         <span class="ti-bag"></span>
                         <p class="hover-text">Thêm vào giỏ</p>
@@ -201,4 +211,37 @@ function money_format($formato, $valor) {
     } 
 
     return $formatado; 
+}
+
+function searchMultiKey($array, $search_list) { 
+  
+    // Create the result array 
+    $result = array(); 
+  
+    // Iterate over each array element 
+    foreach ($array as $key => $value) { 
+  
+        // Iterate over each search condition 
+        foreach ($search_list as $k => $v) { 
+      
+            // If the array element does not meet 
+            // the search condition then continue 
+            // to the next element 
+            if (!isset($value[$k]) || $value[$k] != $v) 
+            { 
+                  
+                // Skip two loops 
+                continue 2; 
+            } 
+        } 
+      
+        // Append array element's key to the 
+        //result array 
+
+        $value += ['index' => $key];
+        $result[] = $value; 
+    } 
+  
+    // Return result  
+    return $result; 
 } 

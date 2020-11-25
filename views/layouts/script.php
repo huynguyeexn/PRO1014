@@ -34,11 +34,13 @@
 	};
 	$(function() {
 		$(".addtocart").on('click', function() {
-			var e = this;
-			var id = $(e).attr('value');
+			let e = this;
+			let id = $(e).attr('value');
+			let size = $(e).prev().children( "select" ).val();
+			console.log(size);
 			$.ajax({
                 type: "POST",
-                url: 'shop.php?action=addToCart&id=' + id + '&quantity=1',
+                url: 'shop.php?action=addToCart&id=' + id + '&quantity=1&size='+size,
                 success: function(data) {
                     $("#linkToCart").text('Giỏ hàng ('+data+')');
                 }
@@ -54,24 +56,28 @@
 		$(".deleteItem").on('click', function() {
 			var e = this;
 			var id = $(e).data('value');
+			var size = $(e).data('size');
+
 			$.ajax({
                 type: "POST",
-                url: 'shop.php?action=deleteItem&id=' + id,
+                url: 'cart.php?action=deleteItem&id=' + id+'&size=' + size,
                 success: function(data) {
+					data = JSON.parse(data);
 					console.log(data);
 					e.closest('tr').remove();
+					$('.cart-total').text(data[1] + "");
 				}
             });
 		});
 	});
 
-	function quantityUpdate(e, id) {
+	function quantityUpdate(e, id, size) {
 		$.ajax({
 			type: "GET",
-			url: 'cart.php?action=updateCartAJAX&id=' + id + '&quantity='+e.value,
+			url: 'cart.php?action=updateCartAJAX&id=' + id + '&size=' + size + '&quantity='+e.value,
 			success: function(data) {
 				data = JSON.parse(data);
-				$('#product-'+id + ' .total').text(data[0] + "");
+				$('#product-'+id+'-'+size+' .total').text(data[0] + "");
 				$('.cart-total').text(data[1] + "");
 			}
 		});
