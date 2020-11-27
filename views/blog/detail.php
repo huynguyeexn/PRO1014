@@ -129,14 +129,16 @@
                         <h4>Bình luận</h4>
                         <?php
                             $blogcomment = getAllBlogComment();
+                           
                             foreach($blogcomment as $blogcom){
+                                $users = getUserById($blogcom['id']);
                                 echo'
                                 <div class="comment-list">
                                 <div class="single-comment justify-content-between d-flex">
                                     <div class="user justify-content-between d-flex">
-                                        <div class="thumb">
-                                           
-                                        </div>
+                                    <div class="thumb">
+                                    <img src="'.$users['avartar'].'" alt="">
+                                </div>
                                         <div class="desc">
                                             
                                             <p class="date">'.$blogcom['created'].'</p>
@@ -145,22 +147,23 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="reply-btn">
-                                        <a href="" class="btn-reply text-uppercase">trả lời</a>
-                                    </div>
+                                   
                                 </div>
                             </div>
                                 ';
                             }
                     ?>
-                    </div>
-                 
-                            <?php
-                            $_SESSION['user_id'] = 1;
-                            $idblog =$_GET['id'];
-                    if(isset($_SESSION['user_id'])){
-                        echo '<div class="comment-form">
+                    
+                    
+                    </div>       
+
+                            <div class="comment-form">
                         <h4>Để lại bình luận tại đây</h4>
+                        <?php
+                            // $_SESSION['user_id'] = 1;
+                            $idblog =$_GET['id'];
+                            if(isset($_SESSION['user'])){
+                        echo '
                         <form action ="blog.php?action=comment&id='.$idblog.'" method = "POST">
                             <div class="form-group form-inline">
                             <input type="hidden" class="form-control" name="uid"  onfocus=""  onblur="">
@@ -173,14 +176,17 @@
                             </div>
                            <button type ="submit" class="primary-btn submit_btn" name="submit">Gửi bình luận</button>
                         </form>
+                        ';                                    
+                    }
+                    else{
+                        echo '<div class="row">
+                        <div class="col-12 text-center">
+                            <p>Vui lòng <a style="text-decoration: underline" href="account.php">Đăng Nhập</a> để bình luận.</p>
+                        </div>
                     </div>';
-                
-                    
-                    }else{
-                        echo '<a href="login.php">Pls Login</a>';
                     }
                     ?>
-                    
+                    </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="blog_right_sidebar">
