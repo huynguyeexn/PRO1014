@@ -24,11 +24,14 @@
         <!-- End Left Sidebar -->
 
 
+        <main role="main" class="main-content">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
         <!-- Striped rows -->
-        <div class="col-md-10 my-4 float-right">
+        <div class="col-md-12 my-4 float-right">
             <div class="card shadow">
                 <div class="card-body">
-                    <h2 class="card-title">Bình luận</h2>
+                    <h3 class="card-title">Đánh giá sản phẩm</h3>
                     <div class="toolbar row mb-3">
                         <!-- <div class="col">
                             <div class="dropdown">
@@ -94,10 +97,13 @@
 
                         </tbody>
                     </table>
-                  
+
                 </div>
             </div>
         </div> <!-- Striped rows -->
+                </div>
+            </div>
+        </main>
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/popper.min.js"></script>
         <script src="assets/assets/js/moment.min.js"></script>
