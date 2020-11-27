@@ -136,6 +136,7 @@
 									}else if($value == 2){
 										$where .= ' order by `update` desc';
 									}else if($value == 3){
+										$where .= ' order by view desc';
 									}else if($value == 4){
 										$where .= ' order by price asc';
 									}else if($value == 5){

@@ -21,6 +21,7 @@ require_once('models/TagModel.php');
 require_once('models/ProductDetailModel.php');
 require_once('models/OrderModel.php');
 require_once('models/CommentModel.php');
+require_once('models/SizeModel.php');
 
 if(!isset($_SESSION['user'])){
     header('location: index.php');
@@ -52,6 +53,7 @@ switch ($control) {
                 $brand = getAllBrand();
                 $color = getAllColor();
                 $tag = getAllTag();
+                $size = getAllSize();
                 require_once('views/admin/product/addnew.php');
             break;
             case 'addnew':
@@ -61,22 +63,23 @@ switch ($control) {
                 $view = 0;
                 $tag = $_POST['tag'];
                 $color = $_POST['color'];
-                $cost = $_POST['cost'];
-                $brand = $_POST['brand'];
                 $size1 = $_POST['size1'];
                 $size2 = $_POST['size2'];
-                $quantity = $_POST['quantity'];
+                $cost = $_POST['cost'];
+                $brand = $_POST['brand'];
                 $description = '<p>'.$_POST['description'].'</p>';
                 $update =  date("Y-m-d H:i:s");
+                $id = addNewProduct($name,$cost,$price,$description,$update,$brand,$view);
                 $thumb = $_FILES['images_sp']['name'];
-                move_uploaded_file($_FILES['images_sp']['tmp_name'],"assets/img/product/".$thumb);
-                $thumb = 'assets/img/product/'.$thumb;
+                $folder = mkdir("assets/img/product/$id");
+                move_uploaded_file($_FILES['images_sp']['tmp_name'], "assets/img/product/$id/".$thumb);
+                $thumb = "assets/img/product/$id/".$thumb;
                 foreach($_FILES['hinh']['name'] as $key => $file){
-                    move_uploaded_file($_FILES['hinh']['tmp_name'][$key],"assets/img/product/".$file);
+                    move_uploaded_file($_FILES['hinh']['tmp_name'][$key], "assets/img/product/$id/".$file);
                     if($listanh == ''){
-                       $listanh = '["assets/img/product/'.$file.'"'; 
+                       $listanh = '["assets/img/product/'.$id.'/'.$file.'"'; 
                     }else{
-                        $listanh .= ', '.'"assets/img/product/'.$file.'"'; 
+                        $listanh .= ', '.'"assets/img/product/'.$id.'/'.$file.'"'; 
                     }
                 }
                 if($listanh == ''){
@@ -84,12 +87,12 @@ switch ($control) {
                 }else{
                      $listanh .= ']'; 
                 }
-                addNewProduct($name,$cost,$price,$description,$update,$thumb,$brand,$view,$listanh);
-                $maxid = getMaxId();
-                $id = $maxid['MAX(id)'];  
+                // print_r($listanh);
+                updateProduct($id,$name,$cost,$price,$description,$update,$thumb,$brand,$listanh);  
                 addNewTagOfProduct($id,$tag);
                 for($i = $size1;$i<=$size2;$i++){
                     $size = $i;
+                    $quantity = $_POST['sl'.$i.''];
                 echo  addNewProductDetail($id,$color,$size,$quantity);
                 }
                 header("location:admin.php?c=product");
@@ -101,6 +104,8 @@ switch ($control) {
                 $tag = getAllTag();
                 $product = getProductById($id);
                 $product_detail = getProductDetailById($id);
+                $size_id = getSizeProductDetailById($id);
+                $size = getAllSize();
                 $product_tag = getTagByProductId($id);
                 require_once('views/admin/product/edit.php');
             break;
@@ -117,14 +122,13 @@ switch ($control) {
                 $brand = $_POST['brand'];
                 $size1 = $_POST['size1'];
                 $size2 = $_POST['size2'];
-                $quantity = $_POST['quantity'];
                 $description = $_POST['description'];
                 $update =  date("Y-m-d H:i:s");
                 $thumb = $_FILES['images_sp']['name'];
-                move_uploaded_file($_FILES['images_sp']['tmp_name'],"assets/img/product/".$thumb);
+                move_uploaded_file($_FILES['images_sp']['tmp_name'],"assets/img/product/$id/".$thumb);
                 if(strlen($thumb)>0){
-                    move_uploaded_file($_FILES['images_sp']['tmp_name'],"assets/img/product/".$thumb);
-                    $thumb = 'assets/img/product/'.$thumb;
+                    move_uploaded_file($_FILES['images_sp']['tmp_name'],"assets/img/product/$id/".$thumb);
+                    $thumb = 'assets/img/product/'.$id.'/'.$thumb;
                 }else{
                     $row = getProductById($id);
                     $thumb  = $row['thumb'];
@@ -134,11 +138,11 @@ switch ($control) {
                 }
                 if(strlen($anh)>0){
                     foreach($_FILES['hinh']['name'] as $key => $file){
-                        move_uploaded_file($_FILES['hinh']['tmp_name'][$key],"assets/img/product/".$file);
+                        move_uploaded_file($_FILES['hinh']['tmp_name'][$key],"assets/img/product/$id/".$file);
                         if($listanh == ''){
-                           $listanh = '["assets/img/product/'.$file.'"'; 
+                           $listanh = '["assets/img/product/'.$id.'/'.$file.'"'; 
                         }else{
-                            $listanh .= ', '.'"assets/img/product/'.$file.'"'; 
+                            $listanh .= ', '.'"assets/img/product/'.$id.'/'.$file.'"'; 
                         }
                     }
                     if($listanh == ''){
@@ -154,8 +158,9 @@ switch ($control) {
                 updateTagOfProduct($id,$tag);
                 deleteProductDetailById($id);
                 for($i = $size1;$i<=$size2;$i++){
-                    $size = $i; 
-                addNewProductDetail($id,$color,$size,$quantity);
+                    $size = $i;
+                    $quantity = $_POST['sl'.$i.''];
+                    addNewProductDetail($id,$color,$size,$quantity);
                 }
                 header("location:admin.php?c=product");
             break;
@@ -169,13 +174,15 @@ switch ($control) {
                 $sp ='';
                 $product = getAllProduct();
                 if($content == ''){
+                    $id = 0;
                     foreach($product as $p){
+                        $id++;
                         $sp .= '
                         <tr>
                             <td>
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="2474">
-                                <label class="custom-control-label" for="2474"></label>
+                                <input type="checkbox" class="custom-control-input checkbox" id="'.$id.'">
+                                <label class="custom-control-label" for="'.$id.'"></label>
                             </div>
                             </td><td class="text-muted">'.$p['id'].'</td>
                             <td>
@@ -187,9 +194,9 @@ switch ($control) {
                             <p class="mb-0 text-muted"><strong>'.$p['name'].'</strong></p>
                             </td>
                             <td class="text-muted">'.$p['update'].'</td>
-                            <td class="text-muted">$'.$p['cost'].'</td>
-                            <td class="text-muted">$'.$p['price'].'</td>
-                            <td style = "width:33%;" class="text-muted">'.$p['description'].'</td>
+                            <td class="text-muted">'.numToMoney($p['cost']).'</td>
+                            <td class="text-muted">'.numToMoney($p['price']).'</td>
+                            <td style = "width:33%;" class="text-muted">'.htmlentities(substr($p['description'], 0, 100)).'</td>
                             <td>
                             <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="text-muted sr-only">Action</span>
@@ -203,38 +210,40 @@ switch ($control) {
                         ';
                     }
                 }else{
+                    $id = 0;
                     foreach($product as $p){
                         if(strlen(strpos(strtolower($p['name']),strtolower("$content"))) > 0){
+                            $id++;
                             $sp .= '
                             <tr>
                                 <td>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="2474">
-                                    <label class="custom-control-label" for="2474"></label>
-                                </div>
+                                  <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input checkbox" id="'.$id.'">
+                                    <label class="custom-control-label" for="'.$id.'"></label>
+                                  </div>
                                 </td><td class="text-muted">'.$p['id'].'</td>
                                 <td>
-                                <div class="avatar avatar-md">
+                                  <div class="avatar avatar-md">
                                     <img src="'.$p['thumb'].'" alt="..." class="avatar-img rounded-circle">
-                                </div>
+                                  </div>
                                 </td>
                                 <td>
-                                <p class="mb-0 text-muted"><strong>'.$p['name'].'</strong></p>
+                                  <p class="mb-0 text-muted"><strong>'.$p['name'].'</strong></p>
                                 </td>
                                 <td class="text-muted">'.$p['update'].'</td>
-                                <td class="text-muted">$'.$p['cost'].'</td>
-                                <td class="text-muted">$'.$p['price'].'</td>
-                                <td style = "width:33%;" class="text-muted">'.$p['description'].'</td>
+                                <td class="text-muted">'.numToMoney($p['cost']).'</td>
+                                <td class="text-muted">'.numToMoney($p['price']).'</td>
+                                <td style = "width:33%;" class="text-muted">'.htmlentities(substr($p['description'], 0, 100)).'</td>
                                 <td>
-                                <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="text-muted sr-only">Action</span>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right">
+                                  </button>
+                                  <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="admin.php?c=product&p=form_edit&id='.$p['id'].'">Edit</a>
                                     <a class="dropdown-item" href="admin.php?c=product&p=remove&id='.$p['id'].'">Remove</a>
-                                </div>
+                                  </div>
                                 </td>
-                            </tr>
+                              </tr>
                             ';
                         }
                     }
@@ -245,17 +254,136 @@ switch ($control) {
                     echo $sp;
                 }
             break;
+
+            case 'chosedelete':
+                $jsonText = $_GET['delete'];
+                $mang = explode(',',$jsonText);
+                $sp ='';
+                for($i = 1;$i < count($mang);$i++){
+                    $id = $mang[$i];
+                    deleteProduct($id);
+                }
+                $product = getAllProduct();
+                $id = 0;
+                foreach($product as $p){
+                    $id++;
+                    $sp .= '
+                    <tr>
+                        <td>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input checkbox" id="'.$id.'">
+                            <label class="custom-control-label" for="'.$id.'"></label>
+                        </div>
+                        </td><td class="text-muted">'.$p['id'].'</td>
+                        <td>
+                        <div class="avatar avatar-md">
+                            <img src="'.$p['thumb'].'" alt="..." class="avatar-img rounded-circle">
+                        </div>
+                        </td>
+                        <td>
+                        <p class="mb-0 text-muted"><strong>'.$p['name'].'</strong></p>
+                        </td>
+                        <td class="text-muted">'.$p['update'].'</td>
+                        <td class="text-muted">'.numToMoney($p['cost']).'</td>
+                        <td class="text-muted">'.numToMoney($p['price']).'</td>
+                        <td style = "width:33%;" class="text-muted">'.htmlentities(substr($p['description'], 0, 100)).'</td>
+                        <td>
+                        <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="text-muted sr-only">Action</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="admin.php?c=product&p=form_edit&id='.$p['id'].'">Edit</a>
+                            <a class="dropdown-item" href="admin.php?c=product&p=remove&id='.$p['id'].'">Remove</a>
+                        </div>
+                        </td>
+                    </tr>
+                    ';
+                }
+                echo $sp;
+            break;
+
+            case 'next':
+                if(isset($_GET['id'])){
+                    $id = $_GET['id'];
+                    $min = $_GET['min'];
+                    $max = $_GET['max'];
+                    $product_detail = getProductDetailById($id);
+                    $sp = '
+                        <table style="width:80%;margin:0 auto;margin-bottom:20px;">
+                    ';
+                    for($i = $min;$i<=$max;$i++){
+                        $sl = 0;
+                        foreach($product_detail as $p){
+                            if($i == $p['size_id']){
+                                $sl = $p['quantity'];
+                            }
+                        }
+                        $sp .= '
+                        <div style="width:90%;margin:0 auto;" class="form-group row" float-left">
+                            <label class="float-left">Kích Thước</label>
+                            <div class="col-sm-5 mb-3">
+                                <input type="button" value="'.$i.'" class="form-control" name="size'.$i.'" >
+                            </div>
+                            <label class="float-left">Số Lượng</label>
+                            <div class="col-sm-5 mb-3">
+                                <input type="text" value="'.$sl.'" name="sl'.$i.'" class="form-control" name="price">
+                            </div>
+                        </div>
+                        ';
+                    }
+                    $sp .='
+                            </table>
+                            <div class="form-group row  float-right">
+                            <div class="col-sm-4 mb-3 float-right">
+                            <input type="submit" style="width: 100px;height:35px;font-size:18px;background:#1b68ff;border:1px solid #1b68ff;border-radius:5px;color:white;margin-right:20px;" value="Finish">
+                            </div>
+                        </div>
+                    </section>
+                    ';
+                }else{
+                    $min = $_GET['min'];
+                    $max = $_GET['max'];
+                    $sp = '
+                        <table style="width:80%;margin:0 auto;margin-bottom:20px;">
+                    ';
+                    for($i = $min;$i<=$max;$i++){
+                        $sp .= '
+                        <div style="width:90%;margin:0 auto;" class="form-group row" float-left">
+                            <label class="float-left">Kích Thước</label>
+                            <div class="col-sm-5 mb-3">
+                                <input type="button" value="'.$i.'" class="form-control" name="size'.$i.'" >
+                            </div>
+                            <label class="float-left">Số Lượng</label>
+                            <div class="col-sm-5 mb-3">
+                                <input type="text" name="sl'.$i.'" class="form-control" name="price">
+                            </div>
+                        </div>
+                        ';
+                    }
+                    $sp .='
+                            </table>
+                            <div class="form-group row  float-right">
+                            <div class="col-sm-4 mb-3 float-right">
+                            <input type="submit" style="width: 100px;height:35px;font-size:18px;background:#1b68ff;border:1px solid #1b68ff;border-radius:5px;color:white;margin-right:20px;" value="Finish">
+                            </div>
+                        </div>
+                    </section>
+                    ';
+                }
+                echo $sp;
+            break;
             default:
                 header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
                 include("404.php");
                 return;
                 break;
         }
+        // <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">I agree with the Terms and Conditions.</label>
         break;
     case 'brand':
         require_once('views/admin/brand.php');
     break;
-    case 'tag':
+    case 'tag-product':
         $tag = 'home';
         if(isset($_GET['p'])){
             $tag = $_GET["p"];

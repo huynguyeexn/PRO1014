@@ -57,7 +57,7 @@
                         <tr class="text-center">
                           <td>
                             <div class="custom-control custom-checkbox">
-                              <input type="checkbox" class="custom-control-input" id="all2">
+                              <input type="checkbox" onclick="show();" class="custom-control-input" id="all2">
                               <label class="custom-control-label" for="all2"></label>
                             </div>
                           </td>
@@ -79,8 +79,8 @@
                             echo '
                               <tr>
                                 <td>
-                                  <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input checkbox" id="'.$id.'">
+                                  <div class="custom-control custom-checkbox check_box">
+                                    <input type="checkbox" class="custom-control-input" name="check_box" value="'.$p['id'].'" id="'.$id.'">
                                     <label class="custom-control-label" for="'.$id.'"></label>
                                   </div>
                                 </td><td class="text-muted">'.$p['id'].'</td>
@@ -179,6 +179,41 @@
             }
           });
           return false; 
+        }
+
+        function xoa(){
+          var sanpham = document.getElementById('sp');
+          var box = document.getElementsByName('check_box');
+          var check = [];
+          for(var i=0;i<box.length;i++){
+            if(box[i].checked === true){
+              check += ','+box[i].value;
+            }
+          }
+          $.ajax({
+          url: 'admin.php?c=product&p=chosedelete',
+            type: 'GET',
+            data : 'delete='+check,
+            success : function(data) 
+            { 
+              sanpham.innerHTML=data;
+            }
+          });
+          return false; 
+        }
+
+        function show(){
+          var show = document.getElementById('all2');
+          var box = document.getElementsByName('check_box');
+          if(show.checked === true){
+            for(var i=0;i<box.length;i++){
+              box[i].checked = true;
+            }
+          }else if(show.checked === false){
+            for(var i=0;i<box.length;i++){
+              box[i].checked = false;
+            }
+          }
         }
     </script>
   </body>
