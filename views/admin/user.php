@@ -28,12 +28,11 @@
             <div class="container-fluid">
                 <div class="row justify-content-center">
                     <!-- Striped rows -->
-                    <div class="col-md-10 my-4 float-right">
+                    <div class="col-md-12 my-4 float-right">
                         <div class="card shadow">
                             <div class="card-body">
-                                <h5 class="card-title">Blog Data Table</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional
-                                    content.</p>
+                                <h3 class="card-title">Danh sách tài khoản khách hàng</h3>
+                                <p class="card-text"></p>
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
@@ -44,15 +43,13 @@
                                                 </div>
                                             </th>
                                             <th>#</th>
-                                            <th>Username</th>
-                                            <th>Password</th>
-                                            <th>Phone</th>
-                                            <th>Created</th>
-                                            <th>Birthday</th>
-                                            <th>Fullname</th>
                                             <th>Avartar</th>
+                                            <th>Username</th>
+                                            <th>Fullname</th>
+                                            <th>Phone</th>
+                                            <th>Email</th>
                                             <th>Rank</th>
-                                            <th>Address</th>
+                                            <th>Created</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -71,16 +68,13 @@
                                       </div>
                                     </td>
                                     <td>'.$u['id'].'</td>
-                                    <td>'.$u['username'].'</td>
-                                    <td>'.$u['password'].'$</td>
-                                    <td>'.$u['phone'].'</td>
-                                    <td>'.$u['created'].'</td>
-                                    <td>'.$u['birthday'].'</td>
-                                    <td>'.$u['fullname'].'</td>
                                     <td><img style=" width: 70px;" src="'.$u['avartar'].'" alt=""></td>
+                                    <td>'.$u['username'].'</td>
+                                    <td>'.$u['fullname'].'</td>
+                                    <td>'.$u['phone'].'</td>
+                                    <td>'.$u['email'].'</td>
                                     <td>'.$u['rank'].'</td>
-                                    <td>'.$u['address'].'</td>
-
+                                    <td>'.$u['created'].'</td>
                                     </td>
                                    
                                     <td>
