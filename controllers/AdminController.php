@@ -60,6 +60,21 @@ switch ($control) {
                 }
                 header('location: admin.php?c=b-comment');
             break;
+
+            case 'edit':
+                $id = $_GET['id'];
+                $com = getAllBlogComment();
+                $getcom = getBlogCommentById($id);
+                include 'views/admin/blog-comment/edit-comment.php';
+            break;
+
+            case 'update';
+            $id = $_GET['id'];
+            $com =$_POST['comment'];
+           
+            updateCommentBlog($id,$com);
+             header('location: admin.php?c=b-comment');
+        break;
         }
     break;
     case 'user':
