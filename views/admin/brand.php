@@ -91,7 +91,6 @@
                                     ';
                                  }
                             ?>
-
                         </tbody>
                     </table>
                     <div class="toolbar row mb-3">

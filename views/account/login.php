@@ -42,14 +42,6 @@
                     <input type="password" name="password" class="form-control form-control-lg" placeholder="Mật khẩu"
                         required="">
                 </div>
-
-                <div class="form-group">
-                    <div class="checkbox mb-3">
-                        <label>
-                            <input type="checkbox" value="remember-me"> Ghi nhớ đăng nhập
-                        </label>
-                    </div>
-                </div>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Đăng nhập</button>
                 <a class="btn btn-lg btn-secondary btn-block" href="account.php?action=register">Đăng ký</a>
                 <p class="mt-5 mb-3 text-muted">© 2020</p>

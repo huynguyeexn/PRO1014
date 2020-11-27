@@ -9,9 +9,6 @@
 						</li>
 						<?php
 							$tag = getAllTag();
-							// print_r($_SESSION['filter']);
-							// print_r($_SESSION['sort']);
-						
 							$i = -1;
 							foreach($tag as $t){
 								$i++;
@@ -225,6 +222,7 @@
 						<?php
 							$i = 0;
 							foreach($product as $p){
+								$size = getSizeOfProduct($p['id']);
 								$i++;
 									echo'
 										<div class="col-lg-4 col-md-6">
@@ -236,8 +234,25 @@
 														<h6 class = "value">'.numToMoney($p['price']).'</h6>
 														<h6 class="l-through cost">'.numToMoney($p['cost']).'</h6>
 													</div>
-													<div class="prd-bottom">
-				
+													<div class="prd-bottom d-flex align-items-center">
+														<div class="size-select p-0">
+															<select style="display: none;">';
+															foreach($size as $s){
+																echo '<option value="'.$s['size_id'].'">Size '.$s['size_id'].'</option>';
+															}
+															echo '
+															</select>
+															<div class="nice-select  px-1" tabindex="0" style="background: unset; border: unset; ">
+																<span class="current" style="margin-right: 25px;">Size '.$size[0]['size_id'].'</span>';
+																
+															echo'<ul class="list">';
+																foreach($size as $s){
+																	echo '<li data-value="'.$s['size_id'].'" class="option">Size '.$s['size_id'].'</li>';
+																}
+																echo '
+																</ul>
+															</div>
+														</div>
 														<a class="social-info addtocart" value="' . $p["id"] . '">
 															<span class="ti-bag"></span>
 															<p class="hover-text">add to bag</p>
@@ -345,7 +360,7 @@
 			var d = document.getElementById("row");			
 			var page = document.getElementById("pagination");
 			$.ajax({
-				url: 'Shop.php',
+				url: 'shop.php',
                 type: 'GET',
                 data : 'action=page&start='+x+'&cpage='+p,
               	success : function(data) 
@@ -374,7 +389,7 @@
 			var page = document.getElementById("pagination");
 			var pages = document.getElementById("pages");
 			$.ajax({
-				url: 'Shop.php',
+				url: 'shop.php',
                 type: 'GET',
                 data : 'action=page&name='+t+'&value='+x+'&page=1', //dữ liệu sẽ được gửi
               	success : function(data)  // Hàm thực thi khi nhận dữ liệu được từ server
@@ -403,7 +418,7 @@
 			var page = document.getElementById("pagination");
 			var pages = document.getElementById("pages");
 			$.ajax({
-				url: 'Shop.php',
+				url: 'shop.php',
                 type: 'GET',
                 data : 'action=page&sort='+x+'&page=1', //dữ liệu sẽ được gửi
               	success : function(data)  // Hàm thực thi khi nhận dữ liệu được từ server
@@ -433,7 +448,7 @@
 			var page = document.getElementById("pagination");
 			var pages = document.getElementById("pages");
 			$.ajax({
-				url: 'Shop.php',
+				url: 'shop.php',
                 type: 'GET',
                 data : 'action=page&lower='+lower+'&upper='+upper+'&page=1', //dữ liệu sẽ được gửi
               	success : function(data)  // Hàm thực thi khi nhận dữ liệu được từ server
@@ -462,7 +477,7 @@
 			var page = document.getElementById("pagination");
 			var pages = document.getElementById("pages");
 			$.ajax({
-				url: 'Shop.php',
+				url: 'shop.php',
                 type: 'GET',
                 data : 'action=page&show='+x+'&page=1', //dữ liệu sẽ được gửi
               	success : function(data)  // Hàm thực thi khi nhận dữ liệu được từ server
@@ -492,7 +507,7 @@
 			var pages = document.getElementById("pages");
 			var x= 'next'
 			$.ajax({
-				url: 'Shop.php',
+				url: 'shop.php',
                 type: 'GET',
                 data : 'action=page&button='+x+"&cpage="+z,
               	success : function(data) 
@@ -521,7 +536,7 @@
 			var pages = document.getElementById("pages");
 			var x= 'back'
 			$.ajax({
-				url: 'Shop.php',
+				url: 'shop.php',
                 type: 'GET',
                 data : 'action=page&button='+x+"&cpage="+z,
               	success : function(data) 

@@ -21,6 +21,11 @@
                     <i class="fe fe-shopping-cart fe-16" aria-hidden="true"></i>
                     <span class="ml-3 item-text">Đơn hàng</span>
                 </a>
+                <li class="nav-item">
+                <a href="admin.php?c=deal" aria-expanded="false" class="nav-link">
+                    <i class="fe fe-shopping-cart fe-16" aria-hidden="true"></i>
+                    <span class="ml-3 item-text">Giảm giá</span>
+                </a>
             </li>
             <li class="nav-item">
                 <a href="admin.php?c=product" aria-expanded="false" class="nav-link">
@@ -41,9 +46,15 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="admin.php?c=comment" aria-expanded="false" class="nav-link">
+                <a href="admin.php?c=p-comment" aria-expanded="false" class="nav-link">
                     <i class="fe fe-message-circle fe-16"></i>
                     <span class="ml-3 item-text">Bình luận sản phẩm</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin.php?c=p-review" aria-expanded="false" class="nav-link">
+                    <i class="fe fe-message-circle fe-16"></i>
+                    <span class="ml-3 item-text">Đánh giá sản phẩm</span>
                 </a>
             </li>
             <li class="nav-item">

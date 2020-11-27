@@ -7,6 +7,7 @@
     
     // Các Model cần thiết.
     require_once('models/ProductModel.php');
+    require_once('models/ProductDetailModel.php');
     require_once('models/SliderModel.php');
     require_once('models/ConfigModel.php');
     require_once('models/BlogModel.php');

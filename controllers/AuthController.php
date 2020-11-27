@@ -175,20 +175,40 @@
                 $code = $_GET['code'];
 
                 if(checkVeriCode($email)['verification_code'] == $code){
-                    echo 'Xác nhận thành công';
-                    activeUser($email);
+                    
+                    if(activeUser($email)){
+                        $message = array(
+                            'title' => "Xác minh tài khoản thành công!",
+                            'message' => "Hãy đăng nhập bằng tên tài khoản và mật khẩu bạn đã đăng ký",
+                            'href' => "account.php",
+                            'link' => "Đăng nhập"
+                        );
+                        require_once('views/account/active.php');
+                    }
                 }else{
                     if(checkRank($email)['rank'] > 0){
-                        echo 'Tài khoản đã được xác nhận.<br> <a href="account.php">Đăng nhập</a>';
+                        $message = array(
+                            'title' => "Tài khoản đã được xác minh!",
+                            'message' => "Hãy đăng nhập bằng tên tài khoản và mật khẩu bạn đã đăng ký",
+                            'href' => "account.php",
+                            'link' => "Đăng nhập"
+                        );
+                        require_once('views/account/active.php');
                     }else{
-                        echo 'Xác nhận không thành công';
-                        echo 'Gửi lại email xác minh <a href="account.php?action=resend-email">Gửi lại</a>';
+                        $message = array(
+                            'title' => "Xác minh không thành công",
+                            'message' => 'Gửi lại email xác minh',
+                            'href' => "account.php?action=resend-email",
+                            'link' => "Gửi lại"
+                        );
+                        require_once('views/account/active.php');
                     }
                 }
             }else{
                 header('location: index.php');
             }
             die();
+        break;
             default: 
             require_once('views/user/login.php');
             break;

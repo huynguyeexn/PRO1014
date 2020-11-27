@@ -33,6 +33,24 @@
               <h2 class="h1 mb-1">Sản Phẩm</h2>
                 <div class="card shadow">
                   <div class="card-body">
+                  <div class="toolbar row mb-3">
+                        <div class="col">
+                          <form class="form-inline">
+                            <div class="form-row">
+                              <div class="form-group col-auto">
+                                <label for="search" class="sr-only">Search</label>
+                                <input type="search" class="form-control" onkeyup="tim(this.value);" id="search" placeholder="Search">
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="col ml-auto">
+                          <div class="dropdown float-right">
+                            <a href='admin.php?c=product&p=insert' class="btn btn-primary float-right ml-3" type="button">Add more +</a>
+                            <button class="btn btn-secondary" type="button" onclick='xoa();'> Delete </button>
+                          </div>
+                        </div>
+                      </div>
                     <!-- table -->
                     <table class="table table-borderless table-hover">
                       <thead>
@@ -53,15 +71,17 @@
                           <th></th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody id='sp'>
                         <?php
+                        $id = 0;
                           foreach($product as $p){
+                            $id++;
                             echo '
                               <tr>
                                 <td>
                                   <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="2474">
-                                    <label class="custom-control-label" for="2474"></label>
+                                    <input type="checkbox" class="custom-control-input checkbox" id="'.$id.'">
+                                    <label class="custom-control-label" for="'.$id.'"></label>
                                   </div>
                                 </td><td class="text-muted">'.$p['id'].'</td>
                                 <td>
@@ -81,9 +101,8 @@
                                     <span class="text-muted sr-only">Action</span>
                                   </button>
                                   <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="admin.php?c=product&p=edit">Edit</a>
-                                    <a class="dropdown-item" href="admin.php?c=product&p=remove">Remove</a>
-                                    <a class="dropdown-item" href="admin.php?c=product&p=insert">Insert</a>
+                                    <a class="dropdown-item" href="admin.php?c=product&p=form_edit&id='.$p['id'].'">Edit</a>
+                                    <a class="dropdown-item" href="admin.php?c=product&p=remove&id='.$p['id'].'">Remove</a>
                                   </div>
                                 </td>
                               </tr>
@@ -148,5 +167,18 @@
             $(this).parent().toggleClass("showContent");
         });
 
+        function tim(x){
+          var sanpham = document.getElementById('sp');
+          $.ajax({
+          url: 'admin.php?c=product&p=search',
+            type: 'GET',
+            data : 'content='+x,
+            success : function(data) 
+            { 
+              sanpham.innerHTML=data;
+            }
+          });
+          return false; 
+        }
     </script>
   </body>
