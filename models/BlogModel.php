@@ -20,10 +20,18 @@ function getAllBlogComment(){
     $sql = "select * from blog_comment";
     return query($sql);
 }
+function getBlogCommentById($id){
+    $sql = "SELECT * FROM blog_comment WHERE id = $id";
+    return queryOne($sql);
+}
 function deleteBlogComment($id){
     $sql = "DELETE FROM blog_comment WHERE id=$id";
     return execute($sql);
 }
+function updateCommentBlog($id,$com){
+    $sql = "UPDATE blog_comment SET content = '$com' where id = '$id'";
+    return execute($sql);
+};
 function getBlogByOffset($limit, $offset){
     $sql = "SELECT * FROM blog LIMIT $limit OFFSET $offset;";
     return query($sql);
