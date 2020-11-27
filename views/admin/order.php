@@ -30,9 +30,8 @@
                     <div class="col-md-12 my-4 float-right">
                         <div class="card shadow">
                             <div class="card-body">
-                                <h5 class="card-title">Blog Data Table</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional
-                                    content.</p>
+                                <h3 class="card-title">Danh sách đơn hàng</h3>
+                                <p class="card-text"></p>
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
