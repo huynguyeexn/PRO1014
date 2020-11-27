@@ -19,17 +19,21 @@
             require_once('views/cart/index.php');
             break;
         case 'updateCartAJAX':
-            if(isset($_GET['id']) && isset($_GET['quantity'])){
+            if (isset($_GET['id']) && isset($_GET['quantity']) && isset($_GET['size'])) {
                 $quantity = $_GET['quantity'];
                 $a = $_SESSION['cart'];
                 $productID = $_GET['id'];
-            
-                $index = array_search($productID, array_column($a, 'id'));
+                $size = $_GET['size'];
+                
+                $search_items = array('id'=>$productID, 'size'=>$size);
+                $result = searchMultiKey($_SESSION['cart'], $search_items);
+                $index = $result[0]['index'];
+
                 $_SESSION['cart'][$index]['quantity'] = $quantity;
 
                 $product = getProductById($productID);
                 $total = 0;
-                foreach($_SESSION['cart'] as $i){
+                foreach ($_SESSION['cart'] as $i) {
                     $total += ($i['quantity'] * getProductById($i['id'])['price']);
                 }
 
@@ -38,7 +42,25 @@
 
             // echo json_encode($_SESSION['cart']);
             break;
-        default: 
+        case 'deleteItem':
+            if (isset($_GET['id']) && isset($_GET['size'])) {
+                if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+
+                    $search_items = array('id'=>$_GET['id'], 'size'=>$_GET['size']);
+                    $result = searchMultiKey($_SESSION['cart'], $search_items);
+                    $index = $result[0]['index'];
+                    
+                    unset($_SESSION['cart'][$index]);
+                }
+
+                $total = 0;
+                foreach ($_SESSION['cart'] as $i) {
+                    $total += ($i['quantity'] * getProductById($i['id'])['price']);
+                }
+                echo json_encode([0,numToMoney($total)]);
+            }
+            break;
+            default:
             require_once('views/cart/index.php');
             break;
         break;
@@ -116,7 +138,7 @@
         }
     }
 
-if(isset($_POST['action']) && $_POST['action'] == 'add'){
+if (isset($_POST['action']) && $_POST['action'] == 'add') {
     $query = 'INSERT INTO cart ( user_id,product_id ,size_id ,color_id,quantity)
     VALUES ("'.$_POST['user_id'].'" ,
     "'.$_POST['product_id'].'",
@@ -129,7 +151,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'add'){
     
 
     header("Location: http://localhost/Pro1014/views/cart/index.php");
-} 
+}
     ?>
 
 

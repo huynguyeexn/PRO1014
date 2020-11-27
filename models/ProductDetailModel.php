@@ -1,4 +1,10 @@
 <?php
+
+function getSizeOfProduct($productId){
+    $sql = "SELECT size_id FROM product_detail WHERE product_id = $productId order by size_id";
+    return query($sql);
+}
+
 function getProductDetailById($id){
     $sql = "SELECT product_id,color_id,quantity,size_id FROM product_detail WHERE product_id = $id";
     return query($sql);

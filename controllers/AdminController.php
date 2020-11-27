@@ -21,7 +21,10 @@ require_once('models/TagModel.php');
 require_once('models/ProductDetailModel.php');
 require_once('models/OrderModel.php');
 require_once('models/CommentModel.php');
-require_once('models/SizeModel.php');
+require_once('models/DealModel.php');
+require_once('models/CommentOfProducts.php');
+require_once('models/ReviewsOfProduct.php');
+
 
 if(!isset($_SESSION['user'])){
     header('location: index.php');
@@ -378,12 +381,34 @@ switch ($control) {
                 return;
                 break;
         }
-        // <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">I agree with the Terms and Conditions.</label>
-        break;
+    break;
     case 'brand':
         require_once('views/admin/brand.php');
     break;
-    case 'tag-product':
+    case 'deal':
+            $action = "show";
+            if (isset($_GET["a"])) {
+                $action = $_GET["a"];
+            }
+            switch ($action) {
+                case 'show':
+                    require_once('views/admin/deal/deal.php');
+                break;
+                case 'detail':
+                    if(isset($_GET['id'])){
+                        $id = $_GET['id'];
+                        require_once('views/admin/deal/deal-detail.php');
+                    }else{
+                        header("location: admin.php?c=deal");
+                    }
+                    
+                break;
+            }
+
+    break;
+   
+    break;
+    case 'tag':
         $tag = 'home';
         if(isset($_GET['p'])){
             $tag = $_GET["p"];
@@ -426,6 +451,42 @@ switch ($control) {
                 break;
         }
     break;
+    case 'p-review':
+        $action = "show";
+        if (isset($_GET["p"])) {
+            $action = $_GET["p"];
+        }
+        switch ($action) {
+            case 'show':
+                require_once('views/admin/product-review/product-review.php');
+            break;
+            case 'delete':
+                if(isset($_GET['id'])){
+                    $id =$_GET['id'];
+                    deleteBlogComment($id);                             
+                }
+                header('location: admin.php?c=p-review');
+            break;
+        }
+    break;
+    case 'p-comment':
+        $action = "show";
+        if (isset($_GET["p"])) {
+            $action = $_GET["p"];
+        }
+        switch ($action) {
+            case 'show':
+                require_once('views/admin/product-comment/product-comment.php');
+            break;
+            case 'delete':
+                if(isset($_GET['id'])){
+                    $id =$_GET['id'];
+                    deleteBlogComment($id);                             
+                }
+                header('location: admin.php?c=p-comment');
+            break;
+        }
+    break;
     case 'b-comment':
         $action = "show";
         if (isset($_GET["b"])) {
@@ -442,6 +503,21 @@ switch ($control) {
                 }
                 header('location: admin.php?c=b-comment');
             break;
+
+            case 'edit':
+                $id = $_GET['id'];
+                $com = getAllBlogComment();
+                $getcom = getBlogCommentById($id);
+                include 'views/admin/blog-comment/edit-comment.php';
+            break;
+
+            case 'update';
+            $id = $_GET['id'];
+            $com =$_POST['comment'];
+           
+            updateCommentBlog($id,$com);
+             header('location: admin.php?c=b-comment');
+        break;
         }
     break;
     case 'user':

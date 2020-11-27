@@ -8,8 +8,10 @@
     // Các Model cần thiết.
     require_once('models/TagModel.php');
     require_once('models/ColorModel.php');
+    require_once('models/SizeModel.php');
     require_once('models/BrandModel.php');
     require_once('models/ProductModel.php');
+    require_once('models/ProductDetailModel.php');
     require_once('models/SliderModel.php');
     require_once('models/ConfigModel.php');
 
@@ -27,34 +29,14 @@
             break;
 
         case 'addToCart':
-            if(isset($_GET['id'])){
-                $a = addToCart($_GET['id']);
+            if(isset($_GET['id']) && isset($_GET['size'])){
+                $a = addToCart($_GET['id'], $_GET['size']);
                 $quantity = 0;
                 foreach ($a as $e)  {
                     $quantity += $e['quantity'];
                 }
                 echo $quantity;
                 return;
-            }
-            break;
-        case 'deleteItem':
-            if(isset($_GET['id'])){
-                if(isset($_SESSION['cart']) && !empty($_SESSION['cart'])){
-                    foreach($_SESSION['cart'] as $key => $product){
-                        if($product['id'] == $_GET['id']){
-                            unset($_SESSION['cart'][$key]);
-                        }
-                    }
-                }
-                //deleteProduct($_POST['id']);
-                //$a = addToCart($_GET['id']);
-                // $quantity = 0;
-                // foreach ($a as $e)  {
-                //     $quantity += $e['quantity'];
-                // }
-                // echo $quantity;
-
-                echo $_GET['id'];
             }
             break;
         case 'page':

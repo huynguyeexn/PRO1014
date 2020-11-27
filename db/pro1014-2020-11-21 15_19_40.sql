@@ -1,3 +1,6 @@
+<<<<<<< HEAD:pro1014.sql
+update `pro1014`.`brand` set `name` ='NB', `show` = b'1', `priority` = '7' where id=8;
+=======
 -- --------------------------------------------------------
 -- Host:                         localhost
 -- Server version:               5.7.24 - MySQL Community Server (GPL)
@@ -497,3 +500,4 @@ REPLACE INTO `user` (`id`, `username`, `password`, `email`, `phone`, `created`, 
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+>>>>>>> adb9435e9433cc34471e4b471a533628c8dffd19:db/pro1014-2020-11-21 15_19_40.sql

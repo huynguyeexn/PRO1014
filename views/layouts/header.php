@@ -16,8 +16,9 @@
 				<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 					<ul class="nav navbar-nav menu_nav ml-auto">
 						<li class="nav-item active"><a class="nav-link" href="index.php">Trang chủ</a></li>
-						<li class="nav-item"><a class="nav-link" href="Shop.php">Cửa hàng</a></li>
+						<li class="nav-item"><a class="nav-link" href="shop.php">Cửa hàng</a></li>
 						<li class="nav-item"><a class="nav-link" href="blog.php">Tin tức</a></li>
+						<li class="nav-item"><a class="nav-link" href="about.php">Giới thiệu</a></li>
 						<li class="nav-item"><a class="nav-link" href="contact.php">Liên hệ</a></li>
 						<?php
 							if(isset($_SESSION['user'])){

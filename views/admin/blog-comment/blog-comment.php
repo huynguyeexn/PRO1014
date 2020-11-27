@@ -81,7 +81,7 @@
                                           <span class="text-muted sr-only">Action</span>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr1">
-                                          <a class="dropdown-item" href="admin.php?c=tag-blog&t=edit&id='.$coms['id'].'">Edit</a>
+                                          <a class="dropdown-item" href="admin.php?c=b-comment&b=edit&id='.$coms['id'].'">Edit</a>
                                           <a class="dropdown-item" href="admin.php?c=b-comment&b=delete&id='.$coms['id'].'">Remove</a>
                                         </div>
                                       </div>
