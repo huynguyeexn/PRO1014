@@ -23,6 +23,7 @@ require_once('models/OrderModel.php');
 require_once('models/CommentModel.php');
 require_once('models/DealModel.php');
 require_once('models/CommentOfProducts.php');
+require_once('models/SizeModel.php');
 require_once('models/ReviewsOfProduct.php');
 
 
@@ -180,6 +181,7 @@ switch ($control) {
                     $id = 0;
                     foreach($product as $p){
                         $id++;
+                        $description = substr(trim($p['description'],'"'),0,100);
                         $sp .= '
                         <tr>
                             <td>
@@ -199,14 +201,14 @@ switch ($control) {
                             <td class="text-muted">'.$p['update'].'</td>
                             <td class="text-muted">'.numToMoney($p['cost']).'</td>
                             <td class="text-muted">'.numToMoney($p['price']).'</td>
-                            <td style = "width:33%;" class="text-muted">'.htmlentities(substr($p['description'], 0, 100)).'</td>
+                            <td style = "width:33%;" class="text-muted">'.$description.'</td>
                             <td>
                             <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="text-muted sr-only">Action</span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="admin.php?c=product&p=form_edit&id='.$p['id'].'">Edit</a>
-                                <a class="dropdown-item" href="admin.php?c=product&p=remove&id='.$p['id'].'">Remove</a>
+                                <a class="dropdown-item" href="admin.php?c=product&p=form_edit&id='.$p['id'].'">Sửa</a>
+                                <a class="dropdown-item" href="admin.php?c=product&p=remove&id='.$p['id'].'">Xóa</a>
                             </div>
                             </td>
                         </tr>
@@ -217,6 +219,7 @@ switch ($control) {
                     foreach($product as $p){
                         if(strlen(strpos(strtolower($p['name']),strtolower("$content"))) > 0){
                             $id++;
+                            $description = substr(trim($p['description'],'"'),0,100);
                             $sp .= '
                             <tr>
                                 <td>
@@ -236,14 +239,14 @@ switch ($control) {
                                 <td class="text-muted">'.$p['update'].'</td>
                                 <td class="text-muted">'.numToMoney($p['cost']).'</td>
                                 <td class="text-muted">'.numToMoney($p['price']).'</td>
-                                <td style = "width:33%;" class="text-muted">'.htmlentities(substr($p['description'], 0, 100)).'</td>
+                                <td style = "width:33%;" class="text-muted">'.$description.'</td>
                                 <td>
                                   <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="text-muted sr-only">Action</span>
                                   </button>
                                   <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="admin.php?c=product&p=form_edit&id='.$p['id'].'">Edit</a>
-                                    <a class="dropdown-item" href="admin.php?c=product&p=remove&id='.$p['id'].'">Remove</a>
+                                    <a class="dropdown-item" href="admin.php?c=product&p=form_edit&id='.$p['id'].'">Sửa</a>
+                                    <a class="dropdown-item" href="admin.php?c=product&p=remove&id='.$p['id'].'">Xóa</a>
                                   </div>
                                 </td>
                               </tr>
@@ -270,6 +273,7 @@ switch ($control) {
                 $id = 0;
                 foreach($product as $p){
                     $id++;
+                    $description = substr(trim($p['description'],'"'),0,100);
                     $sp .= '
                     <tr>
                         <td>
@@ -289,14 +293,14 @@ switch ($control) {
                         <td class="text-muted">'.$p['update'].'</td>
                         <td class="text-muted">'.numToMoney($p['cost']).'</td>
                         <td class="text-muted">'.numToMoney($p['price']).'</td>
-                        <td style = "width:33%;" class="text-muted">'.htmlentities(substr($p['description'], 0, 100)).'</td>
+                        <td style = "width:33%;" class="text-muted">'.$description.'</td>
                         <td>
                         <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="text-muted sr-only">Action</span>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="admin.php?c=product&p=form_edit&id='.$p['id'].'">Edit</a>
-                            <a class="dropdown-item" href="admin.php?c=product&p=remove&id='.$p['id'].'">Remove</a>
+                            <a class="dropdown-item" href="admin.php?c=product&p=form_edit&id='.$p['id'].'">Sủa</a>
+                            <a class="dropdown-item" href="admin.php?c=product&p=remove&id='.$p['id'].'">Xóa</a>
                         </div>
                         </td>
                     </tr>
@@ -311,10 +315,12 @@ switch ($control) {
                     $min = $_GET['min'];
                     $max = $_GET['max'];
                     $product_detail = getProductDetailById($id);
+                    $so = 0;
                     $sp = '
                         <table style="width:80%;margin:0 auto;margin-bottom:20px;">
                     ';
                     for($i = $min;$i<=$max;$i++){
+                        $so++;
                         $sl = 0;
                         foreach($product_detail as $p){
                             if($i == $p['size_id']){
@@ -322,14 +328,16 @@ switch ($control) {
                             }
                         }
                         $sp .= '
-                        <div style="width:90%;margin:0 auto;" class="form-group row" float-left">
+                        <div style="width:90%;margin:0 auto;" class="form-group row float-left">
                             <label class="float-left">Kích Thước</label>
                             <div class="col-sm-5 mb-3">
                                 <input type="button" value="'.$i.'" class="form-control" name="size'.$i.'" >
                             </div>
                             <label class="float-left">Số Lượng</label>
                             <div class="col-sm-5 mb-3">
-                                <input type="text" value="'.$sl.'" name="sl'.$i.'" class="form-control" name="price">
+                                <input type="text" style="margin-bottom:5px;" value="'.$sl.'" name="sl'.$i.'" class="soluong form-control" name="price">
+                                <span class="loisl1" style="color:red;">Vui lòng nhập số lượng</span>
+                                <span class="loisl2" style="color:red;">Vui lòng nhập số lượng khác không</span>
                             </div>
                         </div>
                         ';
@@ -338,7 +346,7 @@ switch ($control) {
                             </table>
                             <div class="form-group row  float-right">
                             <div class="col-sm-4 mb-3 float-right">
-                            <input type="submit" style="width: 100px;height:35px;font-size:18px;background:#1b68ff;border:1px solid #1b68ff;border-radius:5px;color:white;margin-right:20px;" value="Finish">
+                                <input type="submit" style="width: 100px;height:35px;font-size:18px;background:#1b68ff;border:1px solid #1b68ff;border-radius:5px;color:white;margin-right:20px;" value="Thêm">
                             </div>
                         </div>
                     </section>
@@ -346,19 +354,23 @@ switch ($control) {
                 }else{
                     $min = $_GET['min'];
                     $max = $_GET['max'];
+                    $so = 0;
                     $sp = '
                         <table style="width:80%;margin:0 auto;margin-bottom:20px;">
                     ';
                     for($i = $min;$i<=$max;$i++){
+                        $so++;
                         $sp .= '
-                        <div style="width:90%;margin:0 auto;" class="form-group row" float-left">
+                        <div style="width:90%;margin:0 auto;" class="form-group row float-left">
                             <label class="float-left">Kích Thước</label>
                             <div class="col-sm-5 mb-3">
                                 <input type="button" value="'.$i.'" class="form-control" name="size'.$i.'" >
                             </div>
                             <label class="float-left">Số Lượng</label>
                             <div class="col-sm-5 mb-3">
-                                <input type="text" name="sl'.$i.'" class="form-control" name="price">
+                                <input type="text" style="margin-bottom:5px;" name="sl'.$i.'" class="soluong form-control" name="price">
+                                <span class="loisl1" style="color:red;">Vui lòng nhập số lượng</span>
+                                <span class="loisl2" style="color:red;">Vui lòng nhập số lượng khác không</span>
                             </div>
                         </div>
                         ';
@@ -367,7 +379,7 @@ switch ($control) {
                             </table>
                             <div class="form-group row  float-right">
                             <div class="col-sm-4 mb-3 float-right">
-                            <input type="submit" style="width: 100px;height:35px;font-size:18px;background:#1b68ff;border:1px solid #1b68ff;border-radius:5px;color:white;margin-right:20px;" value="Finish">
+                                <input type="submit" style="width: 100px;height:35px;font-size:18px;background:#1b68ff;border:1px solid #1b68ff;border-radius:5px;color:white;margin-right:20px;" value="Thêm">
                             </div>
                         </div>
                     </section>
@@ -408,7 +420,7 @@ switch ($control) {
     break;
    
     break;
-    case 'tag':
+    case 'tag-product':
         $tag = 'home';
         if(isset($_GET['p'])){
             $tag = $_GET["p"];
@@ -425,7 +437,7 @@ switch ($control) {
                 $name = $_POST['name'];
                 $anhien = $_POST['anhien'];
                 addNewTagProduct($anhien,$name);
-                header("location:admin.php?c=tag");
+                header("location:admin.php?c=tag-product");
             break;
             case 'form_edit':
                 $id = $_GET['id'];
@@ -437,12 +449,110 @@ switch ($control) {
                 $name = $_POST['name'];
                 $anhien = $_POST['anhien'];
                 updateTagProduct($id,$anhien,$name);
-                header("location:admin.php?c=tag");
+                header("location:admin.php?c=tag-product");
             break;
             case 'remove':
                 $id = $_GET['id'];
                 deleteTagProduct($id);
-                header("location:admin.php?c=tag");
+                header("location:admin.php?c=tag-product");
+            break;
+            case 'search':
+                $content = $_GET['content'];
+                $sp ='';
+                $tag = getAllTag();
+                if($content == ''){
+                    $i = 0;
+                    foreach($tag as $t){
+                        $i++;
+                        $sp .= '
+                        <tr>
+                            <td>
+                                <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" value="'.$t['id'].'" name="check_box" id="'.$i.'">
+                                <label class="custom-control-label" for="'.$i.'"></label>
+                                </div>
+                            </td><td class="text-muted">'.$t['id'].'</td>
+                            </td><td class="text-muted">'.$t['name'].'</td>
+                            <td>
+                                <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="text-muted sr-only">Action</span>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="admin.php?c=tag-product&p=form_edit&id='.$t['id'].'">Sửa</a>
+                                <a class="dropdown-item" href="admin.php?c=tag-product&p=remove&id='.$t['id'].'">Xóa</a>
+                                </div>
+                            </td>
+                        </tr>
+                        ';
+                    }
+                }else{
+                    $i = 0;
+                    foreach($tag as $t){
+                        if(strlen(strpos(strtolower($t['name']),strtolower("$content"))) > 0){
+                            $i++;
+                            $sp .= '
+                            <tr>
+                                <td>
+                                    <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" value="'.$t['id'].'" name="check_box" id="'.$i.'">
+                                    <label class="custom-control-label" for="'.$i.'"></label>
+                                    </div>
+                                </td><td class="text-muted">'.$t['id'].'</td>
+                                </td><td class="text-muted">'.$t['name'].'</td>
+                                <td>
+                                    <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="text-muted sr-only">Action</span>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="admin.php?c=tag-product&p=form_edit&id='.$t['id'].'">Sửa</a>
+                                    <a class="dropdown-item" href="admin.php?c=tag-product&p=remove&id='.$t['id'].'">Xóa</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            ';
+                        }
+                    }
+                }
+                if($sp == ''){
+                    echo 'Tag này không tồn tại!';
+                }else{
+                    echo $sp;
+                }
+            break;
+            case 'chosedelete':
+                $jsonText = $_GET['delete'];
+                $mang = explode(',',$jsonText);
+                $sp ='';
+                for($i = 1;$i < count($mang);$i++){
+                    $id = $mang[$i];
+                    deleteTagProduct($id);
+                }
+                $tag = getAllTag();
+                $id = 0;
+                foreach($tag as $t){
+                    $id++;
+                    $sp .= '
+                    <tr>
+                        <td>
+                            <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" value="'.$t['id'].'" name="check_box" id="'.$i.'">
+                            <label class="custom-control-label" for="'.$i.'"></label>
+                            </div>
+                        </td><td class="text-muted">'.$t['id'].'</td>
+                        </td><td class="text-muted">'.$t['name'].'</td>
+                        <td>
+                            <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="text-muted sr-only">Action</span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="admin.php?c=tag-product&p=form_edit&id='.$t['id'].'">Sửa</a>
+                            <a class="dropdown-item" href="admin.php?c=tag-product&p=remove&id='.$t['id'].'">Xóa</a>
+                            </div>
+                        </td>
+                    </tr>
+                    ';
+                }
+                echo $sp;
             break;
             default:
                 header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);

@@ -30,16 +30,36 @@
         <div class="container-fluid">
           <div class="row justify-content-center">
             <div class="col-md-12 my-4">
-              <h2 class="h1 mb-1">Sản Phẩm</h2>
+              <h2 class="h1 mb-1">Danh Mục Sản Phẩm</h2>
                 <div class="card shadow">
                   <div class="card-body">
-                    <!-- table -->
+                    <div class="toolbar row mb-3">
+                        <div class="col">
+                            <form class="form-inline">
+                                <div class="form-row">
+                                    <div class="form-group col-auto">
+                                        <label for="search" class="sr-only">Search</label>
+                                        <input type="search" class="form-control" onkeyup="tim(this.value);"
+                                            id="search" placeholder="Search">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col ml-auto">
+                            <div class="dropdown float-right">
+                                <a href='admin.php?c=tag-product&p=insert'
+                                    class="btn btn-primary float-right ml-3" type="button">Thêm mới +</a>
+                                <button class="btn btn-secondary" type="button" onclick='xoa();'> Xóa
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     <table class="table table-borderless table-hover">
                       <thead>
                         <tr>
                           <td>
                             <div class="custom-control custom-checkbox">
-                              <input type="checkbox" class="custom-control-input" id="all2">
+                              <input type="checkbox" class="custom-control-input" onclick="show();" id="all2">
                               <label class="custom-control-label" for="all2"></label>
                             </div>
                           </td>
@@ -47,15 +67,17 @@
                           <th>Name</th>
                         </tr> 
                       </thead>
-                      <tbody> 
+                      <tbody id="sp"> 
                         <?php
+                        $i = 0;
                           foreach($tag as $t){
+                            $i++;
                             echo '
                             <tr>
                               <td>
                                   <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="2474">
-                                    <label class="custom-control-label" for="2474"></label>
+                                    <input type="checkbox" class="custom-control-input" value="'.$t['id'].'" name="check_box" id="'.$i.'">
+                                    <label class="custom-control-label" for="'.$i.'"></label>
                                   </div>
                                 </td><td class="text-muted">'.$t['id'].'</td>
                                 </td><td class="text-muted">'.$t['name'].'</td>
@@ -64,9 +86,8 @@
                                     <span class="text-muted sr-only">Action</span>
                                   </button>
                                   <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="admin.php?c=tag&p=form_edit&id='.$t['id'].'">Edit</a>
-                                    <a class="dropdown-item" href="admin.php?c=tag&p=remove&id='.$t['id'].'">Remove</a>
-                                    <a class="dropdown-item" href="admin.php?c=tag&p=insert">Insert</a>
+                                    <a class="dropdown-item" href="admin.php?c=tag-product&p=form_edit&id='.$t['id'].'">Sửa</a>
+                                    <a class="dropdown-item" href="admin.php?c=tag-product&p=remove&id='.$t['id'].'">Xóa</a>
                                   </div>
                                 </td>
                               </tr>
@@ -75,15 +96,6 @@
                         ?>
                       </tbody>
                     </table>
-                    <nav aria-label="Table Paging" class="mb-0 text-muted">
-                      <ul class="pagination justify-content-center mb-0">
-                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                      </ul>
-                    </nav>
                   </div>
                 </div>
               </div> <!-- customized table -->
@@ -131,5 +143,51 @@
             $(this).parent().toggleClass("showContent");
         });
 
+        function tim(x) {
+            var sanpham = document.getElementById('sp');
+            $.ajax({
+                url: 'admin.php?c=tag-product&p=search',
+                type: 'GET',
+                data: 'content=' + x,
+                success: function(data) {
+                    sanpham.innerHTML = data;
+                }
+            });
+            return false;
+        }
+
+      function xoa() {
+          var sanpham = document.getElementById('sp');
+          var box = document.getElementsByName('check_box');
+          var check = [];
+          for (var i = 0; i < box.length; i++) {
+              if (box[i].checked === true) {
+                  check += ',' + box[i].value;
+              }
+          }
+          $.ajax({
+              url: 'admin.php?c=tag-product&p=chosedelete',
+              type: 'GET',
+              data: 'delete=' + check,
+              success: function(data) {
+                  sanpham.innerHTML = data;
+              }
+          });
+          return false;
+      }
+
+      function show() {
+          var show = document.getElementById('all2');
+          var box = document.getElementsByName('check_box');
+          if (show.checked === true) {
+              for (var i = 0; i < box.length; i++) {
+                  box[i].checked = true;
+              }
+          } else if (show.checked === false) {
+              for (var i = 0; i < box.length; i++) {
+                  box[i].checked = false;
+              }
+          }
+      }
     </script>
   </body>

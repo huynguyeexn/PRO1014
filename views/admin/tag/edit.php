@@ -26,6 +26,10 @@
           width:100%;
           height:100%;
         }
+        
+        #loiten,#loianhien{
+          display: none;
+        }
         </style>
 
         
@@ -53,25 +57,29 @@
                       <tbody>
                         <div class="card shadow mb-4">
                           <div class="card-body">
-                            <form action="admin.php?c=tag&p=edit&id=<?php echo $tag['id']?>" method="post" enctype="multipart/form-data">
-                            <div class="form-group row">
-                                  <div class="row">
+                            <form action="admin.php?c=tag-product&p=edit&id=<?php echo $tag['id']?>" onsubmit="return loi()" method="post" enctype="multipart/form-data">
+                              <div class="form-group row">
+                                  <div class="col-sm-4">
                                     <label class="col-form-label col-sm-6 pt-0">Tên Danh Mục</label>
-                                    <div class="col-sm-10 mb-3">
-                                      <input type="text" class="form-control" name="name" value="<?php echo $tag['name']?>">
+                                    <div class="col-md-12">
+                                      <input type="text" class="form-control mb-2" id="ten" name="name" value="<?php echo $tag['name']?>">
+                                      <div style="width:100%;height:20px;" class="loi">
+                                          <span id='loiten' style="color:red;">Vui lòng nhập tên sản phẩm</span>
+                                      </div>
                                     </div>
                                   </div>
-                                  <div class="row">
+                                  <div class="col-sm-4">
                                     <label class="col-form-label col-sm-6 pt-0">Ẩn Hiện</label>
-                                    <div class="col-sm-11 mb-3">
-                                      <input type="text" class="form-control" name="anhien" value="<?php echo $tag['show']?>">
+                                    <div class="col-md-12">
+                                      <input type="text" class="form-control mb-2" id="anhien" name="anhien" value="<?php echo $tag['show']?>">
+                                      <div style="width:100%;height:20px;" class="loi">
+                                          <span id='loianhien' style="color:red;">Vui lòng nhập (ẩn = 0 hoặc hiện = 1)</span>
+                                      </div>
                                     </div>
                                   </div>
-                                </fieldset>
                                 <div class="form-group mt-2 ml-5">
                                   <button type="submit" style='width:100px;float:right;margin-top:20px;' class="btn btn-primary">Lưu</button>
                                 </div>
-                              </div>
                               </div>
                             </form>
                           </div>
@@ -134,5 +142,32 @@
             $(this).parent().toggleClass("showContent");
         });
 
+        function loi() {
+        var ten = document.getElementById("ten");
+        var anhien = document.getElementById("anhien");
+        var loiten = document.getElementById("loiten");
+        var loianhien = document.getElementById("loianhien");
+        hien = 0;
+        if (ten.value == '') {
+            loiten.style.display = 'block';
+            return false
+        }else {
+            loiten.style.display = 'none';
+        }
+        if (anhien.value == '') {
+            loianhien.style.display = 'block';
+            return false
+        }else if(isNaN(anhien.value) == true){
+            loianhien.style.display = 'block';
+            loianhien.innerText = 'Vui lòng nhập số';
+            return false
+        }else if(anhien.value > 1 || anhien.value < 0){
+            loianhien.style.display = 'block';
+            loianhien.innerText = 'Vui lòng nhập (ẩn = 0 hoặc hiện = 1)';
+            return false
+        }else{
+            loianhien.style.display = 'none';
+        }
+      }
     </script>
   </body>

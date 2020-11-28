@@ -28,6 +28,24 @@
           height:100%;
           object-fit:cover;
         }
+    #account {
+        display: block;
+    }
+
+        
+    #loihinh,
+    #loiten,
+    #loigiab,
+    #loigiag,
+    #loisizen,
+    #loisizel,
+    #loitag,
+    #loibrand,
+    #loimau,
+    .loisl1,
+    .loisl2 {
+        display: none;
+    }
         </style>
 
         
@@ -49,10 +67,10 @@
             <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-md-12">
-                        <h1 class="h1 mb-2">Thêm Sản Phẩm</h1>
+                        <h1 class="h1 mb-2">Sửa Sản Phẩm</h1>
                         <div class="card shadow">
                             <div class="card my-4">
-                                <form action="admin.php?c=product&p=edit&id=<?php echo $product['id'];?>" method="post" enctype="multipart/form-data">
+                                <form action="admin.php?c=product&p=edit&id=<?php echo $product['id'];?>" method="post" onsubmit="return loi()" enctype="multipart/form-data">
                                     <section id="account">
                                         <div class="card shadow mb-4">
                                             <div class="card-body">
@@ -61,10 +79,13 @@
                                                         <h1 class="h5 mb-2">Ảnh Sản Phẩm</h1>
                                                         <div style="padding:0px;" class="card-body">
                                                             <div id="khunganh" class="drag mt-3">
-                                                              <img src="<?php echo $product['thumb']?>" alt="">
+                                                              <img id='kanh'  src="<?php echo $product['thumb']?>" alt="">
                                                             </div>
-                                                            <input type="file" id='hinh' class="mt-3"
+                                                            <input type="file"  class="mt-3" id='hinh' onchange="anh();"
                                                                 name="images_sp">
+                                                                
+                                                            <span id='loihinh' style="color:red;">vui lòng chọn
+                                                                ảnh</span>
                                                         </div>
                                                         <div style="padding:0px;" class="card-body">
                                                             <h1 class="h5 mb-2 mt-5">Ảnh Mô Tả</h1>
@@ -76,20 +97,26 @@
                                                             <label for="inputEmail3" class="col-sm-3 col-form-label">Tên
                                                                 Sản Phẩm</label>
                                                             <div class="col-sm-9 mb-3">
-                                                                <input type="text" class="form-control" name="name" value="<?php echo $product['name']?>">
+                                                                <input type="text" class="form-control" id="ten" name="name" value="<?php echo $product['name']?>">
+                                                                <span id='loiten' style="color:red;">vui lòng nhập tên sản phẩm</span>
                                                             </div>
                                                         </div>
                                                         <fieldset class="form-group">
                                                             <div class="form-group row">
                                                                 <label class="col-form-label col-sm-3 pt-0">Giá</label>
                                                                 <div class="col-sm-9 mb-3">
-                                                                    <input type="text" class="form-control" name="cost" value="<?php echo $product['cost']?>">
+                                                                    <input type="text" id="giag" class="form-control" name="cost" value="<?php echo $product['cost']?>">
+                                                                    <span id='loigiag' style="color:red;">vui lòng nhập
+                                                                        giá gốc</span>
+                                                                    <span id='loiten' style="color:red;">vui lòng nhập tên sản phẩm</span>
                                                                 </div>
                                                             </div>
                                                             <div class="row">
                                                                 <label class="col-form-label col-sm-3 pt-0">Giá Thị Trường</label>
                                                                 <div class="col-sm-9 mb-3">
-                                                                    <input type="text" class="form-control" name="price" value="<?php echo $product['price']?>">
+                                                                    <input type="text" id="giab" class="form-control" name="price" value="<?php echo $product['price']?>">
+                                                                    <span id='loigiab' style="color:red;">vui lòng nhập
+                                                                        giá bán</span>
                                                                 </div>
                                                             </div>
                                                         </fieldset>
@@ -115,6 +142,8 @@
                                                                     }
                                                                     ?>
                                                                 </select>
+                                                                <span id='loisizen' style="color:red;">vui lòng chọn
+                                                                    size</span>
                                                             </div>
                                                             <div class="col-sm-6 mb-3">
                                                                 <label for="exampleFormControlTextarea1">đến</label>
@@ -130,12 +159,14 @@
                                                                       }
                                                                     ?>
                                                                 </select>
+                                                                <span id='loisizel' style="color:red;">vui lòng chọn
+                                                                    size</span>
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
                                                             <div class="col-sm-4 mb-3">
                                                                 <label for="exampleFormControlTextarea1">Màu sắc</label>
-                                                                <select class="select" name="color" id="">
+                                                                <select class="select" name="color" id="color">
                                                                     <option value="">Chọn màu sắc</option>
                                                                     <?php
                                                                       foreach($color as $c){
@@ -150,11 +181,13 @@
                                                                       }
                                                                     ?>
                                                                 </select>
+                                                                <span id='loimau' style="color:red;">vui lòng chọn
+                                                                    màu</span>
                                                             </div>
                                                             <div class="col-sm-4 mb-3">
                                                                 <label for="exampleFormControlTextarea1">Thương
                                                                     Hiệu</label>
-                                                                <select class="select" name="brand" id="">
+                                                                <select class="select" name="brand" id="brand">
                                                                     <option value="">Chọn thương hiệu</option>
                                                                     <?php
                                                                       foreach($brand as $c){
@@ -166,10 +199,12 @@
                                                                       }
                                                                     ?>
                                                                 </select>
+                                                                <span id='loibrand' style="color:red;">vui lòng chọn
+                                                                    thương hiệu</span>
                                                             </div>
                                                             <div class="col-sm-4 mb-3">
                                                                 <label for="exampleFormControlTextarea1">Danh Mục</label>
-                                                                <select class="select" name="tag" id="">
+                                                                <select class="select" name="tag" id="tag">
                                                                     <option value="">Chọn danh mục</option>
                                                                     <?php
                                                                       foreach($tag as $c){
@@ -181,6 +216,8 @@
                                                                       }
                                                                     ?>
                                                                 </select>
+                                                                <span id='loitag' style="color:red;">vui lòng chọn danh
+                                                                    mục</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -235,22 +272,146 @@
       //    img = img.slice(13,img.length)
       //    hinh.src = 'assets/img/product/'+img;
       // }
-      function next(x) {
+      function anh() {
+        var hinh = document.getElementById('hinh');
+        var kanh = document.getElementById('kanh');
+        var img = hinh.value;
+        img = img.slice(12, img.length)
+        kanh.src = "assets/img/product/" + img
+    }
+
+      function next(z) {
         var min = document.getElementById("minsize").value;
         var max = document.getElementById("maxsize").value;
-        var profile = document.getElementById("profile");
-        var account = document.getElementById("account");
-        $.ajax({
-            url: 'admin.php?c=product&p=next',
-            type: 'GET',
-            data: 'min=' + min + '&max=' + max+'&id=' + x,
-            success: function(data) {
-                account.style.display = 'none';
-                profile.innerHTML = data
-                alert(data)
+        var profile = document.getElementById("profile");        
+        var hinh = document.getElementById('kanh');
+        var ten = document.getElementById("ten");
+        var giag = document.getElementById("giag");
+        var giab = document.getElementById("giab");
+        var minsize = document.getElementById("minsize");
+        var maxsize = document.getElementById("maxsize");
+        var color = document.getElementById("color");
+        var brand = document.getElementById("brand");
+        var tag = document.getElementById("tag");
+        var loihinh = document.getElementById("loihinh");
+        var loiten = document.getElementById("loiten");
+        var loigiag = document.getElementById("loigiag");
+        var loigiab = document.getElementById("loigiab");
+        var loisizen = document.getElementById("loisizen");
+        var loisizel = document.getElementById("loisizel");
+        var loimau = document.getElementById("loimau");
+        var loibrand = document.getElementById("loibrand");
+        var loitag = document.getElementById("loitag");
+        hien = 0;
+        if (hinh.src == 'http://localhost/pro1014/assets/img/product/') {
+            loihinh.style.display = 'block';
+            hien = 1;
+        } else {
+            loihinh.style.display = 'none';
+        }
+        if (ten.value == '') {
+            loiten.style.display = 'block';
+            hien = 1;
+        }else {
+            loiten.style.display = 'none';
+        }
+        if (giab.value == '') {
+            loigiab.style.display = 'block';
+            hien = 1;
+        }else if(isNaN(giab.value) == true){
+            loigiab.style.display = 'block';
+            loigiab.innerText = 'Vui lòng nhập số';
+        }else if(giag.value < giab.value){
+            loigiab.style.display = 'block';
+            loigiab.innerText = 'Vui lòng nhập giá thị trường nhỏ hơn giá gốc';
+            hien = 1;
+        }else{
+            loigiab.style.display = 'none';
+        }
+        if (giag.value == '') {
+            loigiag.style.display = 'block';
+            hien = 1;
+        }else if(isNaN(giag.value) == true){
+            loigiag.style.display = 'block';
+            loigiag.innerText = 'Vui lòng nhập số';
+        }else {
+            loigiag.style.display = 'none';
+        }
+        if (minsize.value == 0) {
+            loisizen.style.display = 'block';
+            hien = 1;
+        } else {
+            loisizen.style.display = 'none';
+        }
+        if (maxsize.value == 0) {
+            loisizel.style.display = 'block';
+            hien = 1;
+        } else {
+            loisizel.style.display = 'none';
+        }
+        if (color.value == 0) {
+            loimau.style.display = 'block';
+            hien = 1;
+        } else {
+            loimau.style.display = 'none';
+        }
+        if (tag.value == 0) {
+            loitag.style.display = 'block';
+            hien = 1;
+        } else {
+            loitag.style.display = 'none';
+        }
+        if (brand.value == 0) {
+            loibrand.style.display = 'block';
+            hien = 1;
+        } else {
+            loibrand.style.display = 'none';
+        }
+        if(minsize.value > maxsize.value){
+            loisizen.style.display = 'block';
+            loisizen.innerText = 'Vui lòng chọn size nhỏ';
+            loisizel.style.display = 'block';
+            loisizel.innerText = 'Vui lòng chọn size lớn';
+            hien = 1;
+        }
+        if (hien == 0) {
+            $.ajax({
+                url: 'admin.php?c=product&p=next',
+                type: 'GET',
+                data: 'min=' + min + '&max=' + max+'&id='+z,
+                success: function(data) {
+                    account.style.display = 'none';
+                    profile.innerHTML = data
+                    alert(data)
+                }
+            });
+            return false;
+        }
+    }
+
+    function loi() {
+        var loisl1 = document.getElementsByClassName("loisl1");
+        var loisl2 = document.getElementsByClassName("loisl2");
+        var soluong = document.getElementsByClassName("soluong");
+        for(var i =0;i<soluong.length;i++){
+            if(soluong[i].value == ''){
+                loisl1[i].style.display='block';
+                loisl2[i].style.display='none';
+                return false
+            }else if(soluong[i].value == 0){
+                loisl1[i].style.display='none';
+                loisl2[i].style.display='block';
+                return false
+            }else if(isNaN(soluong[i].value) == true){
+                loisl1[i].style.display='none';
+                loisl2[i].style.display='block';
+                loisl2[i].innerText = 'Vui lòng nhập số';
+                return false
+            }else{
+                loisl1[i].style.display='none';
+                loisl2[i].style.display='none';
             }
-        });
-        return false;
+        }
     }
     </script>
     <script>
