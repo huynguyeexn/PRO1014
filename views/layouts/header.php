@@ -56,13 +56,32 @@
 			</div>
 		</nav>
 	</div>
-	<div class="search_input" id="search_input_box">
+	<div class="search_input" id="search_input_box" style="padding: 0">
 		<div class="container">
 			<form class="d-flex justify-content-between">
-				<input type="text" class="form-control" id="search_input" placeholder="Bạn muốn tìm gì...?">
+				<input type="search" class="form-control" id="search_input" onkeyup="search(this.value);" placeholder="Bạn muốn tìm gì...?">
 				<button type="submit" class="btn"></button>
 				<span class="lnr lnr-cross" id="close_search" title="Đóng"></span>
 			</form>
 		</div>
+		<div style="width:100%;background:white;" id='show_search' class="search">
+			<ul style="width:100%;height:auto;padding-bottom:15px;">
+			</ul>
+		</div>
 	</div>
 </header>
+<script>
+	function search(x){
+          var sanpham = document.getElementById('show_search');
+          $.ajax({
+          url: 'home.php?action=search',
+            type: 'GET',
+            data : 'content='+x,
+            success : function(data) 
+            { 
+              sanpham.innerHTML=data;
+            }
+          });
+          return false; 
+        }
+</script>

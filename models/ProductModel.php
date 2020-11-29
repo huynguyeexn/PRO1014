@@ -29,8 +29,8 @@ function getCountProduct(){
     return queryOne($sql);
 }
 
-function addNewProduct($name,$cost,$price,$description,$update,$thumb,$brand,$view,$listanh){
-    $sql = "INSERT INTO product(`name`, `cost`, `price`, `description`, `thumb`, `images`, `update`,`view`, `brand_id`) VALUES ('$name',$cost,$price,'$description','$thumb','$listanh','$update',$view,$brand)";
+function addNewProduct($name,$cost,$price,$description,$update,$brand,$view){
+    $sql = "INSERT INTO product(`name`, `cost`, `price`, `description`, `update`,`view`, `brand_id`) VALUES ('$name',$cost,$price,'$description','$update',$view,$brand)";
     return execute($sql);
 }
 

@@ -24,18 +24,14 @@
         <!-- End Left Sidebar -->
 
 
+        <main role="main" class="main-content">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
         <!-- Striped rows -->
-        <div class="col-md-10 my-4 float-right">
+        <div class="col-md-12 my-4 float-right">
             <div class="card shadow">
                 <div class="card-body">
-                    <h2 class="card-title">Bình luận</h2>
-                    <div class="toolbar row mb-3">
-                        <!-- <div class="col">
-                            <div class="dropdown">
-                                <a class="btn btn-primary" href="admin.php?c=tag-blog&t=create">Thêm thẻ +</a>
-                            </div>
-                        </div> -->
-                    </div>
+                    <h3 class="card-title">Bình luận sản phẩm</h3>
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
@@ -45,12 +41,12 @@
                                         <label class="custom-control-label" for="d1"></label>
                                     </div>
                                 </th>
-                                <th>Id</th>
-                                <th>Product Id</th>
-                                <th>User Id</th>
-                                <th>Comment</th>
-                                <th>Created</th>
-                                <th>Action</th>
+                                <th>#</th>
+                                <th>Mã sản phẩm</th>
+                                <th>Mã người dùng</th>
+                                <th>Bình luận</th>
+                                <th>Ngày</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -90,10 +86,12 @@
 
                         </tbody>
                     </table>
-                  
                 </div>
             </div>
         </div> <!-- Striped rows -->
+                </div>
+            </div>
+        </main>
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/popper.min.js"></script>
         <script src="assets/assets/js/moment.min.js"></script>
