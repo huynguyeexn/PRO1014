@@ -278,7 +278,7 @@
         var img = hinh.value;
         img = img.slice(12, img.length)
         kanh.src = "assets/img/product/" + img
-    }
+        }
 
       function next(z) {
         var min = document.getElementById("minsize").value;
