@@ -46,7 +46,7 @@ function getCountBlog(){
     return queryOne($sql);
 }
 function setComment($idblog,$user,$message,$created){
-    $sql = "INSERT INTO `blog_comment`( `blog_id`, `user_id`, `content`, `created`) VALUES ($idblog,$user,'$message','$created')";
+    $sql = "INSERT INTO `blog_comment`( `blog_id`, `user_id`, `content`, `created`) VALUES ('$idblog','$user','$message','$created')";
     return execute($sql);
 }
 function getComment(){

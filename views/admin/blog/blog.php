@@ -46,15 +46,15 @@
                                         <label class="custom-control-label" for="d1"></label>
                                     </div>
                                 </th>
-                                <th>ID</th>
-                                <th>Title</th>
-                                <th>Description</th>
-                                <th>Content</th>
-                                <th>Thumb</th>
-                                <th>View</th>
-                                <th>Created</th>
-                                <th>User</th>
-                                <th>Action</th>
+                                <th>Mã ID</th>
+                                <th>Tiêu đề</th>
+                                <th>Miêu tả</th>
+                                <th>Nội dung</th>
+                                <th>Hình ảnh</th>
+                                <th>Lượt xem</th>
+                                <th>Khởi tạo</th>
+                                <th>Người đăng</th>
+                                <th>Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -88,8 +88,8 @@
                                           <span class="text-muted sr-only">Action</span>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr1">
-                                          <a class="dropdown-item" href="admin.php?c=blog&a=edit&id='.$news['id'].'">Edit</a>
-                                          <a class="dropdown-item" href="admin.php?c=blog&a=delete&id='.$news['id'].'">Remove</a>
+                                          <a class="dropdown-item" href="admin.php?c=blog&a=edit&id='.$news['id'].'">Sửa</a>
+                                          <a class="dropdown-item" href="admin.php?c=blog&a=delete&id='.$news['id'].'">Xóa</a>
                                         </div>
                                       </div>
                                     </td>
