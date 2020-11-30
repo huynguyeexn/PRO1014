@@ -77,10 +77,10 @@
             echo $blog;
         break;
 
-        case'comment':
+        case 'comment':
             if (isset($_POST['submit'])) {
                 $idblog= $_GET['id'];
-                $user = $_SESSION['user_id'];
+                $user = $_SESSION['user'];
                 $message = $_POST['message'];
                 $created = date("Y-m-d H:i:s");
 

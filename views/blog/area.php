@@ -135,10 +135,10 @@
                             <h4>Charlie Barber</h4>
                             <p>Tác giả kì cựu</p>
                             <div class="social_icon">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-github"></i></a>
-                                <a href="#"><i class="fa fa-behance"></i></a>
+                                <a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a>
+                                <a href="https://www.twitter.com/"><i class="fa fa-twitter"></i></a>
+                                <a href="https://github.com/huynguyeexn/PRO1014"><i class="fa fa-github"></i></a>
+                                <a href="https://www.behance.net/"><i class="fa fa-behance"></i></a>
                             </div>
                             <p>Sneaker là giày thể thao, có đế mềm với phần trên được làm bằng vải hoặc bạt, da. Không chỉ được sử dụng trong các hoạt động thể thao, sneaker hiện nay còn trở thành một trong những sản phẩm phổ biến, không thể thiếu của các tín đồ thời trang. Sneaker có vẻ ngoài thể thao, khỏe khoắn, năng động, mang lại sự dễ chịu, thoải mái cho người sử dụng. </p>
                             <div class="br"></div>
