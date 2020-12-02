@@ -64,14 +64,15 @@
                     <label for="customFile">Ảnh đại diện:</label>
                     <div class="custom-file">
                         <label class="custom-file-label" for="thumb">Chọn hình ảnh</label>
-                        <input type="file" class="custom-file-input" id="thumb" name="thumb"
-                            value="<?php echo $getblog['thumb'] ?>">
+                        <input type="file" class="custom-file-input" id="hinh" name="thumb"
+                            value="<?php echo $getblog['thumb'] ?>" onchange="anh();" >
                     </div>
                 </div>
                 <div class="row my-4">
-                    <div class="card border-0 bg-transparent col-3">
-                        <img src="assets/assets/products/p4.jpg" alt="..." class="card-img-top img-fluid rounded">
-                            <a href="">Xoa hinh anh</a>
+                    <div class="card border-0 bg-transparent col-3" >
+                        
+                        <img id="kanh" src="<?php echo $getblog['thumb'] ?>" alt="..." class="card-img-top img-fluid rounded">
+                            <!-- <a href="">Xoa hinh anh</a> -->
                     </div>
                 </div>
                 <div class="form-group">
@@ -119,5 +120,14 @@
         function saveContent() {
             editor.save();
         }
+
+        function anh() {
+        var hinh = document.getElementById('hinh');
+        var kanh = document.getElementById('kanh');
+        var img = hinh.value;
+        img = img.slice(12, img.length)
+        kanh.src = "assets/img/blog/" + img
+    }
+
         </script>
 </body>

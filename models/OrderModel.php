@@ -16,8 +16,8 @@ function getOrderByUser($userid){
     $sql = "SELECT * FROM pro1014.`order` WHERE user_id = $userid  order BY created desc;";
     return query($sql);
 }
-function addNewOrder(){
-    $sql = "";
+function addNewOrder($user_id, $status, $created, $name, $address, $phone, $email){
+    $sql = "INSERT INTO `order` (`user_id`, `status`, `created`, `name`, `address`, `phone`, `email`) VALUES ('$user_id', '$status', '$created', '$name', '$address', '$phone', '$email');";
     return execute($sql);
 }
 

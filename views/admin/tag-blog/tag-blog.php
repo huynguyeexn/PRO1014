@@ -45,11 +45,11 @@
                                         <label class="custom-control-label" for="d1"></label>
                                     </div>
                                 </th>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Show</th>
-                                <th>Priority</th>
-                                <th>Action</th>
+                                <th>Mã </th>
+                                <th>Tên</th>
+                                <th>Ẩn/hiện</th>
+                                <th>Ưu tiên</th>
+                                <th>Hành động</th>
                             </tr>
                         </thead>
                         <tbody>

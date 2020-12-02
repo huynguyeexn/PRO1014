@@ -80,17 +80,18 @@
         case 'comment':
             if (isset($_POST['submit'])) {
                 $idblog= $_GET['id'];
-                $user = $_SESSION['user'];
+                $user = $_SESSION['user']['id'];
                 $message = $_POST['message'];
                 $created = date("Y-m-d H:i:s");
-
-                setComment($idblog,$user,$message,$created);
                 $blog = getBlogById($idblog);
+               echo setComment($idblog,$user,$message,$created);
+                
                 require_once('views/blog/detail.php');
 
             };
+        break;
         default: 
             require_once('views/blog/index.php');
             break;
-        break;
+       
     }

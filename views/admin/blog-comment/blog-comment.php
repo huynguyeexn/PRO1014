@@ -45,12 +45,12 @@
                                         <label class="custom-control-label" for="d1"></label>
                                     </div>
                                 </th>
-                                <th>Id</th>
-                                <th>Blog Id</th>
-                                <th>User Id</th>
-                                <th>Comment</th>
-                                <th>Created</th>
-                                <th>Action</th>
+                                <th>Mã </th>
+                                <th>Mã tin tức </th>
+                                <th>Mã người đăng</th>
+                                <th>Bình luận</th>
+                                <th>Khởi tạo</th>
+                                <th>Hành động</th>
                             </tr>
                         </thead>
                         <tbody>

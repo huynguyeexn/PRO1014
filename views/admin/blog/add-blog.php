@@ -8,6 +8,9 @@
         height: 100px;
         overflow: hidden;
     }
+    .card img{
+        width: 100%;
+    }
     </style>
 
 
@@ -59,7 +62,13 @@
                     <label for="customFile">Ảnh đại diện:</label>
                     <div class="custom-file">
                         <label class="custom-file-label" for="thumb">Chọn hình ảnh</label>
-                        <input type="file" class="custom-file-input" id="thumb" name="thumb">
+                        <input type="file" class="custom-file-input" id="hinh" name="thumb" onchange="anh();">
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div id="khunganh" class="card border-0 bg-transparent col-3" style="height:250px ; width:300px">
+                        <!-- <img src="assets/assets/products/p4.jpg" alt="..." class="card-img-top img-fluid rounded">
+                            <a href="">Xoa hinh anh</a> -->
                     </div>
                 </div>
                 <div class="form-group">
@@ -103,5 +112,30 @@
         function saveContent(){
             editor.save();
         }
+        var i=0;
+        function anh() {
+        if (i == 0) {
+            $(function anh() {
+                var hinh = document.getElementById('hinh');
+                var khunganh = document.getElementById('khunganh');
+                var img = hinh.value;
+                img = img.slice(12, img.length)
+                var anh = document.createElement("img")
+                anh.src = "assets/img/blog/" + img
+                var newelement = khunganh.appendChild(anh);
+            });
+            i = 1;
+        } else {
+            $(function anh() {
+                var hinh = document.getElementById('hinh');
+                var khunganh = document.getElementById('khunganh').firstElementChild;
+                var img = hinh.value;
+                img = img.slice(12, img.length)
+                khunganh.src = "assets/img/blog/" + img;
+            });
+            i = 1;
+        }
+
+    }
         </script>
 </body>
