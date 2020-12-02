@@ -86,7 +86,7 @@
                     </style>
                 </div>
 
-                <button type="submit" class="btn btn-block btn-primary">Sửa bài viết</button>
+                <button type="submit" class="btn btn-block btn-primary"  onclick="return ConfirmEdit();">Sửa bài viết</button>
             </form>
 
         </div> <!-- Striped rows -->
@@ -129,5 +129,16 @@
         kanh.src = "assets/img/blog/" + img
     }
 
+        </script>
+
+         <script>
+            function ConfirmEdit()
+    {
+      var x = confirm("Bạn có muốn sửa không ?");
+      if (x)
+          return true;
+      else
+        return false;
+    }
         </script>
 </body>
