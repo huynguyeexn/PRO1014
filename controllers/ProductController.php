@@ -26,6 +26,8 @@
 
                 $id=$_GET['id'];
                 $product = getProductById($id);
+                $view = $product['view'] + 1;
+                updateViewProduct($view,$id);
             require_once('views/products/index.php');
             }
             

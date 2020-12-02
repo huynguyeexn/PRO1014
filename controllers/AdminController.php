@@ -73,7 +73,7 @@ switch ($control) {
                 $brand = $_POST['brand'];
                 $description = '<p>'.$_POST['description'].'</p>';
                 $update =  date("Y-m-d H:i:s");
-                $id = addNewProduct($name,$cost,$price,$description,$update,$brand,$view);
+                $id = addNewProduct($name,$cost,$price,$description,$update,$brand,$view,$color);
                 $thumb = $_FILES['images_sp']['name'];
                 $folder = mkdir("assets/img/product/$id");
                 move_uploaded_file($_FILES['images_sp']['tmp_name'], "assets/img/product/$id/".$thumb);
@@ -92,12 +92,12 @@ switch ($control) {
                      $listanh .= ']'; 
                 }
                 // print_r($listanh);
-                updateProduct($id,$name,$cost,$price,$description,$update,$thumb,$brand,$listanh);  
+                updateProduct($id,$name,$cost,$price,$description,$update,$thumb,$brand,$listanh,$color);  
                 addNewTagOfProduct($id,$tag);
                 for($i = $size1;$i<=$size2;$i++){
                     $size = $i;
                     $quantity = $_POST['sl'.$i.''];
-                echo  addNewProductDetail($id,$color,$size,$quantity);
+                echo  addNewProductDetail($id,$size,$quantity);
                 }
                 header("location:admin.php?c=product");
             break;
@@ -158,13 +158,13 @@ switch ($control) {
                     $row = getProductById($id);
                     $listanh  = $row['images'];
                 }
-                updateProduct($id,$name,$cost,$price,$description,$update,$thumb,$brand,$listanh);
+                updateProduct($id,$name,$cost,$price,$description,$update,$thumb,$brand,$listanh,$color);
                 updateTagOfProduct($id,$tag);
                 deleteProductDetailById($id);
                 for($i = $size1;$i<=$size2;$i++){
                     $size = $i;
                     $quantity = $_POST['sl'.$i.''];
-                    addNewProductDetail($id,$color,$size,$quantity);
+                    addNewProductDetail($id,$size,$quantity);
                 }
                 header("location:admin.php?c=product");
             break;

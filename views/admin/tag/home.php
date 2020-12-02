@@ -63,8 +63,8 @@
                               <label class="custom-control-label" for="all2"></label>
                             </div>
                           </td>
-                          <th>ID</th>
-                          <th>Name</th>
+                          <th>Mã</th>
+                          <th>Tên</th>
                         </tr> 
                       </thead>
                       <tbody id="sp"> 
