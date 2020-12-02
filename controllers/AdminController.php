@@ -173,6 +173,11 @@ switch ($control) {
                 deleteProduct($id);
                 header("location:admin.php?c=product");
             break;
+            case 'xoa':
+                $id = $_GET['xn'];
+                $product = getProductById($id);
+                echo $product['thumb'].','.$product['name'];
+            break;
             case 'search':
                 $content = $_GET['content'];
                 $sp ='';
