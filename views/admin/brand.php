@@ -51,10 +51,10 @@
                                                 </div>
                                             </th>
                                             <th>#</th>
-                                            <th>Name</th>
-                                            <th>Show</th>
-                                            <th>Prioryti</th>
-                                            <th>Action</th>
+                                            <th>Tên</th>
+                                            <th>Ẩn / Hiện</th>
+                                            <th>Thứ tự</th>
+                                            <th></th>
 
                                         </tr>
                                     </thead>

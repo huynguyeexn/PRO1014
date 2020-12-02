@@ -9,8 +9,6 @@
         overflow: hidden;
     }
     </style>
-
-
 </head>
 
 <body class="vertical  dark  ">
@@ -41,24 +39,36 @@
                                                     <label class="custom-control-label" for="d1"></label>
                                                 </div>
                                             </th>
-                                            <th>#</th>
-                                            <th>User_id</th>
-                                            <th>Status</th>
-                                            <th>Created</th>
-                                            <th>Phone</th>
-                                            <th>Name</th>
-                                            <th>Address</th>
+                                            <th>Mã đơn</th>
+                                            <th>Trạng thái</th>
+                                            <th>Ngày tạo</th>
+                                            <th>Số điện thoại</th>
+                                            <th>Tên người nhận</th>
+                                            <th>Địa chỉ</th>
                                             <th>Email</th>
-                                            <th>Action</th>
-                                            <th>Chi tiết</th>
-
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
                                         <?php
                                   $order=getAllOrder();
-                                  foreach($order as $o){     
+                                  foreach($order as $o){
+                                      $status = "";
+                                      switch($o['status']){
+                                          case 0:
+                                            $status = '<button type="button" class="btn mb-2 btn-primary">Mới</button>';
+                                          break;
+                                          case 1:
+                                            $status = '<button type="button" class="btn mb-2 btn-warning">Đang giao</button>';
+                                          break;
+                                          case 2:
+                                            $status = '<button type="button" class="btn mb-2 btn-success">Đã giao</button>';
+                                          break;
+                                          case 3:
+                                            $status = '<button type="button" class="btn mb-2 btn-danger">Huỷ</button>';
+                                          break;
+                                      }
                                     echo'
                                     
                                     <tr>
@@ -69,12 +79,11 @@
                                       </div>
                                     </td>
                                     <td>'.$o['id'].'</td>
-                                    <td>'.$o['user_id'].'</td>
-                                    <td>'.$o['status'].'</td>
+                                    <td>'.$status.'</td>
                                     <td>'.$o['created'].'</td>
+                                    <td>'.$o['phone'].'</td>
                                     <td>'.$o['name'].'</td>
                                     <td>'.$o['address'].'</td>
-                                    <td>'.$o['phone'].'</td>
                                     <td>'.$o['email'].'</td>
                                     
                                     </td>
@@ -91,7 +100,6 @@
                                         </div>
                                       </div>
                                     </td>
-                                    <td><a href="#">Chi tiết</a></td>
                                   </tr>
                                     ';
                                  }

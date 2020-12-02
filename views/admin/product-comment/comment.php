@@ -47,7 +47,7 @@
                                 <th>Product Id</th>
                                 <th>Số lượng comment</th>
                                 <th>Chi tiết</th>
-                                <th>Action</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
