@@ -81,7 +81,7 @@
                     </style>
                 </div>
 
-                <button type="submit" class="btn btn-block btn-primary">Đăng bài viết</button>
+                <button type="submit" class="btn btn-block btn-primary"  onclick="return ConfirmAdd();">Đăng bài viết</button>
             </form>
 
         </div> <!-- Striped rows -->
@@ -136,6 +136,17 @@
             i = 1;
         }
 
+    }
+        </script>
+
+<script>
+            function ConfirmAdd()
+    {
+      var x = confirm("Bạn có muốn thêm không ?");
+      if (x)
+          return true;
+      else
+        return false;
     }
         </script>
 </body>

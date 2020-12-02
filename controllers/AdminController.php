@@ -741,7 +741,7 @@ switch ($control) {
                 foreach($tags as $tag){
                     insertTagOfBlog($blogId,$tag);
                 }
-                header('location: admin.php?c=blog&a=create');
+                header('location: admin.php?c=blog');
             break;
             case 'delete':
                 if(isset($_GET['id'])){

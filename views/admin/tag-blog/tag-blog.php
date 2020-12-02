@@ -79,8 +79,8 @@
                                           <span class="text-muted sr-only">Action</span>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr1">
-                                          <a class="dropdown-item" href="admin.php?c=tag-blog&t=edit&id='.$tags['id'].'">Edit</a>
-                                          <a class="dropdown-item" href="admin.php?c=tag-blog&t=delete&id='.$tags['id'].'">Remove</a>
+                                          <a class="dropdown-item" href="admin.php?c=tag-blog&t=edit&id='.$tags['id'].'">Sửa</a>
+                                          <a class="dropdown-item" href="admin.php?c=tag-blog&t=delete&id='.$tags['id'].'" onclick="return ConfirmDelete();">Xóa</a>
                                         </div>
                                       </div>
                                     </td>
@@ -132,5 +132,15 @@
         $(".btn-primary").on('click', function() {
             $(this).parent().toggleClass("showContent");
         });
+        </script>
+         <script>
+            function ConfirmDelete()
+    {
+      var x = confirm("Bạn có muốn xóa không ?");
+      if (x)
+          return true;
+      else
+        return false;
+    }
         </script>
 </body>
