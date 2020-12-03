@@ -10,7 +10,8 @@
         "README.md": true,
         "composer.lock": true,
         "composer.json": true,
-        "**/.vscode": true
+        "**/.vscode": true,
+        "templates": true
     },
     "explorerExclude.backup": null
 }
