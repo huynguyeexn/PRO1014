@@ -89,7 +89,7 @@
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr1">
                                           <a class="dropdown-item" href="admin.php?c=blog&a=edit&id='.$news['id'].'">Sửa</a>
-                                          <a class="dropdown-item" href="admin.php?c=blog&a=delete&id='.$news['id'].'">Xóa</a>
+                                          <a class="dropdown-item" href="admin.php?c=blog&a=delete&id='.$news['id'].'" onclick="return ConfirmDelete();">Xóa</a>
                                         </div>
                                       </div>
                                     </td>
@@ -102,10 +102,7 @@
                     </table>
                     <div class="toolbar row mb-3">
                         <div class="col">
-                            <div class="dropdown">
-                                <a class="btn btn-primary" href="http://pro1014.test/admin.php?c=blog&a=create">Thêm tin
-                                    tức +</a>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -148,5 +145,15 @@
         $(".btn-primary").on('click', function() {
             $(this).parent().toggleClass("showContent");
         });
+        </script>
+        <script>
+            function ConfirmDelete()
+    {
+      var x = confirm("Bạn có muốn xóa không ?");
+      if (x)
+          return true;
+      else
+        return false;
+    }
         </script>
 </body>

@@ -173,6 +173,11 @@ switch ($control) {
                 deleteProduct($id);
                 header("location:admin.php?c=product");
             break;
+            case 'xoa':
+                $id = $_GET['xn'];
+                $product = getProductById($id);
+                echo $product['thumb'].','.$product['name'];
+            break;
             case 'search':
                 $content = $_GET['content'];
                 $sp ='';
@@ -736,7 +741,7 @@ switch ($control) {
                 foreach($tags as $tag){
                     insertTagOfBlog($blogId,$tag);
                 }
-                header('location: admin.php?c=blog&a=create');
+                header('location: admin.php?c=blog');
             break;
             case 'delete':
                 if(isset($_GET['id'])){
