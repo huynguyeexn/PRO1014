@@ -3,7 +3,7 @@
 require_once 'core/connect.php';
 
 function getAllOrder(){
-    $sql = "SELECT * FROM pro1014.`order` order BY created desc";
+    $sql = "SELECT * FROM pro1014.`order` order BY created DESC;";
     return query($sql);
 }
 function getOrderByOffset($limit, $offset){

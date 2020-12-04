@@ -22,7 +22,7 @@
             require_once('views/blog/index.php');
             break;
         case 'catalog':
-            $allBlogCatalog = getAllBlogCatalog();
+            $allBlogCatalog = getAllTagBlog();
             require_once('views/blog/index.php');
             break;
         case 'detail':

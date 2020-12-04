@@ -174,7 +174,7 @@
                             <h4 class="widget_title">Danh mục bài viết</h4>
                             <ul class="list cat-list">
                                 <?php
-                                    $blogs = getAllBlogCatalog();
+                                    $blogs = getAllTagBlog();
                                     foreach($blogs as $blog){
                                         echo'
                                         <li>
@@ -212,7 +212,7 @@
                             <h4 class="widget_title">Từ khóa</h4>
                             <ul class="list">
                             <?php
-                            $blogs = getAllBlogCatalog();
+                            $blogs = getAllTagBlog();
                             foreach($blogs as $blog){
                                 echo'
                                 <li><a href="#">'.$blog['name'].'</a></li>
