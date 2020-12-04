@@ -8,7 +8,7 @@ function getConnection(){
     $username = 'root';
     $password = '';
     $port ='3306';
-    $charset = 'utf8_general_ci';
+    //$charset = 'utf8_general_ci';
     $options = array(
         PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
@@ -17,13 +17,13 @@ function getConnection(){
     try {
         $conn = new PDO("mysql:
             host=$host;
-            charset=$charset;
+        
             port=$port;
-            dbname=$dbname,
+            dbname=".$dbname,
             $username,
             $password,
-            $options;
-        ");
+            $options
+        );
         $conn->setAttribute(
             PDO::ATTR_ERRMODE,
             PDO::ERRMODE_EXCEPTION
