@@ -8,7 +8,7 @@
     session_start();
 
     // Require các file cần sử dụng.
-    require_once('core/Function.php');
+    require_once('core/function.php');
 
     // Các Model cần thiết.
     require_once('models/UserModel.php');
