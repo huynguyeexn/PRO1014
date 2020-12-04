@@ -1,7 +1,7 @@
 <?php
 
 function getAllOrder(){
-    $sql = "select * from pro1014.`order`";
+    $sql = "SELECT * FROM pro1014.`order` order BY created DESC;";
     return query($sql);
 }
 function getOrderByOffset($limit, $offset){

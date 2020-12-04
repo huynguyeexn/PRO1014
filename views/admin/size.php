@@ -28,7 +28,7 @@
             <div class="container-fluid">
                 <div class="row justify-content-center">
                     <!-- Striped rows -->
-                    <div class="col-md-12 my-4 float-right">
+                    
                         <?php if(isset($_GET) && $_GET['c'] == 'brand' &&  empty($_GET['a'])): ?>
                         <div class="card shadow">
                             <div class="card-body">
@@ -86,8 +86,9 @@
                                           <span class="text-muted sr-only">Action</span>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr1">
-                                        <a class="dropdown-item" href="admin.php?c=brand&a=edit&id='.$br['id'].'">Sửa</a>
-                                        <a class="dropdown-item" href="admin.php?c=brand&a=delete&id='.$br['id'].'">Xóa</a>
+                                        <a class="dropdown-item" href="admin.php?c=brand&a=form_edit&id='.$br['id'].'">Sửa</a>
+                                        <a class="dropdown-item" href="admin.php?c=brand&a=delete
+                                        &id='.$br['id'].'">Xóa</a>
                                           <a class="dropdown-item" href="#">Assign</a>
                                         </div>
                                       </div>
@@ -111,8 +112,6 @@
                         </div>
                         <?php elseif(isset($_GET) && $_GET['a'] == 'create'): ?>
                         <?php require_once('views/admin/brand/add-brand.php'); ?>
-                        <?php elseif(isset($_GET) && $_GET['a'] == 'edit'): ?>
-                        <?php require_once('views/admin/brand/edit-brand.php'); ?>
                         <?php endif; ?>
                     </div> <!-- Striped rows -->
                 </div>

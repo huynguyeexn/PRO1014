@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Require các file cần sử dụng.
 require_once('core/connection.php');
@@ -396,6 +398,65 @@ switch ($control) {
     break;
     case 'brand':
         require_once('views/admin/brand.php');
+        $action = "show";
+        if (isset($_GET["a"])) {
+            $action = $_GET["a"];
+        }
+
+        switch ($action) {
+            case 'show':
+                require_once('views/admin/brand/brand.php');
+            break;
+            case 'create':
+                $tags = getAllBrand();
+                 require_once('views/admin/brand/add-brand.php');
+            break;
+            case 'add':
+                $name = $_GET['name'];
+                $show = $_GET['show'];
+                $priority = $_GET['priority'];
+
+                if(addNewBrand($name,$show,$priority)){
+                    header('Location: admin.php?c=brand&a=create');
+                }else{
+                    echo 'Lỗi khi thêm nhãn hàng';
+                }
+
+            break;
+            case 'edit':
+                $id = $_GET['id'];
+                $brand = getBrandById($id);
+                require_once('views/admin/brand/edit-brand.php');
+            break;
+
+            case 'update':
+                $id = $_GET['id'];
+                $name = $_POST['name'];
+                $show = $_POST['show'];
+                $priority = $_POST['priority'];
+
+                updateBrand($id,$name,$show,$priority);
+                header('location: admin.php?c=brand');
+                echo 'Lỗi khi sửa nhãn hàng';
+
+            break;
+            default:
+                header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
+                include("404.php");
+                return;
+            break;
+            case 'delete':
+                $id = $_GET['id'];
+                deleteBrand($id);
+                header('Location: admin.php?c=brand&a=show');
+            break;
+        }
+    break;
+    case 'size':
+        require_once('views/admin/size.php');
+    break;
+    case 'color':
+        require_once('views/admin/color.php');
     break;
     case 'deal':
             $action = "show";
