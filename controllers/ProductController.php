@@ -30,16 +30,39 @@
             }
             
             break;
+        case 'comment':
+            if (isset($_POST['addComment'])) {
+                $product_id = $_GET['id'];
+                $user = $_SESSION['user']['id'];
+                $message = $_POST['message'];
+                $created = now();
+                addNewcommentOfProduct($product_id,$user,$message,$created);
+                    header('location: product.php?id='.$product_id);
+            }else{
+                header('location: home.php');
+            }
+                    
+                break;   
         case 'detail':
             // Product detail view
             break;
-        case 'create':
-            // Product create view
-            break;
-
-        default: 
-            $allProduct = getAllProduct();
-            require_once('views/products/index.php');
-            break;
-        break;
+            case 'reviews':
+                if (isset($_POST['addReview'])) {
+                    $product_id = $_GET['id'];
+                    $user = $_SESSION['user']['id'];
+                    $message = $_POST['message'];
+                    $created = now();
+                    $star=1;
+                    addNewReviewsOfProduct($product_id,$user,$message,$created,$star);
+                        header('location: product.php?id='.$product_id);
+                }else{
+                    header('location: home.php');
+                }
+                        
+                    break;   
+            case 'detail':
+                // Product detail view
+                break;
+    
+       
     }

@@ -11,5 +11,9 @@ function getReviewsByUserId($id){
     $sql = "SELECT * FROM review WHERE user_id = $id;";
     return query($sql);
 }
+function addNewReviewsOfProduct($product_id,$user_id,$message,$star){
+echo    $sql = "INSERT INTO `review`( `product_id`, `user_id`, `review`,`rate`) VALUES ('$product_id', '$user_id','$message','$star')";
+    return execute($sql);
+}
 
 
