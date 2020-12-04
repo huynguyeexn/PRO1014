@@ -97,17 +97,19 @@
                 <div class="col-12 my-4">
                   <div class="card shadow">
                     <div class="card-body">
-                      <h3 class="card-title">Your Orders</h3>
+                      <h3 class="card-title">Đơn hàng của bạn</h3>
                       <table class="table table-bordered table-hover mb-0">
                         <thead>
                           <tr>
-                            <th>ID</th>
-                            <th>Recipient's name</th>
-                            <th>Recipient's address</th>
-                            <th>Recipient's phone</th>
-                            <th>Recipient's email</th>
-                            <th>Created</th>
-                            <th>Status</th>
+                            <th>Mã đơn</th>
+                            <th>Tên người nhận</th>
+                            <th>Địa chỉ</th>
+                            <th>Số điện thoại</th>
+                            <th>Email</th>
+                            <th>Ngày đặt hàng</th>
+                            <th>Tổng tiền</th>
+                            <th>Trạng thái</th>
+                            <th></th>
                             <th></th>
                           </tr>
                         </thead>
@@ -115,19 +117,20 @@
                             <?php
                               foreach($orders as $order){
                                 $status = "";
+                                $total = numToMoney(totalPriceOfOrder($order['id'])['total']);
                                 // Mới(0), đang giao(1), đã hoàn thành (2), Hủy(3)
                                 switch($order['status']){
                                   case 0: 
-                                    $status = '<button type="button" class="btn mb-2 btn-primary">New</button>';
+                                    $status = '<button type="button" class="btn mb-2 btn-primary">Đang gói hàng</button>';
                                   break;
                                   case 1: 
-                                    $status = '<button type="button" class="btn mb-2 btn-warning">Shipping</button>';
+                                    $status = '<button type="button" class="btn mb-2 btn-warning">Đang giao hàng</button>';
                                   break;
                                   case 2: 
-                                    $status = '<button type="button" class="btn mb-2 btn-success">Completed</button>';
+                                    $status = '<button type="button" class="btn mb-2 btn-success">Đã giao</button>';
                                   break;
                                   case 3: 
-                                    $status = '<button type="button" class="btn mb-2 btn-secondary">Cancel</button>';
+                                    $status = '<button type="button" class="btn mb-2 btn-secondary">Đã Huỷ</button>';
                                   break;
                                 }
                                 echo '
@@ -138,10 +141,13 @@
                                   <td>'.($order['phone'] ? $order['phone'] : $user['phone']).'</td>
                                   <td>'.($order['email'] ? $order['email'] : $user['email']).'</td>
                                   <td>'.$order['created'].'</td>
+                                  <td>'.$total.'</td>
                                   <td>'.$status.'</td>
                                   <td>
-                                    <a type="button" class="btn mb-2 btn-info">Detail</a>
-                                    '.($order['status'] == 0 ?'<a type="button" class="btn mb-2 btn-outline-danger">Cancel</a>':"").'
+                                  <a type="button" class="btn mb-2 btn-outline-info">Xem chi tiết</a>
+                                  </td>
+                                  <td>
+                                    '.($order['status'] == 0 ?'<a type="button" class="btn mb-2 btn-outline-danger">Huỷ đơn hàng</a>':"").'
                                   </td>
                                 </tr> 
                                 ';

@@ -2,7 +2,6 @@
     session_start();
     // session_destroy();
     // Require các file cần sử dụng.
-    require_once('core/connection.php');
     require_once('core/function.php');
     
     // Các Model cần thiết.
@@ -145,7 +144,7 @@
                             break;
     
                             case 'color':
-                                $where .= !empty($where) ? ' and product.id IN(select product.id from product INNER JOIN product_detail on product_id = id where color_id =  '.$value['value'].')': 'INNER JOIN product_detail on id = product_id where color_id = '.$value['value'].'';
+                                $where .= !empty($where) ? ' and product.id IN(select product.id from product where color_id =  '.$value['value'].')': 'INNER JOIN color on color.id = color_id where color_id = '.$value['value'].'';
                             break;
     
                             case 'brand':
@@ -169,6 +168,7 @@
                 }else if($value == 2){
                     $where .= ' order by `update` desc';
                 }else if($value == 3){
+                    $where .= ' order by view asc';
                 }else if($value == 4){
                     $where .= ' order by price asc';
                 }else if($value == 5){

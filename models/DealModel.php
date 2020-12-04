@@ -1,4 +1,6 @@
 <?php
+require_once 'core/connect.php';
+
 function getAllDeal(){
     $sql = "select * from deal";
     return query($sql);

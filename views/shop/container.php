@@ -112,7 +112,7 @@
 								if(isset($_GET['color'])){
 									$true = 2;
 									$color = $_GET['color'];
-									$where .= !empty($where) ? ' and product.id IN(select product.id from product INNER JOIN product_detail on product_id = id where color_id =  '.$color.')': 'INNER JOIN product_detail on id = product_id where color_id = '.$color.'';
+									$where .= !empty($where) ? ' and product.id IN(select product.id from product where color_id =  '.$value['value'].')': 'INNER JOIN color on color.id = color_id where color_id = '.$value['value'].'';
 								}
 								if(isset($_GET['brand'])){
 									$true = 2;
@@ -133,6 +133,7 @@
 									}else if($value == 2){
 										$where .= ' order by `update` desc';
 									}else if($value == 3){
+										$where .= ' order by view desc';
 									}else if($value == 4){
 										$where .= ' order by price asc';
 									}else if($value == 5){

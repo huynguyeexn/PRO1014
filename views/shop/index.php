@@ -24,7 +24,7 @@
     <?php include_once('views/shop/container.php'); ?>
 
     <!-- Start related-product Area -->
-    <?php include_once('views/shop/relatedProductArea.php'); ?>
+    <?php include_once('views/layouts/RelatedProduct.php'); ?>
     <!-- End related-product Area -->
 
     <!-- start footer Area -->

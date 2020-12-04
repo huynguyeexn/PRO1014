@@ -8475,7 +8475,7 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
   .wizard > .content {
     display: block;
     margin: 0.5em;
-    min-height: 6rem;
+    min-height: 4rem;
     overflow: hidden;
     position: relative;
     width: auto;
@@ -8515,7 +8515,7 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
         margin-left: 1.5em; }
   .wizard > .actions {
     position: relative;
-    display: block;
+    display: none;
     text-align: right;
     width: 100%; }
     .wizard > .actions > ul {

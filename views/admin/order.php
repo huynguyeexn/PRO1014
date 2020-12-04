@@ -4,14 +4,11 @@
 <head>
     <?php include_once('views/admin/meta.php') ?>
     <style>
-        .cont{
-            height: 100px;
-            overflow: hidden;
-        }
-
-        </style>
-
-        
+    .cont {
+        height: 100px;
+        overflow: hidden;
+    }
+    </style>
 </head>
 
 <body class="vertical  dark  ">
@@ -24,40 +21,54 @@
         <?php include_once('views/admin/sidebar.php') ?>
         <!-- End Left Sidebar -->
 
+        <main role="main" class="main-content">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <!-- Striped rows -->
+                    <div class="col-md-12 my-4 float-right">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <h3 class="card-title">Danh sách đơn hàng</h3>
+                                <p class="card-text"></p>
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="chall">
+                                                    <label class="custom-control-label" for="d1"></label>
+                                                </div>
+                                            </th>
+                                            <th>Mã đơn</th>
+                                            <th>Trạng thái</th>
+                                            <th>Ngày tạo</th>
+                                            <th>Số điện thoại</th>
+                                            <th>Tên người nhận</th>
+                                            <th>Địa chỉ</th>
+                                            <th>Email</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-           <!-- Striped rows -->
-           <div class="col-md-10 my-4 float-right">
-                  <div class="card shadow">
-                    <div class="card-body">
-                      <h5 class="card-title">Blog Data Table</h5>
-                      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                      <table class="table table-striped table-hover">
-                        <thead>
-                          <tr>
-                            <th>
-                              <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="chall">
-                                <label class="custom-control-label" for="d1"></label>
-                              </div>
-                            </th>
-                            <th>#</th>
-                            <th>User_id</th>
-                            <th>Status</th>
-                            <th>Created</th>
-                            <th>Phone</th>                            
-                            <th>Name</th>                            
-                            <th>Address</th>
-                            <th>Email</th>
-                            <th>Action</th>
-                            <th>Chi tiết</th>
-                            
-                          </tr>
-                        </thead>
-                        <tbody>
-                            
-                            <?php
+                                        <?php
                                   $order=getAllOrder();
-                                  foreach($order as $o){     
+                                  foreach($order as $o){
+                                      $status = "";
+                                      switch($o['status']){
+                                          case 0:
+                                            $status = '<button type="button" class="btn mb-2 btn-primary">Mới</button>';
+                                          break;
+                                          case 1:
+                                            $status = '<button type="button" class="btn mb-2 btn-warning">Đang giao</button>';
+                                          break;
+                                          case 2:
+                                            $status = '<button type="button" class="btn mb-2 btn-success">Đã giao</button>';
+                                          break;
+                                          case 3:
+                                            $status = '<button type="button" class="btn mb-2 btn-danger">Huỷ</button>';
+                                          break;
+                                      }
                                     echo'
                                     
                                     <tr>
@@ -68,12 +79,11 @@
                                       </div>
                                     </td>
                                     <td>'.$o['id'].'</td>
-                                    <td>'.$o['user_id'].'</td>
-                                    <td>'.$o['status'].'</td>
+                                    <td>'.$status.'</td>
                                     <td>'.$o['created'].'</td>
+                                    <td>'.$o['phone'].'</td>
                                     <td>'.$o['name'].'</td>
                                     <td>'.$o['address'].'</td>
-                                    <td>'.$o['phone'].'</td>
                                     <td>'.$o['email'].'</td>
                                     
                                     </td>
@@ -90,56 +100,55 @@
                                         </div>
                                       </div>
                                     </td>
-                                    <td><a href="#">Chi tiết</a></td>
                                   </tr>
                                     ';
                                  }
                             ?>
-                         
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div> <!-- Striped rows -->
-                <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/popper.min.js"></script>
-    <script src="assets/assets/js/moment.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/simplebar.min.js"></script>
-    <script src='assets/js/daterangepicker.js'></script>
-    <script src='assets/js/jquery.stickOnScroll.js'></script>
-    <script src="assets/js/tinycolor-min.js"></script>
-    <script src="assets/js/config.js"></script>
-    <script src='assets/js/jquery.dataTables.min.js'></script>
-    <script src='assets/js/dataTables.bootstrap4.min.js'></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-      $('#dataTable-1').DataTable(
-      {
-        autoWidth: true,
-        "lengthMenu": [
-          [16, 32, 64, -1],
-          [16, 32, 64, "All"]
-        ]
-      });
-    </script>
-    <script src="assets/js/apps.js"></script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
 
-      function gtag()
-      {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'UA-56159088-1');
-    </script>
-    <script>
-        $(".btn-primary").on('click', function(){
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div> <!-- Striped rows -->
+                </div>
+            </div>
+        </main>
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/popper.min.js"></script>
+        <script src="assets/assets/js/moment.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="assets/js/simplebar.min.js"></script>
+        <script src='assets/js/daterangepicker.js'></script>
+        <script src='assets/js/jquery.stickOnScroll.js'></script>
+        <script src="assets/js/tinycolor-min.js"></script>
+        <script src="assets/js/config.js"></script>
+        <script src='assets/js/jquery.dataTables.min.js'></script>
+        <script src='assets/js/dataTables.bootstrap4.min.js'></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+        $('#dataTable-1').DataTable({
+            autoWidth: true,
+            "lengthMenu": [
+                [16, 32, 64, -1],
+                [16, 32, 64, "All"]
+            ]
+        });
+        </script>
+        <script src="assets/js/apps.js"></script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'UA-56159088-1');
+        </script>
+        <script>
+        $(".btn-primary").on('click', function() {
             $(this).parent().toggleClass("showContent");
         });
-
-    </script>
+        </script>
 </body>

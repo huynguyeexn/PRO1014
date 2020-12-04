@@ -23,8 +23,8 @@
                 </a>
                 <li class="nav-item">
                 <a href="admin.php?c=deal" aria-expanded="false" class="nav-link">
-                    <i class="fe fe-shopping-cart fe-16" aria-hidden="true"></i>
-                    <span class="ml-3 item-text">Giảm giá</span>
+                    <i class="fe fe-gift fe-16" aria-hidden="true"></i>
+                    <span class="ml-3 item-text">Khuyến mãi</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -37,6 +37,18 @@
                 <a href="admin.php?c=brand" aria-expanded="false" class="nav-link">
                     <i class="fe fe-bookmark fe-16"></i>
                     <span class="ml-3 item-text">Nhãn hàng</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin.php?c=color" aria-expanded="false" class="nav-link">
+                    <i class="fe fe-bookmark fe-16"></i>
+                    <span class="ml-3 item-text">Màu sắc giày</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin.php?c=size" aria-expanded="false" class="nav-link">
+                    <i class="fe fe-bookmark fe-16"></i>
+                    <span class="ml-3 item-text">Kích cỡ giày</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -53,7 +65,7 @@
             </li>
             <li class="nav-item">
                 <a href="admin.php?c=p-review" aria-expanded="false" class="nav-link">
-                    <i class="fe fe-message-circle fe-16"></i>
+                    <i class="fe fe-star fe-16"></i>
                     <span class="ml-3 item-text">Đánh giá sản phẩm</span>
                 </a>
             </li>

@@ -1,5 +1,7 @@
 <?php
 
+require_once 'core/connect.php';
+
 function getAllSlider(){
     $sql = "select * from slider order BY slider.`priority` asc";
     return query($sql);

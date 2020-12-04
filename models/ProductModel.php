@@ -1,5 +1,7 @@
 <?php
 
+require_once 'core/connect.php';
+
 function getAllProduct(){
     $sql = "select * from product";
     return query($sql);
@@ -19,7 +21,7 @@ function getcategorybyproduct($id){
 }
 
 function getProductByFilter($where){
-    $sql = 'select product.id, product.name, `cost`, `price`, `description`, `thumb`, `images`, `update`, `brand_id`  from product '.$where.'';
+    $sql = 'select product.id, product.name, `cost`, `price`, `description`, `thumb`, `images`, `update`, `brand_id`,`color_id`  from product '.$where.'';
     return query($sql);
 }
 
@@ -29,8 +31,8 @@ function getCountProduct(){
     return queryOne($sql);
 }
 
-function addNewProduct($name,$cost,$price,$description,$update,$thumb,$brand,$view,$listanh){
-    $sql = "INSERT INTO product(`name`, `cost`, `price`, `description`, `thumb`, `images`, `update`,`view`, `brand_id`) VALUES ('$name',$cost,$price,'$description','$thumb','$listanh','$update',$view,$brand)";
+function addNewProduct($name,$cost,$price,$description,$update,$brand,$view,$color){
+    $sql = "INSERT INTO product(`name`, `cost`, `price`, `description`, `update`,`view`, `brand_id`, `color_id`) VALUES ('$name',$cost,$price,'$description','$update',$view,$brand,$color)";
     return execute($sql);
 }
 
@@ -39,13 +41,18 @@ function getMaxId(){
     return queryOne($sql);
 }
 
-function updateProduct($id,$name,$cost,$price,$description,$update,$thumb,$brand,$listanh){
-    $sql = "UPDATE `product` SET `id`=$id,`name`='$name',`cost`=$cost,`price`=$price,`description`='$description',`thumb`='$thumb',`update`='$update',`brand_id`=$brand, `images`='$listanh' WHERE id = $id";
+function updateProduct($id,$name,$cost,$price,$description,$update,$thumb,$brand,$listanh,$color){
+    $sql = "UPDATE `product` SET `id`=$id,`name`='$name',`cost`=$cost,`price`=$price,`description`='$description',`thumb`='$thumb',`update`='$update',`brand_id`=$brand, `images`='$listanh',`color_id`=$color WHERE id = $id";
     execute($sql);
 }
 
 function deleteProduct($id){
     $sql = "DELETE FROM `product` WHERE id = $id";
+    execute($sql);
+}
+
+function updateViewProduct($view,$id){
+    $sql = "UPDATE `product` SET `view`=$view WHERE id = $id";
     execute($sql);
 }
 

@@ -45,12 +45,12 @@
                                         <label class="custom-control-label" for="d1"></label>
                                     </div>
                                 </th>
-                                <th>Id</th>
-                                <th>Blog Id</th>
-                                <th>User Id</th>
-                                <th>Comment</th>
-                                <th>Created</th>
-                                <th>Action</th>
+                                <th>Mã </th>
+                                <th>Mã tin tức </th>
+                                <th>Mã người đăng</th>
+                                <th>Bình luận</th>
+                                <th>Khởi tạo</th>
+                                <th>Hành động</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -81,8 +81,8 @@
                                           <span class="text-muted sr-only">Action</span>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr1">
-                                          <a class="dropdown-item" href="admin.php?c=b-comment&b=edit&id='.$coms['id'].'">Edit</a>
-                                          <a class="dropdown-item" href="admin.php?c=b-comment&b=delete&id='.$coms['id'].'">Remove</a>
+                                          <a class="dropdown-item" href="admin.php?c=b-comment&b=edit&id='.$coms['id'].'">Sửa</a>
+                                          <a class="dropdown-item" href="admin.php?c=b-comment&b=delete&id='.$coms['id'].'" onclick="return ConfirmDelete();">Xóa</a>
                                         </div>
                                       </div>
                                     </td>
@@ -134,5 +134,15 @@
         $(".btn-primary").on('click', function() {
             $(this).parent().toggleClass("showContent");
         });
+        </script>
+         <script>
+            function ConfirmDelete()
+    {
+      var x = confirm("Bạn có muốn xóa không ?");
+      if (x)
+          return true;
+      else
+        return false;
+    }
         </script>
 </body>
