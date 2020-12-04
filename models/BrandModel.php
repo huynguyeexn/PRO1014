@@ -1,7 +1,5 @@
 <?php 
-
 require_once 'core/connect.php';
-
 function getAllBrand(){
     $sql = "select * from brand";
     return query($sql);
@@ -18,5 +16,4 @@ function updateBrand($name,$show,$priority){
     $sql = "UPDATE brand SET 'name' = '$name', show = '$show', `priority` = '$priority'  where id ='$id'";
     return execute($sql);
 }
-
 ?>
