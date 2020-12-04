@@ -1,0 +1,17 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/.gitignore": true,
+        "*.docx": true,
+        "README.md": true,
+        "composer.lock": true,
+        "composer.json": true,
+        "**/.vscode": true,
+        "templates": true
+    },
+    "explorerExclude.backup": null
+}

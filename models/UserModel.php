@@ -1,5 +1,7 @@
 <?php
 
+require_once 'core/connect.php';
+
 function getAllUser(){
     $sql = "select * from user";
     return query($sql);

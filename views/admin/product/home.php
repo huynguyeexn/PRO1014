@@ -8,6 +8,57 @@
         height: 100px;
         overflow: hidden;
     }
+    .boxdn1{
+    background-color: rgba(0, 0, 0, 0.53);
+    position: fixed;
+    overflow-y: scroll;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    }
+    .boxdk{
+    width: 40%;
+    margin: 0 auto;
+    margin-top: 70px;
+    height: 500px;
+    background-color: white;
+    position: relative;
+    }
+    .happy{
+        width: 35%;
+        margin: 0 auto;
+        margin-top: 100px;
+        height: 300px;
+        background-color: #f5f6fb;
+        border-radius: 15px;
+    }
+    .anh_cm{
+        width: 32%;
+        height: 150px;
+        margin: 0 auto;
+        overflow: hidden;
+        padding-top: 29px;
+    }
+    .anh_cm img{
+        width: 100%;
+        height: 100%;
+    }
+    .text_cm{
+        width: 71%;
+        margin: 0 auto;
+        margin-top: 20px;
+    }
+    .text_cm h4{
+        color:#6c757d;
+    }
+    .text_cm a:hover{
+        text-decoration: none;
+    }
+    #display1{
+        display: none;
+    }
     </style>
 
 
@@ -106,13 +157,13 @@
                                                   </button>
                                                   <div class="dropdown-menu dropdown-menu-right">
                                                     <a class="dropdown-item" href="admin.php?c=product&p=form_edit&id='.$p['id'].'">Sửa</a>
-                                                    <a class="dropdown-item" href="admin.php?c=product&p=remove&id='.$p['id'].'">Xóa</a>
+                                                    <a class="dropdown-item" onclick="xacnhan('.$p['id'].')">Xóa</a>
                                                   </div>
                                                 </td>
                                               </tr>
                                             ';
                                           }
-                                        ?>
+                                          ?>
                                   </tbody>
                                 </table>
                             </div>
@@ -122,6 +173,20 @@
             </div> <!-- .container-fluid -->
         </main> <!-- main -->
     </div> <!-- .wrapper -->
+    <div class="display1" id="display1">
+        <div class="boxdn1">
+            <div class="happy">
+                <div class="anh_cm">
+                    <img id="anh_cm" src="" alt="">
+                </div>
+                <div class="text_cm">
+                    <h4 style="text-align: center;margin-bottom:20px;" id="thongbao"></h4>
+                    <button style="width: 100px;height:35px;font-size:18px;background:#1b68ff;border:1px solid #1b68ff;border-radius:5px;margin-left:44px;float:left;color:white;" onclick="tat();">No</button>
+                    <button style="width: 100px;height:35px;font-size:18px;background:#1b68ff;border:1px solid #1b68ff;border-radius:5px;margin-left:61px;"><a id="button" href="" style="color:white;" >Yes</a></button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/popper.min.js"></script>
     <script src="assets/js/sweetalert.min.js"></script>
@@ -205,6 +270,29 @@
                 box[i].checked = false;
             }
         }
+    }
+    function xacnhan(z){
+        var xoa = document.getElementById('display1');
+        var anh_cm = document.getElementById('anh_cm');
+        var button = document.getElementById('button');
+        var thongbao = document.getElementById('thongbao');
+        $.ajax({
+            url: 'admin.php?c=product&p=xoa',
+            type: 'GET',
+            data: 'xn=' + z,
+            success: function(data) {
+                var chuoi = data.split(',',2)
+                anh_cm.src = chuoi[0];
+                thongbao.innerText = "Bạn muốn xóa sản phẩm "+chuoi[1]
+                xoa.style.display='block'
+                button.href = 'admin.php?c=product&p=remove&id='+z
+            }
+        });
+        return false;
+    }
+    function tat(){
+        var xoa = document.getElementById('display1');
+        xoa.style.display='none'
     }
     </script>
 </body>

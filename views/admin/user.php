@@ -31,7 +31,7 @@
                     <div class="col-md-12 my-4 float-right">
                         <div class="card shadow">
                             <div class="card-body">
-                                <h3 class="card-title">Danh sách tài khoản khách hàng</h3>
+                                <h3 class="card-title">Danh sách tài khoản</h3>
                                 <p class="card-text"></p>
                                 <table class="table table-striped table-hover">
                                     <thead>
@@ -43,14 +43,14 @@
                                                 </div>
                                             </th>
                                             <th>#</th>
-                                            <th>Avartar</th>
-                                            <th>Username</th>
-                                            <th>Fullname</th>
-                                            <th>Phone</th>
+                                            <th>Ảnh đại diện</th>
+                                            <th>Tên tài khoản</th>
+                                            <th>Họ tên</th>
+                                            <th>Số điện thoại</th>
                                             <th>Email</th>
-                                            <th>Rank</th>
-                                            <th>Created</th>
-                                            <th>Action</th>
+                                            <th>Cấp bậc</th>
+                                            <th>Ngày tạo</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>

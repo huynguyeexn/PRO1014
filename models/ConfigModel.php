@@ -1,5 +1,7 @@
 <?php
 
+require_once 'core/connect.php';
+
 function getAllConfig(){
     $sql = "select * from config";
     return query($sql);

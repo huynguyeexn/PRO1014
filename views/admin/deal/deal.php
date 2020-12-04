@@ -54,7 +54,7 @@
                                             <th>Bắt đầu</th>
                                             <th>Kết thúc</th>
                                             <th>Chi tiết</th>
-                                            <th>Action</th>
+                                            <th></th>
 
                                         </tr>
                                     </thead>

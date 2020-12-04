@@ -1,4 +1,6 @@
 <?php
+require_once 'core/connect.php';
+
 function getReviewsByProductId($id){
     $sql = "SELECT * FROM review WHERE product_id = $id;";
     return query($sql);

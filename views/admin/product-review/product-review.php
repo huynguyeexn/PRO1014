@@ -48,12 +48,12 @@
                                         <label class="custom-control-label" for="d1"></label>
                                     </div>
                                 </th>
-                                <th>Id</th>
-                                <th>Product Id</th>
-                                <th>User Id</th>
-                                <th>Reviews</th>
-                                <th>Created</th>
-                                <th>Action</th>
+                                <th>Mã</th>
+                                <th>Mã sản phẩm</th>
+                                <th>Mã người dùng</th>
+                                <th>Đánh giá</th>
+                                <th>Ngày</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>

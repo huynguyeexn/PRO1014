@@ -1,5 +1,7 @@
 <?php
 
+require_once 'core/connect.php';
+
 function getTagId($id){
     $sql = "SELECT * FROM tag_product WHERE id = $id;";
     return queryOne($sql);

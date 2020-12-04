@@ -2,12 +2,12 @@
 session_start();
 
 // Require các file cần sử dụng.
-require_once 'core/Connection.php';
 require_once 'core/Function.php';
 
 // Các Model cần thiết.
 require_once 'models/UserModel.php';
 require_once 'models/OrderModel.php';
+require_once 'models/OrderDetailModel.php';
 
 // GET action.
 $action = "home";

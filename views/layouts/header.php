@@ -59,7 +59,7 @@
 	<div class="search_input" id="search_input_box" style="padding: 0">
 		<div class="container">
 			<form class="d-flex justify-content-between">
-				<input type="search" class="form-control" id="search_input" onkeyup="search(this.value);" placeholder="Bạn muốn tìm gì...?">
+				<input type="search" class="form-control" autocomplete="off" id="search_input" onkeyup="search(this.value);" placeholder="Bạn muốn tìm gì...?">
 				<button type="submit" class="btn"></button>
 				<span class="lnr lnr-cross" id="close_search" title="Đóng"></span>
 			</form>

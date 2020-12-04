@@ -42,7 +42,7 @@
                 </div>
                
 
-                <button type="submit" class="btn btn-block btn-primary">Đăng thẻ</button>
+                <button type="submit" class="btn btn-block btn-primary" onclick="return ConfirmAdd();">Đăng thẻ</button>
             </form>
 
         </div> <!-- Striped rows -->
@@ -73,5 +73,16 @@
         function saveContent(){
             editor.save();
         }
+        </script>
+
+<script>
+            function ConfirmAdd()
+    {
+      var x = confirm("Bạn có muốn thêm không ?");
+      if (x)
+          return true;
+      else
+        return false;
+    }
         </script>
 </body>

@@ -2,7 +2,6 @@
 session_start();
 // session_destroy();
 // Require các file cần sử dụng.
-require_once('core/connection.php');
 require_once('core/function.php');
 
 // Các Model cần thiết.
@@ -110,7 +109,7 @@ switch ($action) {
 
 if (isset($_GET['productId'])) {
     $productId = $_GET['productId'];
-    include '../core/connection.php';
+    include '../core/connect.php';
     $query = 'SELECT * FROM product WHERE id = ' . $productId;
     $stmt = $conn->query($query);
     $product = $stmt->fetchAll();
@@ -164,7 +163,7 @@ if (isset($_GET['productId'])) {
 
 
     $productId = $_GET['productId'];
-    include '../core/connection.php';
+    include '../core/connect.php';
     $query = 'SELECT * FROM product WHERE id = ' . $productId;
     $stmt = $conn->query($query);
     $product = $stmt->fetchAll();

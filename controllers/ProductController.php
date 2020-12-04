@@ -2,7 +2,6 @@
     session_start();
 
     // Require các file cần sử dụng.
-    require_once('core/Connection.php');
     require_once('core/Function.php');
 
     // Các Model cần thiết.
@@ -26,6 +25,8 @@
 
                 $id=$_GET['id'];
                 $product = getProductById($id);
+                $view = $product['view'] + 1;
+                updateViewProduct($view,$id);
             require_once('views/products/index.php');
             }
             

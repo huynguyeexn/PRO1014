@@ -42,7 +42,7 @@
                 </div>
                
 
-                <button type="submit" class="btn btn-block btn-primary">Sửa thẻ</button>
+                <button type="submit" class="btn btn-block btn-primary"  onclick="return ConfirmEdit();">Sửa thẻ</button>
             </form>
 
         </div> <!-- Striped rows -->
@@ -73,5 +73,16 @@
         function saveContent(){
             editor.save();
         }
+        </script>
+
+<script>
+            function ConfirmEdit()
+    {
+      var x = confirm("Bạn có muốn sửa không ?");
+      if (x)
+          return true;
+      else
+        return false;
+    }
         </script>
 </body>

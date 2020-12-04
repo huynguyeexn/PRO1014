@@ -170,10 +170,7 @@
                                                                     <option value="">Chọn màu sắc</option>
                                                                     <?php
                                                                       foreach($color as $c){
-                                                                          foreach($product_detail as $p){
-                                                                              $color = $p['color_id'];
-                                                                          }
-                                                                        if($c['id'] == $color){
+                                                                        if($c['id'] == $product['color_id']){
                                                                             echo '<option selected value="'.$c['id'].'">'.$c['name'].'</option>';
                                                                         }else{
                                                                             echo '<option value="'.$c['id'].'">'.$c['name'].'</option>';
@@ -278,7 +275,7 @@
         var img = hinh.value;
         img = img.slice(12, img.length)
         kanh.src = "assets/img/product/" + img
-    }
+        }
 
       function next(z) {
         var min = document.getElementById("minsize").value;
@@ -382,7 +379,6 @@
                 success: function(data) {
                     account.style.display = 'none';
                     profile.innerHTML = data
-                    alert(data)
                 }
             });
             return false;
