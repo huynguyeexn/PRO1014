@@ -19,5 +19,4 @@ function updateBrand($name,$show,$priority){
     return execute($sql);
 }
 
-
 ?>
