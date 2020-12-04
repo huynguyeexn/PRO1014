@@ -1,5 +1,7 @@
 <?php
 
+require_once 'core/connect.php';
+
 function countAllBLog(){
     $sql = "SELECT count(*) as count FROM blog";
     return queryOne($sql)['count'];

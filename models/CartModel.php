@@ -1,5 +1,7 @@
 <?php
 
+require_once 'core/connect.php';
+
 function getAllCart(){
     $sql = "select * from config";
     return query($sql);

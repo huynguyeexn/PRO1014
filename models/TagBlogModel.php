@@ -1,5 +1,7 @@
 <?php
 
+require_once 'core/connect.php';
+
 function getAllTagBlog(){
     $sql = "select * from tag_blog";
     return query($sql);

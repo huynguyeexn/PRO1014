@@ -1,5 +1,7 @@
 <?php
 
+require_once 'core/connect.php';
+
 function getAllProduct(){
     $sql = "select * from product";
     return query($sql);

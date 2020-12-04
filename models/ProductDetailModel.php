@@ -1,5 +1,7 @@
 <?php
 
+require_once 'core/connect.php';
+
 function getSizeOfProduct($productId){
     $sql = "SELECT size_id FROM product_detail WHERE product_id = $productId order by size_id";
     return query($sql);

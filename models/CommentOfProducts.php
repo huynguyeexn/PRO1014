@@ -1,4 +1,7 @@
 <?php
+
+require_once 'core/connect.php';
+
 function getAllCommentProduct(){
     $sql = "SELECT * FROM product_comment";
     return query($sql);
