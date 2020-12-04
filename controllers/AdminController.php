@@ -109,7 +109,7 @@ switch ($control) {
                 $tag = getAllTag();
                 $product = getProductById($id);
                 $product_detail = getProductDetailById($id);
-                $size_id = getSizeProductDetailById($id);
+                $size_id = getSizeOfProduct($id);
                 $size = getAllSize();
                 $product_tag = getTagByProductId($id);
                 require_once('views/admin/product/edit.php');
