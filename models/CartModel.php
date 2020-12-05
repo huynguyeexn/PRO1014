@@ -2,6 +2,7 @@
 
 require_once 'core/connect.php';
 
+// Lấy 
 function getAllCart(){
     $sql = "select * from config";
     return query($sql);

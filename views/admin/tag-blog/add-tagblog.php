@@ -8,6 +8,10 @@
         height: 100px;
         overflow: hidden;
     }
+    
+    #loiname,#loianhien{
+          display: none;
+        }
     </style>
 
 
@@ -26,19 +30,21 @@
 
         <!-- Striped rows -->
         <div class="col-md-10 my-4 float-right">
-            <form action="admin.php?c=tag-blog&t=add" method="POST" onsubmit="saveContent()" enctype="multipart/form-data">
+            <form action="admin.php?c=tag-blog&t=add" method="POST" onsubmit="return saveContent()" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="title">ID</label>
-                    <input type="text" name="id" id="id" class="form-control" disabled  >
+                    <input type="text" name="id" id="id" class="form-control" disabled>
                 </div>
                 <div class="form-group">
                     <label for="description">Tên thẻ</label>
-                    <input type="text" name="name" id="name" class="form-control">
+                    <input type="text" name="name" id="name" class="form-control mb-2">
+                    <span id='loiname' style="color:red;">Vui lòng nhập tên thẻ</span>
                 </div>
                 
                 <div class="form-group">
-                    <label for="description">Ưu tiên</label>
-                    <input type="text" name="priority" id="priority" class="form-control">
+                    <label for="description">Ẩn hiện</label>
+                    <input type="text" name="priority" id="priority" class="form-control mb-2">
+                    <span id='loianhien' style="color:red;">Vui lòng nhập (ẩn = 0 hoặc hiện = 1)</span>
                 </div>
                
 
@@ -71,7 +77,34 @@
             lang: SUNEDITOR_LANG['en']
         });
         function saveContent(){
-            editor.save();
+            var ten = document.getElementById("name");
+            var anhien = document.getElementById("priority");
+            var loiten = document.getElementById("loiname");
+            var loianhien = document.getElementById("loianhien");
+            hien = 0;
+            if (ten.value == '') {
+                loiten.style.display = 'block';
+                hien = 1;
+            }else {
+                loiten.style.display = 'none';
+            }
+            if (anhien.value == '') {
+                loianhien.style.display = 'block';
+                hien = 1;
+            }else if(isNaN(anhien.value) == true){
+                loianhien.style.display = 'block';
+                loianhien.innerText = 'Vui lòng nhập số';
+                hien = 1;
+            }else if(anhien.value > 1 || anhien.value < 0){
+                loianhien.style.display = 'block';
+                loianhien.innerText = 'Vui lòng nhập (ẩn = 0 hoặc hiện = 1)';
+                hien = 1;
+            }else{
+                loianhien.style.display = 'none';
+            }
+            if(hien == 1){
+                return false;
+            }
         }
         </script>
 
