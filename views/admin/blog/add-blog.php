@@ -11,8 +11,13 @@
     .card img{
         width: 100%;
     }
+    #rw{
+        display: none;
+    }
+    #loititle,#loidescription,#loitag,#loihinh,#loihinh,#loicontent{
+        display: none;
+    }
     </style>
-
 
 </head>
 
@@ -29,26 +34,28 @@
 
         <!-- Striped rows -->
         <div class="col-md-10 my-4 float-right">
-            <form action="admin.php?c=blog&a=add" method="POST" onsubmit="saveContent()" enctype="multipart/form-data">
+            <form action="admin.php?c=blog&a=add" onsubmit="return saveContent()" method="POST"  enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="title">Tiêu đề bài viết:</label>
-                    <input type="text" name="title" id="title" class="form-control">
+                    <input type="text" name="title" id="title" class="form-control mb-2">
+                    <span id='loititle' style="color:red;">Vui lòng nhập tiêu đề bài viết</span>
                 </div>
                 <div class="form-group">
                     <label for="description">Mô tả bài viết:</label>
-                    <input type="text" name="description" id="description" class="form-control">
+                    <input type="text" name="description" id="description" class="form-control mb-2">
+                    <span id='loidescription' style="color:red;">Vui lòng nhập mô tả bài viết</span>
                 </div>
                 <div class="form-group">
                     <label for="description">Gắn thẻ bài viết:</label>
                         <a href="#" class=" d-inline float-right">Thêm thẻ +</a>
-                    <div class="card shadow">
-                        <div class="card-body">
-                            <div class="row px-2">
+                    <div class="card shadow mb-2">
+                        <div class="card-body ">
+                            <div class="row px-2 ">
                                 <?php
                                     foreach ($tags as $tag) {
                                         echo '
                                         <div class="col-4 col-md-2 custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="tag-'.$tag['id'].'" name="tag[]" value="'.$tag['id'].'">
+                                            <input type="checkbox" class="check custom-control-input" id="tag-'.$tag['id'].'" name="tag[]" value="'.$tag['id'].'">
                                             <label class="custom-control-label" for="tag-'.$tag['id'].'">'.$tag['name'].'</label>
                                         </div>
                                     ';
@@ -57,21 +64,23 @@
                             </div>
                         </div> <!-- / .card-body -->
                     </div>
+                    <span id='loitag' style="color:red;">Vui lòng chọn thẻ</span>
                 </div>
                 <div class="form-group">
                     <label for="customFile">Ảnh đại diện:</label>
                     <div class="custom-file">
                         <label class="custom-file-label" for="thumb">Chọn hình ảnh</label>
-                        <input type="file" class="custom-file-input" id="hinh" name="thumb" onchange="anh();">
+                        <input type="file" class="custom-file-input mb-2" id="hinh" name="thumb" onchange="anh();">
+                        <span id='loihinh' style="color:red;">Vui lòng chọn ảnh</span>
                     </div>
                 </div>
-                <div class="row my-4">
+                <div id="rw" class="row my-4">
                     <div id="khunganh" class="card border-0 bg-transparent col-3" style="height:250px ; width:300px">
                         <!-- <img src="assets/assets/products/p4.jpg" alt="..." class="card-img-top img-fluid rounded">
                             <a href="">Xoa hinh anh</a> -->
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group mb-2">
                     <label for="content">Nội dung bài viết:</label>
                     <textarea id="content" name="content" class="w-100" style="height: 300px"></textarea>
                     <style>
@@ -80,8 +89,9 @@
                     }
                     </style>
                 </div>
+                <span id='loicontent' style="color:red;">Vui lòng nhập nội dung bài viết</span>
 
-                <button type="submit" class="btn btn-block btn-primary"  onclick="return ConfirmAdd();">Đăng bài viết</button>
+                <button type="submit" class="btn btn-block btn-primary mt-3"  onclick="return ConfirmAdd();">Đăng bài viết</button>
             </form>
 
         </div> <!-- Striped rows -->
@@ -110,14 +120,71 @@
             lang: SUNEDITOR_LANG['en']
         });
         function saveContent(){
-            editor.save();
+            editor.save()
+            var loititle = document.getElementById("loititle");
+            var loidescription = document.getElementById("loidescription");
+            var loitag = document.getElementById("loitag");
+            var loihinh = document.getElementById("loihinh");
+            var loicontent = document.getElementById("loicontent");
+            var title = document.getElementById("title");
+            var content = document.getElementById("content");
+            var hinh = document.getElementById("hinh");
+            var description = document.getElementById("description");
+            var tag = document.getElementsByClassName('check');
+            var hien = 0;
+            var check = 0;
+        if (title.value == '') {
+            loititle.style.display = 'block';
+            hien = 1;
+        }else{
+            loititle.style.display = 'none';
         }
+        if(description.value == ''){
+            loidescription.style.display = 'block';
+            hien = 1;
+        }else {
+            loidescription.style.display = 'none';
+        }
+        for(var i = 0;i<tag.length;i++){
+            if(tag[i].checked === true){
+               check = 1;
+            }
+        }
+        if(check == 0){
+            loitag.style.display = 'block';
+            hien = 1;
+        }else{
+            loitag.style.display = 'none';
+        }
+        if (hinh.value == '') {
+            loihinh.style.display = 'block';
+            hien = 1;
+        }else {
+            loihinh.style.display = 'none';
+        }
+        if (content.value == '<p><br></p>') {
+            loicontent.style.display = 'block';
+            loicontent.innerText = "Vui lòng nhập nội dung bài viết"
+            hien = 1;
+        }else if(content.value.length < 30){
+            loicontent.style.display = 'block';
+            loicontent.innerText = "Vui lòng nhập ít nhất 30 ký tự"
+            hien = 1;
+        }else{
+            loicontent.style.display = 'none';
+        }
+        if(hien == 1){
+            return false;
+        }
+    }
         var i=0;
         function anh() {
         if (i == 0) {
             $(function anh() {
                 var hinh = document.getElementById('hinh');
                 var khunganh = document.getElementById('khunganh');
+                var r = document.getElementById('rw');
+                r.style.display="block"
                 var img = hinh.value;
                 img = img.slice(12, img.length)
                 var anh = document.createElement("img")
@@ -125,10 +192,12 @@
                 var newelement = khunganh.appendChild(anh);
             });
             i = 1;
-        } else {
+        }else {
             $(function anh() {
                 var hinh = document.getElementById('hinh');
+                var r = document.getElementById('rw');
                 var khunganh = document.getElementById('khunganh').firstElementChild;
+                r.style.display="block"
                 var img = hinh.value;
                 img = img.slice(12, img.length)
                 khunganh.src = "assets/img/blog/" + img;
@@ -137,6 +206,7 @@
         }
 
     }
+
         </script>
 
 <script>
