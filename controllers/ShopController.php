@@ -2,7 +2,6 @@
     session_start();
     // session_destroy();
     // Require các file cần sử dụng.
-    require_once('core/connection.php');
     require_once('core/function.php');
     
     // Các Model cần thiết.

@@ -1,5 +1,7 @@
 <?php
 
+require_once 'core/connect.php';
+
 function getAllSize(){
     $sql = "SELECT * FROM size";
     return query($sql);

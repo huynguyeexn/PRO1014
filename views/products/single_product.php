@@ -15,7 +15,7 @@
                 </div>
             </div>
             <?php
-			$tags = getAllTagByProductId($product['id']);
+			$tags = getTagByProductId($product['id']);
 			echo'
 			<div class="col-lg-5 offset-lg-1">
 			<div class="s_product_text">

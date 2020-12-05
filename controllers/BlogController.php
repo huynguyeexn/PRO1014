@@ -2,7 +2,6 @@
     session_start();
 
     // Require các file cần sử dụng.
-    require_once('core/Connection.php');
     require_once('core/function.php');
     
     // Các Model cần thiết.
@@ -23,7 +22,7 @@
             require_once('views/blog/index.php');
             break;
         case 'catalog':
-            $allBlogCatalog = getAllBlogCatalog();
+            $allBlogCatalog = getAllTagBlog();
             require_once('views/blog/index.php');
             break;
         case 'detail':

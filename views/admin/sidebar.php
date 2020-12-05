@@ -40,6 +40,18 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="admin.php?c=color" aria-expanded="false" class="nav-link">
+                    <i class="fe fe-bookmark fe-16"></i>
+                    <span class="ml-3 item-text">Màu sắc giày</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="admin.php?c=size" aria-expanded="false" class="nav-link">
+                    <i class="fe fe-bookmark fe-16"></i>
+                    <span class="ml-3 item-text">Kích cỡ giày</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="admin.php?c=tag-product" aria-expanded="false" class="nav-link">
                     <i class="fe fe-tag fe-16"></i>
                     <span class="ml-3 item-text">Thẻ sản phẩm</span>

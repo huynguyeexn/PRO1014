@@ -1,31 +1,18 @@
 <?php
 
+require_once 'core/connect.php';
+
 function getAllConfig(){
     $sql = "select * from config";
     return query($sql);
 }
-
+// Lấy ra cài đặt theo tên
 function getConfigByName($name){
     $sql = "select * from config where name = '".$name."'";
     return queryOne($sql);
 }
-
-function getConfigById(){
-    $sql = "";
-    return queryOne($sql);
-}
-
-function addNewConfig(){
-    $sql = "";
-    return execute($sql);
-}
-
+// Chỉnh sửa cài đặt
 function updateConfig($name, $data){
     echo $sql = "UPDATE `config` SET `config`='$data' WHERE  `name`='$name';";
-    return execute($sql);
-}
-
-function deleteConfig($id){
-    $sql = "";
     return execute($sql);
 }
