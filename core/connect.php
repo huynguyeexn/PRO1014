@@ -17,13 +17,12 @@ function getConnection(){
     try {
         $conn = new PDO("mysql:
             host=$host;
-            charset=$charset;
             port=$port;
-            dbname=$dbname,
+            dbname=".$dbname,
             $username,
             $password,
-            $options;
-        ");
+            $options
+        );
         $conn->setAttribute(
             PDO::ATTR_ERRMODE,
             PDO::ERRMODE_EXCEPTION

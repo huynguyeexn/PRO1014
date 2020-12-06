@@ -457,10 +457,302 @@ switch ($control) {
         }
     break;
     case 'size':
-        require_once('views/admin/size.php');
+        $size = 'home';
+        if(isset($_GET['p'])){
+            $size = $_GET["p"];
+        }
+        switch ($size) {
+            case 'home':
+                $size = getAllSize();
+                require_once('views/admin/size/home.php');
+            break;
+            case 'insert':
+                require_once('views/admin/size/addnew.php');
+            break;
+            case 'addnew':
+                $size = $_POST['size'];
+                $id = isset($_POST['codemau'])?$_POST['codemau']:"";
+                addNewSize($size);
+                header("location:admin.php?c=size");
+            break;
+            case 'form_edit':
+                $id = $_GET['id'];
+                $size =getSizeId($id);
+                require_once('views/admin/size/edit.php');
+            break;
+            case 'edit':
+                $id = $_GET['id'];
+                $size = $_POST['size'];
+                updateSize($size);
+                header("location:admin.php?c=size");
+            break;
+            case 'remove':
+                $id = $_GET['id'];
+                deleteSize($id);
+                header("location:admin.php?c=size");
+            break;
+            case 'ktsize':
+                $size = $_GET['size'];
+                $allsize = getAllSize();
+                $kt = 0;
+                foreach($allsize as $s){
+                    if($s['size'] == $size){
+                        $kt = 1;
+                    }
+                    $kthuoc = $s['size'];
+                }
+                echo $kt.','.$kthuoc;
+            break;
+            case 'search':
+                $content = $_GET['content'];
+                $sp ='';
+                $allsize = getAllSize();
+                if($content == ''){
+                    $i = 0;
+                    foreach($allsize as $t){
+                        $i++;
+                        $sp .= '
+                        <tr>
+                        <td>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" class="custom-control-input" value="'.$t['id'].'" name="check_box" id="'.$i.'">
+                              <label class="custom-control-label" for="'.$i.'"></label>
+                            </div>
+                          </td><td class="text-muted">'.$t['id'].'</td>
+                          </td><td class="text-muted">'.$t['size'].'</td>
+                          <td>
+                            <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <span class="text-muted sr-only">Action</span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                              <a class="dropdown-item" href="admin.php?c=size&p=form_edit&id='.$t['id'].'">Sửa</a>
+                              <a class="dropdown-item" href="admin.php?c=size&p=remove&id='.$t['id'].'">Xóa</a>
+                            </div>
+                          </td>
+                        </tr>
+                        ';
+                    }
+                }else{
+                    $i = 0;
+                    foreach($allsize as $t){
+                        if(strlen(strpos(strtolower($t['size']),strtolower("$content"))) > 0){
+                            $i++;
+                            $sp .= '
+                            <tr>
+                              <td>
+                                  <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" value="'.$t['id'].'" name="check_box" id="'.$i.'">
+                                    <label class="custom-control-label" for="'.$i.'"></label>
+                                  </div>
+                                </td><td class="text-muted">'.$t['id'].'</td>
+                                </td><td class="text-muted">'.$t['size'].'</td>
+                                <td>
+                                  <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="text-muted sr-only">Action</span>
+                                  </button>
+                                  <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="admin.php?c=size&p=form_edit&id='.$t['id'].'">Sửa</a>
+                                    <a class="dropdown-item" href="admin.php?c=size&p=remove&id='.$t['id'].'">Xóa</a>
+                                  </div>
+                                </td>
+                              </tr>
+                            ';
+                        }
+                    }
+                }
+                if($sp == ''){
+                    echo 'Sản phẩm này không tồn tại!';
+                }else{
+                    echo $sp;
+                }
+            break;
+
+            case 'chosedelete':
+                $jsonText = $_GET['delete'];
+                $mang = explode(',',$jsonText);
+                $sp ='';
+                for($i = 1;$i < count($mang);$i++){
+                    $id = $mang[$i];
+                    deleteSize($id);
+                }
+                $allsize = getAllSize();
+                $i = 0;
+                foreach($allsize as $t){
+                    $i++;
+                    $sp .= '
+                    <tr>
+                    <td>
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" value="'.$t['id'].'" name="check_box" id="'.$i.'">
+                          <label class="custom-control-label" for="'.$i.'"></label>
+                        </div>
+                      </td><td class="text-muted">'.$t['id'].'</td>
+                      </td><td class="text-muted">'.$t['size'].'</td>
+                      <td>
+                        <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <span class="text-muted sr-only">Action</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                          <a class="dropdown-item" href="admin.php?c=size&p=form_edit&id='.$t['id'].'">Sửa</a>
+                          <a class="dropdown-item" href="admin.php?c=size&p=remove&id='.$t['id'].'">Xóa</a>
+                        </div>
+                      </td>
+                    </tr>
+                    ';
+                }
+                echo $sp;
+            break;
+            default:
+                header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
+                include("404.php");
+                return;
+            break;
+        }
     break;
     case 'color':
-        require_once('views/admin/color.php');
+        $color = 'home';
+        if(isset($_GET['p'])){
+            $color = $_GET["p"];
+        }
+        switch ($color) {
+            case 'home':
+                $color = getAllColor();
+                require_once('views/admin/color/home.php');
+            break;
+            case 'insert':
+                require_once('views/admin/color/addnew.php');
+            break;
+            case 'addnew':
+                $name = $_POST['name'];
+                $colorCode = isset($_POST['codemau'])?$_POST['codemau']:"";
+                addNewColor($colorCode,$name);
+                header("location:admin.php?c=color");
+            break;
+            case 'form_edit':
+                $id = $_GET['id'];
+                $color =getColorId($id);
+                require_once('views/admin/color/edit.php');
+            break;
+            case 'edit':
+                $id = $_GET['id'];
+                $name = $_POST['name'];
+                $colorCode = isset($_POST['codemau'])?$_POST['codemau']:"";
+                updateColor($id,$colorCode,$name);
+                header("location:admin.php?c=color");
+            break;
+            case 'remove':
+                $id = $_GET['id'];
+                deleteColor($id);
+                header("location:admin.php?c=color");
+            break;
+            case 'search':
+                $content = $_GET['content'];
+                $sp ='';
+                $color = getAllColor();
+                if($content == ''){
+                    $i = 0;
+                    foreach($color as $t){
+                        $i++;
+                        $sp .= '
+                        <tr>
+                            <td>
+                                <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" value="'.$t['id'].'" name="check_box" id="'.$i.'">
+                                <label class="custom-control-label" for="'.$i.'"></label>
+                                </div>
+                            </td><td class="text-muted">'.$t['id'].'</td>
+                            </td><td class="text-muted">'.$t['name'].'</td>
+                            </td><td class="text-muted">'.$t['colorCode'].'</td>
+                            <td>
+                                <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="text-muted sr-only">Action</span>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="admin.php?c=color&p=form_edit&id='.$t['id'].'">Sửa</a>
+                                <a class="dropdown-item" href="admin.php?c=color&p=remove&id='.$t['id'].'">Xóa</a>
+                                </div>
+                            </td>
+                        </tr>
+                        ';
+                    }
+                }else{
+                    $i = 0;
+                    foreach($color as $t){
+                        if(strlen(strpos(strtolower($t['name']),strtolower("$content"))) > 0){
+                            $i++;
+                            $sp .= '
+                            <tr>
+                                <td>
+                                    <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" value="'.$t['id'].'" name="check_box" id="'.$i.'">
+                                    <label class="custom-control-label" for="'.$i.'"></label>
+                                    </div>
+                                </td><td class="text-muted">'.$t['id'].'</td>
+                                </td><td class="text-muted">'.$t['name'].'</td>
+                                </td><td class="text-muted">'.$t['colorCode'].'</td>
+                                <td>
+                                    <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="text-muted sr-only">Action</span>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="admin.php?c=color&p=form_edit&id='.$t['id'].'">Sửa</a>
+                                    <a class="dropdown-item" href="admin.php?c=color&p=remove&id='.$t['id'].'">Xóa</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            ';
+                        }
+                    }
+                }
+                if($sp == ''){
+                    echo 'Sản phẩm này không tồn tại!';
+                }else{
+                    echo $sp;
+                }
+            break;
+
+            case 'chosedelete':
+                $jsonText = $_GET['delete'];
+                $mang = explode(',',$jsonText);
+                $sp ='';
+                for($i = 1;$i < count($mang);$i++){
+                    $id = $mang[$i];
+                    deleteColor($id);
+                }
+                $color = getAllColor();
+                $i = 0;
+                foreach($color as $t){
+                    $i++;
+                    $sp .= '
+                    <tr>
+                        <td>
+                            <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" value="'.$t['id'].'" name="check_box" id="'.$i.'">
+                            <label class="custom-control-label" for="'.$i.'"></label>
+                            </div>
+                        </td><td class="text-muted">'.$t['id'].'</td>
+                        </td><td class="text-muted">'.$t['name'].'</td>
+                        </td><td class="text-muted">'.$t['colorCode'].'</td>
+                        <td>
+                            <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="text-muted sr-only">Action</span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="admin.php?c=color&p=form_edit&id='.$t['id'].'">Sửa</a>
+                            <a class="dropdown-item" href="admin.php?c=color&p=remove&id='.$t['id'].'">Xóa</a>
+                            </div>
+                        </td>
+                    </tr>
+                    ';
+                }
+                echo $sp;
+            break;
+            default:
+                header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
+                include("404.php");
+                return;
+            break;
+    }
     break;
     case 'deal':
             $action = "show";
@@ -752,7 +1044,6 @@ switch ($control) {
         if (isset($_GET["a"])) {
             $action = $_GET["a"];
         }
-
         switch ($action) {
             case 'show':
                 require_once('views/admin/blog/blog.php');
