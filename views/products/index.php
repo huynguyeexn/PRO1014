@@ -3,6 +3,7 @@
 
 <head>
 	<?php include_once 'views/layouts/meta.php'; ?>
+	<link rel="stylesheet" href="style.css">
 </head>
 
 <body>

@@ -15,15 +15,9 @@ function getConnection(){
     );
 
     try {
-        $conn = new PDO("mysql:
-            host=$host;
-            charset=$charset;
-            port=$port;
-            dbname=$dbname,
-            $username,
-            $password,
-            $options;
-        ");
+        $conn = new PDO('mysql:host='.$host.';port='.$port.';dbname='.$dbname,$username,$password,$options);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
         $conn->setAttribute(
             PDO::ATTR_ERRMODE,
             PDO::ERRMODE_EXCEPTION

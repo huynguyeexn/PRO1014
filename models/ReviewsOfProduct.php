@@ -19,7 +19,7 @@ function getReviewsByUserId($id){
     return query($sql);
 }
 function addNewReviewsOfProduct($product_id,$user_id,$message,$star){
-echo    $sql = "INSERT INTO `review`( `product_id`, `user_id`, `review`,`rate`) VALUES ('$product_id', '$user_id','$message','$star')";
+$sql = "INSERT INTO `review`( `product_id`, `user_id`, `review`,`rate`) VALUES ('$product_id', '$user_id','$message','$star')";
     return execute($sql);
 }
 

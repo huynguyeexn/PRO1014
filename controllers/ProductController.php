@@ -2,7 +2,8 @@
     session_start();
 
     // Require các file cần sử dụng.
-    require_once('core/function.php');
+        
+    require_once('core/Function.php');
 
     // Các Model cần thiết.
     require_once('models/ProductModel.php');
@@ -25,13 +26,12 @@
 
                 $id=$_GET['id'];
                 $product = getProductById($id);
-                $view = $product['view'] + 1;
-                updateViewProduct($view,$id);
             require_once('views/products/index.php');
             }
             
             break;
         case 'comment':
+            
             if (isset($_POST['addComment'])) {
                 $product_id = $_GET['id'];
                 $user = $_SESSION['user']['id'];
@@ -39,8 +39,6 @@
                 $created = now();
                 addNewcommentOfProduct($product_id,$user,$message,$created);
                     header('location: product.php?id='.$product_id);
-            }else{
-                header('location: home.php');
             }
                     
                 break;   
@@ -50,17 +48,19 @@
             case 'reviews':
                 if (isset($_POST['addReview'])) {
                     $product_id = $_GET['id'];
-                    $user = $_SESSION['user']['id'];
                     $message = $_POST['message'];
-                    $created = now();
-                    $star=1;
-                    addNewReviewsOfProduct($product_id,$user,$message,$created,$star);
+                    $user = $_SESSION['user']['id'];
+                    echo $star = $_POST['star'];
+                    addNewReviewsOfProduct($product_id,$user,$message,$star);
                         header('location: product.php?id='.$product_id);
                 }else{
-                    header('location: home.php');
+                    // header('location: home.php');
                 }
-                        
+               
                     break;   
+                    case 'login':
+                        header('location: Account.php'); 
+                       
             case 'detail':
                 // Product detail view
                 break;
