@@ -86,7 +86,7 @@
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr1">
                                           <a class="dropdown-item" href="admin.php?c=tag-blog&t=edit&id='.$reviews['id'].'">Edit</a>
-                                          <a class="dropdown-item" href="admin.php?c=b-comment&b=delete&id='.$reviews['id'].'">Remove</a>
+                                          <a class="dropdown-item" href="admin.php?c=p-comment&p=delete&id='.$reviews['id'].'">Remove</a>
                                         </div>
                                       </div>
                                     </td>

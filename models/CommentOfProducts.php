@@ -23,6 +23,9 @@ function addNewCommentOfProduct($product_id,$user_id,$message,$created){
     $sql = "INSERT INTO `product_comment`( `product_id`, `user_id`, `content`,`created`) VALUES ('$product_id', '$user_id','$message','$created')";
         return execute($sql);
     }
-
+function deleteProductComment($id){
+        $sql = "DELETE FROM product_comment WHERE id=$id";
+        return execute($sql);
+}
     
 ?>

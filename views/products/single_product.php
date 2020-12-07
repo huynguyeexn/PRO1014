@@ -64,10 +64,12 @@
                     border: 0px;
                 }
                 </style>
+               
+            <form action="product.php?action=addcart&id=<?php echo $_GET['id']?>" method="post">
                 <div class="input-group-icon mt-10">
                     <div class="icon">Size: </div>
                     <div class="form-select " id="default-select">
-											<select>
+											<select name="size">
 				<?php 
 				$size=getSizeByProductId($product['id']);
 				foreach($size as $sz){
@@ -78,7 +80,7 @@
 							</select>
 							</div>
 					</div>
-			</div>
+            </div>
             <div class=" product_count ">
                 <label for=" qty">Số lượng:</label>
                         <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
@@ -91,11 +93,12 @@
                             class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
                     </div>
                     <div class=" card_area d-flex align-items-center">
-                        <a class="primary-btn" href="#">Thêm vào giỏ </a>
+                    <input  class="primary-btn"  type="submit" value="Thêm vào giỏ hàng">    
                         <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
                     </div>
                 </div>
             </div>
+            </form>
         </div>
     </div>
 </div>
