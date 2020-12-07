@@ -74,7 +74,7 @@
 							$reviews = getReviewsByProductId($product['id']);
 							if($reviews){
 								foreach($reviews as $rv){
-									$user=getUserById($cmt['user_id']);
+									$user=getUserById($rv['user_id']);
 									echo'
 									<div class="review_item">
 										<div class="media">
