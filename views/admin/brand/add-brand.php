@@ -69,5 +69,4 @@
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
-    <script>
 </body>
