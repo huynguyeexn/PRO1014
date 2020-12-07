@@ -64,6 +64,7 @@
             case 'detail':
                 // Product detail view
                 break;
+
     
        
     }

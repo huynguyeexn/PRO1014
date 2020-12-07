@@ -948,7 +948,7 @@ switch ($control) {
             case 'delete':
                 if(isset($_GET['id'])){
                     $id =$_GET['id'];
-                    deleteBlogComment($id);                             
+                    deleteProductComment($id);                               
                 }
                 header('location: admin.php?c=p-comment');
             break;
