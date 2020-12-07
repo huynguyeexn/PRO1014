@@ -18,3 +18,8 @@ function addNewTagOfProduct($id,$tag){
     $sql = 'INSERT INTO `tag_of_product`(`product_id`, `tag_id`) VALUES ('.$id.','.$tag.')';
     execute($sql);
 }
+
+function getAllTagByProductId($id){
+    $sql = "SELECT * FROM tag_of_product WHERE product_id = $id;";
+    return query($sql);
+}

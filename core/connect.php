@@ -13,16 +13,10 @@ function getConnection(){
         PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
     );
-
     try {
-        $conn = new PDO("mysql:
-            host=$host;
-            port=$port;
-            dbname=".$dbname,
-            $username,
-            $password,
-            $options
-        );
+        $conn = new PDO('mysql:host='.$host.';port='.$port.';dbname='.$dbname,$username,$password,$options);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
         $conn->setAttribute(
             PDO::ATTR_ERRMODE,
             PDO::ERRMODE_EXCEPTION

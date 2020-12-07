@@ -15,7 +15,9 @@
                 </div>
             </div>
             <?php
-			$tags = getTagByProductId($product['id']);
+         
+            $tags = getAllTagByProductId($product['id']);
+            
 			echo'
 			<div class="col-lg-5 offset-lg-1">
 			<div class="s_product_text">
@@ -30,9 +32,9 @@
 					foreach($Availibility as $avb){
 					};
 						if($avb['quantity']<=0){
-							echo '<li><a href="#"><span>Tình trạng :</span>Hết hàng</a></li>';
+							echo '<li><span>Tình trạng :</span>Hết hàng</li>';
 						}else{
-							echo'<li><a href="#"><span>Tình trạng :</span>Còn hàng</a></li>';
+							echo'<li><span>Tình trạng :</span>Còn hàng</li>';
 						}
 					
 				echo'</a></li>
