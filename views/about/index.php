@@ -8,7 +8,7 @@
 <body>
 
     <!-- Start Header Area -->
-    <?php include_once('views/layouts/Header.php'); ?>
+    <?php include_once('views/layouts/header.php'); ?>
     <!-- End Header Area -->
 
     <!-- Start Banner Area -->
@@ -159,7 +159,7 @@
     </section>
 
     <!-- start footer Area -->
-    <?php include_once('views/layouts/Footer.php'); ?>
+    <?php include_once('views/layouts/footer.php'); ?>
     <!-- End footer Area -->
     <!--================End Contact Success and Error message Area =================-->
     <?php include_once('views/layouts/script.php'); ?>

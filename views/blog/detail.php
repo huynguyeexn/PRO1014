@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <head>
-    <?php include_once('views/layouts/Meta.php'); ?>
+    <?php include_once('views/layouts/meta.php'); ?>
 </head>
 
 <body>
@@ -264,7 +264,7 @@
     <!--================Blog Area =================-->
 
     <!-- start footer Area -->
-    <?php include_once('views/layouts/Footer.php'); ?>
+    <?php include_once('views/layouts/footer.php'); ?>
     <!-- End footer Area -->
 
     <?php include_once('views/layouts/script.php'); ?>
