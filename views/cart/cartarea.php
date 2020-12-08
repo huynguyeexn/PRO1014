@@ -123,7 +123,14 @@ function calculator($products)
                             <td colspan="4">
                                 <div class="checkout_btn_inner d-flex justify-content-end">
                                     <a class="gray_btn" href="shop.php">Tiếp tục mua hàng</a>
-                                    <button class="primary-btn btn" type="submit" name="add-order" onclick="addOrder()">Đặt hàng</a>
+                                    <?php
+                                    if(isset($_SESSION['user'])){
+                                        echo '<button class="primary-btn btn" type="submit" name="add-order" onclick="addOrder()">Đặt hàng</button>';
+                                    }else{
+                                        echo '<a style="text-decoration: underline" href="account.php">Vui lòng đăng nhập để đặt hàng</a>';
+                                    }
+                                    ?>
+                                    
                                 </div>
                             </td>
                         </tr>
