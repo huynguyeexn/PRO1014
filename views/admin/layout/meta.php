@@ -3,7 +3,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
-    <title>Tiny Dashboard - A Bootstrap Dashboard Template</title>
+    <title>Quản trị website - PRO1014 SHOP</title>
     <!-- Simple bar CSS -->
     <link rel="stylesheet" href="assets/css/simplebar.css">
     <!-- Fonts CSS -->
@@ -18,11 +18,9 @@
     <link rel="stylesheet" href="assets/css/quill.snow.css">
 
     <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/assets/css/suneditor.css" rel="stylesheet"> -->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/assets/css/suneditor-contents.css" rel="stylesheet"> -->
     <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
     <!-- languages (Basic Language: English/en) -->
-    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/lang/ko.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/lang/en.js"></script>
 
     
     <!-- Date Range Picker CSS -->
