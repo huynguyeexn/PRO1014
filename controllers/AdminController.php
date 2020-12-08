@@ -26,6 +26,7 @@ require_once('models/DealModel.php');
 require_once('models/CommentOfProducts.php');
 require_once('models/SizeModel.php');
 require_once('models/ReviewsOfProduct.php');
+require_once('models/SizeOfProduct.php');
 
 
 if(!isset($_SESSION['user'])){
@@ -42,7 +43,7 @@ switch ($control) {
         require_once('views/admin/index.php');
     break;
     case 'order':
-        require_once('views/admin/order.php');
+        require_once('views/admin/order/order.php');
     break;
     case 'product':
         $product = 'home';
@@ -109,7 +110,7 @@ switch ($control) {
                 $tag = getAllTag();
                 $product = getProductById($id);
                 $product_detail = getProductDetailById($id);
-                $size_id = getSizeOfProduct($id);
+                $size_id = getMinMaxSizeOfProduct($id);
                 $size = getAllSize();
                 $product_tag = getTagByProductId($id);
                 require_once('views/admin/product/edit.php');
@@ -401,7 +402,7 @@ switch ($control) {
         }
     break;
     case 'brand':
-        require_once('views/admin/brand.php');
+        require_once('views/admin/brand/brand.php');
         $action = "show";
         if (isset($_GET["a"])) {
             $action = $_GET["a"];
@@ -988,7 +989,7 @@ switch ($control) {
         }
     break;
     case 'user':
-        require_once('views/admin/user.php');
+        require_once('views/admin/user/user.php');
     break;
 
     case 'tag-blog':

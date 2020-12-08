@@ -91,7 +91,7 @@
                                         </h2>
 
                                         <p>
-                                            <span style="">
+                                            <span>
                                                 PRO1014 SHOP&nbsp;cam kết mang đến cho khách hàng sự hài lòng và độ tin
                                                 cậy về chất lượng sản
                                                 phẩm bằng chính sự trân trọng, nhiệt tình và trách nhiệm cao với nhu cầu
@@ -108,41 +108,41 @@
                                         </h2>
 
                                         <p style="text-align:justify">
-                                            <span style="">
+                                            <span>
                                                 + Tôn trọng:</span>
                                             <strong>
-                                                <span style="">
+                                                <span>
                                                 </span>
                                             </strong>
-                                            <span style="">
+                                            <span>
                                                 Tôn trọng bản thân, tôn trọng đồng nghiệp, tôn trọng Shop, tôn trọng đối
                                                 tác, hợp tác trong sự tôn trọng.
                                             </span>
                                         </p>
 
                                         <p style="text-align:justify">
-                                            <span style="">
+                                            <span>
                                                 + Tin cậy:
                                             </span>
                                             <strong>
-                                                <span style="">
+                                                <span>
                                                 </span>
                                             </strong>
-                                            <span style="">
+                                            <span>
                                                 Tính trung thực mang lại sự tin cậy trong mọi mối quan hệ, giao dịch,
                                                 với đồng nghiệp, khách hàng, đối tác.
                                             </span>
                                         </p>
 
                                         <p style="text-align:justify">
-                                            <span style="">
+                                            <span>
                                                 + Tuân thủ:
                                             </span>
                                             <strong>
-                                                <span style="">
+                                                <span>
                                                 </span>
                                             </strong>
-                                            <span style="">
+                                            <span>
                                                 Tuân thủ Luật pháp, Bộ Quy Tắc Ứng Xử và các quy chế, chính sách, quy
                                                 định của Shop.
                                             </span>

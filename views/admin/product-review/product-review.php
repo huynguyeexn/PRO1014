@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?php include_once('views/admin/meta.php') ?>
+    <?php include_once('views/admin/layout/meta.php') ?>
     <style>
     .cont {
         height: 100px;
@@ -16,11 +16,11 @@
 <body class="vertical  dark  ">
     <div class="wrapper">
         <!-- Top Navbar -->
-        <?php include_once('views/admin/topnav.php') ?>
+        <?php include_once('views/admin/layout/topnav.php') ?>
         <!-- End Top Navbar -->
 
         <!-- Left Sidebar -->
-        <?php include_once('views/admin/sidebar.php') ?>
+        <?php include_once('views/admin/layout/sidebar.php') ?>
         <!-- End Left Sidebar -->
 
 
@@ -50,15 +50,15 @@
                                 </th>
                                 <th>Mã</th>
                                 <th>Mã sản phẩm</th>
-                                <th>Mã người dùng</th>
+                                <th>Tên người dùng</th>
                                 <th>Đánh giá</th>
-                                <th>Ngày</th>
+                                <th>Đánh giá sao</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                                 $reviews_product= getAllReviews();
+                                 $reviews_product= getAllReviews_NameUser();
                                  
                                  foreach($reviews_product as $reviews){
                                  
@@ -73,7 +73,7 @@
                                     <td>'.$reviews['id'].'</td>
                                     
                                     <td>'.$reviews['product_id'].'</td>
-                                    <td >'.$reviews['user_id'].'</td>
+                                    <td >'.$reviews['username'].'</td>
                                     <td >'.$reviews['review'].'</td>
                                     <td >'.$reviews['rate'].'</td>
 

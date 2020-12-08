@@ -13,6 +13,12 @@ function getAllReviews(){
     return query($sql);
 }
 
+//Lấy tất cả đánh giá và tên người dùng
+function getAllReviews_NameUser(){
+    $sql = "SELECT *,user.username FROM review inner join user on user.id = review.user_id";
+    return query($sql);
+}
+
 // Lấy tất cả đánh giá của một khách hàng
 function getReviewsByUserId($id){
     $sql = "SELECT * FROM review WHERE user_id = $id;";
