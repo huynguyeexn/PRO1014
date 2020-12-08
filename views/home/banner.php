@@ -32,16 +32,3 @@
         </div>
     </div>
 </section>
-<!-- 
-var images = document.getElementsByClassName('product-image-thumbnail');
- for (let i = 0; i < images.length; i++) {
-	let url = images[i].children[0].src.replace('-350x350','').replace('.png','');
-  setTimeout(function timer() {
-		let a = document.createElement('a');
-    a.href = url;
-    a.download = (i+1)+".jpg";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  }, i * 3000);
-} -->

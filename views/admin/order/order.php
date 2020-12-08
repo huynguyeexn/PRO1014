@@ -2,27 +2,24 @@
 <html lang="en">
 
 <head>
-    <?php include_once('views/admin/meta.php') ?>
+    <?php include_once('views/admin/layout/meta.php') ?>
     <style>
     .cont {
         height: 100px;
         overflow: hidden;
     }
     </style>
-
-
 </head>
 
 <body class="vertical  dark  ">
     <div class="wrapper">
         <!-- Top Navbar -->
-        <?php include_once('views/admin/topnav.php') ?>
+        <?php include_once('views/admin/layout/topnav.php') ?>
         <!-- End Top Navbar -->
 
         <!-- Left Sidebar -->
-        <?php include_once('views/admin/sidebar.php') ?>
+        <?php include_once('views/admin/layout/sidebar.php') ?>
         <!-- End Left Sidebar -->
-
 
         <main role="main" class="main-content">
             <div class="container-fluid">
@@ -31,7 +28,7 @@
                     <div class="col-md-12 my-4 float-right">
                         <div class="card shadow">
                             <div class="card-body">
-                                <h3 class="card-title">Danh sách tài khoản</h3>
+                                <h3 class="card-title">Danh sách đơn hàng</h3>
                                 <p class="card-text"></p>
                                 <table class="table table-striped table-hover">
                                     <thead>
@@ -42,22 +39,36 @@
                                                     <label class="custom-control-label" for="d1"></label>
                                                 </div>
                                             </th>
-                                            <th>#</th>
-                                            <th>Ảnh đại diện</th>
-                                            <th>Tên tài khoản</th>
-                                            <th>Họ tên</th>
-                                            <th>Số điện thoại</th>
-                                            <th>Email</th>
-                                            <th>Cấp bậc</th>
+                                            <th>Mã đơn</th>
+                                            <th>Trạng thái</th>
                                             <th>Ngày tạo</th>
+                                            <th>Số điện thoại</th>
+                                            <th>Tên người nhận</th>
+                                            <th>Địa chỉ</th>
+                                            <th>Email</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
                                         <?php
-                                  $user=getAllUser();
-                                  foreach($user as $u){     
+                                  $order=getAllOrder();
+                                  foreach($order as $o){
+                                      $status = "";
+                                      switch($o['status']){
+                                          case 0:
+                                            $status = '<button type="button" class="btn mb-2 btn-primary">Mới</button>';
+                                          break;
+                                          case 1:
+                                            $status = '<button type="button" class="btn mb-2 btn-warning">Đang giao</button>';
+                                          break;
+                                          case 2:
+                                            $status = '<button type="button" class="btn mb-2 btn-success">Đã giao</button>';
+                                          break;
+                                          case 3:
+                                            $status = '<button type="button" class="btn mb-2 btn-danger">Huỷ</button>';
+                                          break;
+                                      }
                                     echo'
                                     
                                     <tr>
@@ -67,14 +78,14 @@
                                         <label class="custom-control-label" for="d1"></label>
                                       </div>
                                     </td>
-                                    <td>'.$u['id'].'</td>
-                                    <td><img style=" width: 70px;" src="'.$u['avartar'].'" alt=""></td>
-                                    <td>'.$u['username'].'</td>
-                                    <td>'.$u['fullname'].'</td>
-                                    <td>'.$u['phone'].'</td>
-                                    <td>'.$u['email'].'</td>
-                                    <td>'.$u['rank'].'</td>
-                                    <td>'.$u['created'].'</td>
+                                    <td>'.$o['id'].'</td>
+                                    <td>'.$status.'</td>
+                                    <td>'.$o['created'].'</td>
+                                    <td>'.$o['phone'].'</td>
+                                    <td>'.$o['name'].'</td>
+                                    <td>'.$o['address'].'</td>
+                                    <td>'.$o['email'].'</td>
+                                    
                                     </td>
                                    
                                     <td>

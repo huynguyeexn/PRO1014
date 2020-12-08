@@ -42,7 +42,7 @@ switch ($control) {
         require_once('views/admin/index.php');
     break;
     case 'order':
-        require_once('views/admin/order.php');
+        require_once('views/admin/order/order.php');
     break;
     case 'product':
         $product = 'home';
@@ -401,7 +401,7 @@ switch ($control) {
         }
     break;
     case 'brand':
-        require_once('views/admin/brand.php');
+        require_once('views/admin/brand/brand.php');
         $action = "show";
         if (isset($_GET["a"])) {
             $action = $_GET["a"];
@@ -988,7 +988,7 @@ switch ($control) {
         }
     break;
     case 'user':
-        require_once('views/admin/user.php');
+        require_once('views/admin/user/user.php');
     break;
 
     case 'tag-blog':

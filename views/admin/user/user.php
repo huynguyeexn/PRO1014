@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?php include_once('views/admin/meta.php') ?>
+    <?php include_once('views/admin/layout/meta.php') ?>
     <style>
     .cont {
         height: 100px;
@@ -16,11 +16,11 @@
 <body class="vertical  dark  ">
     <div class="wrapper">
         <!-- Top Navbar -->
-        <?php include_once('views/admin/topnav.php') ?>
+        <?php include_once('views/admin/layout/topnav.php') ?>
         <!-- End Top Navbar -->
 
         <!-- Left Sidebar -->
-        <?php include_once('views/admin/sidebar.php') ?>
+        <?php include_once('views/admin/layout/sidebar.php') ?>
         <!-- End Left Sidebar -->
 
 
@@ -28,20 +28,11 @@
             <div class="container-fluid">
                 <div class="row justify-content-center">
                     <!-- Striped rows -->
-                    
-                        <?php if(isset($_GET) && $_GET['c'] == 'brand' &&  empty($_GET['a'])): ?>
+                    <div class="col-md-12 my-4 float-right">
                         <div class="card shadow">
                             <div class="card-body">
-                                <h3 class="card-title">Danh sách nhãn hàng</h3>
-                                <div class="toolbar row mb-3">
-                                    <div class="col">
-                                        <div class="dropdown">
-                                            <a class="btn btn-primary"
-                                                href="admin.php?c=brand&a=create">Thêm
-                                                nhãn hàng +</a>
-                                        </div>
-                                    </div>
-                                </div>
+                                <h3 class="card-title">Danh sách tài khoản</h3>
+                                <p class="card-text"></p>
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
@@ -52,18 +43,23 @@
                                                 </div>
                                             </th>
                                             <th>#</th>
-                                            <th>Name</th>
-                                            <th>Show</th>
-                                            <th>Prioryti</th>
-                                            <th>Action</th>
-
+                                            <th>Ảnh đại diện</th>
+                                            <th>Tên tài khoản</th>
+                                            <th>Họ tên</th>
+                                            <th>Số điện thoại</th>
+                                            <th>Email</th>
+                                            <th>Cấp bậc</th>
+                                            <th>Ngày tạo</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
+
                                         <?php
-                                  $brand=getAllBrand();
-                                  foreach($brand as $br){
+                                  $user=getAllUser();
+                                  foreach($user as $u){     
                                     echo'
+                                    
                                     <tr>
                                     <td>
                                       <div class="custom-control custom-checkbox">
@@ -71,14 +67,15 @@
                                         <label class="custom-control-label" for="d1"></label>
                                       </div>
                                     </td>
-                                    <td>'.$br['id'].'</td>
-                                    <td>'.$br['name'].'</td>
-                                    <td>'.$br['show'].'</td>
-                                    <td>'.$br['priority'].'</td>
+                                    <td>'.$u['id'].'</td>
+                                    <td><img style=" width: 70px;" src="'.$u['avartar'].'" alt=""></td>
+                                    <td>'.$u['username'].'</td>
+                                    <td>'.$u['fullname'].'</td>
+                                    <td>'.$u['phone'].'</td>
+                                    <td>'.$u['email'].'</td>
+                                    <td>'.$u['rank'].'</td>
+                                    <td>'.$u['created'].'</td>
                                     </td>
-                                    
-                                    
-                                    
                                    
                                     <td>
                                       <div class="dropdown">
@@ -86,9 +83,8 @@
                                           <span class="text-muted sr-only">Action</span>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr1">
-                                        <a class="dropdown-item" href="admin.php?c=brand&a=form_edit&id='.$br['id'].'">Sửa</a>
-                                        <a class="dropdown-item" href="admin.php?c=brand&a=delete
-                                        &id='.$br['id'].'">Xóa</a>
+                                          <a class="dropdown-item" href="#">Edit</a>
+                                          <a class="dropdown-item" href="#">Remove</a>
                                           <a class="dropdown-item" href="#">Assign</a>
                                         </div>
                                       </div>
@@ -97,22 +93,11 @@
                                     ';
                                  }
                             ?>
+
                                     </tbody>
                                 </table>
-                                <div class="toolbar row mb-3">
-                                    <div class="col">
-                                        <div class="dropdown">
-                                            <a class="btn btn-primary"
-                                                href="admin.php?c=brand&a=create">Thêm
-                                                nhãn hàng +</a>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
-                        <?php elseif(isset($_GET) && $_GET['a'] == 'create'): ?>
-                        <?php require_once('views/admin/brand/add-brand.php'); ?>
-                        <?php endif; ?>
                     </div> <!-- Striped rows -->
                 </div>
             </div>
