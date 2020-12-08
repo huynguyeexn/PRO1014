@@ -50,15 +50,15 @@
                                 </th>
                                 <th>Mã</th>
                                 <th>Mã sản phẩm</th>
-                                <th>Mã người dùng</th>
+                                <th>Tên người dùng</th>
                                 <th>Đánh giá</th>
-                                <th>Ngày</th>
+                                <th>Đánh giá sao</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                                 $reviews_product= getAllReviews();
+                                 $reviews_product= getAllReviews_NameUser();
                                  
                                  foreach($reviews_product as $reviews){
                                  
@@ -73,7 +73,7 @@
                                     <td>'.$reviews['id'].'</td>
                                     
                                     <td>'.$reviews['product_id'].'</td>
-                                    <td >'.$reviews['user_id'].'</td>
+                                    <td >'.$reviews['username'].'</td>
                                     <td >'.$reviews['review'].'</td>
                                     <td >'.$reviews['rate'].'</td>
 
