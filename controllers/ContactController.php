@@ -2,7 +2,7 @@
     session_start();
 
     // Require các file cần sử dụng.
-    require_once('core/function.php');
+    include_once('core/function.php');
     
     // Các Model cần thiết.
 
@@ -14,10 +14,10 @@
 
     switch ($action) {
         case 'home':
-            require_once('views/contact/index.php');
+            include_once('views/contact/index.php');
             break;
         default: 
-            require_once('views/contact/index.php');
+            include_once('views/contact/index.php');
             break;
         break;
     }

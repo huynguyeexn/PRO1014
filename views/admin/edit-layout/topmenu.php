@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?php include_once('views/admin/layout/meta.php') ?>
+    <?php include('views/admin/layout/meta.php') ?>
     <style>
         #sortable>div:nth-child(1n) {
             background-color: #272a2d;
@@ -17,11 +17,11 @@
 <body class="vertical  dark  ">
     <div class="wrapper">
         <!-- Top Navbar -->
-        <?php include_once('views/admin/layout/topnav.php') ?>
+        <?php include('views/admin/layout/topnav.php') ?>
         <!-- End Top Navbar -->
 
         <!-- Left Sidebar -->
-        <?php include_once('views/admin/layout/sidebar.php') ?>
+        <?php include('views/admin/layout/sidebar.php') ?>
         <!-- End Left Sidebar -->
 
 
@@ -98,7 +98,7 @@
             </div>
 
             <!-- Notifications -->
-            <?php include_once('views/admin/layout/notifications.php') ?>
+            <?php include('views/admin/layout/notifications.php') ?>
             <!-- End Notifications -->
 
         </main>

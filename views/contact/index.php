@@ -2,13 +2,13 @@
 <html lang="en">
 
 <head>
-<?php include_once('views/layouts/meta.php'); ?>
+<?php include('views/layouts/meta.php'); ?>
 </head>
 
 <body>
 
 	<!-- Start Header Area -->
-    <?php include_once('views/layouts/Header.php'); ?>
+    <?php include('views/layouts/header.php'); ?>
     <!-- End Header Area -->
 
 	<!-- Start Banner Area -->
@@ -87,7 +87,7 @@
 	<!--================Contact Area =================-->
 
 	<!-- start footer Area -->
-    <?php include_once('views/layouts/Footer.php'); ?>
+    <?php include('views/layouts/footer.php'); ?>
     <!-- End footer Area -->
 
 	<!--================Contact Success and Error message Area =================-->
@@ -121,7 +121,7 @@
 		</div>
 	</div>
 	<!--================End Contact Success and Error message Area =================-->
-    <?php include_once('views/layouts/script.php'); ?>
+    <?php include('views/layouts/script.php'); ?>
 </body>
 
 </html>

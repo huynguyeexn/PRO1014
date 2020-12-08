@@ -1,3 +1,3 @@
 <?php
 
-require_once('controllers/CartController.php');
+include_once('controllers/CartController.php');

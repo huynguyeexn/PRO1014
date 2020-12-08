@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?php include_once('views/layouts/Meta.php'); ?>
+    <?php include('views/layouts/Meta.php'); ?>
     <style>
     .product-image {
         width: 150px
@@ -13,22 +13,22 @@
 <body>
 
     <!-- Start Header Area -->
-    <?php include_once('views/layouts/header.php'); ?>
+    <?php include('views/layouts/header.php.php'); ?>
     <!-- End Header Area -->
 
     <!-- Start Banner Area -->
-    <?php include_once('views/cart/banner.php'); ?>
+    <?php include('views/cart/banner.php'); ?>
     <!-- End Banner Area -->
 
     <!--================Cart Area =================-->
-    <?php include_once('views/cart/cartarea.php'); ?>
+    <?php include('views/cart/cartarea.php'); ?>
     <!--================End Cart Area =================-->
 
     <!-- start footer Area -->
-    <?php include_once('views/layouts/footer.php'); ?>
+    <?php include('views/layouts/footer.php.php'); ?>
     <!-- End footer Area -->
 
-    <?php include_once('views/layouts/script.php'); ?>
+    <?php include('views/layouts/script.php'); ?>
 
 </body>
 

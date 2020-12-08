@@ -1,3 +1,3 @@
 <?php
 
-require_once('controllers/ContactController.php');
+include_once('controllers/ContactController.php');

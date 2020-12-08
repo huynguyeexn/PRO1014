@@ -2,14 +2,14 @@
     session_start();
 
     // Require các file cần sử dụng.
-    require_once('core/function.php');
+    include_once('core/function.php');
     
     // Các Model cần thiết.
-    require_once('models/BlogModel.php');
-    require_once('models/UserModel.php');
-    require_once('models/CatalogModel.php');
-    require_once('models/TagBlogModel.php');
-    require_once('models/ProductModel.php');
+    include_once('models/BlogModel.php');
+    include_once('models/UserModel.php');
+    include_once('models/CatalogModel.php');
+    include_once('models/TagBlogModel.php');
+    include_once('models/ProductModel.php');
 
     // GET action.
     $action = "home";
@@ -19,17 +19,17 @@
 
     switch ($action) {
         case 'home':
-            require_once('views/blog/index.php');
+            include_once('views/blog/index.php');
             break;
         case 'catalog':
             $allBlogCatalog = getAllTagBlog();
-            require_once('views/blog/index.php');
+            include_once('views/blog/index.php');
             break;
         case 'detail':
             if(isset($_GET['id'])){
                 $id = $_GET['id'];
                 $blog = getBlogById($id);
-                require_once('views/blog/detail.php');
+                include_once('views/blog/detail.php');
             }
             else{
                 header('location: blog.php');
@@ -85,12 +85,12 @@
                 $blog = getBlogById($idblog);
                echo setComment($idblog,$user,$message,$created);
                 
-                require_once('views/blog/detail.php');
+                include_once('views/blog/detail.php');
 
             };
         break;
         default: 
-            require_once('views/blog/index.php');
+            include_once('views/blog/index.php');
             break;
        
     }
