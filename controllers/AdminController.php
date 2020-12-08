@@ -26,6 +26,7 @@ require_once('models/DealModel.php');
 require_once('models/CommentOfProducts.php');
 require_once('models/SizeModel.php');
 require_once('models/ReviewsOfProduct.php');
+require_once('models/SizeOfProduct.php');
 
 
 if(!isset($_SESSION['user'])){
@@ -109,7 +110,7 @@ switch ($control) {
                 $tag = getAllTag();
                 $product = getProductById($id);
                 $product_detail = getProductDetailById($id);
-                $size_id = getSizeOfProduct($id);
+                $size_id = getMinMaxSizeOfProduct($id);
                 $size = getAllSize();
                 $product_tag = getTagByProductId($id);
                 require_once('views/admin/product/edit.php');
