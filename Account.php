@@ -1,3 +1,3 @@
 <?php
 
-include('controllers/AuthController.php');
+include_once('controllers/AuthController.php');

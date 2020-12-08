@@ -1,3 +1,3 @@
 <?php
 
-include_once('controllers/HomeController.php');
+require_once('controllers/HomeController.php');

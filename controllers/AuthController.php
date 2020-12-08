@@ -8,10 +8,10 @@
     session_start();
 
     // Require các file cần sử dụng.
-    include_once('core/function.php');
+    require_once('core/function.php');
 
     // Các Model cần thiết.
-    include_once('models/UserModel.php');
+    require_once('models/UserModel.php');
 
     // GET action.
     $action = "login";
@@ -24,13 +24,13 @@
             if(isset($_SESSION['user'])){
                 header('location: index.php');
             }
-            include_once('views/account/login.php');
+            require_once('views/account/login.php');
             break;
         case 'register':
             if(isset($_SESSION['user'])){
                 header('location: index.php');
             }
-            include_once('views/account/register.php');
+            require_once('views/account/register.php');
             break;
         case 'signout':
             if(!isset($_SESSION['user'])){
@@ -182,7 +182,7 @@
                             'href' => "account.php",
                             'link' => "Đăng nhập"
                         );
-                        include_once('views/account/active.php');
+                        require_once('views/account/active.php');
                     }
                 }else{
                     if(checkRank($email)['rank'] > 0){
@@ -192,7 +192,7 @@
                             'href' => "account.php",
                             'link' => "Đăng nhập"
                         );
-                        include_once('views/account/active.php');
+                        require_once('views/account/active.php');
                     }else{
                         $message = array(
                             'title' => "Xác minh không thành công",
@@ -200,7 +200,7 @@
                             'href' => "account.php?action=resend-email",
                             'link' => "Gửi lại"
                         );
-                        include_once('views/account/active.php');
+                        require_once('views/account/active.php');
                     }
                 }
             }else{
@@ -209,7 +209,7 @@
             die();
         break;
             default: 
-            include_once('views/user/login.php');
+            require_once('views/user/login.php');
             break;
         break;
     }

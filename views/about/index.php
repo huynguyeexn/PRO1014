@@ -2,13 +2,13 @@
 <html lang="en">
 
 <head>
-    <?php include('views/layouts/meta.php'); ?>
+    <?php include_once('views/layouts/meta.php'); ?>
 </head>
 
 <body>
 
     <!-- Start Header Area -->
-    <?php include('views/layouts/header.php'); ?>
+    <?php include_once('views/layouts/Header.php'); ?>
     <!-- End Header Area -->
 
     <!-- Start Banner Area -->
@@ -159,10 +159,10 @@
     </section>
 
     <!-- start footer Area -->
-    <?php include('views/layouts/footer.php'); ?>
+    <?php include_once('views/layouts/Footer.php'); ?>
     <!-- End footer Area -->
     <!--================End Contact Success and Error message Area =================-->
-    <?php include('views/layouts/script.php'); ?>
+    <?php include_once('views/layouts/script.php'); ?>
 </body>
 
 </html>

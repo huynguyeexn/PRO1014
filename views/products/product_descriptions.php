@@ -15,8 +15,8 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="comment_list">
-                            <?php include('comment.php') ?>
-                            <?php include('review.php') ?>
+                            <?php include_once('comment.php') ?>
+                            <?php include_once('review.php') ?>
         <script>
         (function() {
             var rating = document.querySelector('.rating');

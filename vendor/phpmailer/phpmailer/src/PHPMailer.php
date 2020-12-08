@@ -807,7 +807,7 @@ class PHPMailer
 
     /**
      * The lower maximum line length allowed by RFC 2822 section 2.1.1.
-     * This length does NOT required the line break
+     * This length does NOT include the line break
      * 76 means that lines will be 77 or 78 chars depending on whether
      * the line break format is LF or CRLF; both are valid.
      *
@@ -2163,7 +2163,7 @@ class PHPMailer
             } else {
                 // Overwrite language-specific strings.
                 // This way we'll never have missing translation keys.
-                $foundlang = required $lang_file;
+                $foundlang = include $lang_file;
             }
         }
         $this->language = $PHPMAILER_LANG;
@@ -3085,7 +3085,7 @@ class PHPMailer
                 $cidUniq[$cid] = true;
 
                 $mime[] = sprintf('--%s%s', $boundary, static::$LE);
-                //Only required a filename property if we have one
+                //Only include a filename property if we have one
                 if (!empty($name)) {
                     $mime[] = sprintf(
                         'Content-Type: %s; name=%s%s',
@@ -3231,7 +3231,7 @@ class PHPMailer
 
     /**
      * Encode a header value (not including its label) optimally.
-     * Picks shortest of Q, B, or none. Result requireds folding if needed.
+     * Picks shortest of Q, B, or none. Result includes folding if needed.
      * See RFC822 definitions for phrase, comment and text positions.
      *
      * @param string $str      The header value to encode
@@ -3519,7 +3519,7 @@ class PHPMailer
 
     /**
      * Add an embedded (inline) attachment from a file.
-     * This can required images, sounds, and just about any other document type.
+     * This can include images, sounds, and just about any other document type.
      * These differ from 'regular' attachments in that they are intended to be
      * displayed inline with the message, not just attached for download.
      * This is used in HTML messages that embed the images
@@ -3591,7 +3591,7 @@ class PHPMailer
 
     /**
      * Add an embedded stringified attachment.
-     * This can required images, sounds, and just about any other document type.
+     * This can include images, sounds, and just about any other document type.
      * If your filename doesn't contain an extension, be sure to set the $type to an appropriate MIME type.
      *
      * @param string $string      The attachment binary data
@@ -3887,7 +3887,7 @@ class PHPMailer
 
     /**
      * Validate whether a string contains a valid value to use as a hostname or IP address.
-     * IPv6 addresses must required [], e.g. `[::1]`, not just `::1`.
+     * IPv6 addresses must include [], e.g. `[::1]`, not just `::1`.
      *
      * @param string $host The host name or IP address to check
      *
@@ -4648,7 +4648,7 @@ class PHPMailer
         $headersToSignKeys = [];
         $headersToSign = [];
         foreach ($parsedHeaders as $header) {
-            //Is this header one that must be requiredd in the DKIM signature?
+            //Is this header one that must be included in the DKIM signature?
             if (in_array(strtolower($header['label']), $autoSignHeaders, true)) {
                 $headersToSignKeys[] = $header['label'];
                 $headersToSign[] = $header['label'] . ': ' . $header['value'];
@@ -4706,7 +4706,7 @@ class PHPMailer
         if ('' !== $this->DKIM_identity) {
             $ident = ' i=' . $this->DKIM_identity . ';' . static::$LE;
         }
-        //The DKIM-Signature header is requiredd in the signature *except for* the value of the `b` tag
+        //The DKIM-Signature header is included in the signature *except for* the value of the `b` tag
         //which is appended after calculating the signature
         //https://tools.ietf.org/html/rfc6376#section-3.5
         $dkimSignatureHeader = 'DKIM-Signature: v=1;' .
@@ -4768,7 +4768,7 @@ class PHPMailer
 
     /**
      * Allows for public read access to 'to' property.
-     * Before the send() call, queued addresses (i.e. with IDN) are not yet requiredd.
+     * Before the send() call, queued addresses (i.e. with IDN) are not yet included.
      *
      * @return array
      */
@@ -4779,7 +4779,7 @@ class PHPMailer
 
     /**
      * Allows for public read access to 'cc' property.
-     * Before the send() call, queued addresses (i.e. with IDN) are not yet requiredd.
+     * Before the send() call, queued addresses (i.e. with IDN) are not yet included.
      *
      * @return array
      */
@@ -4790,7 +4790,7 @@ class PHPMailer
 
     /**
      * Allows for public read access to 'bcc' property.
-     * Before the send() call, queued addresses (i.e. with IDN) are not yet requiredd.
+     * Before the send() call, queued addresses (i.e. with IDN) are not yet included.
      *
      * @return array
      */
@@ -4801,7 +4801,7 @@ class PHPMailer
 
     /**
      * Allows for public read access to 'ReplyTo' property.
-     * Before the send() call, queued addresses (i.e. with IDN) are not yet requiredd.
+     * Before the send() call, queued addresses (i.e. with IDN) are not yet included.
      *
      * @return array
      */
@@ -4812,7 +4812,7 @@ class PHPMailer
 
     /**
      * Allows for public read access to 'all_recipients' property.
-     * Before the send() call, queued addresses (i.e. with IDN) are not yet requiredd.
+     * Before the send() call, queued addresses (i.e. with IDN) are not yet included.
      *
      * @return array
      */

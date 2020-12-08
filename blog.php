@@ -1,4 +1,4 @@
 <?php
 
-include_once('controllers/BlogController.php');
+require_once('controllers/BlogController.php');
 ?>

@@ -4,29 +4,29 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 // Require các file cần sử dụng.
-include_once('core/function.php');
+require_once('core/function.php');
 
 // Các Model cần thiết.
-include_once('models/ProductModel.php');
-include_once('models/SliderModel.php');
-include_once('models/ConfigModel.php');
-include_once('models/BlogModel.php');
-include_once('models/UserModel.php');
-include_once('models/CatalogModel.php');
-include_once('models/TagBlogModel.php');
-include_once('models/TagOfProductModel.php');
-include_once('models/TagOfBlog.php');
-include_once('models/BrandModel.php');
-include_once('models/ColorModel.php');
-include_once('models/TagModel.php');
-include_once('models/ProductDetailModel.php');
-include_once('models/OrderModel.php');
-include_once('models/CommentModel.php');
-include_once('models/DealModel.php');
-include_once('models/CommentOfProducts.php');
-include_once('models/SizeModel.php');
-include_once('models/ReviewsOfProduct.php');
-include_once('models/SizeOfProduct.php');
+require_once('models/ProductModel.php');
+require_once('models/SliderModel.php');
+require_once('models/ConfigModel.php');
+require_once('models/BlogModel.php');
+require_once('models/UserModel.php');
+require_once('models/CatalogModel.php');
+require_once('models/TagBlogModel.php');
+require_once('models/TagOfProductModel.php');
+require_once('models/TagOfBlog.php');
+require_once('models/BrandModel.php');
+require_once('models/ColorModel.php');
+require_once('models/TagModel.php');
+require_once('models/ProductDetailModel.php');
+require_once('models/OrderModel.php');
+require_once('models/CommentModel.php');
+require_once('models/DealModel.php');
+require_once('models/CommentOfProducts.php');
+require_once('models/SizeModel.php');
+require_once('models/ReviewsOfProduct.php');
+require_once('models/SizeOfProduct.php');
 
 
 if(!isset($_SESSION['user'])){
@@ -40,10 +40,10 @@ if (isset($_GET["c"])) {
 
 switch ($control) {
     case 'home':
-        include_once('views/admin/index.php');
+        require_once('views/admin/index.php');
     break;
     case 'order':
-        include_once('views/admin/order/order.php');
+        require_once('views/admin/order/order.php');
     break;
     case 'product':
         $product = 'home';
@@ -53,14 +53,14 @@ switch ($control) {
         switch ($product) {
             case 'home':
                 $product = getAllProduct();
-                include_once('views/admin/product/home.php');
+                require_once('views/admin/product/home.php');
             break;
             case 'insert':
                 $brand = getAllBrand();
                 $color = getAllColor();
                 $tag = getAllTag();
                 $size = getAllSize();
-                include_once('views/admin/product/addnew.php');
+                require_once('views/admin/product/addnew.php');
             break;
             case 'addnew':
                 $name = $_POST['name'];
@@ -113,7 +113,7 @@ switch ($control) {
                 $size_id = getMinMaxSizeOfProduct($id);
                 $size = getAllSize();
                 $product_tag = getTagByProductId($id);
-                include_once('views/admin/product/edit.php');
+                require_once('views/admin/product/edit.php');
             break;
             case 'edit':
                 $id = $_GET['id'];
@@ -402,7 +402,7 @@ switch ($control) {
         }
     break;
     case 'brand':
-        include_once('views/admin/brand/brand.php');
+        require_once('views/admin/brand/brand.php');
         $action = "show";
         if (isset($_GET["a"])) {
             $action = $_GET["a"];
@@ -410,11 +410,11 @@ switch ($control) {
 
         switch ($action) {
             case 'show':
-                include_once('views/admin/brand/brand.php');
+                require_once('views/admin/brand/brand.php');
             break;
             case 'create':
                 $tags = getAllBrand();
-                 include_once('views/admin/brand/add-brand.php');
+                 require_once('views/admin/brand/add-brand.php');
             break;
             case 'add':
                 $name = $_GET['name'];
@@ -431,7 +431,7 @@ switch ($control) {
             case 'edit':
                 $id = $_GET['id'];
                 $brand = getBrandById($id);
-                include_once('views/admin/brand/edit-brand.php');
+                require_once('views/admin/brand/edit-brand.php');
             break;
 
             case 'update':
@@ -465,10 +465,10 @@ switch ($control) {
         switch ($size) {
             case 'home':
                 $size = getAllSize();
-                include_once('views/admin/size/home.php');
+                require_once('views/admin/size/home.php');
             break;
             case 'insert':
-                include_once('views/admin/size/addnew.php');
+                require_once('views/admin/size/addnew.php');
             break;
             case 'addnew':
                 $size = $_POST['size'];
@@ -479,7 +479,7 @@ switch ($control) {
             case 'form_edit':
                 $id = $_GET['id'];
                 $size =getSizeId($id);
-                include_once('views/admin/size/edit.php');
+                require_once('views/admin/size/edit.php');
             break;
             case 'edit':
                 $id = $_GET['id'];
@@ -618,10 +618,10 @@ switch ($control) {
         switch ($color) {
             case 'home':
                 $color = getAllColor();
-                include_once('views/admin/color/home.php');
+                require_once('views/admin/color/home.php');
             break;
             case 'insert':
-                include_once('views/admin/color/addnew.php');
+                require_once('views/admin/color/addnew.php');
             break;
             case 'addnew':
                 $name = $_POST['name'];
@@ -632,7 +632,7 @@ switch ($control) {
             case 'form_edit':
                 $id = $_GET['id'];
                 $color =getColorId($id);
-                include_once('views/admin/color/edit.php');
+                require_once('views/admin/color/edit.php');
             break;
             case 'edit':
                 $id = $_GET['id'];
@@ -762,12 +762,12 @@ switch ($control) {
             }
             switch ($action) {
                 case 'show':
-                    include_once('views/admin/deal/deal.php');
+                    require_once('views/admin/deal/deal.php');
                 break;
                 case 'detail':
                     if(isset($_GET['id'])){
                         $id = $_GET['id'];
-                        include_once('views/admin/deal/deal-detail.php');
+                        require_once('views/admin/deal/deal-detail.php');
                     }else{
                         header("location: admin.php?c=deal");
                     }
@@ -786,10 +786,10 @@ switch ($control) {
         switch ($tag) {
             case 'home':
                 $tag = getAllTag();
-                include_once('views/admin/tag/home.php');
+                require_once('views/admin/tag/home.php');
             break;
             case 'insert':
-                include_once('views/admin/tag/addnew.php');
+                require_once('views/admin/tag/addnew.php');
             break;
             case 'addnew':
                 $name = $_POST['name'];
@@ -800,7 +800,7 @@ switch ($control) {
             case 'form_edit':
                 $id = $_GET['id'];
                 $tag = getTagId($id);
-                include_once('views/admin/tag/edit.php');
+                require_once('views/admin/tag/edit.php');
             break;
             case 'edit':
                 $id = $_GET['id'];
@@ -926,7 +926,7 @@ switch ($control) {
         }
         switch ($action) {
             case 'show':
-                include_once('views/admin/product-review/product-review.php');
+                require_once('views/admin/product-review/product-review.php');
             break;
             case 'delete':
                 if(isset($_GET['id'])){
@@ -944,7 +944,7 @@ switch ($control) {
         }
         switch ($action) {
             case 'show':
-                include_once('views/admin/product-comment/product-comment.php');
+                require_once('views/admin/product-comment/product-comment.php');
             break;
             case 'delete':
                 if(isset($_GET['id'])){
@@ -962,7 +962,7 @@ switch ($control) {
         }
         switch ($action) {
             case 'show':
-                include_once('views/admin/blog-comment/blog-comment.php');
+                require_once('views/admin/blog-comment/blog-comment.php');
             break;
             case 'delete':
                 if(isset($_GET['id'])){
@@ -976,7 +976,7 @@ switch ($control) {
                 $id = $_GET['id'];
                 $com = getAllBlogComment();
                 $getcom = getBlogCommentById($id);
-                required 'views/admin/blog-comment/edit-comment.php';
+                include 'views/admin/blog-comment/edit-comment.php';
             break;
 
             case 'update';
@@ -989,7 +989,7 @@ switch ($control) {
         }
     break;
     case 'user':
-        include_once('views/admin/user/user.php');
+        require_once('views/admin/user/user.php');
     break;
 
     case 'tag-blog':
@@ -999,11 +999,11 @@ switch ($control) {
         }
         switch($tagblog){
             case 't-blog':
-                include_once('views/admin/tag-blog/tag-blog.php');
+                require_once('views/admin/tag-blog/tag-blog.php');
             break;
             case 'create':
                 $tags = getAllTagBlog();
-                include_once('views/admin/tag-blog/add-tagblog.php');
+                require_once('views/admin/tag-blog/add-tagblog.php');
             break;
             
             case 'add':
@@ -1025,7 +1025,7 @@ switch ($control) {
                 $id = $_GET['id'];
                 $tags = getAllTagBlog();
                 $gettag = getTagBlogById($id);
-                required 'views/admin/tag-blog/edit-tagblog.php';
+                include 'views/admin/tag-blog/edit-tagblog.php';
             break;
 
             case 'update';
@@ -1047,11 +1047,11 @@ switch ($control) {
         }
         switch ($action) {
             case 'show':
-                include_once('views/admin/blog/blog.php');
+                require_once('views/admin/blog/blog.php');
             break;
             case 'create':
                 $tags = getAllTagBlog();
-                include_once('views/admin/blog/add-blog.php');
+                require_once('views/admin/blog/add-blog.php');
             break;
           
             case 'add':
@@ -1109,7 +1109,7 @@ switch ($control) {
                 $tagOfBlog = getTagByBlogId($id);
                 
                 $getblog = getBlogById($id);
-                required 'views/admin/blog/edit-blog.php';
+                include 'views/admin/blog/edit-blog.php';
 
             break;
 
@@ -1199,13 +1199,13 @@ switch ($control) {
                 $layouts = json_decode(getConfigByName("layout")['config'])->home;
                 $layoutDefault = json_decode(getConfigByName("default_layout")['config'])->home;
 
-                include_once('views/admin/edit-layout/home.php');
+                require_once('views/admin/edit-layout/home.php');
             break;
             case 'shop':
                 $layouts = json_decode(getConfigByName("layout")['config'])->shop;
                 $layoutDefault = json_decode(getConfigByName("default_layout")['config'])->shop;
 
-                include_once('views/admin/edit-layout/shop.php');
+                require_once('views/admin/edit-layout/shop.php');
             break;
             case 'product':
             break;
@@ -1243,13 +1243,13 @@ switch ($control) {
                 $layouts = json_decode(getConfigByName("layout")['config'])->topmenu;
                 $layoutDefault = json_decode(getConfigByName("default_layout")['config'])->topmenu;
 
-                include_once('views/admin/edit-layout/topmenu.php');
+                require_once('views/admin/edit-layout/topmenu.php');
             break;
             case 'shop':
                 $layouts = json_decode(getConfigByName("layout")['config'])->shop;
                 $layoutDefault = json_decode(getConfigByName("default_layout")['config'])->shop;
 
-                include_once('views/admin/edit-layout/shop.php');
+                require_once('views/admin/edit-layout/shop.php');
             break;
             case 'product':
             break;

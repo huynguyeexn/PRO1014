@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?php include('views/admin/layout/meta.php') ?>
+    <?php include_once('views/admin/layout/meta.php') ?>
     <style>
     .cont {
         height: 100px;
@@ -16,11 +16,11 @@
 <body class="vertical  dark  ">
     <div class="wrapper">
         <!-- Top Navbar -->
-        <?php include('views/admin/layout/topnav.php') ?>
+        <?php include_once('views/admin/layout/topnav.php') ?>
         <!-- End Top Navbar -->
 
         <!-- Left Sidebar -->
-        <?php include('views/admin/layout/sidebar.php') ?>
+        <?php include_once('views/admin/layout/sidebar.php') ?>
         <!-- End Left Sidebar -->
 
 

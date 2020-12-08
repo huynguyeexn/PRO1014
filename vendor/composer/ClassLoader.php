@@ -24,7 +24,7 @@ namespace Composer\Autoload;
  *     // activate the autoloader
  *     $loader->register();
  *
- *     // to enable searching the required path (eg. for PEAR packages)
+ *     // to enable searching the include path (eg. for PEAR packages)
  *     $loader->setUseIncludePath(true);
  *
  * In this example, if you try to use a class in the Symfony\Component
@@ -231,7 +231,7 @@ class ClassLoader
     }
 
     /**
-     * Turns on searching the required path for class files.
+     * Turns on searching the include path for class files.
      *
      * @param bool $useIncludePath
      */
@@ -241,7 +241,7 @@ class ClassLoader
     }
 
     /**
-     * Can be used to check if the autoloader uses the required path to check
+     * Can be used to check if the autoloader uses the include path to check
      * for classes.
      *
      * @return bool
@@ -319,7 +319,7 @@ class ClassLoader
     public function loadClass($class)
     {
         if ($file = $this->findFile($class)) {
-            requiredFile($file);
+            includeFile($file);
 
             return true;
         }
@@ -425,8 +425,8 @@ class ClassLoader
             }
         }
 
-        // PSR-0 required paths.
-        if ($this->useIncludePath && $file = stream_resolve_required_path($logicalPathPsr0)) {
+        // PSR-0 include paths.
+        if ($this->useIncludePath && $file = stream_resolve_include_path($logicalPathPsr0)) {
             return $file;
         }
 
@@ -435,11 +435,11 @@ class ClassLoader
 }
 
 /**
- * Scope isolated required.
+ * Scope isolated include.
  *
- * Prevents access to $this/self from requiredd files.
+ * Prevents access to $this/self from included files.
  */
-function requiredFile($file)
+function includeFile($file)
 {
-    required $file;
+    include $file;
 }

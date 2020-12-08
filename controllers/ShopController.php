@@ -2,17 +2,17 @@
     session_start();
     // session_destroy();
     // Require các file cần sử dụng.
-    include_once('core/function.php');
+    require_once('core/function.php');
     
     // Các Model cần thiết.
-    include_once('models/TagModel.php');
-    include_once('models/ColorModel.php');
-    include_once('models/SizeModel.php');
-    include_once('models/BrandModel.php');
-    include_once('models/ProductModel.php');
-    include_once('models/ProductDetailModel.php');
-    include_once('models/SliderModel.php');
-    include_once('models/ConfigModel.php');
+    require_once('models/TagModel.php');
+    require_once('models/ColorModel.php');
+    require_once('models/SizeModel.php');
+    require_once('models/BrandModel.php');
+    require_once('models/ProductModel.php');
+    require_once('models/ProductDetailModel.php');
+    require_once('models/SliderModel.php');
+    require_once('models/ConfigModel.php');
 
     // GET action.
     $action = "home";
@@ -24,7 +24,7 @@
         case 'home':
             // $sliders = getAllSlider();
             // $layouts = json_decode(getConfigByName("shop")['config'])->home;
-            include_once('views/shop/index.php');
+            require_once('views/shop/index.php');
             break;
 
         case 'addToCart':
@@ -376,7 +376,7 @@
             break;
 
         default: 
-            include_once('views/shop/index.php');
+            require_once('views/shop/index.php');
             break;
         break;
     }

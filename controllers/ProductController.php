@@ -3,17 +3,17 @@
 
     // Require các file cần sử dụng.
         
-    include_once('core/Function.php');
+    require_once('core/Function.php');
 
     // Các Model cần thiết.
-    include_once('models/ProductModel.php');
-    include_once('models/TagModel.php');
-    include_once('models/SizeModel.php');
-    include_once('models/TagOfProductModel.php');
-    include_once('models/SizeOfProduct.php');
-    include_once('models/CommentOfProducts.php');
-    include_once('models/ReviewsOfProduct.php');
-    include_once('models/UserModel.php');
+    require_once('models/ProductModel.php');
+    require_once('models/TagModel.php');
+    require_once('models/SizeModel.php');
+    require_once('models/TagOfProductModel.php');
+    require_once('models/SizeOfProduct.php');
+    require_once('models/CommentOfProducts.php');
+    require_once('models/ReviewsOfProduct.php');
+    require_once('models/UserModel.php');
     // GET action.
     $action = "home";
     if (isset($_GET["action"])) {
@@ -26,7 +26,7 @@
 
                 $id=$_GET['id'];
                 $product = getProductById($id);
-            include_once('views/products/index.php');
+            require_once('views/products/index.php');
             }
             
             break;

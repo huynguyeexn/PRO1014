@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?php include('views/layouts/meta.php'); ?>
+    <?php include_once('views/layouts/meta.php'); ?>
 </head>
 
 <body>
@@ -16,5 +16,5 @@
 	?>
 
 </body>
-	<?php include('views/layouts/script.php'); ?>
+	<?php include_once('views/layouts/script.php'); ?>
 </html>

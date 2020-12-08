@@ -1,3 +1,3 @@
 <?php
 
-include_once('controllers/AdminController.php');
+require_once('controllers/AdminController.php');

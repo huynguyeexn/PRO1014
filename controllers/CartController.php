@@ -2,14 +2,14 @@
 session_start();
 // session_destroy();
 // Require các file cần sử dụng.
-include_once('core/function.php');
+require_once('core/function.php');
 
 // Các Model cần thiết.
-include_once('models/productModel.php');
-include_once('models/ProductModel.php');
-include_once('models/UserModel.php');
-include_once('models/OrderModel.php');
-include_once('models/OrderDetailModel.php');
+require_once('models/productModel.php');
+require_once('models/ProductModel.php');
+require_once('models/UserModel.php');
+require_once('models/OrderModel.php');
+require_once('models/OrderDetailModel.php');
 
 // GET action.
 $action = "home";
@@ -103,13 +103,13 @@ switch ($action) {
             $user = getUserById($_SESSION['user']['id']);
         }
 
-        include_once('views/cart/index.php');
+        require_once('views/cart/index.php');
         break;
 }
 
 if (isset($_GET['productId'])) {
     $productId = $_GET['productId'];
-    required '../core/connect.php';
+    include '../core/connect.php';
     $query = 'SELECT * FROM product WHERE id = ' . $productId;
     $stmt = $conn->query($query);
     $product = $stmt->fetchAll();
@@ -163,7 +163,7 @@ if (isset($_GET['productId'])) {
 
 
     $productId = $_GET['productId'];
-    required '../core/connect.php';
+    include '../core/connect.php';
     $query = 'SELECT * FROM product WHERE id = ' . $productId;
     $stmt = $conn->query($query);
     $product = $stmt->fetchAll();

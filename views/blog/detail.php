@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
 <head>
-    <?php include('views/layouts/Meta.php'); ?>
+    <?php include_once('views/layouts/Meta.php'); ?>
 </head>
 
 <body>
 
    <!-- Start Header Area -->
-   <?php include('views/layouts/header.php.php'); ?>
+   <?php include_once('views/layouts/header.php'); ?>
     <!-- End Header Area -->
 
     <!-- Start banner Area -->
-    <?php include('views/blog/banner.php'); ?>
+    <?php include_once('views/blog/banner.php'); ?>
     <!-- End banner Area -->
 
     <!--================Blog Area =================-->
@@ -264,10 +264,10 @@
     <!--================Blog Area =================-->
 
     <!-- start footer Area -->
-    <?php include('views/layouts/footer.php'); ?>
+    <?php include_once('views/layouts/Footer.php'); ?>
     <!-- End footer Area -->
 
-    <?php include('views/layouts/script.php'); ?>
+    <?php include_once('views/layouts/script.php'); ?>
 </body>
 
 </html>
