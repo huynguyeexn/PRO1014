@@ -134,7 +134,7 @@
                                                                     <option value="">Size từ</option>
                                                                     <?php
                                                                      foreach($size as $c){
-                                                                        if($c['id'] == $size_id['min(size_id)']){
+                                                                        if($c['id'] == $size_id['min']){
                                                                             echo '<option selected value="'.$c['id'].'">'.$c['size'].'</option>';
                                                                         }else{
                                                                             echo '<option value="'.$c['id'].'">'.$c['size'].'</option>';
@@ -151,7 +151,7 @@
                                                                     <option value="">Đến</option>
                                                                     <?php
                                                                       foreach($size as $c){
-                                                                        if($c['id'] == $size_id['max(size_id)']){
+                                                                        if($c['id'] == $size_id['max']){
                                                                             echo '<option selected value="'.$c['id'].'">'.$c['size'].'</option>';
                                                                         }else{
                                                                             echo '<option value="'.$c['id'].'">'.$c['size'].'</option>';
@@ -318,7 +318,7 @@
         }else if(isNaN(giab.value) == true){
             loigiab.style.display = 'block';
             loigiab.innerText = 'Vui lòng nhập số';
-        }else if(giag.value < giab.value){
+        }else if(Number(giag.value) < Number(giab.value)){
             loigiab.style.display = 'block';
             loigiab.innerText = 'Vui lòng nhập giá thị trường nhỏ hơn giá gốc';
             hien = 1;

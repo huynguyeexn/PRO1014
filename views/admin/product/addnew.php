@@ -328,7 +328,7 @@
         }else if(isNaN(giab.value) == true){
             loigiab.style.display = 'block';
             loigiab.innerText = 'Vui lòng nhập số';
-        }else if(giag.value < giab.value){
+        }else if(Number(giag.value) < Number(giab.value)){
             loigiab.style.display = 'block';
             loigiab.innerText = 'Vui lòng nhập giá thị trường nhỏ hơn giá gốc';
             hien = 1;
@@ -389,7 +389,7 @@
                 success: function(data) {
                     account.style.display = 'none';
                     profile.innerHTML = data
-                    alert(data)
+                    // alert(data)
                 }
             });
             return false;

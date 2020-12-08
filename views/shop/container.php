@@ -184,7 +184,7 @@
 							}else{
 								echo '<a onclick="prev('.$lan.');"><i class="fa fa-long-arrow-left"  aria-hidden="true"></i></a>';
 							}
-							if($lan < 4){
+							if($lan < 3){
 								for ($i=0; $i < $lan; $i++){ 
 									$number++;
 									if($number == $page){
@@ -196,17 +196,40 @@
 									}
 								}
 							}else{
-								for ($i=0; $i < 4; $i++){ 
-									$number++;
-									echo'
-										<a onclick="page('.$number.','.$lan.');">'.$number.'</a>
-									';
+								if($page > 3){
+									for ($i=$page - 3; $i < $page +1; $i++){ 
+										$number = $i;
+										if($number == $page){
+											echo '<a class="active" onclick="page('.$number.','.$lan.');">'.$number.'</a>';
+										}else{
+											echo'
+												<a onclick="page('.$number.','.$lan.');">'.$number.'</a>
+											';
+										}
+									}
+									if($page < 3){
+										echo'
+											<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+											<a href="#">'.$lan.'</a>
+										';
+									}
+								}else{
+									for ($i=0; $i < 3; $i++){ 
+											$number++;
+											if($number == $page){
+												echo '<a class="active" onclick="page('.$number.','.$lan.');">'.$number.'</a>';
+											}else{
+												echo'
+													<a onclick="page('.$number.','.$lan.');">'.$number.'</a>
+												';
+											}
+										}
+										echo'
+											<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+											<a href="#">'.$lan.'</a>
+										';
+									}
 								}
-								echo'
-									<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-									<a href="#">'.$lan.'</a>
-								';
-							}
 							if($lan == $page || $lan == 1){
 								echo '<a onclick="next('.$lan.');" class="next-arrow"  style ="pointer-events: none;cursor: default;"><i class="fa fa-long-arrow-right"  aria-hidden="true"></i></a>';
 							}else{
@@ -289,7 +312,7 @@
 							}else{
 								echo '<a onclick="prev('.$lan.');"><i class="fa fa-long-arrow-left"  aria-hidden="true"></i></a>';
 							}
-							if($lan < 4){
+							if($lan < 3){
 								for ($i=0; $i < $lan; $i++){ 
 									$number++;
 									if($number == $page){
@@ -301,17 +324,40 @@
 									}
 								}
 							}else{
-								for ($i=0; $i < 4; $i++){ 
-									$number++;
-									echo'
-										<a onclick="page('.$number.','.$lan.');">'.$number.'</a>
-									';
+								if($page > 3){
+									for ($i=$page - 3; $i < $page +1; $i++){ 
+										$number = $i;
+										if($number == $page){
+											echo '<a class="active" onclick="page('.$number.','.$lan.');">'.$number.'</a>';
+										}else{
+											echo'
+												<a onclick="page('.$number.','.$lan.');">'.$number.'</a>
+											';
+										}
+									}
+									if($page < 3){
+										echo'
+											<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+											<a href="#">'.$lan.'</a>
+										';
+									}
+								}else{
+									for ($i=0; $i < 3; $i++){ 
+											$number++;
+											if($number == $page){
+												echo '<a class="active" onclick="page('.$number.','.$lan.');">'.$number.'</a>';
+											}else{
+												echo'
+													<a onclick="page('.$number.','.$lan.');">'.$number.'</a>
+												';
+											}
+										}
+										echo'
+											<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+											<a href="#">'.$lan.'</a>
+										';
+									}
 								}
-								echo'
-									<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-									<a href="#">'.$lan.'</a>
-								';
-							}
 							if($lan == $page || $lan == 1){
 								echo '<a onclick="next('.$lan.');" class="next-arrow"  style ="pointer-events: none;cursor: default;"><i class="fa fa-long-arrow-right"  aria-hidden="true"></i></a>';
 							}else{
