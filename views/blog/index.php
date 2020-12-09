@@ -2,7 +2,7 @@
 <html lang="zxx" class="no-js">
 
 <head>
-    <?php include_once('views/layouts/Meta.php'); ?>
+    <?php include_once('views/layouts/meta.php'); ?>
 </head>
 
 <body>
@@ -14,8 +14,8 @@
     <?php include_once('views/blog/banner.php'); ?>
     <!-- End banner Area -->
     
-<!-- Start category Area -->
-<?php include_once('views/blog/category.php'); ?>
+    <!-- Start category Area -->
+    <?php include_once('views/blog/category.php'); ?>
     <!-- End category Area -->
 
     <!-- start features Area -->
@@ -28,7 +28,7 @@
 
 
     <!-- start footer Area -->
-    <?php include_once('views/layouts/Footer.php'); ?>
+    <?php include_once('views/layouts/footer.php'); ?>
     <!-- End footer Area -->
 
     

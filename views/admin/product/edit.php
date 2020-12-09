@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?php include_once('views/admin/meta.php') ?>
+    <?php include_once('views/admin/layout/meta.php') ?>
     <style>
         .cont{
             height: 100px;
@@ -54,11 +54,11 @@
 <body class="vertical  dark  ">
     <div class="wrapper">
         <!-- Top Navbar -->
-        <?php include_once('views/admin/topnav.php') ?>
+        <?php include_once('views/admin/layout/topnav.php') ?>
         <!-- End Top Navbar -->
 
         <!-- Left Sidebar -->
-        <?php include_once('views/admin/sidebar.php') ?>
+        <?php include_once('views/admin/layout/sidebar.php') ?>
         <!-- End Left Sidebar -->
 
 
@@ -134,7 +134,7 @@
                                                                     <option value="">Size từ</option>
                                                                     <?php
                                                                      foreach($size as $c){
-                                                                        if($c['id'] == $size_id['min(size_id)']){
+                                                                        if($c['id'] == $size_id['min']){
                                                                             echo '<option selected value="'.$c['id'].'">'.$c['size'].'</option>';
                                                                         }else{
                                                                             echo '<option value="'.$c['id'].'">'.$c['size'].'</option>';
@@ -151,7 +151,7 @@
                                                                     <option value="">Đến</option>
                                                                     <?php
                                                                       foreach($size as $c){
-                                                                        if($c['id'] == $size_id['max(size_id)']){
+                                                                        if($c['id'] == $size_id['max']){
                                                                             echo '<option selected value="'.$c['id'].'">'.$c['size'].'</option>';
                                                                         }else{
                                                                             echo '<option value="'.$c['id'].'">'.$c['size'].'</option>';
@@ -318,7 +318,7 @@
         }else if(isNaN(giab.value) == true){
             loigiab.style.display = 'block';
             loigiab.innerText = 'Vui lòng nhập số';
-        }else if(giag.value < giab.value){
+        }else if(Number(giag.value) < Number(giab.value)){
             loigiab.style.display = 'block';
             loigiab.innerText = 'Vui lòng nhập giá thị trường nhỏ hơn giá gốc';
             hien = 1;

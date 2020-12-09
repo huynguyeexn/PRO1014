@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?php include_once('views/layouts/Meta.php'); ?>
+    <?php include_once('views/layouts/meta.php'); ?>
     <style>
     .product-image {
         width: 150px
