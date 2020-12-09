@@ -68,37 +68,41 @@
             <form action="product.php?action=addcart&id=<?php echo $_GET['id']?>" method="post">
                 <div class="input-group-icon mt-10">
                     <div class="icon">Size: </div>
-                    <div class="form-select " id="default-select">
-											<select name="size">
-				<?php 
+                    <div class="form-select ">
+                        <select id="prSize">
+                            <?php 
 				$size=getSizeByProductId($product['id']);
 				foreach($size as $sz){
 					getSizeId($sz['size_id']);
-					echo 	"<option value=".'1'."> $sz[size_id]</option>";
+					echo 	"<option value=".$sz['size_id']."> $sz[size_id]</option>";
 				}
 				?>
-							</select>
-							</div>
-					</div>
-            </div>
-            <div class=" product_count ">
-                <label for=" qty">Số lượng:</label>
-                        <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
-                            class="input-text qty ">
-                        <button
-                            onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                            class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                        <button
-                            onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) && sst > 0 ) result.value--;return false;"
-                            class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
-                    </div>
-                    <div class=" card_area d-flex align-items-center">
-                    <input  class="primary-btn"  type="submit" value="Thêm vào giỏ hàng">    
-                        <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
+                        </select>
                     </div>
                 </div>
             </div>
-            </form>
+            <input type="text" id="proId" value="<?=$product['id']?>" hidden>
+            <div class=" card_area d-flex align-items-center">
+                <a class="primary-btn" href="#" id="prDetailAdd">Thêm vào giỏ </a>
+                <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
+            </div>
         </div>
     </div>
 </div>
+</div>
+</div>
+<script>
+document.getElementById("prDetailAdd").addEventListener("click", function(event) {
+    event.preventDefault();
+    let id = document.getElementById('proId').value;
+    let size = document.getElementById('prSize').value;
+    console.log(size + " : " + id);
+    $.ajax({
+        type: "POST",
+        url: 'shop.php?action=addToCart&id=' + id + '&quantity=1&size=' + size,
+        success: function(data) {
+            alert('đã thêm sản phẩm vào giỏ hàng');
+        }
+    });
+});
+</script>
