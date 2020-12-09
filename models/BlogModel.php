@@ -22,6 +22,10 @@ function getAllBlogComment(){
     $sql = "select * from blog_comment";
     return query($sql);
 }
+function getBlogCommentByBlogId($blogid){
+    $sql = "SELECT * FROM blog_comment WHERE blog_id = $blogid";
+    return query($sql);
+}
 function getBlogCommentById($id){
     $sql = "SELECT * FROM blog_comment WHERE id = $id";
     return queryOne($sql);

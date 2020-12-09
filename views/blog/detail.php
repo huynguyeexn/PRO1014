@@ -93,10 +93,10 @@
                     
                         <h4>Bình luận</h4>
                         <?php
-                            $blogcomment = getAllBlogComment();
+                            $blogcomment = getBlogCommentByBlogId($blog['id']);
                            
                             foreach($blogcomment as $blogcom){
-                                $users = getUserById($blogcom['id']);
+                                $users = getUserById($blogcom['user_id']);
                                 echo'
                                 <div class="comment-list">
                                 <div class="single-comment justify-content-between d-flex">
