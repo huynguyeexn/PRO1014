@@ -165,7 +165,7 @@
             switch (value) {
                 case "save":
                     $.ajax({
-                        url: "admin.php?c=layout&p=home",
+                        url: "admin.php?c=pagelayout&p=home",
                         type: "POST",
                         data: {'save': encodeURIComponent(arr) },
                         success: function(data) {
