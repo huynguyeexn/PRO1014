@@ -94,12 +94,12 @@
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr1">
                                           <a class="dropdown-item" href="admin.php?c=order&a=detail&id='.$o['id'].'">Xem chi tiết</a>
-                                          <a class="dropdown-item" href="admin.php?c=order&a=updateStatus&id='.$o['id'].'&status=3">Huỷ đơn</a>
+                                          <!-- <a class="dropdown-item" href="admin.php?c=order&a=updateStatus&id='.$o['id'].'&status=3">Huỷ đơn</a> -->
                                         </div>
                                       </div>
                                     </td>
                                     <td>
-                                    '.($o['status']==0?'<a href="admin.php?c=order&a=updateStatus&id='.$o['id'].'&status=1" class="btn mb-2 btn-primary">Giao hàng</a>':'').'
+                                    '.($o['status']==0?'<a data-value="admin.php?c=order&a=updateStatus&id='.$o['id'].'&status=1" class="updateStatus btn mb-2 btn-primary">Giao hàng</a>':'').'
                                     </td>
                                   </tr>
                                     ';
@@ -115,6 +115,7 @@
             </div>
         </main>
         <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/sweetalert.min.js"></script>
         <script src="assets/js/popper.min.js"></script>
         <script src="assets/assets/js/moment.min.js"></script>
         <script src="assets/js/bootstrap.min.js"></script>
@@ -127,29 +128,30 @@
         <script src='assets/js/dataTables.bootstrap4.min.js'></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
-        $('#dataTable-1').DataTable({
-            autoWidth: true,
-            "lengthMenu": [
-                [16, 32, 64, -1],
-                [16, 32, 64, "All"]
-            ]
-        });
-        </script>
-        <script src="assets/js/apps.js"></script>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
-        <script>
-        window.dataLayer = window.dataLayer || [];
+        $(".updateStatus").on('click', function() {
+            swal({
+                    title: "Bạn chắc chứ?",
+                    icon: "warning",
+                    buttons: {
+                        cancel: "Không",
+                        catch: {
+                            text: "Có",
+                            value: "cancel",
+                        },
+                    },
+                })
+                .then((value) => {
+                    if (value == "cancel") {
+                        $.ajax({
+                            type: "GET",
+                            url: this.dataset.value,
+                            success: function(response) {
+                                location.reload();
+                            }
+                        });
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', 'UA-56159088-1');
-        </script>
-        <script>
-        $(".btn-primary").on('click', function() {
-            $(this).parent().toggleClass("showContent");
+                    }
+                });
         });
         </script>
 </body>
