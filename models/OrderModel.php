@@ -37,4 +37,9 @@ function deleteOrder($id){
     $sql = "DELETE FROM `order` WHERE id = $id";
     return execute($sql);
 }
+
+function updateStatus($id, $status){
+    $sql = "UPDATE `order` SET `id` = '$id', `status` = '$status' WHERE `id` = '$id'";
+    execute($sql);
+}
 ?>

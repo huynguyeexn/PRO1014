@@ -78,14 +78,9 @@
           </div>
           <ul class="navbar-nav flex-fill w-100 mb-2">
             <li class="nav-item dropdown">
-              <a href="#dashboard" aria-expanded="false" class="nav-link">
+              <a href="user.php" aria-expanded="false" class="nav-link">
                 <i class="fe fe-home fe-16"></i>
-                <span class="ml-3 item-text">Dashboard</span>
-              </a>
-            </li><li class="nav-item dropdown">
-              <a href="#dashboard" aria-expanded="false" class="nav-link">
-                <i class="fe fe-home fe-16"></i>
-                <span class="ml-3 item-text">Gio hang</span>
+                <span class="ml-3 item-text">Đơn hàng</span>
               </a>
             </li>
           </ul>
@@ -102,12 +97,12 @@
                         <thead>
                           <tr>
                             <th>Mã đơn</th>
+                            <th>Ngày đặt hàng</th>
+                            <th>Tổng tiền</th>
                             <th>Tên người nhận</th>
                             <th>Địa chỉ</th>
                             <th>Số điện thoại</th>
                             <th>Email</th>
-                            <th>Ngày đặt hàng</th>
-                            <th>Tổng tiền</th>
                             <th>Trạng thái</th>
                             <th></th>
                             <th></th>
@@ -121,33 +116,34 @@
                                 // Mới(0), đang giao(1), đã hoàn thành (2), Hủy(3)
                                 switch($order['status']){
                                   case 0: 
-                                    $status = '<button type="button" class="btn mb-2 btn-primary">Đang gói hàng</button>';
+                                    $status = '<button type="button" class="btn mb-2 btn-outline-primary">Đang gói hàng</button>';
                                   break;
                                   case 1: 
-                                    $status = '<button type="button" class="btn mb-2 btn-warning">Đang giao hàng</button>';
+                                    $status = '<button type="button" class="btn mb-2 btn-outline-warning">Đang giao hàng</button>';
                                   break;
                                   case 2: 
-                                    $status = '<button type="button" class="btn mb-2 btn-success">Đã giao</button>';
+                                    $status = '<button type="button" class="btn mb-2 btn-outline-success">Đã giao</button>';
                                   break;
                                   case 3: 
-                                    $status = '<button type="button" class="btn mb-2 btn-secondary">Đã Huỷ</button>';
+                                    $status = '<button type="button" class="btn mb-2 btn-outline-danger">Đã Huỷ</button>';
                                   break;
                                 }
                                 echo '
                                 <tr>
                                   <td>'.$order['id'].'</td>
+                                  <td>'.$order['created'].'</td>
+                                  <td>'.$total.'</td>
                                   <td>'.($order['name'] ? $order['name'] : $user['fullname']).'</td>
                                   <td>'.($order['address'] ? $order['address'] : $user['address']).'</td>
                                   <td>'.($order['phone'] ? $order['phone'] : $user['phone']).'</td>
                                   <td>'.($order['email'] ? $order['email'] : $user['email']).'</td>
-                                  <td>'.$order['created'].'</td>
-                                  <td>'.$total.'</td>
                                   <td>'.$status.'</td>
                                   <td>
                                   <a type="button" class="btn mb-2 btn-outline-info">Xem chi tiết</a>
                                   </td>
                                   <td>
-                                    '.($order['status'] == 0 ?'<a type="button" class="btn mb-2 btn-outline-danger">Huỷ đơn hàng</a>':"").'
+                                    '.($order['status'] == 0 ?'<a href="user.php?action=updateStatus&id='.$order['id'].'&status=3" class="btn mb-2 btn-danger">Huỷ đơn</a>':"").'
+                                    '.($order['status'] == 1 ?'<a href="user.php?action=updateStatus&id='.$order['id'].'&status=2" class="btn mb-2 btn-primary">Đã nhận hàng</a>':"").'
                                   </td>
                                 </tr> 
                                 ';

@@ -27,7 +27,12 @@ switch ($action) {
         }
 
         break;
-
+    case 'updateStatus':
+        $id = $_GET['id'];
+        $status = $_GET['status'];
+        updateStatus($id, $status);
+        header("location:user.php");
+    break;
     default:
         if ($_SESSION['user']['id']) {
             $allUser = getAllUser();

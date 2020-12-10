@@ -40,13 +40,14 @@
                                                 </div>
                                             </th>
                                             <th>Mã đơn</th>
-                                            <th>Trạng thái</th>
                                             <th>Ngày tạo</th>
+                                            <th>Trạng thái</th>
                                             <th>Số điện thoại</th>
                                             <th>Tên người nhận</th>
                                             <th>Địa chỉ</th>
                                             <th>Email</th>
                                             <th></th>
+                                            <th>Cập nhật</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -57,18 +58,19 @@
                                       $status = "";
                                       switch($o['status']){
                                           case 0:
-                                            $status = '<button type="button" class="btn mb-2 btn-primary">Mới</button>';
+                                            $status = '<button type="button" class="btn mb-2 btn-outline-primary">Mới</button>';
                                           break;
                                           case 1:
-                                            $status = '<button type="button" class="btn mb-2 btn-warning">Đang giao</button>';
+                                            $status = '<button type="button" class="btn mb-2 btn-outline-warning">Đang giao</button>';
                                           break;
                                           case 2:
-                                            $status = '<button type="button" class="btn mb-2 btn-success">Đã giao</button>';
+                                            $status = '<button type="button" class="btn mb-2 btn-outline-success">Đã giao</button>';
                                           break;
                                           case 3:
-                                            $status = '<button type="button" class="btn mb-2 btn-danger">Huỷ</button>';
+                                            $status = '<button type="button" class="btn mb-2 btn-outline-danger">Huỷ</button>';
                                           break;
                                       }
+                                      
                                     echo'
                                     
                                     <tr>
@@ -79,26 +81,24 @@
                                       </div>
                                     </td>
                                     <td>'.$o['id'].'</td>
-                                    <td>'.$status.'</td>
                                     <td>'.$o['created'].'</td>
+                                    <td>'.$status.'</td>
                                     <td>'.$o['phone'].'</td>
                                     <td>'.$o['name'].'</td>
                                     <td>'.$o['address'].'</td>
                                     <td>'.$o['email'].'</td>
-                                    
-                                    </td>
-                                   
                                     <td>
                                       <div class="dropdown">
                                         <button class="btn btn-sm dropdown-toggle" type="button" id="dr1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                           <span class="text-muted sr-only">Action</span>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr1">
-                                          <a class="dropdown-item" href="#">Edit</a>
-                                          <a class="dropdown-item" href="#">Remove</a>
-                                          <a class="dropdown-item" href="#">Assign</a>
+                                          <a class="dropdown-item" href="#">Huỷ đơn</a>
                                         </div>
                                       </div>
+                                    </td>
+                                    <td>
+                                    '.($o['status']==0?'<a href="admin.php?c=order&a=updateStatus&id='.$o['id'].'&status=1" class="btn mb-2 btn-primary">Giao hàng</a>':'').'
                                     </td>
                                   </tr>
                                     ';

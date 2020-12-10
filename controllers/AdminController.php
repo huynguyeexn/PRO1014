@@ -43,7 +43,22 @@ switch ($control) {
         require_once('views/admin/index.php');
     break;
     case 'order':
-        require_once('views/admin/order/order.php');
+        $order = 'home';
+        if(isset($_GET['a'])){
+            $order = $_GET["a"];
+        }
+        switch ($order) {
+            case 'home':
+                $order = getAllProduct();
+                require_once('views/admin/order/home.php');
+            break;
+            case 'updateStatus':
+                $id = $_GET['id'];
+                $status = $_GET['status'];
+                updateStatus($id, $status);
+                header("location:admin.php?c=order");
+            break;
+        }
     break;
     case 'product':
         $product = 'home';
