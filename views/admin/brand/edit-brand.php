@@ -2,7 +2,10 @@
 <html lang="en">
 
 <head>
-    <?php include_once('views/admin/layout/meta.php') ?>
+    <?php
+    include_once('views/admin/layout/meta.php') ;
+    $brandDetail = getBrandById($_GET['id']);
+    ?>
     <style>
     .cont {
         height: 100px;
@@ -31,19 +34,21 @@
             <input type="hidden" name="c" value="brand" />
             <input type="hidden" name="a" value="add" />
             <div class="form-group mb-3">
-                <label for="simpleinput">Tên nhãn hàng</label>
-                <input type="text" name="name" id="simpleinput" class="form-control">
+                <label>Tên nhãn hàng</label>
+                <input type="text" name="name" value="<?=$brandDetail['name']?>" class="form-control">
             </div>
             <div class="form-group mb-3">
-                <label for="simpleinput">Ẩn hiện</label>
-                <input type="text" name="show" id="simpleinput" class="form-control">
+                <label>Ẩn hiện</label>
+                <select name="show" class="form-control">
+                    <option value="1">Hiện</option>
+                    <option value="0">Ẩn</option>
+                </select>
             </div>
             <div class="form-group mb-3">
-                <label for="simpleinput">Thứ tự nhãn hàng</label>
-                <input type="text" name="priority" id="simpleinput" class="form-control">
+                <label>Thứ tự nhãn hàng</label>
+                <input type="text" name="priority" value="<?=$brandDetail['priority']?>" class="form-control">
             </div>
             <input type="submit" />
-
         </div>
     </form>
     <script src="assets/js/jquery.min.js"></script>

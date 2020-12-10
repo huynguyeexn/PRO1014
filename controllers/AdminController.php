@@ -424,7 +424,6 @@ switch ($control) {
         }
         break;
     case 'brand':
-        require_once('views/admin/brand/brand.php');
         $action = "show";
         if (isset($_GET["a"])) {
             $action = $_GET["a"];
@@ -436,23 +435,22 @@ switch ($control) {
                 break;
             case 'create':
                 $tags = getAllBrand();
+                require_once('views/admin/brand/brand.php');
                 require_once('views/admin/brand/add-brand.php');
                 break;
             case 'add':
                 $name = $_GET['name'];
                 $show = $_GET['show'];
-                $priority = $_GET['priority'];
-
+                $priority = getNextPriority()['next'];
                 if (addNewBrand($name, $show, $priority)) {
-                    header('Location: admin.php?c=brand&a=create');
+                    header('location: admin.php?c=brand&a=create');
                 } else {
                     echo 'Lỗi khi thêm nhãn hàng';
                 }
 
                 break;
             case 'edit':
-                $id = $_GET['id'];
-                $brand = getBrandById($id);
+                require_once('views/admin/brand/brand.php');
                 require_once('views/admin/brand/edit-brand.php');
                 break;
 
@@ -463,19 +461,20 @@ switch ($control) {
                 $priority = $_POST['priority'];
 
                 updateBrand($id, $name, $show, $priority);
-                header('location: admin.php?c=brand');
+                header('location:admin.php?c=brand');
                 echo 'Lỗi khi sửa nhãn hàng';
 
-                break;
-            default:
-                header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found", true, 404);
-                include("404.php");
-                return;
                 break;
             case 'delete':
                 $id = $_GET['id'];
                 deleteBrand($id);
-                header('Location: admin.php?c=brand&a=show');
+                header('location:admin.php?c=brand');
+                break;
+
+            default:
+                header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found", true, 404);
+                include("404.php");
+                return;
                 break;
         }
         break;

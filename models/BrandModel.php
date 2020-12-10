@@ -6,7 +6,7 @@ function getAllBrand(){
 }
 function getBrandById($id){
     $sql = "select * from brand where id=$id";
-    return query($sql);
+    return queryOne($sql);
 }
 function addNewBrand($name,$show,$priority){
     $sql = "INSERT INTO brand(`name`, `show`, `priority`) VALUES ('$name',$show,'$priority')";
@@ -16,8 +16,13 @@ function deleteBrand($id){
     $sql = "DELETE FROM brand WHERE id=$id";
     return execute($sql);
 }
-function updateBrand($name,$show,$priority){
+function updateBrand($id, $name,$show,$priority){
     $sql = "UPDATE brand SET 'name' = '$name', show = '$show', `priority` = '$priority'  where id ='$id'";
     return execute($sql);
+}
+
+function getNextPriority(){
+    $sql = "SELECT priority + 1 AS next from brand ORDer BY priority DESC LIMIT 1";
+    return queryOne($sql);
 }
 ?>

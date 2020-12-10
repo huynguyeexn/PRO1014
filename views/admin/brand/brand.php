@@ -73,7 +73,7 @@
                                     </td>
                                     <td>'.$br['id'].'</td>
                                     <td>'.$br['name'].'</td>
-                                    <td>'.$br['show'].'</td>
+                                    <td>'.($br['show']==0?'Ẩn':'Hiện').'</td>
                                     <td>'.$br['priority'].'</td>
                                     </td>
                                     
