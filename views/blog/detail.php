@@ -76,10 +76,6 @@
                                 <div class="col-6">
                                 
                             </div>
-                               
-                        
-                            
-                            
                             <div class="col-lg-12 mt-25">
                                
                             </div>

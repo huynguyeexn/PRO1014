@@ -21,9 +21,9 @@ function getUserByUsername($username){
 }
 
 // Thêm khách hàng
-function addUser($user, $pass, $email)
+function addUser($user, $pass, $email, $phone, $fullname, $address, $rank, $created)
 {
-    $sql = "insert into user (username, password, email, rank) values ('$user', '$pass', '$email', 0)";
+    $sql = "insert into user (username, password, email, phone, fullname, address, rank, created) values ('$user', '$pass', '$email', '$phone', '$fullname', '$address', '$rank','$created')";
     return execute($sql);
 }
 

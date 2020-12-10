@@ -15,7 +15,7 @@ function getAllBlogCatalog(){
     return query($sql);
 }
 function getAllBlog(){
-    $sql = "select * from blog order BY id DESC";
+    $sql = "select * from blog order BY created desc";
     return query($sql);
 }
 function getAllBlogComment(){
@@ -39,7 +39,7 @@ function updateCommentBlog($id,$com){
     return execute($sql);
 };
 function getBlogByOffset($limit, $offset){
-    $sql = "SELECT * FROM blog LIMIT $limit OFFSET $offset;";
+    $sql = "SELECT * FROM blog order BY created desc LIMIT $limit OFFSET $offset;";
     return query($sql);
 }
 

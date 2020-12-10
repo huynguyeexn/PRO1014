@@ -90,7 +90,9 @@
             }
             $user = $_POST['username'];
             $email = $_POST['email'];
-            $pass = $_POST['password'];
+            $fullname = $_POST['fullname'];
+            $phone = $_POST['phone'];
+            $address = $_POST['address'];
             $pass = password_hash($_POST['password'], PASSWORD_DEFAULT);
             if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
                 $return = array(
@@ -115,7 +117,7 @@
                     );
                    
                 }else{
-                    $id = addUser($user, $pass, $email);
+                    $id = addUser($user, $pass, $email, $phone, $fullname, $address, 0, now());
                     if ($id > 0) {
                         $randomStr = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
                         $randomStr = str_shuffle($randomStr);
@@ -174,7 +176,6 @@
                 $code = $_GET['code'];
 
                 if(checkVeriCode($email)['verification_code'] == $code){
-                    
                     if(activeUser($email)){
                         $message = array(
                             'title' => "Xác minh tài khoản thành công!",

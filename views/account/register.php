@@ -48,8 +48,20 @@
                     <input type="text" class="form-control" name="username" required>
                 </div>
                 <div class="form-group">
+                    <label for="inputEmail4">Họ và tên</label>
+                    <input type="text" class="form-control" name="fullname" required>
+                </div>
+                <div class="form-group">
                     <label for="inputEmail4">Email</label>
                     <input type="email" class="form-control" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail4">Số điện thoại</label>
+                    <input type="text" class="form-control" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail4">Địa chỉ</label>
+                    <input type="text" class="form-control" name="address" required>
                 </div>
                 <hr class="my-4">
                 <div class="row mb-4">
