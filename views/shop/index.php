@@ -14,7 +14,7 @@
     // }
     ?>
     <!-- Start Header Area -->
-    <?php include_once('views/layouts/Header.php'); ?>
+    <?php include_once('views/layouts/header.php'); ?>
     <!-- End Header Area -->
 
     <!-- Start Banner Area -->
@@ -28,7 +28,7 @@
     <!-- End related-product Area -->
 
     <!-- start footer Area -->
-    <?php include_once('views/layouts/Footer.php'); ?>
+    <?php include_once('views/layouts/footer.php'); ?>
     <!-- End footer Area -->
 
     <!-- Modal Quick Product View -->

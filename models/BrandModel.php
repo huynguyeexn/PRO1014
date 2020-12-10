@@ -20,4 +20,9 @@ function updateBrand($name,$show,$id){
     $sql = "UPDATE brand SET `name` = '$name', `show` = $show  where id = $id";
     return execute($sql);
 }
+
+function getNextPriority(){
+    $sql = "SELECT priority + 1 AS next from brand ORDer BY priority DESC LIMIT 1";
+    return queryOne($sql);
+}
 ?>

@@ -32,9 +32,14 @@
             }
         }
     }
-                    $trungbinh = $diem / $i;
+                    
+                    if(!$diem){
+                        $trungbinh = 0;
+                    }else{
+                        $trungbinh = $diem / $i;
+                    }
                     echo'
-                    <h4>'.$trungbinh.'</h4>
+                    <h4>'.round( $trungbinh, 1, PHP_ROUND_HALF_DOWN).'</h4>
                     <h6>('.$i.' Đánh giá)</h6>
                             
                 </div>

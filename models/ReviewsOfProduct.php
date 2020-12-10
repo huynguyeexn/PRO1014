@@ -29,4 +29,9 @@ $sql = "INSERT INTO `review`( `product_id`, `user_id`, `review`,`rate`) VALUES (
     return execute($sql);
 }
 
+function deleteReviewProduct($id){
+    $sql = "DELETE FROM review WHERE id=$id";
+    execute($sql);
+}
+
 

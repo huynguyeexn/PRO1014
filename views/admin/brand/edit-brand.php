@@ -2,7 +2,10 @@
 <html lang="en">
 
 <head>
-    <?php include_once('views/admin/layout/meta.php') ?>
+    <?php
+    include_once('views/admin/layout/meta.php') ;
+    $brandDetail = getBrandById($_GET['id']);
+    ?>
     <style>
         .cont{
             height: 100px;

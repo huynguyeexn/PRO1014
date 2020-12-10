@@ -8,57 +8,57 @@
             height: 100px;
             overflow: hidden;
         }
-    .boxdn1{
-    background-color: rgba(0, 0, 0, 0.53);
-    position: fixed;
-    overflow-y: scroll;
-    z-index: 1000;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    }
-    .boxdk{
-    width: 40%;
-    margin: 0 auto;
-    margin-top: 70px;
-    height: 500px;
-    background-color: white;
-    position: relative;
-    }
-    .happy{
-        width: 35%;
+        .boxdn1{
+        background-color: rgba(0, 0, 0, 0.53);
+        position: fixed;
+        overflow-y: scroll;
+        z-index: 1000;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        }
+        .boxdk{
+        width: 40%;
         margin: 0 auto;
-        margin-top: 100px;
-        height: 220px;
-        background-color: #f5f6fb;
-        border-radius: 15px;
-    }
-    .anh_cm{
-        width: 94%;
-        height: 200PX;
-        margin: 0 auto;
-        overflow: hidden;
-        padding-top: 29px;
-    }
-    .anh_cm img{
-        width: 100%;
-        height: 100%;
-    }
-    .text_cm{
-        width: 71%;
-        margin: 0 auto;
-        margin-top: 20px;
-    }
-    .text_cm h4{
-        color:#6c757d;
-    }
-    .text_cm a:hover{
-        text-decoration: none;
-    }
-    #display1{
-        display: none;
-    }
+        margin-top: 70px;
+        height: 500px;
+        background-color: white;
+        position: relative;
+        }
+        .happy{
+            width: 35%;
+            margin: 0 auto;
+            margin-top: 100px;
+            height: 220px;
+            background-color: #f5f6fb;
+            border-radius: 15px;
+        }
+        .anh_cm{
+            width: 94%;
+            height: 200PX;
+            margin: 0 auto;
+            overflow: hidden;
+            padding-top: 29px;
+        }
+        .anh_cm img{
+            width: 100%;
+            height: 100%;
+        }
+        .text_cm{
+            width: 71%;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+        .text_cm h4{
+            color:#6c757d;
+        }
+        .text_cm a:hover{
+            text-decoration: none;
+        }
+        #display1{
+            display: none;
+        }
 
         </style>
 

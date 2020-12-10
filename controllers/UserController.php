@@ -8,6 +8,8 @@ require_once 'core/function.php';
 require_once 'models/UserModel.php';
 require_once 'models/OrderModel.php';
 require_once 'models/OrderDetailModel.php';
+require_once 'models/ProductModel.php';
+
 
 // GET action.
 $action = "home";
@@ -27,7 +29,29 @@ switch ($action) {
         }
 
         break;
+    
+    case 'detail':
+        if ($_SESSION['user']['id']) {
+            $id = $_GET['id'];
+            $order = getOrderById($id);
+            $orderItems = getAllProductByOrderId($id);
+            require_once('views/user/order-detail.php');
+        } else {
+            header('location: index.php');
+        }
 
+        break;
+    case 'updateStatus':
+        if ($_SESSION['user']['id']) {
+            $id = $_GET['id'];
+            $status = $_GET['status'];
+            updateStatus($id, $status);
+            header("location:user.php");
+        } else {
+            header('location: index.php');
+        }
+        
+        break;
     default:
         if ($_SESSION['user']['id']) {
             $allUser = getAllUser();

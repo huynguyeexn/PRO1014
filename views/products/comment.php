@@ -39,7 +39,7 @@ if (isset($_SESSION['user'])) {
 </div>
 </div>
 <div class="col-md-12 text-right">
-<button type ="submit" class="primary-btn submit_btn" name="submit">Gửi bình luận</button>
+<button type ="submit" class="primary-btn submit_btn" name="addComment">Gửi bình luận</button>
 </div>
 </form>
 </div>

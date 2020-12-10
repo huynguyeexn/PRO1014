@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <head>
-    <?php include_once('views/layouts/Meta.php'); ?>
+    <?php include_once('views/layouts/meta.php'); ?>
 </head>
 
 <body>
@@ -76,10 +76,6 @@
                                 <div class="col-6">
                                 
                             </div>
-                               
-                        
-                            
-                            
                             <div class="col-lg-12 mt-25">
                                
                             </div>
@@ -93,10 +89,10 @@
                     
                         <h4>Bình luận</h4>
                         <?php
-                            $blogcomment = getAllBlogComment();
+                            $blogcomment = getBlogCommentByBlogId($blog['id']);
                            
                             foreach($blogcomment as $blogcom){
-                                $users = getUserById($blogcom['id']);
+                                $users = getUserById($blogcom['user_id']);
                                 echo'
                                 <div class="comment-list">
                                 <div class="single-comment justify-content-between d-flex">
@@ -264,7 +260,7 @@
     <!--================Blog Area =================-->
 
     <!-- start footer Area -->
-    <?php include_once('views/layouts/Footer.php'); ?>
+    <?php include_once('views/layouts/footer.php'); ?>
     <!-- End footer Area -->
 
     <?php include_once('views/layouts/script.php'); ?>

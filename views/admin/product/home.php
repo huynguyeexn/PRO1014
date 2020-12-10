@@ -158,6 +158,7 @@
                                                   <div class="dropdown-menu dropdown-menu-right">
                                                     <a class="dropdown-item" href="admin.php?c=product&p=form_edit&id='.$p['id'].'">Sửa</a>
                                                     <a class="dropdown-item" onclick="xacnhan('.$p['id'].')">Xóa</a>
+                                                    <a class="dropdown-item" href="admin.php?c=product&p=detail&id='.$p['id'].'">Chi tiết</a>
                                                   </div>
                                                 </td>
                                               </tr>
