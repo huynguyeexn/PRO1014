@@ -8,6 +8,57 @@
         height: 100px;
         overflow: hidden;
     }
+    .boxdn1{
+    background-color: rgba(0, 0, 0, 0.53);
+    position: fixed;
+    overflow-y: scroll;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    }
+    .boxdk{
+    width: 40%;
+    margin: 0 auto;
+    margin-top: 70px;
+    height: 500px;
+    background-color: white;
+    position: relative;
+    }
+    .happy{
+        width: 35%;
+        margin: 0 auto;
+        margin-top: 100px;
+        height: 220px;
+        background-color: #f5f6fb;
+        border-radius: 15px;
+    }
+    .anh_cm{
+        width: 94%;
+        height: 200PX;
+        margin: 0 auto;
+        overflow: hidden;
+        padding-top: 29px;
+    }
+    .anh_cm img{
+        width: 100%;
+        height: 100%;
+    }
+    .text_cm{
+        width: 71%;
+        margin: 0 auto;
+        margin-top: 20px;
+    }
+    .text_cm h4{
+        color:#6c757d;
+    }
+    .text_cm a:hover{
+        text-decoration: none;
+    }
+    #display1{
+        display: none;
+    }
     </style>
 
 
@@ -51,10 +102,9 @@
                                                     <label class="custom-control-label" for="d1"></label>
                                                 </div>
                                             </th>
-                                            <th>#</th>
+                                            <th>Mã</th>
                                             <th>Tên</th>
                                             <th>Ẩn / Hiện</th>
-                                            <th>Thứ tự</th>
                                             <th></th>
 
                                         </tr>
@@ -74,12 +124,6 @@
                                     <td>'.$br['id'].'</td>
                                     <td>'.$br['name'].'</td>
                                     <td>'.$br['show'].'</td>
-                                    <td>'.$br['priority'].'</td>
-                                    </td>
-                                    
-                                    
-                                    
-                                   
                                     <td>
                                       <div class="dropdown">
                                         <button class="btn btn-sm dropdown-toggle" type="button" id="dr1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -87,8 +131,7 @@
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr1">
                                         <a class="dropdown-item" href="admin.php?c=brand&a=edit&id='.$br['id'].'">Sửa</a>
-                                        <a class="dropdown-item" href="admin.php?c=brand&a=delete&id='.$br['id'].'">Xóa</a>
-                                          <a class="dropdown-item" href="#">Assign</a>
+                                        <a class="dropdown-item" onclick="xacnhan('.$br['id'].') ">Xóa</a>
                                         </div>
                                       </div>
                                     </td>
@@ -130,6 +173,19 @@
         <script src='assets/js/jquery.dataTables.min.js'></script>
         <script src='assets/js/dataTables.bootstrap4.min.js'></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <div class="display1" id="display1">
+            <div class="boxdn1">
+                <div class="happy">
+                    <div class="anh_cm">
+                        <div class="text_cm">
+                            <h4 style="text-align: center;margin-bottom:20px;" id="thongbao"></h4>
+                            <button style="width: 100px;height:35px;font-size:18px;background:#1b68ff;border:1px solid #1b68ff;border-radius:5px;margin-left:44px;float:left;color:white;" onclick="tat();">Hủy</button>
+                            <button style="width: 100px;height:35px;font-size:18px;background:#1b68ff;border:1px solid #1b68ff;border-radius:5px;margin-left:61px;"><a id="button" href="" style="color:white;" >Xóa</a></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <script>
         $('#dataTable-1').DataTable({
             autoWidth: true,
@@ -138,6 +194,26 @@
                 [16, 32, 64, "All"]
             ]
         });
+        function xacnhan(z){
+        var xoa = document.getElementById('display1');
+        var button = document.getElementById('button');
+        var thongbao = document.getElementById('thongbao');
+        $.ajax({
+            url: 'admin.php?c=brand&a=xoa',
+            type: 'GET',
+            data: 'xn=' + z,
+            success: function(data) {
+                thongbao.innerText = "Bạn có chắc muốn xóa thương hiệu "+data+" này không?"
+                xoa.style.display='block'
+                button.href = 'admin.php?c=brand&a=delete&id='+z
+            }
+        });
+        return false;
+        }
+        function tat(){
+            var xoa = document.getElementById('display1');
+            xoa.style.display='none'
+        }
         </script>
         <script src="assets/js/apps.js"></script>
         <!-- Global site tag (gtag.js) - Google Analytics -->

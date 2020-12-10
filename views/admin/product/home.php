@@ -35,8 +35,8 @@
         border-radius: 15px;
     }
     .anh_cm{
-        width: 32%;
-        height: 150px;
+        width: 30%;
+        height: 155px;
         margin: 0 auto;
         overflow: hidden;
         padding-top: 29px;
@@ -181,8 +181,8 @@
                 </div>
                 <div class="text_cm">
                     <h4 style="text-align: center;margin-bottom:20px;" id="thongbao"></h4>
-                    <button style="width: 100px;height:35px;font-size:18px;background:#1b68ff;border:1px solid #1b68ff;border-radius:5px;margin-left:44px;float:left;color:white;" onclick="tat();">No</button>
-                    <button style="width: 100px;height:35px;font-size:18px;background:#1b68ff;border:1px solid #1b68ff;border-radius:5px;margin-left:61px;"><a id="button" href="" style="color:white;" >Yes</a></button>
+                    <button style="width: 100px;height:35px;font-size:18px;background:#1b68ff;border:1px solid #1b68ff;border-radius:5px;margin-left:44px;float:left;color:white;" onclick="tat();">Hủy</button>
+                    <button style="width: 100px;height:35px;font-size:18px;background:#1b68ff;border:1px solid #1b68ff;border-radius:5px;margin-left:61px;"><a id="button" href="" style="color:white;" >Xóa</a></button>
                 </div>
             </div>
         </div>
@@ -283,7 +283,7 @@
             success: function(data) {
                 var chuoi = data.split(',',2)
                 anh_cm.src = chuoi[0];
-                thongbao.innerText = "Bạn muốn xóa sản phẩm "+chuoi[1]
+                thongbao.innerText = "Bạn có chắc muốn xóa sản phẩm này không?"
                 xoa.style.display='block'
                 button.href = 'admin.php?c=product&p=remove&id='+z
             }

@@ -402,14 +402,13 @@ switch ($control) {
         }
     break;
     case 'brand':
-        require_once('views/admin/brand/brand.php');
-        $action = "show";
+        $action = "home";
         if (isset($_GET["a"])) {
             $action = $_GET["a"];
         }
 
         switch ($action) {
-            case 'show':
+            case 'home':
                 require_once('views/admin/brand/brand.php');
             break;
             case 'create':
@@ -417,16 +416,13 @@ switch ($control) {
                  require_once('views/admin/brand/add-brand.php');
             break;
             case 'add':
-                $name = $_GET['name'];
-                $show = $_GET['show'];
-                $priority = $_GET['priority'];
-
-                if(addNewBrand($name,$show,$priority)){
-                    header('Location: admin.php?c=brand&a=create');
+                $name = $_POST['name'];
+                $show = $_POST['show'];
+                if(addNewBrand($name,$show)){
+                    header('Location: admin.php?c=brand');
                 }else{
                     echo 'Lỗi khi thêm nhãn hàng';
                 }
-
             break;
             case 'edit':
                 $id = $_GET['id'];
@@ -438,12 +434,15 @@ switch ($control) {
                 $id = $_GET['id'];
                 $name = $_POST['name'];
                 $show = $_POST['show'];
-                $priority = $_POST['priority'];
-
-                updateBrand($id,$name,$show,$priority);
+                updateBrand($name,$show,$id);
                 header('location: admin.php?c=brand');
                 echo 'Lỗi khi sửa nhãn hàng';
 
+            break;
+            case 'xoa':
+                $id = $_GET['xn'];
+                $brand = getBrandById($id);
+                echo $brand['name'];
             break;
             default:
                 header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
@@ -453,7 +452,7 @@ switch ($control) {
             case 'delete':
                 $id = $_GET['id'];
                 deleteBrand($id);
-                header('Location: admin.php?c=brand&a=show');
+                header('Location: admin.php?c=brand');
             break;
         }
     break;
@@ -491,6 +490,11 @@ switch ($control) {
                 $id = $_GET['id'];
                 deleteSize($id);
                 header("location:admin.php?c=size");
+            break;
+            case 'xoa':
+                $id = $_GET['xn'];
+                $size = getSizeId($id);
+                echo $size['size'];
             break;
             case 'ktsize':
                 $size = $_GET['size'];
@@ -645,6 +649,11 @@ switch ($control) {
                 $id = $_GET['id'];
                 deleteColor($id);
                 header("location:admin.php?c=color");
+            break;
+            case 'xoa':
+                $id = $_GET['xn'];
+                $color = getColorId($id);
+                echo $color['name'];
             break;
             case 'search':
                 $content = $_GET['content'];

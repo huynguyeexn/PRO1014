@@ -8,6 +8,57 @@
             height: 100px;
             overflow: hidden;
         }
+    .boxdn1{
+    background-color: rgba(0, 0, 0, 0.53);
+    position: fixed;
+    overflow-y: scroll;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    }
+    .boxdk{
+    width: 40%;
+    margin: 0 auto;
+    margin-top: 70px;
+    height: 500px;
+    background-color: white;
+    position: relative;
+    }
+    .happy{
+        width: 35%;
+        margin: 0 auto;
+        margin-top: 100px;
+        height: 220px;
+        background-color: #f5f6fb;
+        border-radius: 15px;
+    }
+    .anh_cm{
+        width: 94%;
+        height: 200PX;
+        margin: 0 auto;
+        overflow: hidden;
+        padding-top: 29px;
+    }
+    .anh_cm img{
+        width: 100%;
+        height: 100%;
+    }
+    .text_cm{
+        width: 71%;
+        margin: 0 auto;
+        margin-top: 20px;
+    }
+    .text_cm h4{
+        color:#6c757d;
+    }
+    .text_cm a:hover{
+        text-decoration: none;
+    }
+    #display1{
+        display: none;
+    }
 
         </style>
 
@@ -87,7 +138,7 @@
                                   </button>
                                   <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="admin.php?c=size&p=form_edit&id='.$t['id'].'">Sửa</a>
-                                    <a class="dropdown-item" href="admin.php?c=size&p=remove&id='.$t['id'].'">Xóa</a>
+                                    <a class="dropdown-item" onclick="xacnhan('.$t['id'].') ">Xóa</a>
                                   </div>
                                 </td>
                               </tr>
@@ -115,7 +166,40 @@
     <script src="assets/js/config.js"></script>
     <script src="assets/js/apps.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <div class="display1" id="display1">
+        <div class="boxdn1">
+            <div class="happy">
+                <div class="anh_cm">
+                    <div class="text_cm">
+                        <h4 style="text-align: center;margin-bottom:20px;" id="thongbao"></h4>
+                        <button style="width: 100px;height:35px;font-size:18px;background:#1b68ff;border:1px solid #1b68ff;border-radius:5px;margin-left:44px;float:left;color:white;" onclick="tat();">Hủy</button>
+                        <button style="width: 100px;height:35px;font-size:18px;background:#1b68ff;border:1px solid #1b68ff;border-radius:5px;margin-left:61px;"><a id="button" href="" style="color:white;" >Xóa</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
+      function xacnhan(z){
+        var xoa = document.getElementById('display1');
+        var button = document.getElementById('button');
+        var thongbao = document.getElementById('thongbao');
+        $.ajax({
+            url: 'admin.php?c=size&p=xoa',
+            type: 'GET',
+            data: 'xn=' + z,
+            success: function(data) {
+                thongbao.innerText = "Bạn có chắc muốn xóa size "+data+" không?"
+                xoa.style.display='block'
+                button.href = 'admin.php?c=size&p=remove&id='+z
+            }
+        });
+        return false;
+      }
+      function tat(){
+          var xoa = document.getElementById('display1');
+          xoa.style.display='none'
+      }
       $('#dataTable-1').DataTable(
       {
         autoWidth: true,
