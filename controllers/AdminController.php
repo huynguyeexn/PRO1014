@@ -21,6 +21,7 @@ require_once('models/ColorModel.php');
 require_once('models/TagModel.php');
 require_once('models/ProductDetailModel.php');
 require_once('models/OrderModel.php');
+require_once('models/OrderDetailModel.php');
 require_once('models/CommentModel.php');
 require_once('models/DealModel.php');
 require_once('models/CommentOfProducts.php');
@@ -57,6 +58,12 @@ switch ($control) {
                 $status = $_GET['status'];
                 updateStatus($id, $status);
                 header("location:admin.php?c=order");
+            break;
+            case 'detail':
+                $id = $_GET['id'];
+                $order = getOrderById($id);
+                $orderItems = getAllProductByOrderId($id);
+                require_once('views/admin/order/order-detail.php');
             break;
         }
     break;

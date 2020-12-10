@@ -32,7 +32,7 @@ switch ($action) {
         $status = $_GET['status'];
         updateStatus($id, $status);
         header("location:user.php");
-    break;
+        break;
     default:
         if ($_SESSION['user']['id']) {
             $allUser = getAllUser();

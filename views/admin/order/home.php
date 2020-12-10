@@ -93,7 +93,8 @@
                                           <span class="text-muted sr-only">Action</span>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr1">
-                                          <a class="dropdown-item" href="#">Huỷ đơn</a>
+                                          <a class="dropdown-item" href="admin.php?c=order&a=detail&id='.$o['id'].'">Xem chi tiết</a>
+                                          <a class="dropdown-item" href="admin.php?c=order&a=updateStatus&id='.$o['id'].'&status=3">Huỷ đơn</a>
                                         </div>
                                       </div>
                                     </td>
