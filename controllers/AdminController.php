@@ -447,7 +447,6 @@ switch ($control) {
                 break;
             case 'create':
                 $tags = getAllBrand();
-                require_once('views/admin/brand/brand.php');
                 require_once('views/admin/brand/add-brand.php');
                 break;
             case 'add':
@@ -460,7 +459,8 @@ switch ($control) {
                 }
             break;
             case 'edit':
-                require_once('views/admin/brand/brand.php');
+                $id = $_GET['id'];
+                $brand = getBrandById($id);
                 require_once('views/admin/brand/edit-brand.php');
                 break;
 
@@ -517,7 +517,7 @@ switch ($control) {
             case 'edit':
                 $id = $_GET['id'];
                 $size = $_POST['size'];
-                updateSize($size);
+                updateSize($size,$id);
                 header("location:admin.php?c=size");
                 break;
             case 'remove':
@@ -1041,7 +1041,58 @@ switch ($control) {
         }
         break;
     case 'user':
-        require_once('views/admin/user/user.php');
+        $action = "home";
+        if (isset($_GET["p"])) {
+            $action = $_GET["p"];
+        }
+        switch ($action) {
+            case 'home':
+                require_once('views/admin/user/user.php');
+                break;
+            case 'form_edit':
+                $id = $_GET['id'];
+                $user = getUserById($id);
+                require_once('views/admin/user/edit.php');
+                break;
+            case 'edit':
+                $name = $_POST['name'];
+                $show = $_POST['show'];
+                if(addNewBrand($name,$show)){
+                    header('Location: admin.php?c=brand');
+                }else{
+                    echo 'Lỗi khi thêm nhãn hàng';
+                }
+            break;
+            case 'edit':
+                require_once('views/admin/brand/brand.php');
+                require_once('views/admin/brand/edit-brand.php');
+                break;
+
+            case 'update':
+                $id = $_GET['id'];
+                $name = $_POST['name'];
+                $show = $_POST['show'];
+                updateBrand($name,$show,$id);
+                header('location: admin.php?c=brand');
+                echo 'Lỗi khi sửa nhãn hàng';
+
+            break;
+            case 'xoa':
+                $id = $_GET['xn'];
+                $brand = getBrandById($id);
+                echo $brand['name'];
+            break;
+            default:
+                header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
+                include("404.php");
+                return;
+            break;
+            case 'delete':
+                $id = $_GET['id'];
+                deleteBrand($id);
+                header('Location: admin.php?c=brand');
+            break;
+        }
         break;
     case 'tag-blog':
         $tagblog = "t-blog";
