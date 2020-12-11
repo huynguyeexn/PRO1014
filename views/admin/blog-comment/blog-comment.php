@@ -23,38 +23,40 @@
         <?php include_once('views/admin/layout/sidebar.php') ?>
         <!-- End Left Sidebar -->
 
-
-        <!-- Striped rows -->
-        <div class="col-md-10 my-4 float-right">
-            <div class="card shadow">
-                <div class="card-body">
-                    <h2 class="card-title">Bình luận</h2>
-                    <div class="toolbar row mb-3">
-                        <!-- <div class="col">
+        <main role="main" class="main-content">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <!-- Striped rows -->
+                    <div class="col-md-12 my-4 float-right">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <h2 class="card-title">Bình luận</h2>
+                                <div class="toolbar row mb-3">
+                                    <!-- <div class="col">
                             <div class="dropdown">
                                 <a class="btn btn-primary" href="admin.php?c=tag-blog&t=create">Thêm thẻ +</a>
                             </div>
                         </div> -->
-                    </div>
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="chall">
-                                        <label class="custom-control-label" for="d1"></label>
-                                    </div>
-                                </th>
-                                <th>Mã </th>
-                                <th>Mã tin tức </th>
-                                <th>Mã người đăng</th>
-                                <th>Bình luận</th>
-                                <th>Khởi tạo</th>
-                                <th>Hành động</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
+                                </div>
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="chall">
+                                                    <label class="custom-control-label" for="d1"></label>
+                                                </div>
+                                            </th>
+                                            <th>Mã </th>
+                                            <th>Mã tin tức </th>
+                                            <th>Mã người đăng</th>
+                                            <th>Bình luận</th>
+                                            <th>Khởi tạo</th>
+                                            <th>Hành động</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
                                  $comment= getAllBlogComment();
                                  foreach($comment as $coms){
                                  
@@ -91,12 +93,15 @@
                                  }
                             ?>
 
-                        </tbody>
-                    </table>
-                  
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div> <!-- Striped rows -->
                 </div>
             </div>
-        </div> <!-- Striped rows -->
+        </main>
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/popper.min.js"></script>
         <script src="assets/assets/js/moment.min.js"></script>
@@ -135,14 +140,13 @@
             $(this).parent().toggleClass("showContent");
         });
         </script>
-         <script>
-            function ConfirmDelete()
-    {
-      var x = confirm("Bạn có muốn xóa không ?");
-      if (x)
-          return true;
-      else
-        return false;
-    }
+        <script>
+        function ConfirmDelete() {
+            var x = confirm("Bạn có muốn xóa không ?");
+            if (x)
+                return true;
+            else
+                return false;
+        }
         </script>
 </body>

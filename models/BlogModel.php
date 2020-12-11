@@ -19,7 +19,7 @@ function getAllBlog(){
     return query($sql);
 }
 function getAllBlogComment(){
-    $sql = "select * from blog_comment";
+    $sql = "SELECT * FROM blog_comment ORDER BY created";
     return query($sql);
 }
 function getBlogCommentByBlogId($blogid){
