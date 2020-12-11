@@ -42,7 +42,7 @@
                                                     <label class="custom-control-label" for="d1"></label>
                                                 </div>
                                             </th>
-                                            <th>#</th>
+                                            <th>Mã</th>
                                             <th>Ảnh đại diện</th>
                                             <th>Tên tài khoản</th>
                                             <th>Họ tên</th>
@@ -83,9 +83,8 @@
                                           <span class="text-muted sr-only">Action</span>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr1">
-                                          <a class="dropdown-item" href="#">Edit</a>
-                                          <a class="dropdown-item" href="#">Remove</a>
-                                          <a class="dropdown-item" href="#">Assign</a>
+                                          <a class="dropdown-item" href="admin.php?c=user&p=form_edit&id='.$u['id'].'">Sửa</a>
+                                          <a class="dropdown-item" href="#">Xóa</a>
                                         </div>
                                       </div>
                                     </td>
