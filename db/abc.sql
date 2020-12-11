@@ -1,1 +1,0 @@
-INSERT INTO `product_comment`( `product_id`, `user_id`, `content`, `created`) VALUES ('1', '5','abc','2020-11-30 14:09:48')
