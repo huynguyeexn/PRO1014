@@ -1054,33 +1054,30 @@ switch ($control) {
                 $user = getUserById($id);
                 require_once('views/admin/user/edit.php');
                 break;
-            case 'edit':
-                $name = $_POST['name'];
-                $show = $_POST['show'];
-                if(addNewBrand($name,$show)){
-                    header('Location: admin.php?c=brand');
-                }else{
-                    echo 'Lỗi khi thêm nhãn hàng';
-                }
-            break;
-            case 'edit':
-                require_once('views/admin/brand/brand.php');
-                require_once('views/admin/brand/edit-brand.php');
-                break;
-
             case 'update':
                 $id = $_GET['id'];
-                $name = $_POST['name'];
-                $show = $_POST['show'];
-                updateBrand($name,$show,$id);
-                header('location: admin.php?c=brand');
-                echo 'Lỗi khi sửa nhãn hàng';
-
+                $fullname = $_POST['tentk'];
+                $username = $_POST['ten'];
+                $phone = $_POST['phone'];
+                $rank = $_POST['rank'];
+                $address = $_POST['address'];
+                $email = $_POST['email'];
+                $birthday = $_POST['date'];
+                $avartar = $_FILES['images_sp']['name'];
+                if (strlen($avartar) > 0) {
+                   move_uploaded_file($_FILES['images_sp']['tmp_name'],"assets/img/user/".$avartar);
+                   $avartar = 'assets/img/user/'.$avartar.'';
+                }else {
+                    $row = getUserById($id);
+                    $avartar  = $row['avartar'];
+                }
+                updateUser($username,$email,$phone,$address,$birthday,$id,$rank,$fullname,$avartar);
+                header('location: admin.php?c=user');
             break;
             case 'xoa':
                 $id = $_GET['xn'];
-                $brand = getBrandById($id);
-                echo $brand['name'];
+                $user = getUserById($id);
+                echo $user['username'];
             break;
             default:
                 header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
@@ -1089,8 +1086,8 @@ switch ($control) {
             break;
             case 'delete':
                 $id = $_GET['id'];
-                deleteBrand($id);
-                header('Location: admin.php?c=brand');
+                DeleteUser($id);
+                header('Location: admin.php?c=user');
             break;
         }
         break;

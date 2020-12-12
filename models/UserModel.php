@@ -20,6 +20,18 @@ function getUserByUsername($username){
     return queryOne($sql);
 }
 
+// Cập nhật thẻ sản phẩm
+function updateUser($username,$email,$phone,$address,$birthday,$id,$rank,$fullname,$avartar){
+    $sql = 'UPDATE `user` SET `username`="'.$username.'",`email`="'.$email.'",`phone`='.$phone.',`address`="'.$address.'",`rank`='.$rank.',`birthday`="'.$birthday.'",`fullname`="'.$fullname.'",`avartar`="'.$avartar.'" WHERE id ='.$id.'';
+    execute($sql);
+}
+
+// Cập nhật thẻ sản phẩm
+function DeleteUser($id){
+    $sql = 'Delete from `user` WHERE id ='.$id.'';
+    execute($sql);
+}
+
 // Thêm khách hàng
 function addUser($user, $pass, $email, $phone, $fullname, $address, $rank, $created)
 {
