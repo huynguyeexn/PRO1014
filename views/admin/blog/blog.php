@@ -76,9 +76,9 @@
                                     </td>
                                     <td>'.$news['id'].'</td>
                                     
-                                    <td>'.substr($news['title'], 0, 200).'</td>
-                                    <td >'.substr($news['description'], 0, 200).'</td>
-                                    <td >'.htmlentities(substr($news['content'], 0, 200)).'</td>
+                                    <td>'.substr($news['title'], 0, 100).'</td>
+                                    <td >'.substr($news['description'], 0, 100).'</td>
+                                    <td >'.htmlentities(substr($news['content'], 0, 100)).'</td>
                                     <td><img src="'.$news['thumb'].'" alt="" width="100px">
                                     </td>
                                     

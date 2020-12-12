@@ -23,21 +23,28 @@
         <?php include_once('views/admin/layout/sidebar.php') ?>
         <!-- End Left Sidebar -->
 
+        <main role="main" class="main-content">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <!-- Striped rows -->
+                    <div class="col-md-12 my-4 float-right">
+                        <form action="admin.php?c=b-comment&b=update&id=<?php echo $getcom['id'] ?>" method="POST">
 
-        <!-- Striped rows -->
-        <div class="col-md-10 my-4 float-right">
-            <form action="admin.php?c=b-comment&b=update&id=<?php echo $getcom['id'] ?>" method="POST">
-              
-            <div class="form-group">
-                    <label for="description">BÌnh luận</label>
-                    <input type="text" name="comment" id="comment" class="form-control" value="<?php echo $getcom['content'] ?>">
+                            <div class="form-group">
+                                <label for="description">BÌnh luận</label>
+                                <input type="text" name="comment" id="comment" class="form-control"
+                                    value="<?php echo $getcom['content'] ?>">
+                            </div>
+
+
+                            <button type="submit" class="btn btn-block btn-primary" onclick="return ConfirmEdit();">Sửa
+                                Comment</button>
+                        </form>
+
+                    </div> <!-- Striped rows -->
                 </div>
-               
-
-                <button type="submit" class="btn btn-block btn-primary" onclick="return ConfirmEdit();">Sửa Comment</button>
-            </form>
-
-        </div> <!-- Striped rows -->
+            </div>
+        </main>
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/popper.min.js"></script>
         <script src="assets/assets/js/moment.min.js"></script>
@@ -56,25 +63,26 @@
             buttonList: [
                 ['undo', 'redo', 'font', 'fontSize', 'formatBlock'],
                 ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript', 'removeFormat'],
-                ['fontColor', 'hiliteColor', 'outdent', 'indent', 'align', 'horizontalRule', 'list', 'table'],
+                ['fontColor', 'hiliteColor', 'outdent', 'indent', 'align', 'horizontalRule', 'list',
+                    'table'],
                 ['link', 'image', 'video'],
-                ['codeView','save']
+                ['codeView', 'save']
             ],
             lang: SUNEDITOR_LANG['en']
         });
-        function saveContent(){
+
+        function saveContent() {
             editor.save();
         }
         </script>
 
-<script>
-            function ConfirmEdit()
-    {
-      var x = confirm("Bạn có muốn sửa không ?");
-      if (x)
-          return true;
-      else
-        return false;
-    }
+        <script>
+        function ConfirmEdit() {
+            var x = confirm("Bạn có muốn sửa không ?");
+            if (x)
+                return true;
+            else
+                return false;
+        }
         </script>
 </body>

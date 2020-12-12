@@ -9,7 +9,7 @@ function getReviewsByProductId($id){
 
 //Lấy tất cả đánh giá
 function getAllReviews(){
-    $sql = "SELECT * FROM review";
+    $sql = "SELECT * FROM review order by id";
     return query($sql);
 }
 

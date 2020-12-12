@@ -31,9 +31,11 @@
         <?php include_once('views/admin/layout/sidebar.php') ?>
         <!-- End Left Sidebar -->
 
-
+        <main role="main" class="main-content">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
         <!-- Striped rows -->
-        <div class="col-md-10 my-4 float-right">
+        <div class="col-md-12 my-4 float-right">
             <form action="admin.php?c=blog&a=add" onsubmit="return saveContent()" method="POST"  enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="title">Tiêu đề bài viết:</label>
@@ -95,6 +97,12 @@
             </form>
 
         </div> <!-- Striped rows -->
+
+        </div>
+            </div>
+        </main>
+
+
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/popper.min.js"></script>
         <script src="assets/assets/js/moment.min.js"></script>
