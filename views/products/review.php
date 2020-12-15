@@ -186,7 +186,7 @@ echo'
 
             <div class="col-md-12">
                 <div class="form-group">
-                <textarea class="form-control" name="message" id="message" rows="1" placeholder="Danh gia"></textarea>
+                <textarea class="form-control" name="message" id="message" rows="1" placeholder="Danh gia" ></textarea>
                         </div>
             </div>
             <div class="col-md-12 text-right">
