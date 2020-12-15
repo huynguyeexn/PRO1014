@@ -13,6 +13,7 @@
     require_once('models/ProductDetailModel.php');
     require_once('models/SliderModel.php');
     require_once('models/ConfigModel.php');
+    require_once('models/DealModel.php');
 
     // GET action.
     $action = "home";
@@ -206,8 +207,8 @@
                                 <div class="product-details">
                                     <a href="product.php?id='.$p['id'].'" class = "name">'.$p['name'].'</a>
                                     <div class="price">
-                                        <h6 class = "value">$'.$p['price'].'.00</h6>
-                                        <h6 class="l-through cost">$'.$p['cost'].'.00</h6>
+                                        <h6 class = "value">'.numToMoney($p['price']).'</h6>
+                                        <h6 class="l-through cost">'.numToMoney($p['cost']).'</h6>
                                     </div>
                                     <div class="prd-bottom">
                                         <a href="" class="social-info">

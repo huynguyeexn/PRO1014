@@ -42,26 +42,17 @@
 				<div class="col-lg-3  col-md-6 col-sm-6">
 					<div class="single-footer-widget mail-chimp">
 						<h6 class="mb-20">Facebook</h6>
-						<ul class="instafeed d-flex flex-wrap">
-							<li><img src="assets/img/i1.jpg" alt=""></li>
-							<li><img src="assets/img/i2.jpg" alt=""></li>
-							<li><img src="assets/img/i3.jpg" alt=""></li>
-							<li><img src="assets/img/i4.jpg" alt=""></li>
-							<li><img src="assets/img/i5.jpg" alt=""></li>
-							<li><img src="assets/img/i6.jpg" alt=""></li>
-							<li><img src="assets/img/i7.jpg" alt=""></li>
-							<li><img src="assets/img/i8.jpg" alt=""></li>
-						</ul>
+						<div class="fb-page" data-href="https://www.facebook.com/Demo-page-101757745159112" data-tabs="timeline, events" data-width="265" data-height="150" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/Demo-page-101757745159112" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/Demo-page-101757745159112">Demo page</a></blockquote></div>
+						<div id="fb-root"></div>
+						<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v9.0" nonce="Ex4YDRPm"></script>
 					</div>
 				</div>
 				<div class="col-lg-2 col-md-6 col-sm-6">
 					<div class="single-footer-widget">
 						<h6>Theo dõi tôi</h6>	
 						<div class="footer-social d-flex align-items-center">
-							<a href="#"><i class="fa fa-facebook"></i></a>
-							<a href="#"><i class="fa fa-twitter"></i></a>
-							<a href="#"><i class="fa fa-dribbble"></i></a>
-							<a href="#"><i class="fa fa-behance"></i></a>
+							<a href="https://www.facebook.com/Demo-page-101757745159112" target="_blank"><i class="fa fa-facebook"></i></a>
+							<a href="https://twitter.com/nike" target="_blank"><i class="fa fa-twitter"></i></a>
 						</div>
 					</div>
 				</div>

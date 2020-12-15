@@ -27,7 +27,7 @@ window.onload = () => {
         }, 200);
     };
     if ($("#clockdiv")) {
-        var deadline = new Date("2021-11-06");
+        var deadline = new Date("<?php echo getDealId(1)['end_time'];?>");
         initializeClock('clockdiv', deadline);
     }
 
