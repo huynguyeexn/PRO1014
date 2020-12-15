@@ -10,6 +10,7 @@ require_once('models/ProductModel.php');
 require_once('models/UserModel.php');
 require_once('models/OrderModel.php');
 require_once('models/OrderDetailModel.php');
+require_once('models/DealModel.php');
 
 // GET action.
 $action = "home";

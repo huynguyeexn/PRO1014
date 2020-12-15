@@ -10,6 +10,7 @@
     require_once('models/SliderModel.php');
     require_once('models/ConfigModel.php');
     require_once('models/BlogModel.php');
+    require_once('models/DealModel.php');
 
     // GET action.
     $action = "home";

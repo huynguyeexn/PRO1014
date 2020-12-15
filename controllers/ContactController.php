@@ -3,6 +3,7 @@
 
     // Require các file cần sử dụng.
     require_once('core/function.php');
+    require_once('models/DealModel.php');
     
     // Các Model cần thiết.
 

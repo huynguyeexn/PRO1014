@@ -13,8 +13,8 @@
 											<h1>'.$slider['title'].'</h1>
 											<p>'.$slider['description'].'</p>
 											<div class="add-bag d-flex align-items-center">
-												<a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
-												<span class="add-text text-uppercase">Thêm vào giỏ</span>
+												<a class="add-btn" href="product.php?id=' . $slider["id"] . '"><span class="lnr lnr-cross"></span></a>
+												<span class="add-text text-uppercase">Xem thêm</span>
 											</div>
 										</div>
 									</div>
