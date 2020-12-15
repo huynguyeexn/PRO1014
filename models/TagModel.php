@@ -30,4 +30,10 @@ function deleteTagProduct($id){
     $sql = 'DELETE FROM `tag_product` WHERE id ='.$id.'';
     execute($sql);
 }
+
+// Lấy thông tin thẻ sản phẩm từ id product
+function getNameTagByIdProduct($id){
+    $sql = 'SELECT * from `tag_product` inner join tag_of_product on tag_of_product.tag_id = tag_product.id WHERE tag_of_product.product_id ='.$id.'';
+    return queryOne($sql);
+}
 ?>

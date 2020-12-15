@@ -24,8 +24,11 @@
         <!-- End Left Sidebar -->
 
 
+        <main role="main" class="main-content">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
         <!-- Striped rows -->
-        <div class="col-md-10 my-4 float-right">
+        <div class="col-md-12 my-4 float-right">
             <div class="card shadow">
                 <div class="card-body">
                     <h2 class="card-title">Danh sách tin tức</h2>
@@ -73,9 +76,9 @@
                                     </td>
                                     <td>'.$news['id'].'</td>
                                     
-                                    <td>'.substr($news['title'], 0, 200).'</td>
-                                    <td >'.substr($news['description'], 0, 200).'</td>
-                                    <td >'.htmlentities(substr($news['content'], 0, 200)).'</td>
+                                    <td>'.substr($news['title'], 0, 100).'</td>
+                                    <td >'.substr($news['description'], 0, 100).'</td>
+                                    <td >'.htmlentities(substr($news['content'], 0, 100)).'</td>
                                     <td><img src="'.$news['thumb'].'" alt="" width="100px">
                                     </td>
                                     
@@ -108,6 +111,10 @@
                 </div>
             </div>
         </div> <!-- Striped rows -->
+
+                </div>
+            </div>
+        </main>
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/js/popper.min.js"></script>
         <script src="assets/assets/js/moment.min.js"></script>

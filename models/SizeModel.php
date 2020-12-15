@@ -27,7 +27,7 @@ function deleteSize($id){
 }
 
 // Cập nhật thẻ sản phẩm
-function updateSize($size){
-    $sql = 'UPDATE `size` SET `id`='.$size.',`size`='.$size.' WHERE id ='.$size.'';
+function updateSize($size,$id){
+    $sql = 'UPDATE `size` SET `id`='.$size.',`size`='.$size.' WHERE id ='.$id.'';
     execute($sql);
 }

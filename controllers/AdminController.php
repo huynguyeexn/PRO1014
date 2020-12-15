@@ -21,6 +21,7 @@ require_once('models/ColorModel.php');
 require_once('models/TagModel.php');
 require_once('models/ProductDetailModel.php');
 require_once('models/OrderModel.php');
+require_once('models/OrderDetailModel.php');
 require_once('models/CommentModel.php');
 require_once('models/DealModel.php');
 require_once('models/CommentOfProducts.php');
@@ -29,7 +30,7 @@ require_once('models/ReviewsOfProduct.php');
 require_once('models/SizeOfProduct.php');
 
 
-if(!isset($_SESSION['user'])){
+if (!isset($_SESSION['user'])) {
     header('location: index.php');
 }
 // GET control = c.
@@ -41,27 +42,48 @@ if (isset($_GET["c"])) {
 switch ($control) {
     case 'home':
         require_once('views/admin/index.php');
-    break;
+        break;
     case 'order':
-        require_once('views/admin/order/order.php');
-    break;
+        $order = 'home';
+        if (isset($_GET['a'])) {
+            $order = $_GET["a"];
+        }
+        switch ($order) {
+            case 'home':
+                $order = getAllProduct();
+                require_once('views/admin/order/home.php');
+                break;
+            case 'updateStatus':
+                $id = $_GET['id'];
+                $status = $_GET['status'];
+                updateStatus($id, $status);
+                header("location:admin.php?c=order");
+                break;
+            case 'detail':
+                $id = $_GET['id'];
+                $order = getOrderById($id);
+                $orderItems = getAllProductByOrderId($id);
+                require_once('views/admin/order/order-detail.php');
+                break;
+        }
+        break;
     case 'product':
         $product = 'home';
-        if(isset($_GET['p'])){
+        if (isset($_GET['p'])) {
             $product = $_GET["p"];
         }
         switch ($product) {
             case 'home':
                 $product = getAllProduct();
                 require_once('views/admin/product/home.php');
-            break;
+                break;
             case 'insert':
                 $brand = getAllBrand();
                 $color = getAllColor();
                 $tag = getAllTag();
                 $size = getAllSize();
                 require_once('views/admin/product/addnew.php');
-            break;
+                break;
             case 'addnew':
                 $name = $_POST['name'];
                 $listanh = '';
@@ -73,36 +95,36 @@ switch ($control) {
                 $size2 = $_POST['size2'];
                 $cost = $_POST['cost'];
                 $brand = $_POST['brand'];
-                $description = '<p>'.$_POST['description'].'</p>';
+                $description = '<p>' . $_POST['description'] . '</p>';
                 $update =  date("Y-m-d H:i:s");
-                $id = addNewProduct($name,$cost,$price,$description,$update,$brand,$view,$color);
+                $id = addNewProduct($name, $cost, $price, $description, $update, $brand, $view, $color);
                 $thumb = $_FILES['images_sp']['name'];
                 $folder = mkdir("assets/img/product/$id");
-                move_uploaded_file($_FILES['images_sp']['tmp_name'], "assets/img/product/$id/".$thumb);
-                $thumb = "assets/img/product/$id/".$thumb;
-                foreach($_FILES['hinh']['name'] as $key => $file){
-                    move_uploaded_file($_FILES['hinh']['tmp_name'][$key], "assets/img/product/$id/".$file);
-                    if($listanh == ''){
-                       $listanh = '["assets/img/product/'.$id.'/'.$file.'"'; 
-                    }else{
-                        $listanh .= ', '.'"assets/img/product/'.$id.'/'.$file.'"'; 
+                move_uploaded_file($_FILES['images_sp']['tmp_name'], "assets/img/product/$id/" . $thumb);
+                $thumb = "assets/img/product/$id/" . $thumb;
+                foreach ($_FILES['hinh']['name'] as $key => $file) {
+                    move_uploaded_file($_FILES['hinh']['tmp_name'][$key], "assets/img/product/$id/" . $file);
+                    if ($listanh == '') {
+                        $listanh = '["assets/img/product/' . $id . '/' . $file . '"';
+                    } else {
+                        $listanh .= ', ' . '"assets/img/product/' . $id . '/' . $file . '"';
                     }
                 }
-                if($listanh == ''){
-                    $listanh = ''; 
-                }else{
-                     $listanh .= ']'; 
+                if ($listanh == '') {
+                    $listanh = '';
+                } else {
+                    $listanh .= ']';
                 }
                 // print_r($listanh);
-                updateProduct($id,$name,$cost,$price,$description,$update,$thumb,$brand,$listanh,$color);  
-                addNewTagOfProduct($id,$tag);
-                for($i = $size1;$i<=$size2;$i++){
+                updateProduct($id, $name, $cost, $price, $description, $update, $thumb, $brand, $listanh, $color);
+                addNewTagOfProduct($id, $tag);
+                for ($i = $size1; $i <= $size2; $i++) {
                     $size = $i;
-                    $quantity = $_POST['sl'.$i.''];
-                echo  addNewProductDetail($id,$size,$quantity);
+                    $quantity = $_POST['sl' . $i . ''];
+                    echo  addNewProductDetail($id, $size, $quantity);
                 }
                 header("location:admin.php?c=product");
-            break;
+                break;
             case 'form_edit':
                 $id = $_GET['id'];
                 $brand = getAllBrand();
@@ -114,7 +136,19 @@ switch ($control) {
                 $size = getAllSize();
                 $product_tag = getTagByProductId($id);
                 require_once('views/admin/product/edit.php');
-            break;
+                break;
+            case 'detail':
+                $id = $_GET['id'];
+                $product = getProductById($id);
+                $size_id = getMinMaxSizeOfProduct($id);
+                $product_tag = getNameTagByIdProduct($id);
+                $product_detail = getProductDetailById($id);
+                $id = $product['brand_id'];
+                $brand = getBrandById($id);
+                $id = $product['color_id'];
+                $color = getColorId($id);
+                require_once('views/admin/product/product-detail.php');
+                break;
             case 'edit':
                 $id = $_GET['id'];
                 $name = $_POST['name'];
@@ -131,129 +165,129 @@ switch ($control) {
                 $description = $_POST['description'];
                 $update =  date("Y-m-d H:i:s");
                 $thumb = $_FILES['images_sp']['name'];
-                move_uploaded_file($_FILES['images_sp']['tmp_name'],"assets/img/product/$id/".$thumb);
-                if(strlen($thumb)>0){
-                    move_uploaded_file($_FILES['images_sp']['tmp_name'],"assets/img/product/$id/".$thumb);
-                    $thumb = 'assets/img/product/'.$id.'/'.$thumb;
-                }else{
+                move_uploaded_file($_FILES['images_sp']['tmp_name'], "assets/img/product/$id/" . $thumb);
+                if (strlen($thumb) > 0) {
+                    move_uploaded_file($_FILES['images_sp']['tmp_name'], "assets/img/product/$id/" . $thumb);
+                    $thumb = 'assets/img/product/' . $id . '/' . $thumb;
+                } else {
                     $row = getProductById($id);
                     $thumb  = $row['thumb'];
                 }
-                foreach($_FILES['hinh']['name'] as $key => $file){
+                foreach ($_FILES['hinh']['name'] as $key => $file) {
                     $anh .= $_FILES['hinh']['name'][$key];
                 }
-                if(strlen($anh)>0){
-                    foreach($_FILES['hinh']['name'] as $key => $file){
-                        move_uploaded_file($_FILES['hinh']['tmp_name'][$key],"assets/img/product/$id/".$file);
-                        if($listanh == ''){
-                           $listanh = '["assets/img/product/'.$id.'/'.$file.'"'; 
-                        }else{
-                            $listanh .= ', '.'"assets/img/product/'.$id.'/'.$file.'"'; 
+                if (strlen($anh) > 0) {
+                    foreach ($_FILES['hinh']['name'] as $key => $file) {
+                        move_uploaded_file($_FILES['hinh']['tmp_name'][$key], "assets/img/product/$id/" . $file);
+                        if ($listanh == '') {
+                            $listanh = '["assets/img/product/' . $id . '/' . $file . '"';
+                        } else {
+                            $listanh .= ', ' . '"assets/img/product/' . $id . '/' . $file . '"';
                         }
                     }
-                    if($listanh == ''){
-                        $listanh = ''; 
-                    }else{
-                        $listanh .= ']'; 
+                    if ($listanh == '') {
+                        $listanh = '';
+                    } else {
+                        $listanh .= ']';
                     }
-                }else{
+                } else {
                     $row = getProductById($id);
                     $listanh  = $row['images'];
                 }
-                updateProduct($id,$name,$cost,$price,$description,$update,$thumb,$brand,$listanh,$color);
-                updateTagOfProduct($id,$tag);
+                updateProduct($id, $name, $cost, $price, $description, $update, $thumb, $brand, $listanh, $color);
+                updateTagOfProduct($id, $tag);
                 deleteProductDetailById($id);
-                for($i = $size1;$i<=$size2;$i++){
+                for ($i = $size1; $i <= $size2; $i++) {
                     $size = $i;
-                    $quantity = $_POST['sl'.$i.''];
-                    addNewProductDetail($id,$size,$quantity);
+                    $quantity = $_POST['sl' . $i . ''];
+                    addNewProductDetail($id, $size, $quantity);
                 }
                 header("location:admin.php?c=product");
-            break;
+                break;
             case 'remove':
                 $id = $_GET['id'];
                 deleteProduct($id);
                 header("location:admin.php?c=product");
-            break;
+                break;
             case 'xoa':
                 $id = $_GET['xn'];
                 $product = getProductById($id);
-                echo $product['thumb'].','.$product['name'];
-            break;
+                echo $product['thumb'] . ',' . $product['name'];
+                break;
             case 'search':
                 $content = $_GET['content'];
-                $sp ='';
+                $sp = '';
                 $product = getAllProduct();
-                if($content == ''){
+                if ($content == '') {
                     $id = 0;
-                    foreach($product as $p){
+                    foreach ($product as $p) {
                         $id++;
-                        $description = substr(trim($p['description'],'"'),0,100);
+                        $description = substr(trim($p['description'], '"'), 0, 100);
                         $sp .= '
                         <tr>
                             <td>
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input checkbox" id="'.$id.'">
-                                <label class="custom-control-label" for="'.$id.'"></label>
+                                <input type="checkbox" class="custom-control-input checkbox" id="' . $id . '">
+                                <label class="custom-control-label" for="' . $id . '"></label>
                             </div>
-                            </td><td class="text-muted">'.$p['id'].'</td>
+                            </td><td class="text-muted">' . $p['id'] . '</td>
                             <td>
                             <div class="avatar avatar-md">
-                                <img src="'.$p['thumb'].'" alt="..." class="avatar-img rounded-circle">
+                                <img src="' . $p['thumb'] . '" alt="..." class="avatar-img rounded-circle">
                             </div>
                             </td>
                             <td>
-                            <p class="mb-0 text-muted"><strong>'.$p['name'].'</strong></p>
+                            <p class="mb-0 text-muted"><strong>' . $p['name'] . '</strong></p>
                             </td>
-                            <td class="text-muted">'.$p['update'].'</td>
-                            <td class="text-muted">'.numToMoney($p['cost']).'</td>
-                            <td class="text-muted">'.numToMoney($p['price']).'</td>
-                            <td style = "width:33%;" class="text-muted">'.$description.'</td>
+                            <td class="text-muted">' . $p['update'] . '</td>
+                            <td class="text-muted">' . numToMoney($p['cost']) . '</td>
+                            <td class="text-muted">' . numToMoney($p['price']) . '</td>
+                            <td style = "width:33%;" class="text-muted">' . $description . '</td>
                             <td>
                             <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="text-muted sr-only">Action</span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="admin.php?c=product&p=form_edit&id='.$p['id'].'">Sửa</a>
-                                <a class="dropdown-item" href="admin.php?c=product&p=remove&id='.$p['id'].'">Xóa</a>
+                                <a class="dropdown-item" href="admin.php?c=product&p=form_edit&id=' . $p['id'] . '">Sửa</a>
+                                <a class="dropdown-item" href="admin.php?c=product&p=remove&id=' . $p['id'] . '">Xóa</a>
                             </div>
                             </td>
                         </tr>
                         ';
                     }
-                }else{
+                } else {
                     $id = 0;
-                    foreach($product as $p){
-                        if(strlen(strpos(strtolower($p['name']),strtolower("$content"))) > 0){
+                    foreach ($product as $p) {
+                        if (strlen(strpos(strtolower($p['name']), strtolower("$content"))) > 0) {
                             $id++;
-                            $description = substr(trim($p['description'],'"'),0,100);
+                            $description = substr(trim($p['description'], '"'), 0, 100);
                             $sp .= '
                             <tr>
                                 <td>
                                   <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input checkbox" id="'.$id.'">
-                                    <label class="custom-control-label" for="'.$id.'"></label>
+                                    <input type="checkbox" class="custom-control-input checkbox" id="' . $id . '">
+                                    <label class="custom-control-label" for="' . $id . '"></label>
                                   </div>
-                                </td><td class="text-muted">'.$p['id'].'</td>
+                                </td><td class="text-muted">' . $p['id'] . '</td>
                                 <td>
                                   <div class="avatar avatar-md">
-                                    <img src="'.$p['thumb'].'" alt="..." class="avatar-img rounded-circle">
+                                    <img src="' . $p['thumb'] . '" alt="..." class="avatar-img rounded-circle">
                                   </div>
                                 </td>
                                 <td>
-                                  <p class="mb-0 text-muted"><strong>'.$p['name'].'</strong></p>
+                                  <p class="mb-0 text-muted"><strong>' . $p['name'] . '</strong></p>
                                 </td>
-                                <td class="text-muted">'.$p['update'].'</td>
-                                <td class="text-muted">'.numToMoney($p['cost']).'</td>
-                                <td class="text-muted">'.numToMoney($p['price']).'</td>
-                                <td style = "width:33%;" class="text-muted">'.$description.'</td>
+                                <td class="text-muted">' . $p['update'] . '</td>
+                                <td class="text-muted">' . numToMoney($p['cost']) . '</td>
+                                <td class="text-muted">' . numToMoney($p['price']) . '</td>
+                                <td style = "width:33%;" class="text-muted">' . $description . '</td>
                                 <td>
                                   <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="text-muted sr-only">Action</span>
                                   </button>
                                   <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="admin.php?c=product&p=form_edit&id='.$p['id'].'">Sửa</a>
-                                    <a class="dropdown-item" href="admin.php?c=product&p=remove&id='.$p['id'].'">Xóa</a>
+                                    <a class="dropdown-item" href="admin.php?c=product&p=form_edit&id=' . $p['id'] . '">Sửa</a>
+                                    <a class="dropdown-item" href="admin.php?c=product&p=remove&id=' . $p['id'] . '">Xóa</a>
                                   </div>
                                 </td>
                               </tr>
@@ -261,63 +295,63 @@ switch ($control) {
                         }
                     }
                 }
-                if($sp == ''){
+                if ($sp == '') {
                     echo 'Sản phẩm này không tồn tại!';
-                }else{
+                } else {
                     echo $sp;
                 }
-            break;
+                break;
 
             case 'chosedelete':
                 $jsonText = $_GET['delete'];
-                $mang = explode(',',$jsonText);
-                $sp ='';
-                for($i = 1;$i < count($mang);$i++){
+                $mang = explode(',', $jsonText);
+                $sp = '';
+                for ($i = 1; $i < count($mang); $i++) {
                     $id = $mang[$i];
                     deleteProduct($id);
                 }
                 $product = getAllProduct();
                 $id = 0;
-                foreach($product as $p){
+                foreach ($product as $p) {
                     $id++;
-                    $description = substr(trim($p['description'],'"'),0,100);
+                    $description = substr(trim($p['description'], '"'), 0, 100);
                     $sp .= '
                     <tr>
                         <td>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input checkbox" id="'.$id.'">
-                            <label class="custom-control-label" for="'.$id.'"></label>
+                            <input type="checkbox" class="custom-control-input checkbox" id="' . $id . '">
+                            <label class="custom-control-label" for="' . $id . '"></label>
                         </div>
-                        </td><td class="text-muted">'.$p['id'].'</td>
+                        </td><td class="text-muted">' . $p['id'] . '</td>
                         <td>
                         <div class="avatar avatar-md">
-                            <img src="'.$p['thumb'].'" alt="..." class="avatar-img rounded-circle">
+                            <img src="' . $p['thumb'] . '" alt="..." class="avatar-img rounded-circle">
                         </div>
                         </td>
                         <td>
-                        <p class="mb-0 text-muted"><strong>'.$p['name'].'</strong></p>
+                        <p class="mb-0 text-muted"><strong>' . $p['name'] . '</strong></p>
                         </td>
-                        <td class="text-muted">'.$p['update'].'</td>
-                        <td class="text-muted">'.numToMoney($p['cost']).'</td>
-                        <td class="text-muted">'.numToMoney($p['price']).'</td>
-                        <td style = "width:33%;" class="text-muted">'.$description.'</td>
+                        <td class="text-muted">' . $p['update'] . '</td>
+                        <td class="text-muted">' . numToMoney($p['cost']) . '</td>
+                        <td class="text-muted">' . numToMoney($p['price']) . '</td>
+                        <td style = "width:33%;" class="text-muted">' . $description . '</td>
                         <td>
                         <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="text-muted sr-only">Action</span>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="admin.php?c=product&p=form_edit&id='.$p['id'].'">Sủa</a>
-                            <a class="dropdown-item" href="admin.php?c=product&p=remove&id='.$p['id'].'">Xóa</a>
+                            <a class="dropdown-item" href="admin.php?c=product&p=form_edit&id=' . $p['id'] . '">Sủa</a>
+                            <a class="dropdown-item" href="admin.php?c=product&p=remove&id=' . $p['id'] . '">Xóa</a>
                         </div>
                         </td>
                     </tr>
                     ';
                 }
                 echo $sp;
-            break;
+                break;
 
             case 'next':
-                if(isset($_GET['id'])){
+                if (isset($_GET['id'])) {
                     $id = $_GET['id'];
                     $min = $_GET['min'];
                     $max = $_GET['max'];
@@ -326,11 +360,11 @@ switch ($control) {
                     $sp = '
                         <table style="width:80%;margin:0 auto;margin-bottom:20px;">
                     ';
-                    for($i = $min;$i<=$max;$i++){
+                    for ($i = $min; $i <= $max; $i++) {
                         $so++;
                         $sl = 0;
-                        foreach($product_detail as $p){
-                            if($i == $p['size_id']){
+                        foreach ($product_detail as $p) {
+                            if ($i == $p['size_id']) {
                                 $sl = $p['quantity'];
                             }
                         }
@@ -338,18 +372,18 @@ switch ($control) {
                         <div style="width:90%;margin:0 auto;" class="form-group row float-left">
                             <label class="float-left">Kích Thước</label>
                             <div class="col-sm-5 mb-3">
-                                <input type="button" value="'.$i.'" class="form-control" name="size'.$i.'" >
+                                <input type="button" value="' . $i . '" class="form-control" name="size' . $i . '" >
                             </div>
                             <label class="float-left">Số Lượng</label>
                             <div class="col-sm-5 mb-3">
-                                <input type="text" style="margin-bottom:5px;" value="'.$sl.'" name="sl'.$i.'" class="soluong form-control" name="price">
+                                <input type="text" style="margin-bottom:5px;" value="' . $sl . '" name="sl' . $i . '" class="soluong form-control" name="price">
                                 <span class="loisl1" style="color:red;">Vui lòng nhập số lượng</span>
                                 <span class="loisl2" style="color:red;">Vui lòng nhập số lượng khác không</span>
                             </div>
                         </div>
                         ';
                     }
-                    $sp .='
+                    $sp .= '
                             </table>
                             <div class="form-group row  float-right">
                             <div class="col-sm-4 mb-3 float-right">
@@ -358,31 +392,31 @@ switch ($control) {
                         </div>
                     </section>
                     ';
-                }else{
+                } else {
                     $min = $_GET['min'];
                     $max = $_GET['max'];
                     $so = 0;
                     $sp = '
                         <table style="width:80%;margin:0 auto;margin-bottom:20px;">
                     ';
-                    for($i = $min;$i<=$max;$i++){
+                    for ($i = $min; $i <= $max; $i++) {
                         $so++;
                         $sp .= '
                         <div style="width:90%;margin:0 auto;" class="form-group row float-left">
                             <label class="float-left">Kích Thước</label>
                             <div class="col-sm-5 mb-3">
-                                <input type="button" value="'.$i.'" class="form-control" name="size'.$i.'" >
+                                <input type="button" value="' . $i . '" class="form-control" name="size' . $i . '" >
                             </div>
                             <label class="float-left">Số Lượng</label>
                             <div class="col-sm-5 mb-3">
-                                <input type="text" style="margin-bottom:5px;" name="sl'.$i.'" class="soluong form-control" name="price">
+                                <input type="text" style="margin-bottom:5px;" name="sl' . $i . '" class="soluong form-control" name="price">
                                 <span class="loisl1" style="color:red;">Vui lòng nhập số lượng</span>
                                 <span class="loisl2" style="color:red;">Vui lòng nhập số lượng khác không</span>
                             </div>
                         </div>
                         ';
                     }
-                    $sp .='
+                    $sp .= '
                             </table>
                             <div class="form-group row  float-right">
                             <div class="col-sm-4 mb-3 float-right">
@@ -393,57 +427,56 @@ switch ($control) {
                     ';
                 }
                 echo $sp;
-            break;
+                break;
             default:
-                header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
+                header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found", true, 404);
                 include("404.php");
                 return;
                 break;
         }
-    break;
+        break;
     case 'brand':
-        require_once('views/admin/brand/brand.php');
-        $action = "show";
+        $action = "home";
         if (isset($_GET["a"])) {
             $action = $_GET["a"];
         }
 
         switch ($action) {
-            case 'show':
+            case 'home':
                 require_once('views/admin/brand/brand.php');
-            break;
+                break;
             case 'create':
                 $tags = getAllBrand();
-                 require_once('views/admin/brand/add-brand.php');
-            break;
+                require_once('views/admin/brand/add-brand.php');
+                break;
             case 'add':
-                $name = $_GET['name'];
-                $show = $_GET['show'];
-                $priority = $_GET['priority'];
-
-                if(addNewBrand($name,$show,$priority)){
-                    header('Location: admin.php?c=brand&a=create');
+                $name = $_POST['name'];
+                $show = $_POST['show'];
+                if(addNewBrand($name,$show)){
+                    header('Location: admin.php?c=brand');
                 }else{
                     echo 'Lỗi khi thêm nhãn hàng';
                 }
-
             break;
             case 'edit':
                 $id = $_GET['id'];
                 $brand = getBrandById($id);
                 require_once('views/admin/brand/edit-brand.php');
-            break;
+                break;
 
             case 'update':
                 $id = $_GET['id'];
                 $name = $_POST['name'];
                 $show = $_POST['show'];
-                $priority = $_POST['priority'];
-
-                updateBrand($id,$name,$show,$priority);
+                updateBrand($name,$show,$id);
                 header('location: admin.php?c=brand');
                 echo 'Lỗi khi sửa nhãn hàng';
 
+            break;
+            case 'xoa':
+                $id = $_GET['xn'];
+                $brand = getBrandById($id);
+                echo $brand['name'];
             break;
             default:
                 header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
@@ -453,107 +486,112 @@ switch ($control) {
             case 'delete':
                 $id = $_GET['id'];
                 deleteBrand($id);
-                header('Location: admin.php?c=brand&a=show');
+                header('Location: admin.php?c=brand');
             break;
         }
-    break;
+        break;
     case 'size':
         $size = 'home';
-        if(isset($_GET['p'])){
+        if (isset($_GET['p'])) {
             $size = $_GET["p"];
         }
         switch ($size) {
             case 'home':
                 $size = getAllSize();
                 require_once('views/admin/size/home.php');
-            break;
+                break;
             case 'insert':
                 require_once('views/admin/size/addnew.php');
-            break;
+                break;
             case 'addnew':
                 $size = $_POST['size'];
-                $id = isset($_POST['codemau'])?$_POST['codemau']:"";
+                $id = isset($_POST['codemau']) ? $_POST['codemau'] : "";
                 addNewSize($size);
                 header("location:admin.php?c=size");
-            break;
+                break;
             case 'form_edit':
                 $id = $_GET['id'];
-                $size =getSizeId($id);
+                $size = getSizeId($id);
                 require_once('views/admin/size/edit.php');
-            break;
+                break;
             case 'edit':
                 $id = $_GET['id'];
                 $size = $_POST['size'];
-                updateSize($size);
+                updateSize($size,$id);
                 header("location:admin.php?c=size");
-            break;
+                break;
             case 'remove':
                 $id = $_GET['id'];
                 deleteSize($id);
                 header("location:admin.php?c=size");
             break;
+            case 'xoa':
+                $id = $_GET['xn'];
+                $size = getSizeId($id);
+                echo $size['size'];
+            break;
             case 'ktsize':
                 $size = $_GET['size'];
                 $allsize = getAllSize();
                 $kt = 0;
-                foreach($allsize as $s){
-                    if($s['size'] == $size){
+                foreach ($allsize as $s) {
+                    if ($s['size'] == $size) {
                         $kt = 1;
                     }
                     $kthuoc = $s['size'];
                 }
-                echo $kt.','.$kthuoc;
-            break;
+                echo $kt . ',' . $kthuoc;
+                break;
             case 'search':
                 $content = $_GET['content'];
-                $sp ='';
+                $sp = '';
                 $allsize = getAllSize();
-                if($content == ''){
+                if ($content == '') {
                     $i = 0;
-                    foreach($allsize as $t){
+                    foreach ($allsize as $t) {
                         $i++;
                         $sp .= '
                         <tr>
                         <td>
                             <div class="custom-control custom-checkbox">
-                              <input type="checkbox" class="custom-control-input" value="'.$t['id'].'" name="check_box" id="'.$i.'">
-                              <label class="custom-control-label" for="'.$i.'"></label>
+                              <input type="checkbox" class="custom-control-input" value="' . $t['id'] . '" name="check_box" id="' . $i . '">
+                              <label class="custom-control-label" for="' . $i . '"></label>
                             </div>
-                          </td><td class="text-muted">'.$t['id'].'</td>
-                          </td><td class="text-muted">'.$t['size'].'</td>
+                          </td><td class="text-muted">' . $t['id'] . '</td>
+                          </td><td class="text-muted">' . $t['size'] . '</td>
                           <td>
                             <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               <span class="text-muted sr-only">Action</span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                              <a class="dropdown-item" href="admin.php?c=size&p=form_edit&id='.$t['id'].'">Sửa</a>
-                              <a class="dropdown-item" href="admin.php?c=size&p=remove&id='.$t['id'].'">Xóa</a>
+                              <a class="dropdown-item" href="admin.php?c=size&p=form_edit&id=' . $t['id'] . '">Sửa</a>
+                              <a class="dropdown-item" href="admin.php?c=size&p=remove&id=' . $t['id'] . '">Xóa</a>
                             </div>
                           </td>
                         </tr>
                         ';
                     }
-                }else{
+                } else {
                     $i = 0;
-                    foreach($allsize as $t){
-                        if(strlen(strpos(strtolower($t['size']),strtolower("$content"))) > 0){
+                    foreach ($allsize as $t) {
+                        if (strlen(strpos(strtolower($t['size']), strtolower("$content"))) > 0) {
                             $i++;
                             $sp .= '
                             <tr>
                               <td>
                                   <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" value="'.$t['id'].'" name="check_box" id="'.$i.'">
-                                    <label class="custom-control-label" for="'.$i.'"></label>
+                                    <input type="checkbox" class="custom-control-input" value="' . $t['id'] . '" name="check_box" id="' . $i . '">
+                                    <label class="custom-control-label" for="' . $i . '"></label>
                                   </div>
-                                </td><td class="text-muted">'.$t['id'].'</td>
-                                </td><td class="text-muted">'.$t['size'].'</td>
+                                </td><td class="text-muted">' . $t['id'] . '</td>
+                                </td><td class="text-muted">' . $t['size'] . '</td>
                                 <td>
                                   <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="text-muted sr-only">Action</span>
                                   </button>
                                   <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="admin.php?c=size&p=form_edit&id='.$t['id'].'">Sửa</a>
-                                    <a class="dropdown-item" href="admin.php?c=size&p=remove&id='.$t['id'].'">Xóa</a>
+                                    <a class="dropdown-item" href="admin.php?c=size&p=form_edit&id=' . $t['id'] . '">Sửa</a>
+                                    <a class="dropdown-item" href="admin.php?c=size&p=remove&id=' . $t['id'] . '">Xóa</a>
                                   </div>
                                 </td>
                               </tr>
@@ -561,143 +599,148 @@ switch ($control) {
                         }
                     }
                 }
-                if($sp == ''){
+                if ($sp == '') {
                     echo 'Sản phẩm này không tồn tại!';
-                }else{
+                } else {
                     echo $sp;
                 }
-            break;
+                break;
 
             case 'chosedelete':
                 $jsonText = $_GET['delete'];
-                $mang = explode(',',$jsonText);
-                $sp ='';
-                for($i = 1;$i < count($mang);$i++){
+                $mang = explode(',', $jsonText);
+                $sp = '';
+                for ($i = 1; $i < count($mang); $i++) {
                     $id = $mang[$i];
                     deleteSize($id);
                 }
                 $allsize = getAllSize();
                 $i = 0;
-                foreach($allsize as $t){
+                foreach ($allsize as $t) {
                     $i++;
                     $sp .= '
                     <tr>
                     <td>
                         <div class="custom-control custom-checkbox">
-                          <input type="checkbox" class="custom-control-input" value="'.$t['id'].'" name="check_box" id="'.$i.'">
-                          <label class="custom-control-label" for="'.$i.'"></label>
+                          <input type="checkbox" class="custom-control-input" value="' . $t['id'] . '" name="check_box" id="' . $i . '">
+                          <label class="custom-control-label" for="' . $i . '"></label>
                         </div>
-                      </td><td class="text-muted">'.$t['id'].'</td>
-                      </td><td class="text-muted">'.$t['size'].'</td>
+                      </td><td class="text-muted">' . $t['id'] . '</td>
+                      </td><td class="text-muted">' . $t['size'] . '</td>
                       <td>
                         <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           <span class="text-muted sr-only">Action</span>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="admin.php?c=size&p=form_edit&id='.$t['id'].'">Sửa</a>
-                          <a class="dropdown-item" href="admin.php?c=size&p=remove&id='.$t['id'].'">Xóa</a>
+                          <a class="dropdown-item" href="admin.php?c=size&p=form_edit&id=' . $t['id'] . '">Sửa</a>
+                          <a class="dropdown-item" href="admin.php?c=size&p=remove&id=' . $t['id'] . '">Xóa</a>
                         </div>
                       </td>
                     </tr>
                     ';
                 }
                 echo $sp;
-            break;
+                break;
             default:
-                header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
+                header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found", true, 404);
                 include("404.php");
                 return;
-            break;
+                break;
         }
-    break;
+        break;
     case 'color':
         $color = 'home';
-        if(isset($_GET['p'])){
+        if (isset($_GET['p'])) {
             $color = $_GET["p"];
         }
         switch ($color) {
             case 'home':
                 $color = getAllColor();
                 require_once('views/admin/color/home.php');
-            break;
+                break;
             case 'insert':
                 require_once('views/admin/color/addnew.php');
-            break;
+                break;
             case 'addnew':
                 $name = $_POST['name'];
-                $colorCode = isset($_POST['codemau'])?$_POST['codemau']:"";
-                addNewColor($colorCode,$name);
+                $colorCode = isset($_POST['codemau']) ? $_POST['codemau'] : "";
+                addNewColor($colorCode, $name);
                 header("location:admin.php?c=color");
-            break;
+                break;
             case 'form_edit':
                 $id = $_GET['id'];
-                $color =getColorId($id);
+                $color = getColorId($id);
                 require_once('views/admin/color/edit.php');
-            break;
+                break;
             case 'edit':
                 $id = $_GET['id'];
                 $name = $_POST['name'];
-                $colorCode = isset($_POST['codemau'])?$_POST['codemau']:"";
-                updateColor($id,$colorCode,$name);
+                $colorCode = isset($_POST['codemau']) ? $_POST['codemau'] : "";
+                updateColor($id, $colorCode, $name);
                 header("location:admin.php?c=color");
-            break;
+                break;
             case 'remove':
                 $id = $_GET['id'];
                 deleteColor($id);
                 header("location:admin.php?c=color");
             break;
+            case 'xoa':
+                $id = $_GET['xn'];
+                $color = getColorId($id);
+                echo $color['name'];
+            break;
             case 'search':
                 $content = $_GET['content'];
-                $sp ='';
+                $sp = '';
                 $color = getAllColor();
-                if($content == ''){
+                if ($content == '') {
                     $i = 0;
-                    foreach($color as $t){
+                    foreach ($color as $t) {
                         $i++;
                         $sp .= '
                         <tr>
                             <td>
                                 <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" value="'.$t['id'].'" name="check_box" id="'.$i.'">
-                                <label class="custom-control-label" for="'.$i.'"></label>
+                                <input type="checkbox" class="custom-control-input" value="' . $t['id'] . '" name="check_box" id="' . $i . '">
+                                <label class="custom-control-label" for="' . $i . '"></label>
                                 </div>
-                            </td><td class="text-muted">'.$t['id'].'</td>
-                            </td><td class="text-muted">'.$t['name'].'</td>
-                            </td><td class="text-muted">'.$t['colorCode'].'</td>
+                            </td><td class="text-muted">' . $t['id'] . '</td>
+                            </td><td class="text-muted">' . $t['name'] . '</td>
+                            </td><td class="text-muted">' . $t['colorCode'] . '</td>
                             <td>
                                 <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="text-muted sr-only">Action</span>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="admin.php?c=color&p=form_edit&id='.$t['id'].'">Sửa</a>
-                                <a class="dropdown-item" href="admin.php?c=color&p=remove&id='.$t['id'].'">Xóa</a>
+                                <a class="dropdown-item" href="admin.php?c=color&p=form_edit&id=' . $t['id'] . '">Sửa</a>
+                                <a class="dropdown-item" href="admin.php?c=color&p=remove&id=' . $t['id'] . '">Xóa</a>
                                 </div>
                             </td>
                         </tr>
                         ';
                     }
-                }else{
+                } else {
                     $i = 0;
-                    foreach($color as $t){
-                        if(strlen(strpos(strtolower($t['name']),strtolower("$content"))) > 0){
+                    foreach ($color as $t) {
+                        if (strlen(strpos(strtolower($t['name']), strtolower("$content"))) > 0) {
                             $i++;
                             $sp .= '
                             <tr>
                                 <td>
                                     <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" value="'.$t['id'].'" name="check_box" id="'.$i.'">
-                                    <label class="custom-control-label" for="'.$i.'"></label>
+                                    <input type="checkbox" class="custom-control-input" value="' . $t['id'] . '" name="check_box" id="' . $i . '">
+                                    <label class="custom-control-label" for="' . $i . '"></label>
                                     </div>
-                                </td><td class="text-muted">'.$t['id'].'</td>
-                                </td><td class="text-muted">'.$t['name'].'</td>
-                                </td><td class="text-muted">'.$t['colorCode'].'</td>
+                                </td><td class="text-muted">' . $t['id'] . '</td>
+                                </td><td class="text-muted">' . $t['name'] . '</td>
+                                </td><td class="text-muted">' . $t['colorCode'] . '</td>
                                 <td>
                                     <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="text-muted sr-only">Action</span>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="admin.php?c=color&p=form_edit&id='.$t['id'].'">Sửa</a>
-                                    <a class="dropdown-item" href="admin.php?c=color&p=remove&id='.$t['id'].'">Xóa</a>
+                                    <a class="dropdown-item" href="admin.php?c=color&p=form_edit&id=' . $t['id'] . '">Sửa</a>
+                                    <a class="dropdown-item" href="admin.php?c=color&p=remove&id=' . $t['id'] . '">Xóa</a>
                                     </div>
                                 </td>
                             </tr>
@@ -705,165 +748,169 @@ switch ($control) {
                         }
                     }
                 }
-                if($sp == ''){
+                if ($sp == '') {
                     echo 'Sản phẩm này không tồn tại!';
-                }else{
+                } else {
                     echo $sp;
                 }
-            break;
+                break;
 
             case 'chosedelete':
                 $jsonText = $_GET['delete'];
-                $mang = explode(',',$jsonText);
-                $sp ='';
-                for($i = 1;$i < count($mang);$i++){
+                $mang = explode(',', $jsonText);
+                $sp = '';
+                for ($i = 1; $i < count($mang); $i++) {
                     $id = $mang[$i];
                     deleteColor($id);
                 }
                 $color = getAllColor();
                 $i = 0;
-                foreach($color as $t){
+                foreach ($color as $t) {
                     $i++;
                     $sp .= '
                     <tr>
                         <td>
                             <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" value="'.$t['id'].'" name="check_box" id="'.$i.'">
-                            <label class="custom-control-label" for="'.$i.'"></label>
+                            <input type="checkbox" class="custom-control-input" value="' . $t['id'] . '" name="check_box" id="' . $i . '">
+                            <label class="custom-control-label" for="' . $i . '"></label>
                             </div>
-                        </td><td class="text-muted">'.$t['id'].'</td>
-                        </td><td class="text-muted">'.$t['name'].'</td>
-                        </td><td class="text-muted">'.$t['colorCode'].'</td>
+                        </td><td class="text-muted">' . $t['id'] . '</td>
+                        </td><td class="text-muted">' . $t['name'] . '</td>
+                        </td><td class="text-muted">' . $t['colorCode'] . '</td>
                         <td>
                             <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="text-muted sr-only">Action</span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="admin.php?c=color&p=form_edit&id='.$t['id'].'">Sửa</a>
-                            <a class="dropdown-item" href="admin.php?c=color&p=remove&id='.$t['id'].'">Xóa</a>
+                            <a class="dropdown-item" href="admin.php?c=color&p=form_edit&id=' . $t['id'] . '">Sửa</a>
+                            <a class="dropdown-item" href="admin.php?c=color&p=remove&id=' . $t['id'] . '">Xóa</a>
                             </div>
                         </td>
                     </tr>
                     ';
                 }
                 echo $sp;
-            break;
+                break;
             default:
-                header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
+                header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found", true, 404);
                 include("404.php");
                 return;
-            break;
-    }
-    break;
+                break;
+        }
+        break;
     case 'deal':
-            $action = "show";
-            if (isset($_GET["a"])) {
-                $action = $_GET["a"];
-            }
-            switch ($action) {
-                case 'show':
-                    require_once('views/admin/deal/deal.php');
+        $action = "show";
+        if (isset($_GET["a"])) {
+            $action = $_GET["a"];
+        }
+        switch ($action) {
+            case 'show':
+                require_once('views/admin/deal/deal.php');
                 break;
-                case 'detail':
-                    if(isset($_GET['id'])){
-                        $id = $_GET['id'];
-                        require_once('views/admin/deal/deal-detail.php');
-                    }else{
-                        header("location: admin.php?c=deal");
-                    }
-                    
-                break;
-            }
+            case 'detail':
+                if (isset($_GET['id'])) {
+                    $id = $_GET['id'];
+                    require_once('views/admin/deal/deal-detail.php');
+                } else {
+                    header("location: admin.php?c=deal");
+                }
 
-    break;
-   
-    break;
+                break;
+        }
+
+        break;
+        break;
     case 'tag-product':
         $tag = 'home';
-        if(isset($_GET['p'])){
+        if (isset($_GET['p'])) {
             $tag = $_GET["p"];
         }
         switch ($tag) {
             case 'home':
                 $tag = getAllTag();
                 require_once('views/admin/tag/home.php');
-            break;
+                break;
             case 'insert':
                 require_once('views/admin/tag/addnew.php');
-            break;
+                break;
             case 'addnew':
                 $name = $_POST['name'];
                 $anhien = $_POST['anhien'];
-                addNewTagProduct($anhien,$name);
+                addNewTagProduct($anhien, $name);
                 header("location:admin.php?c=tag-product");
-            break;
+                break;
             case 'form_edit':
                 $id = $_GET['id'];
                 $tag = getTagId($id);
                 require_once('views/admin/tag/edit.php');
-            break;
+                break;
             case 'edit':
                 $id = $_GET['id'];
                 $name = $_POST['name'];
                 $anhien = $_POST['anhien'];
-                updateTagProduct($id,$anhien,$name);
+                updateTagProduct($id, $anhien, $name);
                 header("location:admin.php?c=tag-product");
-            break;
+                break;
             case 'remove':
                 $id = $_GET['id'];
                 deleteTagProduct($id);
                 header("location:admin.php?c=tag-product");
-            break;
+                break;
+            case 'xoa':
+                $id = $_GET['xn'];
+                $tag_product = getTagId($id);
+                echo $tag_product['name'];
+                break;
             case 'search':
                 $content = $_GET['content'];
-                $sp ='';
+                $sp = '';
                 $tag = getAllTag();
-                if($content == ''){
+                if ($content == '') {
                     $i = 0;
-                    foreach($tag as $t){
+                    foreach ($tag as $t) {
                         $i++;
                         $sp .= '
                         <tr>
                             <td>
                                 <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" value="'.$t['id'].'" name="check_box" id="'.$i.'">
-                                <label class="custom-control-label" for="'.$i.'"></label>
+                                <input type="checkbox" class="custom-control-input" value="' . $t['id'] . '" name="check_box" id="' . $i . '">
+                                <label class="custom-control-label" for="' . $i . '"></label>
                                 </div>
-                            </td><td class="text-muted">'.$t['id'].'</td>
-                            </td><td class="text-muted">'.$t['name'].'</td>
+                            </td><td class="text-muted">' . $t['id'] . '</td>
+                            </td><td class="text-muted">' . $t['name'] . '</td>
                             <td>
                                 <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="text-muted sr-only">Action</span>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="admin.php?c=tag-product&p=form_edit&id='.$t['id'].'">Sửa</a>
-                                <a class="dropdown-item" href="admin.php?c=tag-product&p=remove&id='.$t['id'].'">Xóa</a>
+                                <a class="dropdown-item" href="admin.php?c=tag-product&p=form_edit&id=' . $t['id'] . '">Sửa</a>
+                                <a class="dropdown-item" href="admin.php?c=tag-product&p=remove&id=' . $t['id'] . '">Xóa</a>
                                 </div>
                             </td>
                         </tr>
                         ';
                     }
-                }else{
+                } else {
                     $i = 0;
-                    foreach($tag as $t){
-                        if(strlen(strpos(strtolower($t['name']),strtolower("$content"))) > 0){
+                    foreach ($tag as $t) {
+                        if (strlen(strpos(strtolower($t['name']), strtolower("$content"))) > 0) {
                             $i++;
                             $sp .= '
                             <tr>
                                 <td>
                                     <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" value="'.$t['id'].'" name="check_box" id="'.$i.'">
-                                    <label class="custom-control-label" for="'.$i.'"></label>
+                                    <input type="checkbox" class="custom-control-input" value="' . $t['id'] . '" name="check_box" id="' . $i . '">
+                                    <label class="custom-control-label" for="' . $i . '"></label>
                                     </div>
-                                </td><td class="text-muted">'.$t['id'].'</td>
-                                </td><td class="text-muted">'.$t['name'].'</td>
+                                </td><td class="text-muted">' . $t['id'] . '</td>
+                                </td><td class="text-muted">' . $t['name'] . '</td>
                                 <td>
                                     <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="text-muted sr-only">Action</span>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="admin.php?c=tag-product&p=form_edit&id='.$t['id'].'">Sửa</a>
-                                    <a class="dropdown-item" href="admin.php?c=tag-product&p=remove&id='.$t['id'].'">Xóa</a>
+                                    <a class="dropdown-item" href="admin.php?c=tag-product&p=form_edit&id=' . $t['id'] . '">Sửa</a>
+                                    <a class="dropdown-item" href="admin.php?c=tag-product&p=remove&id=' . $t['id'] . '">Xóa</a>
                                     </div>
                                 </td>
                             </tr>
@@ -871,54 +918,54 @@ switch ($control) {
                         }
                     }
                 }
-                if($sp == ''){
+                if ($sp == '') {
                     echo 'Tag này không tồn tại!';
-                }else{
+                } else {
                     echo $sp;
                 }
-            break;
+                break;
             case 'chosedelete':
                 $jsonText = $_GET['delete'];
-                $mang = explode(',',$jsonText);
-                $sp ='';
-                for($i = 1;$i < count($mang);$i++){
+                $mang = explode(',', $jsonText);
+                $sp = '';
+                for ($i = 1; $i < count($mang); $i++) {
                     $id = $mang[$i];
                     deleteTagProduct($id);
                 }
                 $tag = getAllTag();
                 $id = 0;
-                foreach($tag as $t){
+                foreach ($tag as $t) {
                     $id++;
                     $sp .= '
                     <tr>
                         <td>
                             <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" value="'.$t['id'].'" name="check_box" id="'.$i.'">
-                            <label class="custom-control-label" for="'.$i.'"></label>
+                            <input type="checkbox" class="custom-control-input" value="' . $t['id'] . '" name="check_box" id="' . $i . '">
+                            <label class="custom-control-label" for="' . $i . '"></label>
                             </div>
-                        </td><td class="text-muted">'.$t['id'].'</td>
-                        </td><td class="text-muted">'.$t['name'].'</td>
+                        </td><td class="text-muted">' . $t['id'] . '</td>
+                        </td><td class="text-muted">' . $t['name'] . '</td>
                         <td>
                             <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="text-muted sr-only">Action</span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="admin.php?c=tag-product&p=form_edit&id='.$t['id'].'">Sửa</a>
-                            <a class="dropdown-item" href="admin.php?c=tag-product&p=remove&id='.$t['id'].'">Xóa</a>
+                            <a class="dropdown-item" href="admin.php?c=tag-product&p=form_edit&id=' . $t['id'] . '">Sửa</a>
+                            <a class="dropdown-item" href="admin.php?c=tag-product&p=remove&id=' . $t['id'] . '">Xóa</a>
                             </div>
                         </td>
                     </tr>
                     ';
                 }
                 echo $sp;
-            break;
+                break;
             default:
-                header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
+                header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found", true, 404);
                 include("404.php");
                 return;
                 break;
         }
-    break;
+        break;
     case 'p-review':
         $action = "show";
         if (isset($_GET["p"])) {
@@ -927,16 +974,16 @@ switch ($control) {
         switch ($action) {
             case 'show':
                 require_once('views/admin/product-review/product-review.php');
-            break;
+                break;
             case 'delete':
-                if(isset($_GET['id'])){
-                    $id =$_GET['id'];
-                    deleteBlogComment($id);                             
+                if (isset($_GET['id'])) {
+                    $id = $_GET['id'];
+                    deleteReviewProduct($id);
                 }
-                header('location: admin.php?c=p-review');
-            break;
+                header('location:admin.php?c=p-review');
+                break;
         }
-    break;
+        break;
     case 'p-comment':
         $action = "show";
         if (isset($_GET["p"])) {
@@ -945,16 +992,21 @@ switch ($control) {
         switch ($action) {
             case 'show':
                 require_once('views/admin/product-comment/product-comment.php');
-            break;
+                break;
             case 'delete':
-                if(isset($_GET['id'])){
-                    $id =$_GET['id'];
-                    deleteProductComment($id);                               
+                if (isset($_GET['id'])) {
+                    $id = $_GET['id'];
+                    DeleteCommentProductById($id);
                 }
                 header('location: admin.php?c=p-comment');
-            break;
+                break;
+            case 'xoa':
+                $id = $_GET['xn'];
+                $comment = getCommentById($id);
+                echo $comment['content'];
+                break;
         }
-    break;
+        break;
     case 'b-comment':
         $action = "show";
         if (isset($_GET["b"])) {
@@ -963,83 +1015,128 @@ switch ($control) {
         switch ($action) {
             case 'show':
                 require_once('views/admin/blog-comment/blog-comment.php');
-            break;
+                break;
             case 'delete':
-                if(isset($_GET['id'])){
-                    $id =$_GET['id'];
-                    deleteBlogComment($id);                             
+                if (isset($_GET['id'])) {
+                    $id = $_GET['id'];
+                    deleteBlogComment($id);
                 }
                 header('location: admin.php?c=b-comment');
-            break;
+                break;
 
             case 'edit':
                 $id = $_GET['id'];
                 $com = getAllBlogComment();
                 $getcom = getBlogCommentById($id);
                 include 'views/admin/blog-comment/edit-comment.php';
-            break;
+                break;
 
             case 'update';
-            $id = $_GET['id'];
-            $com =$_POST['comment'];
-           
-            updateCommentBlog($id,$com);
-             header('location: admin.php?c=b-comment');
-        break;
-        }
-    break;
-    case 'user':
-        require_once('views/admin/user/user.php');
-    break;
+                $id = $_GET['id'];
+                $com = $_POST['comment'];
 
+                updateCommentBlog($id, $com);
+                header('location: admin.php?c=b-comment');
+                break;
+        }
+        break;
+    case 'user':
+        $action = "home";
+        if (isset($_GET["p"])) {
+            $action = $_GET["p"];
+        }
+        switch ($action) {
+            case 'home':
+                require_once('views/admin/user/user.php');
+                break;
+            case 'form_edit':
+                $id = $_GET['id'];
+                $user = getUserById($id);
+                require_once('views/admin/user/edit.php');
+                break;
+            case 'update':
+                $id = $_GET['id'];
+                $fullname = $_POST['tentk'];
+                $username = $_POST['ten'];
+                $phone = $_POST['phone'];
+                $rank = $_POST['rank'];
+                $address = $_POST['address'];
+                $email = $_POST['email'];
+                $birthday = $_POST['date'];
+                $avartar = $_FILES['images_sp']['name'];
+                if (strlen($avartar) > 0) {
+                   move_uploaded_file($_FILES['images_sp']['tmp_name'],"assets/img/user/".$avartar);
+                   $avartar = 'assets/img/user/'.$avartar.'';
+                }else {
+                    $row = getUserById($id);
+                    $avartar  = $row['avartar'];
+                }
+                updateUser($username,$email,$phone,$address,$birthday,$id,$rank,$fullname,$avartar);
+                header('location: admin.php?c=user');
+            break;
+            case 'xoa':
+                $id = $_GET['xn'];
+                $user = getUserById($id);
+                echo $user['username'];
+            break;
+            default:
+                header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
+                include("404.php");
+                return;
+            break;
+            case 'delete':
+                $id = $_GET['id'];
+                DeleteUser($id);
+                header('Location: admin.php?c=user');
+            break;
+        }
+        break;
     case 'tag-blog':
         $tagblog = "t-blog";
         if (isset($_GET["t"])) {
             $tagblog = $_GET["t"];
         }
-        switch($tagblog){
+        switch ($tagblog) {
             case 't-blog':
                 require_once('views/admin/tag-blog/tag-blog.php');
-            break;
+                break;
             case 'create':
                 $tags = getAllTagBlog();
                 require_once('views/admin/tag-blog/add-tagblog.php');
-            break;
-            
+                break;
+
             case 'add':
-                $tagname =$_POST['name'];
+                $tagname = $_POST['name'];
                 $show = 1;
                 $priority = $_POST['priority'];
-                addNewTagBlog($tagname,$priority);
+                addNewTagBlog($tagname, $priority);
                 header('location: admin.php?c=tag-blog');
-            break;
+                break;
             case 'delete':
-                if(isset($_GET['id'])){
-                    $id =$_GET['id'];
-                    deleteTagBlog($id);                             
+                if (isset($_GET['id'])) {
+                    $id = $_GET['id'];
+                    deleteTagBlog($id);
                 }
                 header('location: admin.php?c=tag-blog');
-            break;
+                break;
 
             case 'edit':
                 $id = $_GET['id'];
                 $tags = getAllTagBlog();
                 $gettag = getTagBlogById($id);
                 include 'views/admin/tag-blog/edit-tagblog.php';
-            break;
+                break;
 
             case 'update';
-            $id = $_GET['id'];
-            $tagname =$_POST['name'];
-            $show = 1;
-            $priority = $_POST['priority'];
-            updateTagBlog($id,$tagname,$priority);
-             header('location: admin.php?c=tag-blog');
-        break;
+                $id = $_GET['id'];
+                $tagname = $_POST['name'];
+                $show = 1;
+                $priority = $_POST['priority'];
+                updateTagBlog($id, $tagname, $priority);
+                header('location: admin.php?c=tag-blog');
+                break;
         }
-    break;
-
-
+        break;
     case 'blog':
         $action = "show";
         if (isset($_GET["a"])) {
@@ -1048,12 +1145,12 @@ switch ($control) {
         switch ($action) {
             case 'show':
                 require_once('views/admin/blog/blog.php');
-            break;
+                break;
             case 'create':
                 $tags = getAllTagBlog();
                 require_once('views/admin/blog/add-blog.php');
-            break;
-          
+                break;
+
             case 'add':
                 $userId = $_SESSION['user']['id'];
                 $title = $_POST['title'];
@@ -1063,22 +1160,22 @@ switch ($control) {
                 $thumb = NULL;
                 $now = now();
                 $blogId = intval(getMaxBlogId()) + 1;
-    
+
                 // Upload.
                 $target_dir = "assets/img/blog/$blogId/";
 
                 //Check if the directory already exists.
-                if(!is_dir($target_dir)){
+                if (!is_dir($target_dir)) {
                     mkdir($target_dir, 0755);
                 }
 
                 $target_file = $target_dir . basename($_FILES["thumb"]["name"]);
-                $imageFiletag = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-                
+                $imageFiletag = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
                 if (isset($_FILES["thumb"]["name"])) {
                     $check = getimagesize($_FILES["thumb"]["tmp_name"]);
                     if ($check !== false) {
-                        if (move_uploaded_file($_FILES["thumb"]["tmp_name"], $target_file)){
+                        if (move_uploaded_file($_FILES["thumb"]["tmp_name"], $target_file)) {
                             $thumb = $target_file;
                         } else {
                             echo "Xin lỗi, đã có lỗi xảy ra khi tải lên hình ảnh. Vui lòng thử lại!";
@@ -1089,33 +1186,33 @@ switch ($control) {
                         die();
                     }
                 }
-                addNewBlog($userId,$title,$thumb,$now,$description,$content);
-                foreach($tags as $tag){
-                    insertTagOfBlog($blogId,$tag);
+                addNewBlog($userId, $title, $thumb, $now, $description, $content);
+                foreach ($tags as $tag) {
+                    insertTagOfBlog($blogId, $tag);
                 }
                 header('location: admin.php?c=blog');
-            break;
+                break;
             case 'delete':
-                if(isset($_GET['id'])){
-                    $id =$_GET['id'];
-                    deleteBlog($id);                             
+                if (isset($_GET['id'])) {
+                    $id = $_GET['id'];
+                    deleteBlog($id);
                 }
                 header('location: admin.php?c=blog');
-            break;
+                break;
 
             case 'edit':
                 $id = $_GET['id'];
                 $tags = getAllTagBlog();
                 $tagOfBlog = getTagByBlogId($id);
-                
+
                 $getblog = getBlogById($id);
                 include 'views/admin/blog/edit-blog.php';
 
-            break;
+                break;
 
             case 'update':
                 // $id = $_POST['id'];
-                 $userId = $_SESSION['user']['id'];
+                $userId = $_SESSION['user']['id'];
                 $title = $_POST['title'];
                 $description = $_POST['description'];
                 $content = $_POST['content'];
@@ -1123,76 +1220,74 @@ switch ($control) {
                 $now = now();
                 // $blogId = intval(getMaxBlogId()) + 1;
                 $blogid = $_GET['id'];
-    
+
                 // Upload.
                 $target_dir = "assets/img/blog/$blogid/";
 
                 //Check if the directory already exists.
-                if(!is_dir($target_dir)){
+                if (!is_dir($target_dir)) {
                     mkdir($target_dir, 0755);
                 }
 
                 $target_file = $target_dir . basename($_FILES["thumb"]["name"]);
-                $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-                
+                $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
                 if (isset($_FILES["thumb"]["name"])) {
                     $check = getimagesize($_FILES["thumb"]["tmp_name"]);
                     if ($check !== false) {
-                        if (move_uploaded_file($_FILES["thumb"]["tmp_name"], $target_file)){
+                        if (move_uploaded_file($_FILES["thumb"]["tmp_name"], $target_file)) {
                             $thumb = $target_file;
                         } else {
                             echo "Xin lỗi, đã có lỗi xảy ra khi tải lên hình ảnh. Vui lòng thử lại!";
                             die();
                         }
-                    }
-                    
-                    else {
+                    } else {
                         echo "File không phải là hình ảnh.";
                         die();
                     }
                 }
-                updateBlog($blogid,$title,$description,$thumb,$content);
-                if(isset($_POST['tag'])){
-                 $tags = $_POST['tag'];
-                    foreach($tags as $tag){
-                        updateTagOfBlog($blogid,$tag);
+                updateBlog($blogid, $title, $description, $thumb, $content);
+                if (isset($_POST['tag'])) {
+                    $tags = $_POST['tag'];
+                    foreach ($tags as $tag) {
+                        updateTagOfBlog($blogid, $tag);
                     }
-                }else{
+                } else {
                     $blog = getTagByBlogId($blogid);
-                    foreach($blog as $blogs){
+                    foreach ($blog as $blogs) {
                         $t = $blogs['tag_id'];
-                        updateTagOfBlog($blogid,$t);
+                        updateTagOfBlog($blogid, $t);
                     }
                 }
-                
-             header('location: admin.php?c=blog');
 
-            break;
+                header('location: admin.php?c=blog');
+
+                break;
             default:
-                header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
+                header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found", true, 404);
                 include("404.php");
                 return;
-            break;
+                break;
         }
-    break;
+        break;
     case 'pagelayout':
 
         $page = "";
         if (isset($_GET["p"])) {
             $page = $_GET["p"];
-        }else{
-            header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
+        } else {
+            header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found", true, 404);
             include("404.php");
             return;
         }
 
         switch ($page) {
             case 'home':
-                if(isset($_POST['save'])){
+                if (isset($_POST['save'])) {
                     $json = urldecode($_POST['save']);
-                    if(updateConfig('layout',$json)){
+                    if (updateConfig('layout', $json)) {
                         return true;
-                    }else{
+                    } else {
                         return false;
                     }
                 }
@@ -1200,43 +1295,43 @@ switch ($control) {
                 $layoutDefault = json_decode(getConfigByName("default_layout")['config'])->home;
 
                 require_once('views/admin/edit-layout/home.php');
-            break;
+                break;
             case 'shop':
                 $layouts = json_decode(getConfigByName("layout")['config'])->shop;
                 $layoutDefault = json_decode(getConfigByName("default_layout")['config'])->shop;
 
                 require_once('views/admin/edit-layout/shop.php');
-            break;
+                break;
             case 'product':
-            break;
+                break;
             case 'blog':
-            break;
+                break;
             case 'contact':
-            break;
+                break;
             default:
-                header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
+                header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found", true, 404);
                 include("404.php");
                 return;
                 break;
         }
-    break;
+        break;
     case 'menulayout':
         $menu = "";
         if (isset($_GET["p"])) {
             $menu = $_GET["p"];
-        }else{
-            header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
+        } else {
+            header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found", true, 404);
             include("404.php");
             return;
         }
 
         switch ($menu) {
             case 'topmenu':
-                if(isset($_POST['save'])){
+                if (isset($_POST['save'])) {
                     $json = urldecode($_POST['save']);
-                    if(updateConfig('layout',$json)){
+                    if (updateConfig('layout', $json)) {
                         return true;
-                    }else{
+                    } else {
                         return false;
                     }
                 }
@@ -1244,30 +1339,30 @@ switch ($control) {
                 $layoutDefault = json_decode(getConfigByName("default_layout")['config'])->topmenu;
 
                 require_once('views/admin/edit-layout/topmenu.php');
-            break;
+                break;
             case 'shop':
                 $layouts = json_decode(getConfigByName("layout")['config'])->shop;
                 $layoutDefault = json_decode(getConfigByName("default_layout")['config'])->shop;
 
                 require_once('views/admin/edit-layout/shop.php');
-            break;
+                break;
             case 'product':
-            break;
+                break;
             case 'blog':
-            break;
+                break;
             case 'contact':
-            break;
+                break;
             default:
-                header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
+                header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found", true, 404);
                 include("404.php");
                 return;
                 break;
         }
         break;
 
-        default:
-            header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
-            include("404.php");
+    default:
+        header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found", true, 404);
+        include("404.php");
         return;
-    break;
+        break;
 }

@@ -9,7 +9,7 @@ function getAllDeal(){
 
 // Lấy khuyến mãi theo id
 function getDealId($id){
-    $sql = "SELECT * FROM deal_detail WHERE deal_id = $id;";
+    $sql = "SELECT * FROM deal WHERE id = $id;";
     return queryOne($sql);
 }
 

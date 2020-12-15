@@ -20,10 +20,22 @@ function getUserByUsername($username){
     return queryOne($sql);
 }
 
+// Cập nhật thẻ sản phẩm
+function updateUser($username,$email,$phone,$address,$birthday,$id,$rank,$fullname,$avartar){
+    $sql = 'UPDATE `user` SET `username`="'.$username.'",`email`="'.$email.'",`phone`='.$phone.',`address`="'.$address.'",`rank`='.$rank.',`birthday`="'.$birthday.'",`fullname`="'.$fullname.'",`avartar`="'.$avartar.'" WHERE id ='.$id.'';
+    execute($sql);
+}
+
+// Cập nhật thẻ sản phẩm
+function DeleteUser($id){
+    $sql = 'Delete from `user` WHERE id ='.$id.'';
+    execute($sql);
+}
+
 // Thêm khách hàng
-function addUser($user, $pass, $email)
+function addUser($user, $pass, $email, $phone, $fullname, $address, $rank, $created)
 {
-    $sql = "insert into user (username, password, email, rank) values ('$user', '$pass', '$email', 0)";
+    $sql = "insert into user (username, password, email, phone, fullname, address, rank, created, avatar) values ('$user', '$pass', '$email', '$phone', '$fullname', '$address', '$rank','$created', 'assets/img/user/4.jpg')";
     return execute($sql);
 }
 

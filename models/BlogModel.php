@@ -15,11 +15,15 @@ function getAllBlogCatalog(){
     return query($sql);
 }
 function getAllBlog(){
-    $sql = "select * from blog order BY id DESC";
+    $sql = "select * from blog order BY created desc";
     return query($sql);
 }
 function getAllBlogComment(){
-    $sql = "select * from blog_comment";
+    $sql = "SELECT * FROM blog_comment ORDER BY created";
+    return query($sql);
+}
+function getBlogCommentByBlogId($blogid){
+    $sql = "SELECT * FROM blog_comment WHERE blog_id = $blogid";
     return query($sql);
 }
 function getBlogCommentById($id){
@@ -35,7 +39,7 @@ function updateCommentBlog($id,$com){
     return execute($sql);
 };
 function getBlogByOffset($limit, $offset){
-    $sql = "SELECT * FROM blog LIMIT $limit OFFSET $offset;";
+    $sql = "SELECT * FROM blog order BY created desc LIMIT $limit OFFSET $offset;";
     return query($sql);
 }
 

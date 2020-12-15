@@ -9,7 +9,7 @@ function getReviewsByProductId($id){
 
 //Lấy tất cả đánh giá
 function getAllReviews(){
-    $sql = "SELECT * FROM review";
+    $sql = "SELECT * FROM review order by id";
     return query($sql);
 }
 
@@ -29,8 +29,9 @@ $sql = "INSERT INTO `review`( `product_id`, `user_id`, `review`,`rate`) VALUES (
     return execute($sql);
 }
 
-function deleteReviewComment($id){
+function deleteReviewProduct($id){
     $sql = "DELETE FROM review WHERE id=$id";
-    return execute($sql);
+    execute($sql);
 }
+
 

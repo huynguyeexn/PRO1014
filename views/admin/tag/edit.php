@@ -51,7 +51,7 @@
         <div class="container-fluid">
           <div class="row justify-content-center">
             <div class="col-md-10">
-              <h1 class="h1 mb-2">Sửa Danh Mục Sản Phẩm</h1>
+              <h1 class="h1 mb-2">Sửa Thẻ Sản Phẩm</h1>
                 <div class="card shadow">
                   <div class="card-body">
                       <tbody>

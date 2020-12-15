@@ -40,13 +40,14 @@
                                                 </div>
                                             </th>
                                             <th>Mã đơn</th>
-                                            <th>Trạng thái</th>
                                             <th>Ngày tạo</th>
+                                            <th>Trạng thái</th>
                                             <th>Số điện thoại</th>
                                             <th>Tên người nhận</th>
                                             <th>Địa chỉ</th>
                                             <th>Email</th>
                                             <th></th>
+                                            <th>Cập nhật</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -57,18 +58,19 @@
                                       $status = "";
                                       switch($o['status']){
                                           case 0:
-                                            $status = '<button type="button" class="btn mb-2 btn-primary">Mới</button>';
+                                            $status = '<button type="button" class="btn mb-2 btn-outline-primary">Mới</button>';
                                           break;
                                           case 1:
-                                            $status = '<button type="button" class="btn mb-2 btn-warning">Đang giao</button>';
+                                            $status = '<button type="button" class="btn mb-2 btn-outline-warning">Đang giao</button>';
                                           break;
                                           case 2:
-                                            $status = '<button type="button" class="btn mb-2 btn-success">Đã giao</button>';
+                                            $status = '<button type="button" class="btn mb-2 btn-outline-success">Đã giao</button>';
                                           break;
                                           case 3:
-                                            $status = '<button type="button" class="btn mb-2 btn-danger">Huỷ</button>';
+                                            $status = '<button type="button" class="btn mb-2 btn-outline-danger">Huỷ</button>';
                                           break;
                                       }
+                                      
                                     echo'
                                     
                                     <tr>
@@ -79,26 +81,25 @@
                                       </div>
                                     </td>
                                     <td>'.$o['id'].'</td>
-                                    <td>'.$status.'</td>
                                     <td>'.$o['created'].'</td>
+                                    <td>'.$status.'</td>
                                     <td>'.$o['phone'].'</td>
                                     <td>'.$o['name'].'</td>
                                     <td>'.$o['address'].'</td>
                                     <td>'.$o['email'].'</td>
-                                    
-                                    </td>
-                                   
                                     <td>
                                       <div class="dropdown">
                                         <button class="btn btn-sm dropdown-toggle" type="button" id="dr1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                           <span class="text-muted sr-only">Action</span>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr1">
-                                          <a class="dropdown-item" href="#">Edit</a>
-                                          <a class="dropdown-item" href="#">Remove</a>
-                                          <a class="dropdown-item" href="#">Assign</a>
+                                          <a class="dropdown-item" href="admin.php?c=order&a=detail&id='.$o['id'].'">Xem chi tiết</a>
+                                          <!-- <a class="dropdown-item" href="admin.php?c=order&a=updateStatus&id='.$o['id'].'&status=3">Huỷ đơn</a> -->
                                         </div>
                                       </div>
+                                    </td>
+                                    <td>
+                                    '.($o['status']==0?'<a data-value="admin.php?c=order&a=updateStatus&id='.$o['id'].'&status=1" class="updateStatus btn mb-2 btn-primary">Giao hàng</a>':'').'
                                     </td>
                                   </tr>
                                     ';
@@ -114,6 +115,7 @@
             </div>
         </main>
         <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/sweetalert.min.js"></script>
         <script src="assets/js/popper.min.js"></script>
         <script src="assets/assets/js/moment.min.js"></script>
         <script src="assets/js/bootstrap.min.js"></script>
@@ -126,29 +128,30 @@
         <script src='assets/js/dataTables.bootstrap4.min.js'></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
-        $('#dataTable-1').DataTable({
-            autoWidth: true,
-            "lengthMenu": [
-                [16, 32, 64, -1],
-                [16, 32, 64, "All"]
-            ]
-        });
-        </script>
-        <script src="assets/js/apps.js"></script>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
-        <script>
-        window.dataLayer = window.dataLayer || [];
+        $(".updateStatus").on('click', function() {
+            swal({
+                    title: "Bạn chắc chứ?",
+                    icon: "warning",
+                    buttons: {
+                        cancel: "Không",
+                        catch: {
+                            text: "Có",
+                            value: "cancel",
+                        },
+                    },
+                })
+                .then((value) => {
+                    if (value == "cancel") {
+                        $.ajax({
+                            type: "GET",
+                            url: this.dataset.value,
+                            success: function(response) {
+                                location.reload();
+                            }
+                        });
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', 'UA-56159088-1');
-        </script>
-        <script>
-        $(".btn-primary").on('click', function() {
-            $(this).parent().toggleClass("showContent");
+                    }
+                });
         });
         </script>
 </body>

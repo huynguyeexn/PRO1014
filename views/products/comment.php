@@ -8,9 +8,9 @@ if ($comment) {
 <div class="media">
 <div class="d-flex">
 
-<img src="' . ($user['avartar'] ? $user['avartar'] : 'assets/images/user/noavt.jpg') . '" alt="">
+<img src="' . ($user['avartar'] ? $user['avartar'] : 'assets/img/user/noavt.jpg') . '" alt="">
 </div>
-<div class="media-body">
+<div class="media-body">	
 <h4>' . $user['fullname'] . '</h4>
 <h5>' . $cmt['created'] . '</h5>
 </div>
@@ -39,7 +39,7 @@ if (isset($_SESSION['user'])) {
 </div>
 </div>
 <div class="col-md-12 text-right">
-<button type ="submit" class="primary-btn submit_btn" name="submit">Gửi bình luận</button>
+<button type ="submit" class="primary-btn submit_btn" name="addComment">Gửi bình luận</button>
 </div>
 </form>
 </div>

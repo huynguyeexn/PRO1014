@@ -14,6 +14,7 @@
     require_once('models/CommentOfProducts.php');
     require_once('models/ReviewsOfProduct.php');
     require_once('models/UserModel.php');
+    require_once('models/DealModel.php');
     // GET action.
     $action = "home";
     if (isset($_GET["action"])) {

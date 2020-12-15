@@ -6,8 +6,8 @@
 
 <body>
 
-   <!-- Start Header Area -->
-   <?php include_once('views/layouts/header.php'); ?>
+    <!-- Start Header Area -->
+    <?php include_once('views/layouts/header.php'); ?>
     <!-- End Header Area -->
 
     <!-- Start banner Area -->
@@ -19,7 +19,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 posts-list">
-                        <?php
+                    <?php
                        
                           $user = getUserById($blog['user_id']);
                           $catalories = '';
@@ -76,10 +76,6 @@
                                 <div class="col-6">
                                 
                             </div>
-                               
-                        
-                            
-                            
                             <div class="col-lg-12 mt-25">
                                
                             </div>
@@ -88,41 +84,8 @@
                 </div>
                             ';
                         ?>
-                    <div class="comments-area">
-
                     
-                        <h4>Bình luận</h4>
-                        <?php
-                            $blogcomment = getAllBlogComment();
-                           
-                            foreach($blogcomment as $blogcom){
-                                $users = getUserById($blogcom['id']);
-                                echo'
-                                <div class="comment-list">
-                                <div class="single-comment justify-content-between d-flex">
-                                    <div class="user justify-content-between d-flex">
-                                    <div class="thumb">
-                                    <img src="'.$users['avartar'].'" alt="">
-                                </div>
-                                        <div class="desc">
-                                            
-                                            <p class="date">'.$blogcom['created'].'</p>
-                                            <p class="comment">
-                                            '.$blogcom['content'].'
-                                            </p>
-                                        </div>
-                                    </div>
-                                   
-                                </div>
-                            </div>
-                                ';
-                            }
-                    ?>
-                    
-                    
-                    </div>       
-
-                            <div class="comment-form">
+                    <div class="comment-form">
                         <h4>Để lại bình luận tại đây</h4>
                         <?php
                             // $_SESSION['user_id'] = 1;
@@ -152,14 +115,50 @@
                     }
                     ?>
                     </div>
+                    <div class="comments-area">
+
+
+                        <h4>Bình luận</h4>
+                        <?php
+                            $blogcomment = getBlogCommentByBlogId($blog['id']);
+                           
+                            foreach($blogcomment as $blogcom){
+                                $users = getUserById($blogcom['user_id']);
+                                echo'
+                                <div class="comment-list">
+                                <div class="single-comment justify-content-between d-flex">
+                                    <div class="user justify-content-between d-flex">
+                                    <div class="thumb">
+                                    <img src="'.($users['avartar']?$users['avartar']:'assets/img/user/noavt.jpg').'" alt="">
+                                </div>
+                                        <div class="desc">
+                                            <strong>'.$users['fullname'].'</strong>
+                                            <p class="date">'.$blogcom['created'].'</p>
+                                            <p class="comment">
+                                            '.$blogcom['content'].'
+                                            </p>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                                ';
+                            }
+                    ?>
+
+
+                    </div>
+
                 </div>
                 <div class="col-lg-4">
                     <div class="blog_right_sidebar">
                         <aside class="single_sidebar_widget search_widget">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Tìm kiếm" onfocus="" onblur="this.placeholder = 'Tìm kiếm'">
+                                <input type="text" class="form-control" placeholder="Tìm kiếm" onfocus=""
+                                    onblur="this.placeholder = 'Tìm kiếm'">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button"><i class="lnr lnr-magnifier"></i></button>
+                                    <button class="btn btn-default" type="button"><i
+                                            class="lnr lnr-magnifier"></i></button>
                                 </span>
                             </div><!-- /input-group -->
                             <div class="br"></div>
@@ -174,7 +173,10 @@
                                 <a href="#"><i class="fa fa-github"></i></a>
                                 <a href="#"><i class="fa fa-behance"></i></a>
                             </div>
-                            <p>Sneaker là giày thể thao, có đế mềm với phần trên được làm bằng vải hoặc bạt, da. Không chỉ được sử dụng trong các hoạt động thể thao, sneaker hiện nay còn trở thành một trong những sản phẩm phổ biến, không thể thiếu của các tín đồ thời trang. Sneaker có vẻ ngoài thể thao, khỏe khoắn, năng động, mang lại sự dễ chịu, thoải mái cho người sử dụng. </p>
+                            <p>Sneaker là giày thể thao, có đế mềm với phần trên được làm bằng vải hoặc bạt, da. Không
+                                chỉ được sử dụng trong các hoạt động thể thao, sneaker hiện nay còn trở thành một trong
+                                những sản phẩm phổ biến, không thể thiếu của các tín đồ thời trang. Sneaker có vẻ ngoài
+                                thể thao, khỏe khoắn, năng động, mang lại sự dễ chịu, thoải mái cho người sử dụng. </p>
 
                             <div class="br"></div>
                         </aside>
@@ -196,7 +198,7 @@
                                      ';
                                  }
                             ?>
-                            
+
                             <div class="br"></div>
                         </aside>
                         <aside class="single_sidebar_widget ads_widget">
@@ -207,7 +209,7 @@
                             <h4 class="widget_title">Danh mục bài viết</h4>
                             <ul class="list cat-list">
 
-                            <?php
+                                <?php
                                     $blogs = getAllTagBlog();
                                     foreach($blogs as $blog){
                                         echo'
@@ -227,16 +229,17 @@
                         <aside class="single-sidebar-widget newsletter_widget">
                             <h4 class="widget_title">Thư điện tử</h4>
                             <p>
-                            Bạn có thể để lại email của bạn ở đây
+                                Bạn có thể để lại email của bạn ở đây
 
                             </p>
                             <div class="form-group d-flex flex-row">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i></div>
+                                        <div class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i>
+                                        </div>
                                     </div>
-                                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Enter email"
-                                        onfocus="" onblur="this.placeholder = 'Enter email'">
+                                    <input type="text" class="form-control" id="inlineFormInputGroup"
+                                        placeholder="Enter email" onfocus="" onblur="this.placeholder = 'Enter email'">
                                 </div>
                                 <a href="#" class="bbtns">Subscribe</a>
                             </div>
@@ -246,14 +249,14 @@
                         <aside class="single-sidebar-widget tag_cloud_widget">
                             <h4 class="widget_title">Từ khóa</h4>
                             <ul class="list">
-                            <?php
+                                <?php
                             $blogs = getAllTagBlog();
                             foreach($blogs as $blog){
                                 echo'
                                 <li><a href="#">'.$blog['name'].'</a></li>
                                 ';}
                             ?>
-                               
+
                             </ul>
                         </aside>
                     </div>
