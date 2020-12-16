@@ -112,7 +112,8 @@
         }
     }
 }
-                    $trungbinh = $diem / $i;
+                if($i>0){ $trungbinh = $diem / $i;}   
+                else{ $trungbinh = $diem / 1;}
                 
                     echo'
                     <h4>'.$trungbinh.'</h4>
