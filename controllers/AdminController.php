@@ -982,6 +982,18 @@ switch ($control) {
                 }
                 header('location:admin.php?c=p-review');
                 break;
+            case 'edit':
+                $id = $_GET['id'];
+                $com = getAllReviewProduct();
+                $getrv = getReviewById($id);
+                include 'views/admin/product-review/edit-review.php';
+                break;
+            case 'update';
+                $id = $_GET['id'];
+                $com = $_POST['comment'];
+                updateReviewProduct($id, $com);
+                header('location: admin.php?c=p-review');
+                break;    
         }
         break;
     case 'p-comment':
@@ -1005,6 +1017,19 @@ switch ($control) {
                 $comment = getCommentById($id);
                 echo $comment['content'];
                 break;
+            case 'edit':
+                $id = $_GET['id'];
+                $com = getAllCommentProduct();
+                $getcom = getCommentById($id);
+                include 'views/admin/product-comment/edit-comment.php';
+                break;
+            case 'update';
+                $id = $_GET['id'];
+                $com = $_POST['comment'];
+                updateCommentProduct($id, $com);
+                header('location: admin.php?c=p-comment');
+                break;
+            
         }
         break;
     case 'b-comment':
@@ -1034,7 +1059,6 @@ switch ($control) {
             case 'update';
                 $id = $_GET['id'];
                 $com = $_POST['comment'];
-
                 updateCommentBlog($id, $com);
                 header('location: admin.php?c=b-comment');
                 break;

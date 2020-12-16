@@ -68,7 +68,7 @@
             <form action="product.php?action=addcart&id=<?php echo $_GET['id']?>" method="post">
                 <div class="input-group-icon mt-10">
                     <div class="icon">Size: </div>
-                    <div class="form-select ">
+                        <div class="form-select ">
                         <select id="prSize">
                             <?php 
 				$size=getSizeByProductId($product['id']);
@@ -78,14 +78,15 @@
 				}
 				?>
                         </select>
+                        </div>
                     </div>
                 </div>
-            </div>
             <input type="text" id="proId" value="<?=$product['id']?>" hidden>
             <div class=" card_area d-flex align-items-center">
                 <a class="primary-btn" href="#" id="prDetailAdd">Thêm vào giỏ </a>
                 <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
             </div>
+            </form>
         </div>
     </div>
 </div>
