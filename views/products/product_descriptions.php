@@ -82,10 +82,13 @@
                                 <div class="box_total">
                                     <?php 
                 $avg =   getReviewsByProductId($product['id']);
+                
                 $i = 0;
                 $diem = 0;
-                $sao1=0; $sao2=0; $sao3=0; $sao4=0;  $sao5 = 0;
+                $sao1=0; $sao2=0; $sao3=0; $sao4=0;  $sao5 = 0; $trungbinh=0;
+                
                     foreach($avg as $a){
+                        if($a['anhien']==1){
                         $i = $i + 1;
                     $diem =   $diem +  $a['rate']  ;
                     if( $a['rate'] > 4 ){
@@ -108,7 +111,9 @@
             }
         }
     }
+}
                     $trungbinh = $diem / $i;
+                
                     echo'
                     <h4>'.$trungbinh.'</h4>
                     <h6>('.$i.' Đánh giá)</h6>
