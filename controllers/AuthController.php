@@ -93,6 +93,7 @@
             $fullname = $_POST['fullname'];
             $phone = $_POST['phone'];
             $address = $_POST['address'];
+            $avartar = 'assets/img/user/noavt.jpg';
             $pass = password_hash($_POST['password'], PASSWORD_DEFAULT);
             if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
                 $return = array(
@@ -117,7 +118,7 @@
                     );
                    
                 }else{
-                    $id = addUser($user, $pass, $email, $phone, $fullname, $address, 0, now());
+                    $id = addUser($user, $pass, $email, $phone, $fullname, $address, 0, now(), $avartar);
                     if ($id > 0) {
                         $randomStr = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
                         $randomStr = str_shuffle($randomStr);

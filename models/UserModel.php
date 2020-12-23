@@ -33,9 +33,9 @@ function DeleteUser($id){
 }
 
 // Thêm khách hàng
-function addUser($user, $pass, $email, $phone, $fullname, $address, $rank, $created)
+function addUser($user, $pass, $email, $phone, $fullname, $address, $rank, $created,$avartar)
 {
-    $sql = "insert into user (username, password, email, phone, fullname, address, rank, created, avatar) values ('$user', '$pass', '$email', '$phone', '$fullname', '$address', '$rank','$created', 'assets/img/user/4.jpg')";
+    $sql = "insert into user (username, password, email, phone, fullname, address, rank, created, avartar) values ('$user', '$pass', '$email', '$phone', '$fullname', '$address', '$rank','$created', '$avartar')";
     return execute($sql);
 }
 
