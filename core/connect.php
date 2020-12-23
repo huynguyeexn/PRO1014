@@ -7,7 +7,7 @@ function getConnection(){
     $dbname = 'pro1014';
     $username = 'root';
     $password = '';
-    $port ='3307';
+    $port ='3306';
     $charset = 'utf8_general_ci';
     $options = array(
         PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',

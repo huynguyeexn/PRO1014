@@ -94,9 +94,12 @@
                                 </th>
                                 <th>#</th>
                                 <th>Mã sản phẩm</th>
-                                <th>Mã người dùng</th>
+                                <th>Tên người dùng</th>
+                                <th>Email người dùng</th>
+                                <th>Số điện thoại</th>
                                 <th>Bình luận</th>
                                 <th>Ngày</th>
+                                <th>Trạng thái</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -105,7 +108,15 @@
                                  $comment_product= getAllCommentProduct();
                                  
                                  foreach($comment_product as $com){
-                                 
+                                    $user = getUserById($com['user_id']);
+                                    $a=0;
+                                    if($com['anhien']==1){
+                                        $a = "Hiện";
+                                    }else if($com['anhien']==2){
+                                        $a = "Ẩn";
+                                    }else if($com['anhien']==3){
+                                        $a = "Đang xử lý";
+                                    }
                                     echo'
                                     <tr>
                                     <td>
@@ -116,16 +127,19 @@
                                     </td>
                                     <td>'.$com['id'].'</td>                                    
                                     <td>'.$com['product_id'].'</td>
-                                    <td >'.$com['user_id'].'</td>
+                                    <td >'.$user['fullname'].'</td>
+                                    <td >'.$user['email'].'</td>                                    
+                                    <td >'.$user['phone'].'</td>                                    
                                     <td >'.$com['content'].'</td>
                                     <td >'.$com['created'].'</td>
+                                    <td >'.$a.'</td>
                                     <td>
                                       <div class="dropdown">
                                         <button class="btn btn-sm dropdown-toggle" type="button" id="dr1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                           <span class="text-muted sr-only">Action</span>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr1">
-                                          <a class="dropdown-item" href="admin.php?c=tag-blog&t=edit&id='.$com['id'].'">Sửa</a>
+                                        <a class="dropdown-item" href="admin.php?c=p-comment&p=edit&id='.$com['id'].'">Sửa</a>
                                           <a class="dropdown-item" onclick="xacnhan('.$com['id'].')"">Xóa</a>
                                         </div>
                                       </div>
@@ -174,7 +188,7 @@
         var button = document.getElementById('button');
         var thongbao = document.getElementById('thongbao');
         $.ajax({
-            url: 'admin.php?c=b-comment&p=xoa',
+            url: 'admin.php?c=p-comment&p=xoa',
             type: 'GET',
             data: 'xn=' + z,
             success: function(data) {

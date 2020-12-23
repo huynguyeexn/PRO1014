@@ -99,20 +99,32 @@
                                         <label class="custom-control-label" for="d1"></label>
                                     </div>
                                 </th>
-                                <th>Mã</th>
+                                <th>#</th>
                                 <th>Mã sản phẩm</th>
                                 <th>Tên người dùng</th>
-                                <th>Đánh giá</th>
-                                <th>Đánh giá sao</th>
+                                <th>Email người dùng</th>
+                                <th>Số điện thoại</th>
+                                <th>Đánh Giá</th>
+                                <th>Số sao</th>
+                                <th>Ngày Đánh giá</th>
+                                <th>Trạng thái</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
-                                 $reviews_product= getAllReviews_NameUser();
                                  
+                                 $reviews_product = getAllReviewProduct();
                                  foreach($reviews_product as $reviews){
-                                 
+                                    $a=0;
+                                    if($reviews['anhien']==1){
+                                        $a = "Hiện";
+                                    }else if($reviews['anhien']==2){
+                                        $a = "Ẩn";
+                                    }else if($reviews['anhien']==3){
+                                        $a = "Đang xử lý";
+                                    }
+                                    $user = getUserById($reviews['user_id']);
                                     echo'
                                     <tr>
                                     <td>
@@ -121,12 +133,16 @@
                                         <label class="custom-control-label" for="d1"></label>
                                       </div>
                                     </td>
-                                    <td>'.$reviews['id'].'</td>
                                     
+                                    <td>'.$reviews['id'].'</td>                                    
                                     <td>'.$reviews['product_id'].'</td>
-                                    <td >'.$reviews['username'].'</td>
+                                    <td >'.$user['fullname'].'</td>
+                                    <td >'.$user['email'].'</td>                                    
+                                    <td >'.$user['phone'].'</td>                                    
                                     <td >'.$reviews['review'].'</td>
                                     <td >'.$reviews['rate'].'</td>
+                                    <td >'.$reviews['created'].'</td>
+                                    <td >'.$a.'</td>
 
                                     
                                     
@@ -136,8 +152,8 @@
                                           <span class="text-muted sr-only">Action</span>
                                         </button>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dr1">
-                                          <a class="dropdown-item" href="admin.php?c=tag-blog&t=edit&id='.$reviews['id'].'">Sửa</a>
-                                          <a class="dropdown-item" onclick="xacnhan('.$reviews['id'].')"">Xóa</a>
+                                        <a class="dropdown-item" href="admin.php?c=p-review&p=edit&id='.$reviews['id'].'">Sửa</a>
+                                        <a class="dropdown-item" onclick="xacnhan('.$reviews['id'].')"">Xóa</a>
                                         </div>
                                       </div>
                                     </td>

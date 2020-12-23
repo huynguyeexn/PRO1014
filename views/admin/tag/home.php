@@ -81,7 +81,7 @@
         <div class="container-fluid">
           <div class="row justify-content-center">
             <div class="col-md-12 my-4">
-              <h2 class="h1 mb-1">Danh Mục Sản Phẩm</h2>
+              <h2 class="h1 mb-1">Danh Mục Thẻ Sản Phẩm</h2>
                 <div class="card shadow">
                   <div class="card-body">
                     <div class="toolbar row mb-3">

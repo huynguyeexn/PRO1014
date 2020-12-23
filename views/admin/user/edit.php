@@ -63,7 +63,7 @@
             <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-md-12">
-                        <h1 class="h1 mb-2">Sửa Sản Phẩm</h1>
+                        <h1 class="h1 mb-2">Sửa Thông Tin Tài Khoản</h1>
                         <div class="card shadow">
                             <div class="card my-2">
                                 <form action="admin.php?c=user&p=update&id=<?php echo $user['id']?>" method="post" onsubmit="return batloi();" enctype="multipart/form-data">
